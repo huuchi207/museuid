@@ -4,7 +4,7 @@ import br.com.museuid.banco.controle.ControleDAO;
 import br.com.museuid.model.Catalogacao;
 import br.com.museuid.util.Campo;
 import br.com.museuid.util.Grupo;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Modulo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -85,7 +85,7 @@ public class IdentificacaoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela identificação dos fósseis! \n" + ex);
+            Messenger.erro("Erro ao carregar tela identificação dos fósseis! \n" + ex);
         }
     }
 
@@ -130,9 +130,9 @@ public class IdentificacaoController extends AnchorPane {
     public void identificar(String identificador) {
 
         if (identificador.trim().isEmpty() || identificador.equals("0")) {
-            Mensagem.alerta("Informe número de identificação da catalogação para consulta!");
+            Messenger.alerta("Informe número de identificação da catalogação para consulta!");
         } else if (!ControleDAO.getBanco().getIdentificacaoDAO().validarIdentificador(identificador)) {
-            Mensagem.alerta("Fóssil não encontrado!");
+            Messenger.alerta("Fóssil não encontrado!");
         } else {
             fossil = ControleDAO.getBanco().getIdentificacaoDAO().identificar(identificador);
             info(fossil);
@@ -180,7 +180,7 @@ public class IdentificacaoController extends AnchorPane {
     }
 
     /**
-     * Informar as configurações padrões da tela como titulo, mensagens e demais
+     * Informar as configurações padrões da tela como titulo, message e demais
      */
     private void config(String tituloTela, int grupoMenu) {
         lbTitulo.setText(tituloTela);

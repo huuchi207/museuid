@@ -71,7 +71,7 @@ public class SetorController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela setor da localização! \n" + ex);
+            Messenger.erro("Erro ao carregar tela setor da localização! \n" + ex);
         }
     }
 
@@ -115,10 +115,10 @@ public class SetorController extends AnchorPane {
 
             if (idSetor == 0) {
                 ControleDAO.getBanco().getSetorDAO().inserir(setor);
-                Mensagem.info("Setor cadastrada com sucesso!");
+                Messenger.info("Setor cadastrada com sucesso!");
             } else {
                 ControleDAO.getBanco().getSetorDAO().editar(setor);
-                Mensagem.info("Setor atualizada com sucesso!");
+                Messenger.info("Setor atualizada com sucesso!");
             }
 
             telaCadastro(null);
@@ -153,7 +153,7 @@ public class SetorController extends AnchorPane {
         try {
             Setor setor = tbSetor.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir setor " + setor.getNome() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir setor " + setor.getNome() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getSetorDAO().excluir(setor.getId());
@@ -164,7 +164,7 @@ public class SetorController extends AnchorPane {
             tbSetor.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione setor na tabela para exclusão!");
+            Messenger.alerta("Selecione setor na tabela para exclusão!");
         }
     }
 

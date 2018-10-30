@@ -2,23 +2,19 @@ package br.com.museuid.view.login;
 
 import br.com.museuid.app.Login;
 import br.com.museuid.banco.controle.ControleDAO;
+import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.model.Usuario;
 import br.com.museuid.util.Campo;
 import br.com.museuid.util.Link;
 import br.com.museuid.app.App;
-import br.com.museuid.util.Mensagem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class LoginController {
 
@@ -36,7 +32,10 @@ public class LoginController {
 
         String login = txtUsuario.getText();
         String senha = psSenha.getText();
-
+        if (ConstantConfig.FAKE){
+          new App().start(new Stage());
+          Login.palco.close();
+        }
         if (ControleDAO.getBanco().getLoginDAO().autenticarUsername(login)) {
             if (ControleDAO.getBanco().getLoginDAO().autenticarSenha(login, senha)) {
                 usuarioLogado = ControleDAO.getBanco().getLoginDAO().usuarioLogado(login);

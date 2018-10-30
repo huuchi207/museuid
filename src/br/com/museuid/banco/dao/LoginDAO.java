@@ -3,7 +3,7 @@ package br.com.museuid.banco.dao;
 import br.com.museuid.model.TipoUsuario;
 import br.com.museuid.model.Usuario;
 import br.com.museuid.util.Criptografia;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
 import java.sql.SQLException;
@@ -37,7 +37,7 @@ public class LoginDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao autenticar nome usuário na base de dados! \n" + ex);
+            Messenger.erro("Erro ao autenticar nome usuário na base de dados! \n" + ex);
         }
 
         return false;
@@ -66,7 +66,7 @@ public class LoginDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao autenticar senha usuário na base de dados! \n" + ex);
+            Messenger.erro("Erro ao autenticar senha usuário na base de dados! \n" + ex);
         }
 
         return false;
@@ -98,7 +98,7 @@ public class LoginDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar usuário logado na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar usuário logado na base de dados! \n" + ex);
         }
 
         return user;

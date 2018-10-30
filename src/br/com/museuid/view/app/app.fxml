@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import java.lang.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../../css/app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.museuid.view.app.AppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../../css/app.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.museuid.view.app.AppController">
     <children>
         <BorderPane layoutX="-25.0" layoutY="99.0" prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <left>
@@ -23,6 +30,22 @@
                                     <children>
                                         <VBox layoutY="35.0" styleClass="box-menus" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="41.0">
                                             <children>
+                                              <ToggleButton fx:id="btOrderSection" alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuCatalogacao" selected="true" text="Quản lí đặt đồ">
+                                                <toggleGroup>
+                                                  <ToggleGroup fx:id="gOrderSection" />
+                                                </toggleGroup>
+                                                <styleClass>
+                                                  <String fx:value="menus" />
+                                                  <String fx:value="menu-catalogacao" />
+                                                  <String fx:value="menu-grupo" />
+                                                </styleClass>
+                                              </ToggleButton>
+                                              <VBox fx:id="boxOrder" layoutX="10.0" layoutY="55.0" styleClass="box-submenus">
+                                                <children>
+                                                  <ToggleButton fx:id="btQueue" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openQueueOrder" styleClass="submenus" text="Danh sách hàng đoi">
+                                                  </ToggleButton>
+                                                </children>
+                                              </VBox>
                                                 <ToggleButton fx:id="btCatalogacao" alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuCatalogacao" selected="true" text="Catalogação">
                                                     <toggleGroup>
                                                         <ToggleGroup fx:id="grupoMenus" />

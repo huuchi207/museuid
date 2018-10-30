@@ -1,7 +1,7 @@
 package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Designacao;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class DesignacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir designação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir designação na base de dados! \n" + ex);
         }
     }
 
@@ -61,7 +61,7 @@ public class DesignacaoDAO extends DAO {
             stm.executeUpdate();
             stm.close();
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar designação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar designação na base de dados! \n" + ex);
             ex.printStackTrace();
         }
     }
@@ -80,7 +80,7 @@ public class DesignacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir designação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir designação na base de dados! \n" + ex);
         }
     }
 
@@ -106,7 +106,7 @@ public class DesignacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar designação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar designação na base de dados! \n" + ex);
         }
 
         return dadosDesignacao;
@@ -134,7 +134,7 @@ public class DesignacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar designação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar designação na base de dados! \n" + ex);
         }
 
         return dadosDesignacao;
@@ -160,7 +160,7 @@ public class DesignacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao validar genêro designação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao validar genêro designação na base de dados! \n" + ex);
         }
 
         return false;
@@ -184,7 +184,7 @@ public class DesignacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar total de designações cadastradas na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar total de designações cadastradas na base de dados! \n" + ex);
         }
 
         return 0;

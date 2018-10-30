@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="434785017">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="MuseuID" uuid="a86ff6be-bc35-4976-881c-7e98e087cdff">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>

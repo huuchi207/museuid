@@ -93,7 +93,7 @@ public class ValidacaoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela validação dos fósseis! \n" + ex);
+            Messenger.erro("Erro ao carregar tela validação dos fósseis! \n" + ex);
         }
     }
 
@@ -166,7 +166,7 @@ public class ValidacaoController extends AnchorPane {
 
     @FXML
     void cancelar(ActionEvent event) {
-        Dialogo.Resposta resposta = Mensagem.confirmar("Cancelar validação ?");
+        Dialogo.Resposta resposta = Messenger.confirmar("Cancelar validação ?");
 
         if (resposta == Dialogo.Resposta.YES) {
             if (statusValidacao) {
@@ -180,7 +180,7 @@ public class ValidacaoController extends AnchorPane {
 
     @FXML
     void finalizar(ActionEvent event) {
-        Dialogo.Resposta resposta = Mensagem.confirmar("Finalizar validação ?");
+        Dialogo.Resposta resposta = Messenger.confirmar("Finalizar validação ?");
 
         if (resposta == Dialogo.Resposta.YES) {
             if (statusValidacao) {

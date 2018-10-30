@@ -63,7 +63,7 @@ public class ColecaoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela coleção! \n" + ex);
+            Messenger.erro("Erro ao carregar tela coleção! \n" + ex);
         }
     }
 
@@ -104,10 +104,10 @@ public class ColecaoController extends AnchorPane {
 
             if (idColecao == 0) {
                 ControleDAO.getBanco().getColecaoDAO().inserir(colecao);
-                Mensagem.info("Coleção cadastrada com sucesso!");
+                Messenger.info("Coleção cadastrada com sucesso!");
             } else {
                 ControleDAO.getBanco().getColecaoDAO().editar(colecao);
-                Mensagem.info("Coleção atualizada com sucesso!");
+                Messenger.info("Coleção atualizada com sucesso!");
             }
 
             telaCadastro(null);
@@ -141,7 +141,7 @@ public class ColecaoController extends AnchorPane {
         try {
             Colecao colecao = tbColecao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir coleção " + colecao.getNome() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir coleção " + colecao.getNome() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getColecaoDAO().excluir(colecao.getId());
@@ -152,7 +152,7 @@ public class ColecaoController extends AnchorPane {
             tbColecao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione coleção na tabela para exclusão!");
+            Messenger.alerta("Selecione coleção na tabela para exclusão!");
         }
     }
 

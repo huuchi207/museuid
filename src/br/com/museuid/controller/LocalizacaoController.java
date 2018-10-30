@@ -59,7 +59,7 @@ public class LocalizacaoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela pesquisar localização! \n" + ex);
+            Messenger.erro("Erro ao carregar tela pesquisar localização! \n" + ex);
         }
     }
 

@@ -84,7 +84,7 @@ public class InstituicaoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela instituicao! \n" + ex);
+            Messenger.erro("Erro ao carregar tela instituicao! \n" + ex);
         }
     }
 
@@ -129,10 +129,10 @@ public class InstituicaoController extends AnchorPane {
 
             if (idInstituicao == 0) {
                 ControleDAO.getBanco().getInstituicaoDAO().inserir(instituicao);
-                Mensagem.info("Instituição cadastrado com sucesso!");
+                Messenger.info("Instituição cadastrado com sucesso!");
             } else {
                 ControleDAO.getBanco().getInstituicaoDAO().editar(instituicao);
-                Mensagem.info("Instituição atualizado com sucesso!");
+                Messenger.info("Instituição atualizado com sucesso!");
             }
 
             telaCadastro(null);
@@ -171,7 +171,7 @@ public class InstituicaoController extends AnchorPane {
         try {
             Instituicao instituicao = tbInstituicao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir instituição " + instituicao.getNome() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir instituição " + instituicao.getNome() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getInstituicaoDAO().excluir(instituicao.getId());
@@ -182,7 +182,7 @@ public class InstituicaoController extends AnchorPane {
             tbInstituicao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione instituição na tabela para exclusão!");
+            Messenger.alerta("Selecione instituição na tabela para exclusão!");
         }
     }
 

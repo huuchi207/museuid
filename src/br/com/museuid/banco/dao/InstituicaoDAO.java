@@ -1,7 +1,7 @@
 package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Instituicao;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class InstituicaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir instituição na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir instituição na base de dados! \n" + ex);
         }
     }
 
@@ -64,7 +64,7 @@ public class InstituicaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar instituição na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar instituição na base de dados! \n" + ex);
         }
     }
 
@@ -82,7 +82,7 @@ public class InstituicaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir instituição na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir instituição na base de dados! \n" + ex);
         }
     }
 
@@ -108,7 +108,7 @@ public class InstituicaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar instituições na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar instituições na base de dados! \n" + ex);
         }
 
         return dadosInstituicao;
@@ -136,7 +136,7 @@ public class InstituicaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar instituições na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar instituições na base de dados! \n" + ex);
         }
 
         return dadosInstituicao;
@@ -170,7 +170,7 @@ public class InstituicaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao verificar se instituição existe na base de dados! \n" + ex);
+            Messenger.erro("Erro ao verificar se instituição existe na base de dados! \n" + ex);
         }
 
         return false;

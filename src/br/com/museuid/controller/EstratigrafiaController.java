@@ -67,7 +67,7 @@ public class EstratigrafiaController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela estratigrafia! \n" + ex);
+            Messenger.erro("Erro ao carregar tela estratigrafia! \n" + ex);
         }
     }
 
@@ -110,10 +110,10 @@ public class EstratigrafiaController extends AnchorPane {
 
             if (idEstratigrafia == 0) {
                 ControleDAO.getBanco().getEstratigrafiaDAO().inserir(estratigrafia);
-                Mensagem.info("Estratigrafia cadastrada com sucesso!");
+                Messenger.info("Estratigrafia cadastrada com sucesso!");
             } else {
                 ControleDAO.getBanco().getEstratigrafiaDAO().editar(estratigrafia);
-                Mensagem.info("Estratigrafia atualizada com sucesso!");
+                Messenger.info("Estratigrafia atualizada com sucesso!");
             }
 
             telaCadastro(null);
@@ -148,7 +148,7 @@ public class EstratigrafiaController extends AnchorPane {
         try {
             Estratigrafia estratigrafia = tbEstratigrafia.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir estratigrafia " + estratigrafia.getFormacao() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir estratigrafia " + estratigrafia.getFormacao() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getEstratigrafiaDAO().excluir(estratigrafia.getId());
@@ -159,7 +159,7 @@ public class EstratigrafiaController extends AnchorPane {
             tbEstratigrafia.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione estratigrafia na tabela para exclusão!");
+            Messenger.alerta("Selecione estratigrafia na tabela para exclusão!");
         }
     }
 

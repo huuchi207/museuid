@@ -4,7 +4,7 @@ import br.com.museuid.model.Catalogacao;
 import br.com.museuid.model.Colecao;
 import br.com.museuid.model.Designacao;
 import br.com.museuid.model.Estratigrafia;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 
 import java.sql.SQLException;
 
@@ -50,7 +50,7 @@ public class IdentificacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao identificar fóssil na base de dados! \n" + ex);
+            Messenger.erro("Erro ao identificar fóssil na base de dados! \n" + ex);
         }
 
         return catalogacao;
@@ -77,7 +77,7 @@ public class IdentificacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao validar fóssil na base de dados! \n" + ex);
+            Messenger.erro("Erro ao validar fóssil na base de dados! \n" + ex);
         }
 
         return false;

@@ -79,7 +79,7 @@ public class DesignacaoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela designação! \n" + ex);
+            Messenger.erro("Erro ao carregar tela designação! \n" + ex);
         }
     }
 
@@ -124,10 +124,10 @@ public class DesignacaoController extends AnchorPane {
 
             if (idDesignacao == 0) {
                 ControleDAO.getBanco().getDesignacaoDAO().inserir(designacao);
-                //Mensagem.info("Designação cadastrada com sucesso!");
+                //Messenger.info("Designação cadastrada com sucesso!");
             } else {
                 ControleDAO.getBanco().getDesignacaoDAO().editar(designacao);
-                Mensagem.info("Designação atualizada com sucesso!");
+                Messenger.info("Designação atualizada com sucesso!");
             }
 
             telaCadastro(null);
@@ -165,7 +165,7 @@ public class DesignacaoController extends AnchorPane {
         try {
             Designacao designacao = tbDesignacao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir designação " + designacao.getGenero() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir designação " + designacao.getGenero() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getDesignacaoDAO().excluir(designacao.getId());
@@ -176,7 +176,7 @@ public class DesignacaoController extends AnchorPane {
             tbDesignacao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione designação na tabela para exclusão!");
+            Messenger.alerta("Selecione designação na tabela para exclusão!");
         }
     }
 

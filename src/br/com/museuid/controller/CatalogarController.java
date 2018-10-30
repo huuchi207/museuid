@@ -112,7 +112,7 @@ public class CatalogarController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela catalogação! \n" + ex);
+            Messenger.erro("Erro ao carregar tela catalogação! \n" + ex);
         }
     }
 
@@ -175,10 +175,10 @@ public class CatalogarController extends AnchorPane {
 
             if (idCatalogacao == 0) {
                 ControleDAO.getBanco().getCatalogacaoDAO().inserir(catalogacao);
-                Mensagem.info("Catalogação cadastrada com sucesso!");
+                Messenger.info("Catalogação cadastrada com sucesso!");
             } else {
                 ControleDAO.getBanco().getCatalogacaoDAO().editar(catalogacao);
-                Mensagem.info("Catalogação atualizada com sucesso!");
+                Messenger.info("Catalogação atualizada com sucesso!");
             }
 
             telaCadastro(null);
@@ -223,7 +223,7 @@ public class CatalogarController extends AnchorPane {
         try {
             Catalogacao catalogacao = tbCatalogacao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir catalogação " + catalogacao.getNumeroOrdem() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir catalogação " + catalogacao.getNumeroOrdem() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getCatalogacaoDAO().excluir(catalogacao.getId());
@@ -234,7 +234,7 @@ public class CatalogarController extends AnchorPane {
             tbCatalogacao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione catalogação na tabela para exclusão!");
+            Messenger.alerta("Selecione catalogação na tabela para exclusão!");
         }
     }
 
@@ -272,6 +272,7 @@ public class CatalogarController extends AnchorPane {
      * Sincronizar dados com banco de dados
      */
     public void sincronizarBase() {
+      //TODO: connect to socket io
         listaCatalogacao = ControleDAO.getBanco().getCatalogacaoDAO().listar();
     }
 

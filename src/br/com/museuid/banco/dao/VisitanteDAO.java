@@ -1,7 +1,7 @@
 package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Visitante;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
 import java.sql.SQLException;
@@ -39,7 +39,7 @@ public class VisitanteDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir visitante na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir visitante na base de dados! \n" + ex);
         }
     }
 
@@ -67,7 +67,7 @@ public class VisitanteDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar visitante na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar visitante na base de dados! \n" + ex);
         }
     }
 
@@ -85,7 +85,7 @@ public class VisitanteDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir visitante na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir visitante na base de dados! \n" + ex);
         }
     }
 
@@ -110,7 +110,7 @@ public class VisitanteDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar visitantes na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar visitantes na base de dados! \n" + ex);
         }
 
         return dados;
@@ -134,7 +134,7 @@ public class VisitanteDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar total de visitantes na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar total de visitantes na base de dados! \n" + ex);
         }
 
         return 0;

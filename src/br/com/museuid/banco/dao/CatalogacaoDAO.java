@@ -4,7 +4,7 @@ import br.com.museuid.model.Catalogacao;
 import br.com.museuid.model.Colecao;
 import br.com.museuid.model.Designacao;
 import br.com.museuid.model.Estratigrafia;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -47,7 +47,7 @@ public class CatalogacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir catalogação na base de dados! \n" + ex);
         }
     }
 
@@ -81,7 +81,7 @@ public class CatalogacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar catalogação na base de dados! \n" + ex);
         }
     }
 
@@ -99,7 +99,7 @@ public class CatalogacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir catalogação na base de dados! \n" + ex);
         }
     }
 
@@ -123,7 +123,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao validar número ordem da catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao validar número ordem da catalogação na base de dados! \n" + ex);
         }
 
         return false;
@@ -149,7 +149,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao validar etiqueta RFID catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao validar etiqueta RFID catalogação na base de dados! \n" + ex);
         }
 
         return false;
@@ -177,7 +177,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar identificador da catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar identificador da catalogação na base de dados! \n" + ex);
         }
 
         return catalogacao;
@@ -208,7 +208,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar número empréstimo da catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar número empréstimo da catalogação na base de dados! \n" + ex);
         }
 
         return numEmprestimo;
@@ -240,7 +240,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar informações da catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar informações da catalogação na base de dados! \n" + ex);
         }
 
         return catalogacao;
@@ -261,7 +261,7 @@ public class CatalogacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar status catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar status catalogação na base de dados! \n" + ex);
         }
     }
 
@@ -284,7 +284,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar na status empréstimo da catalogação base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar na status empréstimo da catalogação base de dados! \n" + ex);
         }
 
         return false;
@@ -325,7 +325,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar catalogação na base de dados! \n" + ex);
         }
 
         return dados;
@@ -349,7 +349,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar total de catalogações na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar total de catalogações na base de dados! \n" + ex);
         }
 
         return 0;
@@ -377,7 +377,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar quantidade de itens da catalogação por designação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar quantidade de itens da catalogação por designação na base de dados! \n" + ex);
         }
 
         return map;
@@ -405,7 +405,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar quantidade de itens da catalogação por coleção na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar quantidade de itens da catalogação por coleção na base de dados! \n" + ex);
         }
 
         return map;
@@ -433,7 +433,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar quantidade de itens da catalogação por coleção na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar quantidade de itens da catalogação por coleção na base de dados! \n" + ex);
         }
 
         return map;
@@ -461,7 +461,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar quantidade de itens da catalogação recentementes na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar quantidade de itens da catalogação recentementes na base de dados! \n" + ex);
         }
 
         return map;

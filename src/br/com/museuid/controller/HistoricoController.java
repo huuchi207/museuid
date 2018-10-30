@@ -74,7 +74,7 @@ public class HistoricoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela históricos dos empréstimos! \n" + ex);
+            Messenger.erro("Erro ao carregar tela históricos dos empréstimos! \n" + ex);
         }
     }
 

@@ -109,7 +109,7 @@ public class EmprestimoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela empréstimos! \n" + ex);
+            Messenger.erro("Erro ao carregar tela empréstimos! \n" + ex);
         }
     }
 
@@ -163,10 +163,10 @@ public class EmprestimoController extends AnchorPane {
 
             if (idEmprestimo == 0) {
                 ControleDAO.getBanco().getEmprestimoDAO().inserir(emprestimo);
-                Mensagem.info("Empréstimo cadastrado com sucesso!");
+                Messenger.info("Empréstimo cadastrado com sucesso!");
             } else {
                 ControleDAO.getBanco().getEmprestimoDAO().editar(emprestimo);
-                Mensagem.info("Empréstimo atualizado com sucesso!");
+                Messenger.info("Empréstimo atualizado com sucesso!");
             }
 
             telaCadastro(null);
@@ -210,7 +210,7 @@ public class EmprestimoController extends AnchorPane {
         try {
             Emprestimo emprestimo = tbEmprestimo.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir empréstimo " + emprestimo.getNumeroEmprestimo() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir empréstimo " + emprestimo.getNumeroEmprestimo() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getEmprestimoDAO().excluir(emprestimo.getId());
@@ -221,7 +221,7 @@ public class EmprestimoController extends AnchorPane {
             tbEmprestimo.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione empréstimo na tabela para exclusão!");
+            Messenger.alerta("Selecione empréstimo na tabela para exclusão!");
         }
     }
 

@@ -2,7 +2,7 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Auditoria;
 import br.com.museuid.model.Usuario;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
 import java.sql.SQLException;
@@ -36,7 +36,7 @@ public class AuditoriaDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir logs na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir logs na base de dados! \n" + ex);
         }
     }
 
@@ -54,7 +54,7 @@ public class AuditoriaDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir logs na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir logs na base de dados! \n" + ex);
         }
     }
 
@@ -83,7 +83,7 @@ public class AuditoriaDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar logs na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar logs na base de dados! \n" + ex);
         }
 
         return dados;
@@ -112,7 +112,7 @@ public class AuditoriaDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar logs na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar logs na base de dados! \n" + ex);
         }
 
         return dados;

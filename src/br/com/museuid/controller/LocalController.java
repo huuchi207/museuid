@@ -71,7 +71,7 @@ public class LocalController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela local da local! \n" + ex);
+            Messenger.erro("Erro ao carregar tela local da local! \n" + ex);
             ex.printStackTrace();
         }
     }
@@ -116,10 +116,10 @@ public class LocalController extends AnchorPane {
 
             if (idLocal == 0) {
                 ControleDAO.getBanco().getLocalDAO().inserir(local);
-                Mensagem.info("Local cadastrada com sucesso!");
+                Messenger.info("Local cadastrada com sucesso!");
             } else {
                 ControleDAO.getBanco().getLocalDAO().editar(local);
-                Mensagem.info("Local atualizada com sucesso!");
+                Messenger.info("Local atualizada com sucesso!");
             }
 
             telaCadastro(null);
@@ -154,7 +154,7 @@ public class LocalController extends AnchorPane {
         try {
             Local local = tbLocal.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir local " + local.getNome() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir local " + local.getNome() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getLocalDAO().excluir(local.getId());
@@ -165,7 +165,7 @@ public class LocalController extends AnchorPane {
             tbLocal.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione local na tabela para exclusão!");
+            Messenger.alerta("Selecione local na tabela para exclusão!");
         }
     }
 

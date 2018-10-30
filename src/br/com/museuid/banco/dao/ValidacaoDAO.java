@@ -2,14 +2,14 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Validacao;
 import br.com.museuid.model.ValidacaoItem;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * DAO responsável pela ações realizadas na base de dados referentes aos validação
+ * DAO responsï¿½vel pela aï¿½ï¿½es realizadas na base de dados referentes aos validaï¿½ï¿½o
  */
 public class ValidacaoDAO extends DAO {
 
@@ -18,7 +18,7 @@ public class ValidacaoDAO extends DAO {
     }
 
     /**
-     * Inserir validação na base de dados e retornar seu identificador para cadastro de seus itens
+     * Inserir validaï¿½ï¿½o na base de dados e retornar seu identificador para cadastro de seus itens
      */
     public int validacao(Validacao validacao) {
         int id = 0;
@@ -47,14 +47,14 @@ public class ValidacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir validação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir validaï¿½ï¿½o na base de dados! \n" + ex);
         }
 
         return id;
     }
 
     /**
-     * Inserir itens da validação informado na base de dados
+     * Inserir itens da validaï¿½ï¿½o informado na base de dados
      */
     public void item(int validacao, ValidacaoItem item) {
         try {
@@ -70,7 +70,7 @@ public class ValidacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir item da validação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir item da validaï¿½ï¿½o na base de dados! \n" + ex);
         }
     }
 }

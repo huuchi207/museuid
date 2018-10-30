@@ -91,8 +91,8 @@ public class Dialogo {
     /**
      * Adiciona titulo e descriçao do alerta ao box de mensagem
      */
-    public static void mensagens(String tipo, String titulo, String mensagem) {
-        box(icone(tipo), texto(titulo, mensagem), acoes());
+    public static void message(String tipo, String title, String message) {
+        box(icone(tipo), texto(title, message), acoes());
     }
 
     /**

@@ -2,7 +2,7 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Organizacao;
 import br.com.museuid.model.Setor;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class SetorDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir setor na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir setor na base de dados! \n" + ex);
         }
     }
 
@@ -57,7 +57,7 @@ public class SetorDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar setor na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar setor na base de dados! \n" + ex);
         }
     }
 
@@ -75,7 +75,7 @@ public class SetorDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir setor na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir setor na base de dados! \n" + ex);
         }
     }
 
@@ -103,7 +103,7 @@ public class SetorDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar setor na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar setor na base de dados! \n" + ex);
         }
 
         return dados;
@@ -132,7 +132,7 @@ public class SetorDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar setor na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar setor na base de dados! \n" + ex);
             ex.printStackTrace();
         }
 
@@ -161,7 +161,7 @@ public class SetorDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar setor na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar setor na base de dados! \n" + ex);
         }
 
         return dados;

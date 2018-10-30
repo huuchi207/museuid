@@ -91,7 +91,7 @@ public class VisitanteController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela visitantes! \n" + ex);
+            Messenger.erro("Erro ao carregar tela visitantes! \n" + ex);
             ex.printStackTrace();
         }
     }
@@ -141,10 +141,10 @@ public class VisitanteController extends AnchorPane {
 
             if (idVisitante == 0) {
                 ControleDAO.getBanco().getVisitanteDAO().inserir(visitante);
-                Mensagem.info("Visitante cadastrado com sucesso!");
+                Messenger.info("Visitante cadastrado com sucesso!");
             } else {
                 ControleDAO.getBanco().getVisitanteDAO().editar(visitante);
-                Mensagem.info("Visitante atualizado com sucesso!");
+                Messenger.info("Visitante atualizado com sucesso!");
             }
 
             telaCadastro(null);
@@ -185,7 +185,7 @@ public class VisitanteController extends AnchorPane {
         try {
             Visitante visitante = tbVisitante.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir visitante " + visitante.getNome() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir visitante " + visitante.getNome() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getVisitanteDAO().excluir(visitante.getId());
@@ -196,7 +196,7 @@ public class VisitanteController extends AnchorPane {
             tbVisitante.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione visitante na tabela para exclusão!");
+            Messenger.alerta("Selecione visitante na tabela para exclusão!");
         }
     }
 

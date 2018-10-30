@@ -1,7 +1,7 @@
 package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Relatorio;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
 import java.sql.SQLException;
@@ -49,7 +49,7 @@ public class RelatorioDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao gerar relatórios catalogações diárias na base de dados! \n" + ex);
+            Messenger.erro("Erro ao gerar relatórios catalogações diárias na base de dados! \n" + ex);
         }
 
         return map;
@@ -81,7 +81,7 @@ public class RelatorioDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar dados na base para geração dos relátorios períodicos! \n" + ex);
+            Messenger.erro("Erro ao consultar dados na base para geração dos relátorios períodicos! \n" + ex);
         }
 
         return map;
@@ -115,7 +115,7 @@ public class RelatorioDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar dados na base para geração dos relátorios! \n" + ex);
+            Messenger.erro("Erro ao consultar dados na base para geração dos relátorios! \n" + ex);
         }
 
         return map;

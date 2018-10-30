@@ -1,7 +1,7 @@
 package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.*;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class LocalizacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir catalogação na base de dados! \n" + ex);
         }
     }
 
@@ -57,7 +57,7 @@ public class LocalizacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar catalogação do local informado na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar catalogação do local informado na base de dados! \n" + ex);
         }
 
         return null;
@@ -83,7 +83,7 @@ public class LocalizacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar catalogação do local informado na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar catalogação do local informado na base de dados! \n" + ex);
         }
 
         return false;
@@ -118,7 +118,7 @@ public class LocalizacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar localizações das catalogações base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar localizações das catalogações base de dados! \n" + ex);
         }
 
         return dados;
@@ -138,7 +138,7 @@ public class LocalizacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir na base de dados localização! \n" + ex);
+            Messenger.erro("Erro ao excluir na base de dados localização! \n" + ex);
         }
     }
 }

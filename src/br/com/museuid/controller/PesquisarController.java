@@ -4,7 +4,7 @@ import br.com.museuid.banco.controle.ControleDAO;
 import br.com.museuid.model.Catalogacao;
 import br.com.museuid.util.Filtro;
 import br.com.museuid.util.Grupo;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Modulo;
 import br.com.museuid.view.app.AppController;
 import javafx.beans.property.SimpleStringProperty;
@@ -76,7 +76,7 @@ public class PesquisarController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela pesquisas dos fósseis! \n" + ex);
+            Messenger.erro("Erro ao carregar tela pesquisas dos fósseis! \n" + ex);
             ex.printStackTrace();
         }
     }
@@ -95,7 +95,7 @@ public class PesquisarController extends AnchorPane {
             Modulo.getIdentificacao(AppController.getInstance().getBoxConteudo());//chamar modulo de identificação
             IdentificacaoController.getInstance().identificar(identificador);//informar identificador
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione na tabela a catalogação que deseja obter mais informações");
+            Messenger.alerta("Selecione na tabela a catalogação que deseja obter mais informações");
         }
 
         tbCatalogacao.getSelectionModel().clearSelection();//limpar seleção na tabela

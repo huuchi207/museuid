@@ -1,7 +1,7 @@
 package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.*;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
 import java.sql.SQLException;
@@ -45,7 +45,7 @@ public class EmprestimoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir na base de dados empréstimos! \n" + ex);
+            Messenger.erro("Erro ao inserir na base de dados empréstimos! \n" + ex);
         }
     }
 
@@ -78,7 +78,7 @@ public class EmprestimoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar na base de dados empréstimos! \n" + ex);
+            Messenger.erro("Erro ao atualizar na base de dados empréstimos! \n" + ex);
         }
     }
 
@@ -96,7 +96,7 @@ public class EmprestimoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir na base de dados empréstimos! \n" + ex);
+            Messenger.erro("Erro ao excluir na base de dados empréstimos! \n" + ex);
         }
     }
 
@@ -120,7 +120,7 @@ public class EmprestimoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao validar número empréstimo na base de dados empréstimos! \n" + ex);
+            Messenger.erro("Erro ao validar número empréstimo na base de dados empréstimos! \n" + ex);
         }
 
         return false;
@@ -142,7 +142,7 @@ public class EmprestimoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar status catalogação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar status catalogação na base de dados! \n" + ex);
         }
     }
 
@@ -163,7 +163,7 @@ public class EmprestimoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao adicionar item empréstimo na base de dados! \n" + ex);
+            Messenger.erro("Erro ao adicionar item empréstimo na base de dados! \n" + ex);
         }
     }
 
@@ -181,7 +181,7 @@ public class EmprestimoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir item empréstimo na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir item empréstimo na base de dados! \n" + ex);
         }
     }
 
@@ -212,7 +212,7 @@ public class EmprestimoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
         }
 
         return dados;
@@ -248,7 +248,7 @@ public class EmprestimoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
         }
 
         return dados;
@@ -281,7 +281,7 @@ public class EmprestimoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
         }
 
         return dados;
@@ -309,7 +309,7 @@ public class EmprestimoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
         }
 
         return dados;
@@ -337,7 +337,7 @@ public class EmprestimoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
         }
 
         return dados;
@@ -365,7 +365,7 @@ public class EmprestimoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados empréstimos! \n" + ex);
         }
 
         return dados;
@@ -394,7 +394,7 @@ public class EmprestimoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar na base de dados empréstimos para acompanhamento no dashboard! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados empréstimos para acompanhamento no dashboard! \n" + ex);
         }
 
         return dados;

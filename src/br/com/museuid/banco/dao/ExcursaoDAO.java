@@ -2,12 +2,11 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Excursao;
 import br.com.museuid.model.Instituicao;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class ExcursaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir excursão na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir excursão na base de dados! \n" + ex);
         }
     }
 
@@ -78,7 +77,7 @@ public class ExcursaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao editar excursão na base de dados! \n" + ex);
+            Messenger.erro("Erro ao editar excursão na base de dados! \n" + ex);
         }
     }
 
@@ -96,7 +95,7 @@ public class ExcursaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir excursão na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir excursão na base de dados! \n" + ex);
         }
     }
 
@@ -127,7 +126,7 @@ public class ExcursaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar excursões na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar excursões na base de dados! \n" + ex);
         }
 
         return dados;
@@ -159,7 +158,7 @@ public class ExcursaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar excursões para acompanhamento na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar excursões para acompanhamento na base de dados! \n" + ex);
         }
 
         return dados;

@@ -49,7 +49,7 @@ public class RelatorioController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela de relatórios! \n" + ex);
+            Messenger.erro("Erro ao carregar tela de relatórios! \n" + ex);
             ex.printStackTrace();
         }
     }

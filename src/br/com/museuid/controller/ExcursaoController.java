@@ -110,7 +110,7 @@ public class ExcursaoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela excursão! \n" + ex);
+            Messenger.erro("Erro ao carregar tela excursão! \n" + ex);
         }
     }
 
@@ -164,10 +164,10 @@ public class ExcursaoController extends AnchorPane {
 
             if (idExcursao == 0) {
                 ControleDAO.getBanco().getExcursaoDAO().inserir(excursao);
-                Mensagem.info("Excursão cadastrado com sucesso!");
+                Messenger.info("Excursão cadastrado com sucesso!");
             } else {
                 ControleDAO.getBanco().getExcursaoDAO().editar(excursao);
-                Mensagem.info("Excursão atualizado com sucesso!");
+                Messenger.info("Excursão atualizado com sucesso!");
             }
 
             telaCadastro(null);
@@ -218,7 +218,7 @@ public class ExcursaoController extends AnchorPane {
         try {
             Excursao excursao = tbExcursao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir excursão ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir excursão ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getExcursaoDAO().excluir(excursao.getId());
@@ -229,7 +229,7 @@ public class ExcursaoController extends AnchorPane {
             tbExcursao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione excursão na tabela para exclusão!");
+            Messenger.alerta("Selecione excursão na tabela para exclusão!");
         }
     }
 

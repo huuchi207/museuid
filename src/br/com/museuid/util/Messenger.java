@@ -5,33 +5,33 @@ import br.com.museuid.util.Dialogo.Resposta;
 /**
  * Criação de mensagem apartir do classe de dialogo
  */
-public class Mensagem {
+public class Messenger {
 
-    private Mensagem() {
+    private Messenger() {
     }
 
     public static void info(String mensagem) {
-        Dialogo.mensagens("INFO", "Informação", mensagem);
+        Dialogo.message("INFO", "Informação", mensagem);
     }
 
     public static void info(String mensagem, String titulo) {
-        Dialogo.mensagens("INFO", titulo, mensagem);
+        Dialogo.message("INFO", titulo, mensagem);
     }
 
     public static void erro(String mensagem) {
-        Dialogo.mensagens("ERRO", "Erro", mensagem);
+        Dialogo.message("ERRO", "Erro", mensagem);
     }
 
     public static void erro(String mensagem, String titulo) {
-        Dialogo.mensagens("ERRO", titulo, mensagem);
+        Dialogo.message("ERRO", titulo, mensagem);
     }
 
     public static void alerta(String mensagem) {
-        Dialogo.mensagens("ALERTA", "Alerta", mensagem);
+        Dialogo.message("ALERTA", "Alerta", mensagem);
     }
 
     public static void alerta(String mensagem, String titulo) {
-        Dialogo.mensagens("ALERTA", titulo, mensagem);
+        Dialogo.message("ALERTA", titulo, mensagem);
     }
 
     public static Resposta confirmar(String mensagem) {

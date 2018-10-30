@@ -1,7 +1,7 @@
 package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Estratigrafia;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class EstratigrafiaDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir na base de dados estratigrafias! \n" + ex);
+            Messenger.erro("Erro ao inserir na base de dados estratigrafias! \n" + ex);
         }
     }
 
@@ -56,7 +56,7 @@ public class EstratigrafiaDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar na base de dados estratigrafias! \n" + ex);
+            Messenger.erro("Erro ao atualizar na base de dados estratigrafias! \n" + ex);
         }
     }
 
@@ -74,7 +74,7 @@ public class EstratigrafiaDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir na base de dados estratigrafias! \n" + ex);
+            Messenger.erro("Erro ao excluir na base de dados estratigrafias! \n" + ex);
         }
     }
 
@@ -100,7 +100,7 @@ public class EstratigrafiaDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar na base de dados estratigrafias! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados estratigrafias! \n" + ex);
         }
 
         return dadosEstratigrafia;
@@ -128,7 +128,7 @@ public class EstratigrafiaDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar na base de dados estratigrafias! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados estratigrafias! \n" + ex);
         }
 
         return dadosEstratigrafia;
@@ -154,7 +154,7 @@ public class EstratigrafiaDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao validar formação da estratigrafia na base de dados! \n" + ex);
+            Messenger.erro("Erro ao validar formação da estratigrafia na base de dados! \n" + ex);
         }
 
         return false;
@@ -178,7 +178,7 @@ public class EstratigrafiaDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar total de estratigrafias cadastradas na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar total de estratigrafias cadastradas na base de dados! \n" + ex);
         }
 
         return 0;

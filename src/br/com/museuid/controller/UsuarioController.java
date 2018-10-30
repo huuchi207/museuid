@@ -87,7 +87,7 @@ public class UsuarioController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela do usuário! \n" + ex);
+            Messenger.erro("Erro ao carregar tela do usuário! \n" + ex);
         }
     }
 
@@ -139,10 +139,10 @@ public class UsuarioController extends AnchorPane {
 
             if (idUsuario == 0) {
                 ControleDAO.getBanco().getUsuarioDAO().inserir(user);
-                Mensagem.info("Usuário cadastrado com sucesso!");
+                Messenger.info("Usuário cadastrado com sucesso!");
             } else {
                 ControleDAO.getBanco().getUsuarioDAO().editar(user);
-                Mensagem.info("Usuário atualizado com sucesso!");
+                Messenger.info("Usuário atualizado com sucesso!");
             }
 
             telaCadastro(null);
@@ -182,7 +182,7 @@ public class UsuarioController extends AnchorPane {
         try {
             Usuario usuario = tbUsuario.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir usuário " + usuario.getNome() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir usuário " + usuario.getNome() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getUsuarioDAO().excluir(usuario.getId());
@@ -193,7 +193,7 @@ public class UsuarioController extends AnchorPane {
             tbUsuario.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione usuário na tabela para exclusão!");
+            Messenger.alerta("Selecione usuário na tabela para exclusão!");
         }
     }
 

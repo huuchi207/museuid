@@ -1,7 +1,7 @@
 package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Colecao;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class ColecaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir coleções na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir coleções na base de dados! \n" + ex);
         }
     }
 
@@ -53,7 +53,7 @@ public class ColecaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar coleções na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar coleções na base de dados! \n" + ex);
         }
     }
 
@@ -71,7 +71,7 @@ public class ColecaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir coleções na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir coleções na base de dados! \n" + ex);
         }
     }
 
@@ -97,7 +97,7 @@ public class ColecaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar coleções na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar coleções na base de dados! \n" + ex);
         }
 
         return dados;
@@ -125,7 +125,7 @@ public class ColecaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar coleções na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar coleções na base de dados! \n" + ex);
         }
 
         return dadosColecoes;
@@ -151,7 +151,7 @@ public class ColecaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao validar nome da coleção na base de dados! \n" + ex);
+            Messenger.erro("Erro ao validar nome da coleção na base de dados! \n" + ex);
         }
 
         return false;
@@ -175,7 +175,7 @@ public class ColecaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar total de coleções cadastradas na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar total de coleções cadastradas na base de dados! \n" + ex);
         }
 
         return 0;

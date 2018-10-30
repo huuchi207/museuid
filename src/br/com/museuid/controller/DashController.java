@@ -3,7 +3,7 @@ package br.com.museuid.controller;
 import br.com.museuid.banco.controle.ControleDAO;
 import br.com.museuid.model.Emprestimo;
 import br.com.museuid.model.Excursao;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Relatorios;
 import br.com.museuid.util.Tempo;
 import javafx.event.ActionEvent;
@@ -74,7 +74,7 @@ public class DashController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela dashboard! \n" + ex);
+            Messenger.erro("Erro ao carregar tela dashboard! \n" + ex);
             ex.printStackTrace();
         }
     }

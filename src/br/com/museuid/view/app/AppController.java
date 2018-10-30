@@ -1,6 +1,9 @@
 package br.com.museuid.view.app;
 
+import com.sun.tools.internal.jxc.ap.Const;
+
 import br.com.museuid.app.App;
+import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.util.*;
 import br.com.museuid.app.Login;
 import javafx.event.ActionEvent;
@@ -17,8 +20,13 @@ import javafx.stage.Stage;
 public class AppController {
 
     private static AppController instance;
+  @FXML
+    public ToggleButton btQueue;
+  public VBox boxOrder;
+  public ToggleButton btOrderSection;
+  public ToggleGroup gOrderSection;
 
-    @FXML
+  @FXML
     private AnchorPane boxConteudo;
     @FXML
     private VBox boxEmprestimo;
@@ -259,6 +267,8 @@ public class AppController {
     @FXML
     void initialize() {
         instance = this;
+        if (ConstantConfig.FAKE)
+          return;
         Grupo.notEmpty(grupoMenus, grupoCatalogacao, grupoEmprestimo, grupoLocaliacao, grupoUtilidades, grupoVisitantes);//não permite grupos de menus com menus deselecionados
         menuDashboard(null);
         //lbUser.setText("Olá, " + LoginController.usuarioLogado.getNome());
@@ -282,14 +292,14 @@ public class AppController {
      * Exibir e ocultar submenus
      */
     public void submenus(ToggleButton menu, VBox box, ToggleButton... submenus) {
-        if (box.getChildren().isEmpty()) {
-            box.getChildren().addAll(submenus);
-            Animacao.fade(box);
-            estilo(menu, "menu-grupo");
-        } else {
-            desativarSubmenus(box);
-            estilo(menu, "menu-grupo-inativo");
-        }
+//        if (box.getChildren().isEmpty()) {
+//            box.getChildren().addAll(submenus);
+//            Animacao.fade(box);
+//            estilo(menu, "menu-grupo");
+//        } else {
+//            desativarSubmenus(box);
+//            estilo(menu, "menu-grupo-inativo");
+//        }
     }
 
     /**
@@ -309,4 +319,7 @@ public class AppController {
         no.getStyleClass().add(estilo);
     }
 
+  public void openQueueOrder(ActionEvent actionEvent) {
+    Messenger.info("test message successful");
+  }
 }

@@ -87,7 +87,7 @@ public class MovimentacaoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela movimentações! \n" + ex);
+            Messenger.erro("Erro ao carregar tela movimentações! \n" + ex);
         }
     }
 
@@ -135,10 +135,10 @@ public class MovimentacaoController extends AnchorPane {
 
             if (idMovimentacao == 0) {
                 ControleDAO.getBanco().getMovimentacaoDAO().inserir(movi);
-                Mensagem.info("Movimentação cadastrada com sucesso!");
+                Messenger.info("Movimentação cadastrada com sucesso!");
             } else {
                 ControleDAO.getBanco().getMovimentacaoDAO().editar(movi);
-                Mensagem.info("Movimentação atualizada com sucesso!");
+                Messenger.info("Movimentação atualizada com sucesso!");
             }
 
             telaCadastro(null);
@@ -179,7 +179,7 @@ public class MovimentacaoController extends AnchorPane {
         try {
             Movimentacao movimentacao = tbMovimentacao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir movimentação " + movimentacao.getId() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir movimentação " + movimentacao.getId() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getMovimentacaoDAO().excluir(movimentacao.getId());
@@ -190,7 +190,7 @@ public class MovimentacaoController extends AnchorPane {
             tbMovimentacao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione movimentação na tabela para exclusão!");
+            Messenger.alerta("Selecione movimentação na tabela para exclusão!");
         }
     }
 

@@ -65,7 +65,7 @@ public class DevolucaoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela devolução de empréstimo! \n" + ex);
+            Messenger.erro("Erro ao carregar tela devolução de empréstimo! \n" + ex);
             ex.printStackTrace();
         }
     }

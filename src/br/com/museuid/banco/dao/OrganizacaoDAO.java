@@ -1,7 +1,7 @@
 package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Organizacao;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
 import java.sql.SQLException;
@@ -42,7 +42,7 @@ public class OrganizacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir organização na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir organização na base de dados! \n" + ex);
         }
     }
 
@@ -73,7 +73,7 @@ public class OrganizacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar organização na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar organização na base de dados! \n" + ex);
         }
     }
 
@@ -91,7 +91,7 @@ public class OrganizacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir organização na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir organização na base de dados! \n" + ex);
         }
     }
 
@@ -117,7 +117,7 @@ public class OrganizacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar organizações na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar organizações na base de dados! \n" + ex);
         }
 
         return dados;
@@ -144,7 +144,7 @@ public class OrganizacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar organizações na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar organizações na base de dados! \n" + ex);
         }
 
         return dados;

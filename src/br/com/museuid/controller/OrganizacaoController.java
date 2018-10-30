@@ -99,7 +99,7 @@ public class OrganizacaoController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Mensagem.erro("Erro ao carregar tela pesquisar organizacao da organização! \n" + ex);
+            Messenger.erro("Erro ao carregar tela pesquisar organizacao da organização! \n" + ex);
         }
     }
 
@@ -147,10 +147,10 @@ public class OrganizacaoController extends AnchorPane {
 
             if (idOrganizacao == 0) {
                 ControleDAO.getBanco().getOrganizacaoDAO().inserir(orgao);
-                Mensagem.info("Organização cadastrada com sucesso!");
+                Messenger.info("Organização cadastrada com sucesso!");
             } else {
                 ControleDAO.getBanco().getOrganizacaoDAO().editar(orgao);
-                Mensagem.info("Organização atualizada com sucesso!");
+                Messenger.info("Organização atualizada com sucesso!");
             }
 
             telaCadastro(null);
@@ -193,7 +193,7 @@ public class OrganizacaoController extends AnchorPane {
         try {
             Organizacao orgao = tbOrganizacao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Mensagem.confirmar("Excluir organização " + orgao.getNome() + " ?");
+            Dialogo.Resposta response = Messenger.confirmar("Excluir organização " + orgao.getNome() + " ?");
 
             if (response == Dialogo.Resposta.YES) {
                 ControleDAO.getBanco().getOrganizacaoDAO().excluir(orgao.getId());
@@ -204,7 +204,7 @@ public class OrganizacaoController extends AnchorPane {
             tbOrganizacao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Mensagem.alerta("Selecione organização na tabela para exclusão!");
+            Messenger.alerta("Selecione organização na tabela para exclusão!");
         }
     }
 

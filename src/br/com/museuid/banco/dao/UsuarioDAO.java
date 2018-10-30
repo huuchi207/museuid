@@ -2,7 +2,7 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.TipoUsuario;
 import br.com.museuid.model.Usuario;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
 import java.sql.SQLException;
@@ -39,7 +39,7 @@ public class UsuarioDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir usuário na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir usuário na base de dados! \n" + ex);
         }
     }
 
@@ -66,7 +66,7 @@ public class UsuarioDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar usuário na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar usuário na base de dados! \n" + ex);
         }
     }
 
@@ -84,7 +84,7 @@ public class UsuarioDAO extends DAO {
 
             stm.close();
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir usuário na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir usuário na base de dados! \n" + ex);
         }
     }
 
@@ -113,7 +113,7 @@ public class UsuarioDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar usuários na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar usuários na base de dados! \n" + ex);
         }
 
         return usuarios;
@@ -141,7 +141,7 @@ public class UsuarioDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar usuários na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar usuários na base de dados! \n" + ex);
         }
 
         return tipos;
@@ -171,7 +171,7 @@ public class UsuarioDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao verificar na base de dados login usuário \n" + ex);
+            Messenger.erro("Erro ao verificar na base de dados login usuário \n" + ex);
         }
 
         return false;

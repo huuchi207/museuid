@@ -25,7 +25,7 @@ public class Criptografia {
             return hexString.toString();
 
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-            Mensagem.erro("Erro ao converter senha do usuário \n" + ex);
+            Messenger.erro("Erro ao converter senha do usuário \n" + ex);
         }
 
         return "";

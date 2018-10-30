@@ -1,7 +1,7 @@
 package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Movimentacao;
-import br.com.museuid.util.Mensagem;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
 import java.sql.SQLException;
@@ -38,7 +38,7 @@ public class MovimentacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao inserir movimentação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao inserir movimentação na base de dados! \n" + ex);
         }
     }
 
@@ -65,7 +65,7 @@ public class MovimentacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao atualizar movimentação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao atualizar movimentação na base de dados! \n" + ex);
         }
     }
 
@@ -83,7 +83,7 @@ public class MovimentacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao excluir movimentação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao excluir movimentação na base de dados! \n" + ex);
         }
     }
 
@@ -110,7 +110,7 @@ public class MovimentacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Mensagem.erro("Erro ao consultar movimentação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar movimentação na base de dados! \n" + ex);
         }
 
         return dados;
