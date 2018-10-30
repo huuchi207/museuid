@@ -1,5 +1,6 @@
 package br.com.museuid.view.app;
 
+import com.google.gson.Gson;
 import com.sun.tools.internal.jxc.ap.Const;
 
 import br.com.museuid.app.App;
@@ -269,6 +270,7 @@ public class AppController {
         instance = this;
         if (ConstantConfig.FAKE)
           return;
+        Gson gson = new Gson();
         Grupo.notEmpty(grupoMenus, grupoCatalogacao, grupoEmprestimo, grupoLocaliacao, grupoUtilidades, grupoVisitantes);//não permite grupos de menus com menus deselecionados
         menuDashboard(null);
         //lbUser.setText("Olá, " + LoginController.usuarioLogado.getNome());
