@@ -3,6 +3,7 @@ package br.com.museuid.util;
 import br.com.museuid.controller.CatalogarController;
 import br.com.museuid.controller.ColecaoController;
 import br.com.museuid.controller.DesignacaoController;
+import br.com.museuid.view.employee_management.EmployeeManagementControler;
 import br.com.museuid.controller.EstratigrafiaController;
 import br.com.museuid.controller.DashController;
 import br.com.museuid.controller.DevolucaoController;
@@ -29,7 +30,7 @@ import javafx.scene.layout.AnchorPane;
  * Principal classe para controle e carregamento dos modulos da aplicação,
  * cada menu e alguns submenus da aplicação representa um modulo na aplicação
  */
-public class Modulo {
+public class Model {
 
     private static CatalogarController catalogar;
     private static ColecaoController colecao;
@@ -59,7 +60,8 @@ public class Modulo {
     private static RelatorioController relatorio;
     private static DashController dashboard;
 
-    private Modulo() {
+    private static EmployeeManagementControler employeeManagement;
+    private Model() {
     }
 
     public static void getCatalogar(AnchorPane box) {
@@ -179,7 +181,7 @@ public class Modulo {
     }
 
     /**
-     * Configuração da tela de conteúdo para limpar painel e adicionar nova
+     * Configuração da tela de conteúdo para resetField painel e adicionar nova
      * tela, redimensionado seu tamanho para preencher a tela
      */
     public static void config(AnchorPane box, AnchorPane conteudo) {
@@ -192,10 +194,13 @@ public class Modulo {
      * Auxiliar na visualização de elementos da tela como: subenus, subtelas e
      * etc...
      */
-    public static void visualizacao(boolean valor, Node... no) {
+    public static void visualize(boolean valor, Node... no) {
         for (Node elemento : no) {
             elemento.setVisible(valor);
         }
     }
-
+  public static void getEmployeeManagement(AnchorPane box) {
+    employeeManagement = employeeManagement == null ? new EmployeeManagementControler() : employeeManagement;
+    config(box, employeeManagement);
+  }
 }

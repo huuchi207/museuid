@@ -98,29 +98,29 @@ public class VisitanteController extends AnchorPane {
 
     @FXML
     void telaCadastro(ActionEvent event) {
-        configTela("Cadastrar Visitantes", "Campos obrigatórios", 0);
-        Modulo.visualizacao(true, telaCadastro, btSalvar);
+        configTela("Cadastrar Visitantes", "Các trường bắt buộc", 0);
+        Model.visualize(true, telaCadastro, btSalvar);
         limparCampos();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         configTela("Editar Visitantes", "Quantidade de visitantes encontrados", 1);
-        Modulo.visualizacao(true, telaEdicao, btEditar, txtPesquisar);
+        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         configTela("Excluir Visitantes", "Quantidade de visitantes encontrados", 2);
-        Modulo.visualizacao(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
     @FXML
     void salvar(ActionEvent event) {
 
-        boolean vazio = Campo.noEmpty(txtCidade, txtEstado, txtFuncao, txtNome, txtPais);
+        boolean vazio = FieldViewUtils.noEmpty(txtCidade, txtEstado, txtFuncao, txtNome, txtPais);
 
         String nome = txtNome.getText();
         String funcao = txtFuncao.getText();
@@ -133,9 +133,9 @@ public class VisitanteController extends AnchorPane {
         LocalDate data = dtVisita.getValue();
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbTipo.getValue() == null) {
-            Nota.alerta("Tipo visitante não encontrado não encontrada!");
+            Nota.alert("Tipo visitante não encontrado não encontrada!");
         } else {
             Visitante visitante = new Visitante(idVisitante, nome, funcao, cidade, estado, pais, data, descricao, tipo);
 
@@ -176,7 +176,7 @@ public class VisitanteController extends AnchorPane {
             idVisitante = visitante.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alerta("Selecione um visitante na tabela para edição!");
+            Nota.alert("Selecione um visitante na tabela para edição!");
         }
     }
 
@@ -227,7 +227,7 @@ public class VisitanteController extends AnchorPane {
      */
     private void configTela(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Modulo.visualizacao(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);
         tbVisitante.getSelectionModel().clearSelection();
@@ -268,7 +268,7 @@ public class VisitanteController extends AnchorPane {
     }
 
     /**
-     * Campo de pesquisar para filtrar dados na tabela
+     * FieldViewUtils de pesquisar para filtrar dados na tabela
      */
     private void filtroPesquisa(String valor, ObservableList<Visitante> listaVisitante) {
 
@@ -305,8 +305,8 @@ public class VisitanteController extends AnchorPane {
      * Limpar campos textfield cadastro de coleções
      */
     private void limparCampos() {
-        Campo.limpar(txtCidade, txtEstado, txtFuncao, txtNome, txtPais);
-        Campo.limpar(txtDescricao);
+        FieldViewUtils.resetField(txtCidade, txtEstado, txtFuncao, txtNome, txtPais);
+        FieldViewUtils.resetField(txtDescricao);
     }
 
 }

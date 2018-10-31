@@ -1,8 +1,5 @@
 package br.com.museuid.view.app;
 
-import com.google.gson.Gson;
-import com.sun.tools.internal.jxc.ap.Const;
-
 import br.com.museuid.app.App;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.util.*;
@@ -121,7 +118,7 @@ public class AppController {
 
     @FXML
     void menuDashboard(MouseEvent event) {
-        Modulo.getDashboard(boxConteudo);
+        Model.getDashboard(boxConteudo);
     }
 
     @FXML
@@ -151,107 +148,107 @@ public class AppController {
 
     @FXML
     void menuIdentificacao(ActionEvent event) {
-        Modulo.getIdentificacao(boxConteudo);
+        Model.getIdentificacao(boxConteudo);
     }
 
     @FXML
     void menuMovimentacao(ActionEvent event) {
-        Modulo.getMovimentacao(boxConteudo);
+        Model.getMovimentacao(boxConteudo);
     }
 
     @FXML
     void menuSeguranca(ActionEvent event) {
-        Modulo.getValidacao(boxConteudo);
+        Model.getValidacao(boxConteudo);
     }
 
     @FXML
     void menuPesquisa(ActionEvent event) {
-        Modulo.getPesquisar(boxConteudo);
+        Model.getPesquisar(boxConteudo);
     }
 
     @FXML
     void menuRelatorios(ActionEvent event) {
-        Modulo.getRelatorio(boxConteudo);
+        Model.getRelatorio(boxConteudo);
     }
 
     @FXML
     void subVisitantes(ActionEvent event) {
-        Modulo.getVisitante(boxConteudo);
+        Model.getVisitante(boxConteudo);
     }
 
     @FXML
     void subInstituicao(ActionEvent event) {
-        Modulo.getInstituicao(boxConteudo);
+        Model.getInstituicao(boxConteudo);
     }
 
     @FXML
     void subExcursao(ActionEvent event) {
-        Modulo.getExcursao(boxConteudo);
+        Model.getExcursao(boxConteudo);
     }
 
     @FXML
     void subCatalogar(ActionEvent event) {
-        Modulo.getCatalogar(boxConteudo);
+        Model.getCatalogar(boxConteudo);
     }
 
     @FXML
     void subDesignacao(ActionEvent event) {
-        Modulo.getDesignacao(boxConteudo);
+        Model.getDesignacao(boxConteudo);
     }
 
     @FXML
     void subEstratigrafia(ActionEvent event) {
-        Modulo.getEstratigrafia(boxConteudo);
+        Model.getEstratigrafia(boxConteudo);
     }
 
     @FXML
     void subColecao(ActionEvent event) {
-        Modulo.getColecao(boxConteudo);
+        Model.getColecao(boxConteudo);
     }
 
     @FXML
     void subEmprestimo(ActionEvent event) {
-        Modulo.getEmprestimo(boxConteudo);
+        Model.getEmprestimo(boxConteudo);
     }
 
     @FXML
     void subItensEmprestimo(ActionEvent event) {
-        Modulo.getItensEmprestimo(boxConteudo);
+        Model.getItensEmprestimo(boxConteudo);
     }
 
     @FXML
     void subDevolucaoEmprestimo(ActionEvent event) {
-        Modulo.getDevolucao(boxConteudo);
+        Model.getDevolucao(boxConteudo);
     }
 
     @FXML
     void subHistoricoEmprestimo(ActionEvent event) {
-        Modulo.getHistorico(boxConteudo);
+        Model.getHistorico(boxConteudo);
     }
 
     @FXML
     void subOrganizacao(ActionEvent event) {
-        Modulo.getOrganizacao(boxConteudo);
+        Model.getOrganizacao(boxConteudo);
     }
 
     @FXML
     void subSetor(ActionEvent event) {
-        Modulo.getSetor(boxConteudo);
+        Model.getSetor(boxConteudo);
     }
 
     @FXML
     void subLocal(ActionEvent event) {
-        Modulo.getLocal(boxConteudo);
+        Model.getLocal(boxConteudo);
     }
 
     @FXML
     void subLocalizar(ActionEvent event) {
-        Modulo.getLocalizacao(boxConteudo);
+        Model.getLocalizacao(boxConteudo);
     }
 
     @FXML
     void subUsuarios(ActionEvent event) {
-        Modulo.getUsuario(boxConteudo);
+        Model.getUsuario(boxConteudo);
     }
 
     @FXML
@@ -270,7 +267,6 @@ public class AppController {
         instance = this;
         if (ConstantConfig.FAKE)
           return;
-        Gson gson = new Gson();
         Grupo.notEmpty(grupoMenus, grupoCatalogacao, grupoEmprestimo, grupoLocaliacao, grupoUtilidades, grupoVisitantes);//não permite grupos de menus com menus deselecionados
         menuDashboard(null);
         //lbUser.setText("Olá, " + LoginController.usuarioLogado.getNome());
@@ -322,6 +318,7 @@ public class AppController {
     }
 
   public void openQueueOrder(ActionEvent actionEvent) {
-    Messenger.info("test message successful");
+      Model.getEmployeeManagement(boxConteudo);
+//    Messenger.info("test message successful");
   }
 }

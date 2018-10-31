@@ -116,29 +116,29 @@ public class ExcursaoController extends AnchorPane {
 
     @FXML
     void telaCadastro(ActionEvent event) {
-        configTela("Cadastrar Excursão", "Campos obrigatórios", 0);
-        Modulo.visualizacao(true, telaCadastro, btSalvar);
+        configTela("Cadastrar Excursão", "Các trường bắt buộc", 0);
+        Model.visualize(true, telaCadastro, btSalvar);
         limparCampos();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         configTela("Editar Excursão", "Quantidade de excursões encontrados", 1);
-        Modulo.visualizacao(true, telaEdicao, btEditar, txtPesquisar);
+        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         configTela("Excluir Excursão", "Quantidade de excursões encontrados", 2);
-        Modulo.visualizacao(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
     @FXML
     void salvar(ActionEvent event) {
 
-        boolean vazio = Campo.noEmpty(txtCurso, txtHorario, txtParticipantes, txtResponsavel, txtContato);
+        boolean vazio = FieldViewUtils.noEmpty(txtCurso, txtHorario, txtParticipantes, txtResponsavel, txtContato);
 
         String contato = txtContato.getText();
         String curso = txtCurso.getText();
@@ -154,11 +154,11 @@ public class ExcursaoController extends AnchorPane {
 
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbInstituicao.getValue() == null) {
-            Nota.alerta("Instituição não encontrada!");
+            Nota.alert("Instituição não encontrada!");
         } else if (participantes == 0) {
-            Nota.alerta("Informe quantidade de participantes!");
+            Nota.alert("Informe quantidade de participantes!");
         } else {
             Excursao excursao = new Excursao(idExcursao, curso, participantes, responsavel, contato, guias, horario, data, descricao, agendamenta, status, instituicao);
 
@@ -209,7 +209,7 @@ public class ExcursaoController extends AnchorPane {
             idExcursao = excursao.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alerta("Selecione um excursao na tabela para edição!");
+            Nota.alert("Selecione um excursao na tabela para edição!");
         }
     }
 
@@ -274,7 +274,7 @@ public class ExcursaoController extends AnchorPane {
      */
     private void configTela(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);//informar titulo da tela
-        Modulo.visualizacao(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);//menus e elementos que serão exibidos conforme contexto da subtela
+        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);//menus e elementos que serão exibidos conforme contexto da subtela
 
         legenda.setText(msg);
         tbExcursao.getSelectionModel().clearSelection();
@@ -323,7 +323,7 @@ public class ExcursaoController extends AnchorPane {
     }
 
     /**
-     * Campo de pesquisar para filtrar dados na tabela
+     * FieldViewUtils de pesquisar para filtrar dados na tabela
      */
     private void filtroPesquisa(String valor, ObservableList<Excursao> listaExcursao) {
 
@@ -362,8 +362,8 @@ public class ExcursaoController extends AnchorPane {
      * Limpar campos textfield cadastro de coleções
      */
     private void limparCampos() {
-        Campo.limpar(txtContato, txtCurso, txtGuias, txtHorario, txtParticipantes, txtResponsavel);
-        Campo.limpar(txtDescricao);
+        FieldViewUtils.resetField(txtContato, txtCurso, txtGuias, txtHorario, txtParticipantes, txtResponsavel);
+        FieldViewUtils.resetField(txtDescricao);
     }
 
 }

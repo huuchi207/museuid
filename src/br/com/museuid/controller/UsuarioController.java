@@ -93,29 +93,29 @@ public class UsuarioController extends AnchorPane {
 
     @FXML
     void telaCadastro(ActionEvent event) {
-        config("Cadastrar Usuário", "Campos obrigatórios", 0);
-        Modulo.visualizacao(true, telaCadastro, btSalvar);
+        config("Cadastrar Usuário", "Các trường bắt buộc", 0);
+        Model.visualize(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         config("Editar Usuário", "Quantidade de usuários encontrados", 1);
-        Modulo.visualizacao(true, telaEdicao, btEditar, txtPesquisar);
+        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         config("Excluir Usuário", "Quantidade de usuários encontrados", 2);
-        Modulo.visualizacao(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
     @FXML
     void salvar(ActionEvent event) {
 
-        boolean vazio = Campo.noEmpty(txtNome, txtLogin, txtSenha, txtConfirmarSenha);
+        boolean vazio = FieldViewUtils.noEmpty(txtNome, txtLogin, txtSenha, txtConfirmarSenha);
 
         String nome = txtNome.getText();
         String login = txtLogin.getText().replaceAll(" ", "").trim();
@@ -127,13 +127,13 @@ public class UsuarioController extends AnchorPane {
         TipoUsuario tipo = cbPermissaoUsuario.getValue();
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbPermissaoUsuario.getValue() == null) {
-            Nota.alerta("Permissão do Usuário não encontrada!");
+            Nota.alert("Permissão do Usuário não encontrada!");
         } else if (!senha.equals(confirmar)) {
-            Nota.alerta("Senha inválida, verifique se senhas são iguais!");
+            Nota.alert("Senha inválida, verifique se senhas são iguais!");
         } else if (ControleDAO.getBanco().getUsuarioDAO().isUsuario(idUsuario, login)) {
-            Nota.alerta("Login já cadastrado na base de dados!");
+            Nota.alert("Login já cadastrado na base de dados!");
         } else {
             Usuario user = new Usuario(idUsuario, nome, login, Criptografia.converter(senha), email, status, null, descricao, tipo);
 
@@ -173,7 +173,7 @@ public class UsuarioController extends AnchorPane {
             idUsuario = user.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alerta("Selecione um usuário na tabela para edição!");
+            Nota.alert("Selecione um usuário na tabela para edição!");
         }
     }
 
@@ -223,7 +223,7 @@ public class UsuarioController extends AnchorPane {
      */
     private void config(String tituloTela, String mensagem, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Modulo.visualizacao(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(mensagem);
         tbUsuario.getSelectionModel().clearSelection();
@@ -268,7 +268,7 @@ public class UsuarioController extends AnchorPane {
     }
 
     /**
-     * Campo de pesquisar para filtrar dados na tabela
+     * FieldViewUtils de pesquisar para filtrar dados na tabela
      */
     private void filtro(String valor, ObservableList<Usuario> listaUsuario) {
 
@@ -301,8 +301,8 @@ public class UsuarioController extends AnchorPane {
      * Limpar campos textfield cadastro de coleções
      */
     private void limpar() {
-        Campo.limpar(txtConfirmarSenha, txtLogin, txtNome, txtSenha, txtEmail);
-        Campo.limpar(txtDescricao);
+        FieldViewUtils.resetField(txtConfirmarSenha, txtLogin, txtNome, txtSenha, txtEmail);
+        FieldViewUtils.resetField(txtDescricao);
     }
 
 }

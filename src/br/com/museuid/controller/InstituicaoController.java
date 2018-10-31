@@ -90,29 +90,29 @@ public class InstituicaoController extends AnchorPane {
 
     @FXML
     void telaCadastro(ActionEvent event) {
-        configTela("Cadastrar Instituição", "Campos obrigatórios", 0);
-        Modulo.visualizacao(true, telaCadastro, btSalvar);
+        configTela("Cadastrar Instituição", "Các trường bắt buộc", 0);
+        Model.visualize(true, telaCadastro, btSalvar);
         limparCampos();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         configTela("Editar Instituição", "Quantidade de instituições encontrados", 1);
-        Modulo.visualizacao(true, telaEdicao, btEditar, txtPesquisar);
+        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         configTela("Excluir Instituição", "Quantidade de instituições encontrados", 2);
-        Modulo.visualizacao(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
     @FXML
     void salvar(ActionEvent event) {
 
-        boolean vazio = Campo.noEmpty(txtCidade, txtRepresentante, txtEstado, txtNome, txtPais);
+        boolean vazio = FieldViewUtils.noEmpty(txtCidade, txtRepresentante, txtEstado, txtNome, txtPais);
 
         String nome = txtNome.getText();
         String representante = txtRepresentante.getText();
@@ -123,7 +123,7 @@ public class InstituicaoController extends AnchorPane {
         String descricao = txtDescricao.getText();
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else {
             Instituicao instituicao = new Instituicao(idInstituicao, nome, representante, telefone, cidade, estado, pais, descricao);
 
@@ -162,7 +162,7 @@ public class InstituicaoController extends AnchorPane {
             idInstituicao = instituicao.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alerta("Selecione um instituição na tabela para edição!");
+            Nota.alert("Selecione um instituição na tabela para edição!");
         }
     }
 
@@ -203,7 +203,7 @@ public class InstituicaoController extends AnchorPane {
      */
     private void configTela(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Modulo.visualizacao(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);
         tbInstituicao.getSelectionModel().clearSelection();
@@ -238,7 +238,7 @@ public class InstituicaoController extends AnchorPane {
     }
 
     /**
-     * Campo de pesquisar para filtrar dados na tabela
+     * FieldViewUtils de pesquisar para filtrar dados na tabela
      */
     private void filtroPesquisa(String valor, ObservableList<Instituicao> listaInstituicao) {
 
@@ -275,8 +275,8 @@ public class InstituicaoController extends AnchorPane {
      * Limpar campos textfield cadastro de coleções
      */
     private void limparCampos() {
-        Campo.limpar(txtNome, txtRepresentante, txtTelefone, txtCidade, txtEstado, txtPais);
-        Campo.limpar(txtDescricao);
+        FieldViewUtils.resetField(txtNome, txtRepresentante, txtTelefone, txtCidade, txtEstado, txtPais);
+        FieldViewUtils.resetField(txtDescricao);
     }
 
 }

@@ -160,7 +160,7 @@ public class ValidacaoController extends AnchorPane {
                 statusValidacao = true;
             }
         } else {
-            Nota.alerta("Validação inicializada, cancele ou finalize para iniciar um nova validação");
+            Nota.alert("Validação inicializada, cancele ou finalize para iniciar um nova validação");
         }
     }
 
@@ -173,7 +173,7 @@ public class ValidacaoController extends AnchorPane {
                 limparDados();
                 infoContadores();
             } else {
-                Nota.alerta("Validação não inicializada!");
+                Nota.alert("Validação não inicializada!");
             }
         }
     }
@@ -199,7 +199,7 @@ public class ValidacaoController extends AnchorPane {
                 infoContadores();
                 boxValidacao.setCursor(Cursor.DEFAULT);
             } else {
-                Nota.alerta("Validação não inicializada!");
+                Nota.alert("Validação não inicializada!");
             }
         }
     }
@@ -214,7 +214,7 @@ public class ValidacaoController extends AnchorPane {
 
     @FXML
     void limpar(ActionEvent event) {
-        Campo.limpar(lbNumOrdem, lbEtiquetaRFID, lbNumPartes, lbDimesoes, lbLocalizacao, lbDesignacao, lbColecao, lbEstratigrafia);
+        FieldViewUtils.resetField(lbNumOrdem, lbEtiquetaRFID, lbNumPartes, lbDimesoes, lbLocalizacao, lbDesignacao, lbColecao, lbEstratigrafia);
     }
 
     @FXML
@@ -241,8 +241,8 @@ public class ValidacaoController extends AnchorPane {
         menu.selectToggle(menu.getToggles().get(grupo - 1));
         tipoRelatorio = grupo;
 
-        Modulo.visualizacao(false, gridValidacao, cbColecao, cbDesignacao, cbEstratigrafia, cbGenerico);
-        Modulo.visualizacao(true, combo, tela);
+        Model.visualize(false, gridValidacao, cbColecao, cbDesignacao, cbEstratigrafia, cbGenerico);
+        Model.visualize(true, combo, tela);
     }
 
     /**

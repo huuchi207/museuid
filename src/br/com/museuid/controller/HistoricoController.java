@@ -81,7 +81,7 @@ public class HistoricoController extends AnchorPane {
     @FXML
     void telaHistorico(ActionEvent event) {
         config("Histórico Empréstimo", "Quantidade de empréstimos encontrados", 0);
-        Modulo.visualizacao(true, btHistorico, txtPesquisar);
+        Model.visualize(true, btHistorico, txtPesquisar);
         tabela();
     }
 
@@ -109,7 +109,7 @@ public class HistoricoController extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Modulo.visualizacao(false, btHistorico, txtPesquisar);
+        Model.visualize(false, btHistorico, txtPesquisar);
 
         legenda.setText(msg);
         tbEmprestimo.getSelectionModel().clearSelection();
@@ -169,7 +169,7 @@ public class HistoricoController extends AnchorPane {
     }
 
     /**
-     * Campo de pesquisar para filtrar dados na tabela
+     * FieldViewUtils de pesquisar para filtrar dados na tabela
      */
     private void filtro(String valor, ObservableList<Emprestimo> listaEmprestimo) {
 

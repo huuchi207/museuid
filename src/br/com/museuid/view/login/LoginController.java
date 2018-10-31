@@ -4,7 +4,7 @@ import br.com.museuid.app.Login;
 import br.com.museuid.banco.controle.ControleDAO;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.model.Usuario;
-import br.com.museuid.util.Campo;
+import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Link;
 import br.com.museuid.app.App;
 import javafx.event.ActionEvent;
@@ -43,11 +43,11 @@ public class LoginController {
                 Login.palco.close();
             } else {
                 lbErroLogin.setText("Senha incorreta, verifique os valores!");
-                Campo.erroLogin(psSenha);
+                FieldViewUtils.erroLogin(psSenha);
             }
         } else {
             lbErroLogin.setText("Usuário não existe ou inativo!");
-            Campo.erroLogin(txtUsuario);
+            FieldViewUtils.erroLogin(txtUsuario);
         }
     }
 

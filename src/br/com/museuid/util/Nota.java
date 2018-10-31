@@ -81,7 +81,7 @@ public class Nota {
                 mensagem.getStyleClass().add("nota-erro");
                 break;
             case "ALERTA":
-                mensagem.getStyleClass().add("nota-alerta");
+                mensagem.getStyleClass().add("nota-alert");
                 break;
             case "CONFIRMAR":
                 mensagem.getStyleClass().add("nota-confirma");
@@ -92,7 +92,7 @@ public class Nota {
         }
     }
 
-    public static void alerta(String mensagem) {
+    public static void alert(String mensagem) {
         nota(AppController.getInstance().boxNotas(), mensagem, "ALERTA");
     }
 

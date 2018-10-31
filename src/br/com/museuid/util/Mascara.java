@@ -20,7 +20,7 @@ public class Mascara {
                 char ch = campo.getText().charAt(t.intValue());
                 if (!(ch >= '0' && ch <= '9')) {
                     campo.setText(campo.getText().substring(0, campo.getText().length() - 1));
-                    Campo.erro(campo, null);
+                    FieldViewUtils.erro(campo, null);
                 }
             }
         });
@@ -35,7 +35,7 @@ public class Mascara {
                 char ch = campo.getText().charAt(old.intValue());
                 if (!(ch >= '0' && ch <= '9' || ch == '.')) {
                     campo.setText(campo.getText().substring(0, campo.getText().length() - 1));
-                    Campo.erro(campo, null);
+                    FieldViewUtils.erro(campo, null);
                 }
             }
         });
@@ -50,7 +50,7 @@ public class Mascara {
                 char ch = campo.getText().charAt(old.intValue());
                 if (!(ch >= 'a' && ch <= 'z')) {
                     campo.setText(campo.getText().substring(0, campo.getText().length() - 1));
-                    Campo.erro(campo, null);
+                    FieldViewUtils.erro(campo, null);
                 }
             }
         });

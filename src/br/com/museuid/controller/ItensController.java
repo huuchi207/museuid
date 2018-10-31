@@ -65,29 +65,29 @@ public class ItensController extends AnchorPane {
 
     @FXML
     void telaItens(ActionEvent event) {
-        config("Itens Empréstimo", "Campos obrigatórios", 0);
+        config("Itens Empréstimo", "Các trường bắt buộc", 0);
     }
 
     @FXML
     void adicionar(ActionEvent event) {
 
-        boolean vazio = Campo.noEmpty(txtNumOrdem);
+        boolean vazio = FieldViewUtils.noEmpty(txtNumOrdem);
 
         Emprestimo emprestimo = cbEmprestimo.getValue();
         String conservacao = txtEstadoConservacao.getText();
         String ordem = txtNumOrdem.getText();
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbEmprestimo.getItems().isEmpty()) {
-            Nota.alerta("Empréstimo não encontrados!");
+            Nota.alert("Empréstimo não encontrados!");
         } else {
             int catalogacao = ControleDAO.getBanco().getCatalogacaoDAO().infoId(ordem);//caso numero de ordem não seja encontrado retornar 0
 
             if (catalogacao == 0) {
-                Nota.alerta("Catalogação não encontrada!");
+                Nota.alert("Catalogação não encontrada!");
             } else if (ControleDAO.getBanco().getCatalogacaoDAO().isEmprestada(catalogacao)) {
-                Nota.alerta("Catalogação já encontra-se emprestada!");//verificar se catalogação já está emprestada
+                Nota.alert("Catalogação já encontra-se emprestada!");//verificar se catalogação já está emprestada
             } else {
                 EmprestimoItem item = new EmprestimoItem(0, conservacao, emprestimo, new Catalogacao(catalogacao));//criar item
                 ControleDAO.getBanco().getEmprestimoDAO().addItem(item);//adiciona item ao emprestimo
@@ -114,7 +114,7 @@ public class ItensController extends AnchorPane {
             sincronizarBase(item.getEmprestimo().getId());
             tabela();
         } catch (NullPointerException ex) {
-            Nota.alerta("Selecione o item do empréstimo na tabela que deseja remover!");
+            Nota.alert("Selecione o item do empréstimo na tabela que deseja remover!");
         }
     }
 
@@ -194,6 +194,6 @@ public class ItensController extends AnchorPane {
     }
 
     private void limpar() {
-        Campo.limpar(txtEstadoConservacao, txtNumOrdem);
+        FieldViewUtils.resetField(txtEstadoConservacao, txtNumOrdem);
     }
 }

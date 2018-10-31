@@ -65,26 +65,26 @@ public class LocalizacaoController extends AnchorPane {
 
     @FXML
     void telaLocalizacao(ActionEvent event) {
-        config("Localização Acervo", "Campos obrigatórios", 0);
+        config("Localização Acervo", "Các trường bắt buộc", 0);
     }
 
     @FXML
     void adicionar(ActionEvent event) {
 
-        boolean vazio = Campo.noEmpty(txtNumOrdem);
+        boolean vazio = FieldViewUtils.noEmpty(txtNumOrdem);
 
         Local local = cbLocal.getValue();
         String ordem = txtNumOrdem.getText();
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbLocal.getItems().isEmpty()) {
-            Nota.alerta("Local não encontrados!");
+            Nota.alert("Local não encontrados!");
         } else {
             int catalogacao = ControleDAO.getBanco().getCatalogacaoDAO().infoId(ordem);//consultar identificador da catalogacao atraves de seu numero de ordem
 
             if (catalogacao == 0) {
-                Nota.alerta("Catalogação não encontrada!");
+                Nota.alert("Catalogação não encontrada!");
             } else if (ControleDAO.getBanco().getLocalizacaoDAO().isLocalizacao(catalogacao)) {
                 Nota.info("Catalogação já possui cadastro de localização");
             } else {
@@ -105,7 +105,7 @@ public class LocalizacaoController extends AnchorPane {
             baseDados(cbLocal.getValue() == null ? 0 : cbLocal.getValue().getId());
             tabela();
         } catch (NullPointerException ex) {
-            Nota.alerta("Selecione item da localização que deseja remover na tabela!");
+            Nota.alert("Selecione item da localização que deseja remover na tabela!");
         }
     }
 
@@ -186,7 +186,7 @@ public class LocalizacaoController extends AnchorPane {
      * Limpar campos textfield
      */
     private void limpar() {
-        Campo.limpar(txtNumOrdem);
+        FieldViewUtils.resetField(txtNumOrdem);
     }
 
     /**

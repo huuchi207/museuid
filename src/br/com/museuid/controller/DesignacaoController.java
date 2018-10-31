@@ -85,28 +85,28 @@ public class DesignacaoController extends AnchorPane {
 
     @FXML
     void telaCadastro(ActionEvent event) {
-        config("Cadastrar Designação", "Campos obrigatórios", 0);
-        Modulo.visualizacao(true, telaCadastro, btSalvar);
+        config("Cadastrar Designação", "Các trường bắt buộc", 0);
+        Model.visualize(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         config("Editar Designação", "Quantidade de designações encontradas", 1);
-        Modulo.visualizacao(true, telaEdicao, btEditar, txtPesquisar);
+        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         config("Excluir Designação", "Quantidade de designações encontradas", 2);
-        Modulo.visualizacao(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
     @FXML
     void salvar(ActionEvent event) {
-        boolean vazio = Campo.noEmpty(txtGenero);
+        boolean vazio = FieldViewUtils.noEmpty(txtGenero);
 
         String genero = txtGenero.getText();
         String famalia = txtFamilia.getText();
@@ -116,9 +116,9 @@ public class DesignacaoController extends AnchorPane {
         String descricao = txtDescricao.getText();
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else if (ControleDAO.getBanco().getDesignacaoDAO().isDesignacao(genero, idDesignacao)) {
-            Nota.alerta("Genêro já cadastrada!");
+            Nota.alert("Genêro já cadastrada!");
         } else {
             Designacao designacao = new Designacao(idDesignacao, genero, especie, famalia, ordem, classe, descricao);
 
@@ -156,7 +156,7 @@ public class DesignacaoController extends AnchorPane {
             idDesignacao = designacao.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alerta("Selecione um designação na tabela para edição!");
+            Nota.alert("Selecione um designação na tabela para edição!");
         }
     }
 
@@ -197,7 +197,7 @@ public class DesignacaoController extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Modulo.visualizacao(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);
         tbDesignacao.getSelectionModel().clearSelection();
@@ -231,7 +231,7 @@ public class DesignacaoController extends AnchorPane {
     }
 
     /**
-     * Campo de pesquisar para filtrar dados na tabela
+     * FieldViewUtils de pesquisar para filtrar dados na tabela
      */
     private void filtro(String valor, ObservableList<Designacao> listaDesignacao) {
 
@@ -266,8 +266,8 @@ public class DesignacaoController extends AnchorPane {
      * Limpar campos textfield cadastro de coleções
      */
     private void limpar() {
-        Campo.limpar(txtClasse, txtEspecie, txtFamilia, txtGenero, txtOrdem);
-        Campo.limpar(txtDescricao);
+        FieldViewUtils.resetField(txtClasse, txtEspecie, txtFamilia, txtGenero, txtOrdem);
+        FieldViewUtils.resetField(txtDescricao);
     }
 
 }

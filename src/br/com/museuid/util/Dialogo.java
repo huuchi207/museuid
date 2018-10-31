@@ -89,7 +89,7 @@ public class Dialogo {
     }
 
     /**
-     * Adiciona titulo e descriçao do alerta ao box de mensagem
+     * Adiciona titulo e descriçao do alert ao box de mensagem
      */
     public static void message(String tipo, String title, String message) {
         box(icone(tipo), texto(title, message), acoes());

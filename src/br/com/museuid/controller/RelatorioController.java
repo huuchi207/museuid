@@ -87,11 +87,11 @@ public class RelatorioController extends AnchorPane {
     @FXML
     void relatorio(ActionEvent event) {
         if (data == null) {
-            Nota.alerta("Data não informada!");
+            Nota.alert("Data não informada!");
         } else if (cbTipoRelatorio.getItems().isEmpty()) {
-            Nota.alerta("Tipo relatório não informado!");
+            Nota.alert("Tipo relatório não informado!");
         } else if (periodo == 0) {
-            Nota.alerta("Selecione o periodo para geração do relatório!");
+            Nota.alert("Selecione o periodo para geração do relatório!");
         } else {
             Relatorios.criar(boxGrafico, cbTipoRelatorio.getValue(), periodo, data.getValue());
         }

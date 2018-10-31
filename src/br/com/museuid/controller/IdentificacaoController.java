@@ -2,10 +2,10 @@ package br.com.museuid.controller;
 
 import br.com.museuid.banco.controle.ControleDAO;
 import br.com.museuid.model.Catalogacao;
-import br.com.museuid.util.Campo;
+import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Grupo;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Modulo;
+import br.com.museuid.util.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -99,7 +99,7 @@ public class IdentificacaoController extends AnchorPane {
     @FXML
     void telaIdentificar(ActionEvent event) {
         config("Identificar Acervo", 0);
-        Modulo.visualizacao(true, txtIdentificador);
+        Model.visualize(true, txtIdentificador);
     }
 
     @FXML
@@ -191,7 +191,7 @@ public class IdentificacaoController extends AnchorPane {
      * Limpar labels na tela
      */
     private void limpar() {
-        Campo.limpar(txtNumOrdem, txtLocalizacao, txtProcedencia, txtEtiquetaRfid, txtEmprestimoFossil,
+        FieldViewUtils.resetField(txtNumOrdem, txtLocalizacao, txtProcedencia, txtEtiquetaRfid, txtEmprestimoFossil,
                 txtDeatlhesProcedencia, txtDimesoes, txtNumPartes, txtDataEntrada, txtGrupoEstratigrafia,
                 txtFormacao, txtColecao, txtColecaoDescricao, txtOrgao, txtSetor, txtLocal, txtOrdem,
                 txtClasse, txtFamilia, txtGenero, txtEspecie);

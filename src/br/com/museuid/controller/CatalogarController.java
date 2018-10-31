@@ -118,28 +118,28 @@ public class CatalogarController extends AnchorPane {
 
     @FXML
     void telaCadastro(ActionEvent event) {
-        config("Cadastrar Catalogação", "Campos obrigatórios", 0);
-        Modulo.visualizacao(true, telaCadastro, btSalvar);
+        config("Cadastrar Catalogação", "Các trường bắt buộc", 0);
+        Model.visualize(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         config("Editar Catalogação", "Quantidade de catalogações encontradas", 1);
-        Modulo.visualizacao(true, telaEdicao, btEditar, txtPesquisar);
+        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         config("Excluir Catalogação", "Quantidade de catalogações encontradas", 2);
-        Modulo.visualizacao(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
     @FXML
     void salvar(ActionEvent event) {
-        boolean vazio = Campo.noEmpty(txtNumOrdem, txtNumPartes);
+        boolean vazio = FieldViewUtils.noEmpty(txtNumOrdem, txtNumPartes);
 
         String etiquetaRfid = txtEtiquetaRFID.getText().isEmpty() ? txtEtiquetaRFID.getText().trim().replace(" ", "") : "0";
         String numOrdem = txtNumOrdem.getText().trim().replace(" ", "");
@@ -157,19 +157,19 @@ public class CatalogarController extends AnchorPane {
         String data = dtEntrada.getValue() == null ? "" : dtEntrada.getValue().toString();
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else if (ControleDAO.getBanco().getCatalogacaoDAO().validarNumeroOrdem(numOrdem, idCatalogacao)) {
-            Nota.alerta("Ordem já cadastrada!");
+            Nota.alert("Ordem já cadastrada!");
         } else if (ControleDAO.getBanco().getCatalogacaoDAO().validarEtiquetaRFID(etiquetaRfid, idCatalogacao)) {
-            Nota.alerta("Etiqueta RFID já cadastrada!");
+            Nota.alert("Etiqueta RFID já cadastrada!");
         } else if (numPartes == 0) {
-            Nota.alerta("N° de partes da catalogação deve ser maior que zero!");
+            Nota.alert("N° de partes da catalogação deve ser maior que zero!");
         } else if (cbColecao.getValue() == null) {
-            Nota.alerta("Coleção não encontrada!");
+            Nota.alert("Coleção não encontrada!");
         } else if (cbEstratigrafia.getValue() == null) {
-            Nota.alerta("Estratigrafia não encontrada!");
+            Nota.alert("Estratigrafia não encontrada!");
         } else if (cbDesignacao.getValue() == null) {
-            Nota.alerta("Designação não encontrada!");
+            Nota.alert("Designação não encontrada!");
         } else {
             Catalogacao catalogacao = new Catalogacao(idCatalogacao, numOrdem, etiquetaRfid, procedencia, procedenciaDetalhes, dimensao, numPartes, localizacao, descricao, data, false, designacao, estratigrafia, colecao);
 
@@ -214,7 +214,7 @@ public class CatalogarController extends AnchorPane {
             idCatalogacao = catalogacao.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alerta("Selecione um catalogação na tabela para edição!");
+            Nota.alert("Selecione um catalogação na tabela para edição!");
         }
     }
 
@@ -259,7 +259,7 @@ public class CatalogarController extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Modulo.visualizacao(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);//mensagem legenda
         tbCatalogacao.getSelectionModel().clearSelection();
@@ -346,7 +346,7 @@ public class CatalogarController extends AnchorPane {
     }
 
     /**
-     * Campo de pesquisar para filtrar dados na tabela
+     * FieldViewUtils de pesquisar para filtrar dados na tabela
      */
     private void filtrar(String valor, ObservableList<Catalogacao> listaCatalogacao) {
 
@@ -387,8 +387,8 @@ public class CatalogarController extends AnchorPane {
      * Limpar campos textfield cadastro de coleções
      */
     private void limpar() {
-        Campo.limpar(txtEtiquetaRFID, txtNumOrdem, txtNumPartes, txtProcedenciaDetalhes);
-        Campo.limpar(txtDescricao);
+        FieldViewUtils.resetField(txtEtiquetaRFID, txtNumOrdem, txtNumPartes, txtProcedenciaDetalhes);
+        FieldViewUtils.resetField(txtDescricao);
     }
 
 }

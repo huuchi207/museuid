@@ -73,47 +73,47 @@ public class EstratigrafiaController extends AnchorPane {
 
     @FXML
     void telaCadastro(ActionEvent event) {
-        config("Cadastrar Estratigrafia", "Campos obrigatórios", 0);
-        Modulo.visualizacao(true, telaCadastro, btSalvar);
+        config("Cadastrar Estratigrafia", "Các trường bắt buộc", 0);
+        Model.visualize(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         config("Editar Estratigrafia", "Quantidade de estratigrafias encontradas", 1);
-        Modulo.visualizacao(true, telaEdicao, btEditar, txtPesquisar);
+        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         config("Excluir Estratigrafia", "Quantidade de estratigrafias encontradas", 2);
-        Modulo.visualizacao(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
     @FXML
     void salvar(ActionEvent event) {
 
-        boolean vazio = Campo.noEmpty(txtFormacao, txtGrupo);
+        boolean vazio = FieldViewUtils.noEmpty(txtFormacao, txtGrupo);
 
         String formacao = txtFormacao.getText();
         String grupo = txtGrupo.getText().replaceAll(" ", "").trim();
         String descricao = txtDescricao.getText();
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else if (ControleDAO.getBanco().getEstratigrafiaDAO().isEstratigrafia(formacao, idEstratigrafia)) {
-            Nota.alerta("Formação já cadastrada!");
+            Nota.alert("Formação já cadastrada!");
         } else {
             Estratigrafia estratigrafia = new Estratigrafia(idEstratigrafia, formacao, grupo, descricao);
 
             if (idEstratigrafia == 0) {
                 ControleDAO.getBanco().getEstratigrafiaDAO().inserir(estratigrafia);
-                Messenger.info("Estratigrafia cadastrada com sucesso!");
+                Messenger.info("Thao tác thành công!");
             } else {
                 ControleDAO.getBanco().getEstratigrafiaDAO().editar(estratigrafia);
-                Messenger.info("Estratigrafia atualizada com sucesso!");
+                Messenger.info("Cập nhật thành công!");
             }
 
             telaCadastro(null);
@@ -139,7 +139,7 @@ public class EstratigrafiaController extends AnchorPane {
             idEstratigrafia = estratigrafia.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alerta("Selecione um estratigrafia na tabela para edição!");
+            Nota.alert("Selecione um estratigrafia na tabela para edição!");
         }
     }
 
@@ -170,9 +170,9 @@ public class EstratigrafiaController extends AnchorPane {
         Grupo.notEmpty(menu);
         sincronizarBase();
 
-        txtPesquisar.textProperty().addListener((obs, old, novo) -> {
-            filtro(novo, FXCollections.observableArrayList(listaEstratigrafia));
-        });
+//        txtPesquisar.textProperty().addListener((obs, old, novo) -> {
+//            filtro(novo, FXCollections.observableArrayList(listaEstratigrafia));
+//        });
     }
 
     /**
@@ -180,7 +180,7 @@ public class EstratigrafiaController extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Modulo.visualizacao(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);
         tbEstratigrafia.getSelectionModel().clearSelection();
@@ -211,7 +211,7 @@ public class EstratigrafiaController extends AnchorPane {
     }
 
     /**
-     * Campo de pesquisar para filtrar dados na tabela
+     * FieldViewUtils de pesquisar para filtrar dados na tabela
      */
     private void filtro(String valor, ObservableList<Estratigrafia> listaEstratigrafia) {
 
@@ -240,8 +240,8 @@ public class EstratigrafiaController extends AnchorPane {
      * Limpar campos textfield cadastro de estratigrafias
      */
     private void limpar() {
-        Campo.limpar(txtFormacao, txtGrupo);
-        Campo.limpar(txtDescricao);
+        FieldViewUtils.resetField(txtFormacao, txtGrupo);
+        FieldViewUtils.resetField(txtDescricao);
     }
 
 }

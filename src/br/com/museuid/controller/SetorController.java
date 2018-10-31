@@ -77,29 +77,29 @@ public class SetorController extends AnchorPane {
 
     @FXML
     void telaCadastro(ActionEvent event) {
-        config("Cadastrar Setor", "Campos obrigatórios", 0);
-        Modulo.visualizacao(true, telaCadastro, btSalvar);
+        config("Cadastrar Setor", "Các trường bắt buộc", 0);
+        Model.visualize(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         config("Editar Setor", "Quantidade de setores encontrados", 1);
-        Modulo.visualizacao(true, telaEdicao, btEditar, txtPesquisar);
+        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         config("Excluir Setor", "Quantidade de setores encontrados", 2);
-        Modulo.visualizacao(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
     @FXML
     void salvar(ActionEvent event) {
 
-        boolean vazio = Campo.noEmpty(txtNome);
+        boolean vazio = FieldViewUtils.noEmpty(txtNome);
 
         String nome = txtNome.getText();
         String descricao = txtDescricao.getText();
@@ -107,9 +107,9 @@ public class SetorController extends AnchorPane {
         Organizacao organizacao = cbOrganizacao.getValue();
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbOrganizacao.getValue() == null) {
-            Nota.alerta("Organização do setor não encontrada!");
+            Nota.alert("Organização do setor não encontrada!");
         } else {
             Setor setor = new Setor(idSetor, nome, descricao, organizacao);
 
@@ -144,7 +144,7 @@ public class SetorController extends AnchorPane {
             idSetor = setor.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alerta("Selecione um setor na tabela para edição!");
+            Nota.alert("Selecione um setor na tabela para edição!");
         }
     }
 
@@ -186,7 +186,7 @@ public class SetorController extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Modulo.visualizacao(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);//mensagem legenda
         tbSetor.getSelectionModel().clearSelection();
@@ -229,7 +229,7 @@ public class SetorController extends AnchorPane {
     }
 
     /**
-     * Campo de pesquisar para filtrar dados na tabela
+     * FieldViewUtils de pesquisar para filtrar dados na tabela
      */
     private void filtro(String valor, ObservableList<Setor> listaSetor) {
 
@@ -258,8 +258,8 @@ public class SetorController extends AnchorPane {
      * Limpar campos textfield cadastro de coleções
      */
     private void limpar() {
-        Campo.limpar(txtNome);
-        Campo.limpar(txtDescricao);
+        FieldViewUtils.resetField(txtNome);
+        FieldViewUtils.resetField(txtDescricao);
     }
 
 }

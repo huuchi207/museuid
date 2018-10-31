@@ -5,7 +5,7 @@ import br.com.museuid.model.Catalogacao;
 import br.com.museuid.util.Filtro;
 import br.com.museuid.util.Grupo;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Modulo;
+import br.com.museuid.util.Model;
 import br.com.museuid.view.app.AppController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -84,7 +84,7 @@ public class PesquisarController extends AnchorPane {
     @FXML
     void telaPesquisa(ActionEvent event) {
         config("Pesquisar Acervo", "Quantidade de catalogações encontrados", 0);
-        Modulo.visualizacao(true, btDetalhes, txtPesquisar, legenda);
+        Model.visualize(true, btDetalhes, txtPesquisar, legenda);
     }
 
     @FXML
@@ -92,13 +92,13 @@ public class PesquisarController extends AnchorPane {
         try {
             String identificador = tbCatalogacao.getSelectionModel().getSelectedItem().getNumeroOrdem();
 
-            Modulo.getIdentificacao(AppController.getInstance().getBoxConteudo());//chamar modulo de identificação
+            Model.getIdentificacao(AppController.getInstance().getBoxConteudo());//chamar modulo de identificação
             IdentificacaoController.getInstance().identificar(identificador);//informar identificador
         } catch (NullPointerException ex) {
             Messenger.alerta("Selecione na tabela a catalogação que deseja obter mais informações");
         }
 
-        tbCatalogacao.getSelectionModel().clearSelection();//limpar seleção na tabela
+        tbCatalogacao.getSelectionModel().clearSelection();//resetField seleção na tabela
     }
 
     @FXML
@@ -171,7 +171,7 @@ public class PesquisarController extends AnchorPane {
     }
 
     /**
-     * Campo de pesquisar para filtrar dados na tabela
+     * FieldViewUtils de pesquisar para filtrar dados na tabela
      */
     private void filtro(String valor, ObservableList<Catalogacao> listaCatalogacao) {
 

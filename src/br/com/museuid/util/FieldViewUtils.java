@@ -9,9 +9,9 @@ import javafx.scene.input.MouseEvent;
 /**
  * Utilitario para formatação e verificação de campos de textos, labels e textareas
  */
-public class Campo {
+public class FieldViewUtils {
 
-    private Campo() {
+    private FieldViewUtils() {
     }
 
     /**
@@ -34,7 +34,7 @@ public class Campo {
     /**
      * Limpar textos dos campos informados
      */
-    public static void limpar(TextField... no) {
+    public static void resetField(TextField... no) {
         for (TextField campo : no) {
             campo.setText("");
         }
@@ -43,7 +43,7 @@ public class Campo {
     /**
      * Limpar textos dos labels informados
      */
-    public static void limpar(Label... no) {
+    public static void resetField(Label... no) {
         for (Label campo : no) {
             campo.setText("");
         }
@@ -52,7 +52,7 @@ public class Campo {
     /**
      * Limpar textos dos TextArea informado
      */
-    public static void limpar(TextArea... no) {
+    public static void resetField(TextArea... no) {
         for (TextArea campo : no) {
             campo.setText("");
         }

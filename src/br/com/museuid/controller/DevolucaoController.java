@@ -72,28 +72,28 @@ public class DevolucaoController extends AnchorPane {
 
     @FXML
     void telaDevolucao(ActionEvent event) {
-        config("Devolução Empréstimo", "Campos obrigatórios", 0);
+        config("Devolução Empréstimo", "Các trường bắt buộc", 0);
     }
 
     @FXML
     void devolucao(ActionEvent event) {
 
-        boolean vazio = Campo.noEmpty(txtObservacao);
+        boolean vazio = FieldViewUtils.noEmpty(txtObservacao);
 
         Emprestimo emprestimo = cbEmprestimo.getValue();
         String observacao = txtObservacao.getText();
         LocalDate dataEntrega = dtEntrega.getValue();
 
         if (vazio) {
-            Nota.alerta("Preencher campos vazios!");
+            Nota.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbEmprestimo.getItems().isEmpty()) {
-            Nota.alerta("Empréstimo não encontrados!");
+            Nota.alert("Empréstimo não encontrados!");
         } else {
 
             List<Catalogacao> itens = ControleDAO.getBanco().getEmprestimoDAO().itensEmprestimo(emprestimo.getId());
 
             if (itens.isEmpty()) {
-                Nota.alerta("Empréstimo não contém itens para devolução!");
+                Nota.alert("Empréstimo não contém itens para devolução!");
             } else {
                 ControleDAO.getBanco().getEmprestimoDAO().devolucao(emprestimo.getId(), dataEntrega, observacao);//relizar devolução item
 
@@ -101,7 +101,7 @@ public class DevolucaoController extends AnchorPane {
                     ControleDAO.getBanco().getCatalogacaoDAO().statusEmprestada(catalogacao.getId(), false);
                 }
 
-                Nota.alerta("Devolução dp empréstimo feita cm sucesso!");
+                Nota.alert("Devolução dp empréstimo feita cm sucesso!");
             }
 
             sincronizarBase(emprestimo.getId());
@@ -191,6 +191,6 @@ public class DevolucaoController extends AnchorPane {
      * Limpar campos tela
      */
     private void limpar() {
-        Campo.limpar(txtObservacao);
+        FieldViewUtils.resetField(txtObservacao);
     }
 }
