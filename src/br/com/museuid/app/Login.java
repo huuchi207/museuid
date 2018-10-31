@@ -1,5 +1,6 @@
 package br.com.museuid.app;
 
+import br.com.museuid.util.BundleUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -28,7 +29,11 @@ public class Login extends Application {
     public void start(final Stage stage) {
         try {
             palco = stage;
-            page = FXMLLoader.load(Login.class.getResource("../view/login/login.fxml"));
+
+            FXMLLoader fxml = new FXMLLoader(App.class.getResource("../view/login/login.fxml"));
+            fxml.setResources(BundleUtils.getResourceBundle());
+            page = fxml.load();
+
             cena = new Scene(page);
 
             stage.initStyle(StageStyle.UNDECORATED);

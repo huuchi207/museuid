@@ -19,10 +19,10 @@ public class AppController {
 
     private static AppController instance;
   @FXML
-    public ToggleButton btQueue;
-  public VBox boxOrder;
-  public ToggleButton btOrderSection;
-  public ToggleGroup gOrderSection;
+    public ToggleButton btEmployeeManagement;
+  public VBox boxEmployee;
+  public ToggleButton btAppManagementSection;
+  public ToggleGroup gAppManagementSection;
 
   @FXML
     private AnchorPane boxConteudo;
@@ -127,8 +127,8 @@ public class AppController {
     }
 
     @FXML
-    void menuCatalogacao(ActionEvent event) {
-        submenus(btCatalogacao, boxCatalogacao, btCatalogar, btDesginacao, btEstratigrafia, btColecao);
+    void menuAppManagement(ActionEvent event) {
+        submenus(btAppManagementSection, boxEmployee, btEmployeeManagement);
     }
 
     @FXML
@@ -290,14 +290,14 @@ public class AppController {
      * Exibir e ocultar submenus
      */
     public void submenus(ToggleButton menu, VBox box, ToggleButton... submenus) {
-//        if (box.getChildren().isEmpty()) {
-//            box.getChildren().addAll(submenus);
-//            Animacao.fade(box);
-//            estilo(menu, "menu-grupo");
-//        } else {
-//            desativarSubmenus(box);
-//            estilo(menu, "menu-grupo-inativo");
-//        }
+        if (box.getChildren().isEmpty()) {
+            box.getChildren().addAll(submenus);
+            Animacao.fade(box);
+            estilo(menu, "menu-grupo");
+        } else {
+            desativarSubmenus(box);
+            estilo(menu, "menu-grupo-inativo");
+        }
     }
 
     /**
@@ -317,8 +317,8 @@ public class AppController {
         no.getStyleClass().add(estilo);
     }
 
-  public void openQueueOrder(ActionEvent actionEvent) {
+  public void openEmployeeManagement(ActionEvent actionEvent) {
       Model.getEmployeeManagement(boxConteudo);
-//    Messenger.info("test message successful");
+
   }
 }
