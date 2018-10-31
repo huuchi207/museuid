@@ -15,14 +15,14 @@ import javafx.stage.StageStyle;
 /**
  * Criar janelas de dialogos
  */
-public class Dialogo {
+public class DialogUtils {
 
     private static final Screen screen = Screen.getPrimary();
     private static final Rectangle2D windows = screen.getVisualBounds();
     static Dialog dialogo;
     private static Resposta resposta = Resposta.CANCEL;
 
-    private Dialogo() {
+    private DialogUtils() {
     }
 
     /**
@@ -43,7 +43,7 @@ public class Dialogo {
                 label.getStyleClass().add("img-dialog-alert");
                 break;
             case "CONFIRMAR":
-                label.getStyleClass().add("img-dialog-confirmar");
+                label.getStyleClass().add("img-dialog-confirm");
                 break;
             default:
                 label.getStyleClass().add("img-dialog");
@@ -103,14 +103,14 @@ public class Dialogo {
         HBox box = new HBox();
         box.getStyleClass().add("box-acao-dialog");
 
-        Button yes = new Button("SIM");
+        Button yes = new Button("Đồng ý");
         yes.setOnAction((ActionEvent e) -> {
             dialogo.close();
             resposta = Resposta.YES;
         });
         yes.getStyleClass().add("bt-sim");
 
-        Button no = new Button("NÃO");
+        Button no = new Button("Hủy");
         no.setOnAction((ActionEvent e) -> {
             dialogo.close();
             resposta = Resposta.NO;

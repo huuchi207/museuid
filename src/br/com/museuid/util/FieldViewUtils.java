@@ -68,7 +68,7 @@ public class FieldViewUtils {
                 origem(no);
             }
         } catch (Exception ex) {
-            Nota.erro("Erro erro campo");
+            NoticeUtils.erro("Erro erro campo");
         }
     }
 

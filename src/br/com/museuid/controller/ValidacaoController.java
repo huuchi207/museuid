@@ -160,29 +160,29 @@ public class ValidacaoController extends AnchorPane {
                 statusValidacao = true;
             }
         } else {
-            Nota.alert("Validação inicializada, cancele ou finalize para iniciar um nova validação");
+            NoticeUtils.alert("Validação inicializada, cancele ou finalize para iniciar um nova validação");
         }
     }
 
     @FXML
     void cancelar(ActionEvent event) {
-        Dialogo.Resposta resposta = Messenger.confirmar("Cancelar validação ?");
+        DialogUtils.Resposta resposta = Messenger.confirm("Cancelar validação ?");
 
-        if (resposta == Dialogo.Resposta.YES) {
+        if (resposta == DialogUtils.Resposta.YES) {
             if (statusValidacao) {
                 limparDados();
                 infoContadores();
             } else {
-                Nota.alert("Validação não inicializada!");
+                NoticeUtils.alert("Validação não inicializada!");
             }
         }
     }
 
     @FXML
     void finalizar(ActionEvent event) {
-        Dialogo.Resposta resposta = Messenger.confirmar("Finalizar validação ?");
+        DialogUtils.Resposta resposta = Messenger.confirm("Finalizar validação ?");
 
-        if (resposta == Dialogo.Resposta.YES) {
+        if (resposta == DialogUtils.Resposta.YES) {
             if (statusValidacao) {
                 boxValidacao.setCursor(Cursor.WAIT);
 
@@ -199,7 +199,7 @@ public class ValidacaoController extends AnchorPane {
                 infoContadores();
                 boxValidacao.setCursor(Cursor.DEFAULT);
             } else {
-                Nota.alert("Validação não inicializada!");
+                NoticeUtils.alert("Validação não inicializada!");
             }
         }
     }

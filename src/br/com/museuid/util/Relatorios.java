@@ -59,7 +59,7 @@ public class Relatorios {
                 colecao(box);
                 break;
             default:
-                Messenger.alerta("Relátorio informado não encontrado.");
+                Messenger.alert("Relátorio informado não encontrado.");
         }
     }
 

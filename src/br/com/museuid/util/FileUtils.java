@@ -11,7 +11,7 @@ import java.util.List;
 
 import br.com.museuid.dto.EmployeeDTO;
 import br.com.museuid.model.Employee;
-import br.com.museuid.service.ResponseDTO;
+import br.com.museuid.service.remote.ResponseDTO;
 
 public class FileUtils {
   public static List<Employee> getFakeEmployeeList(){

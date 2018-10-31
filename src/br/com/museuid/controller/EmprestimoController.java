@@ -153,11 +153,11 @@ public class EmprestimoController extends AnchorPane {
         LocalDate dataEmprestimo = dtEmprestimo.getValue();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbInstituicao.getItems().isEmpty()) {
-            Nota.alert("Instituições não encontradas!");
+            NoticeUtils.alert("Instituições não encontradas!");
         } else if (ControleDAO.getBanco().getEmprestimoDAO().isEmprestimo(numEmprestimo, idEmprestimo)) {
-            Nota.alert("Número Empréstimo já cadastrado!");
+            NoticeUtils.alert("Número Empréstimo já cadastrado!");
         } else {
             Emprestimo emprestimo = new Emprestimo(idEmprestimo, numEmprestimo, solicitante, cpf, rg, contato, email, responsavel, status, dataEmprestimo, dataDevolucao, descricao, "", instituicao);
 
@@ -201,7 +201,7 @@ public class EmprestimoController extends AnchorPane {
             idEmprestimo = emprestimo.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um empréstimo na tabela para edição!");
+            NoticeUtils.alert("Selecione um empréstimo na tabela para edição!");
         }
     }
 
@@ -210,9 +210,9 @@ public class EmprestimoController extends AnchorPane {
         try {
             Emprestimo emprestimo = tbEmprestimo.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir empréstimo " + emprestimo.getNumeroEmprestimo() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir empréstimo " + emprestimo.getNumeroEmprestimo() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getEmprestimoDAO().excluir(emprestimo.getId());
                 sincronizarBase();
                 tabela();
@@ -221,7 +221,7 @@ public class EmprestimoController extends AnchorPane {
             tbEmprestimo.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione empréstimo na tabela para exclusão!");
+            Messenger.alert("Selecione empréstimo na tabela para exclusão!");
         }
     }
 

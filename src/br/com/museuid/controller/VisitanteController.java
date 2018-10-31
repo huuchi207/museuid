@@ -133,9 +133,9 @@ public class VisitanteController extends AnchorPane {
         LocalDate data = dtVisita.getValue();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbTipo.getValue() == null) {
-            Nota.alert("Tipo visitante não encontrado não encontrada!");
+            NoticeUtils.alert("Tipo visitante não encontrado não encontrada!");
         } else {
             Visitante visitante = new Visitante(idVisitante, nome, funcao, cidade, estado, pais, data, descricao, tipo);
 
@@ -176,7 +176,7 @@ public class VisitanteController extends AnchorPane {
             idVisitante = visitante.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um visitante na tabela para edição!");
+            NoticeUtils.alert("Selecione um visitante na tabela para edição!");
         }
     }
 
@@ -185,9 +185,9 @@ public class VisitanteController extends AnchorPane {
         try {
             Visitante visitante = tbVisitante.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir visitante " + visitante.getNome() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir visitante " + visitante.getNome() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getVisitanteDAO().excluir(visitante.getId());
                 sincronizarBase();
                 tabela();
@@ -196,7 +196,7 @@ public class VisitanteController extends AnchorPane {
             tbVisitante.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione visitante na tabela para exclusão!");
+            Messenger.alert("Selecione visitante na tabela para exclusão!");
         }
     }
 

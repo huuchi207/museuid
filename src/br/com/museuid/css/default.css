@@ -106,7 +106,7 @@
     -fx-background-insets: 0;
 }
 
-/*.............List View Combo Box .............*/
+/*.............Item View Combo Box .............*/
 
 .combo-box-popup > .list-view {
     -fx-background-color: #e0e0e0, #eaeaea, #fff;
@@ -221,7 +221,7 @@
     -fx-border-color: #7acff5;
 }
 
-/*............. List View .............*/
+/*............. Item View .............*/
 
 .list-view {
     -fx-background-color: #eaeaea, -fx-control-inner-background;

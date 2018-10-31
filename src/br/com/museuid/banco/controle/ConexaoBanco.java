@@ -21,7 +21,7 @@ public class ConexaoBanco {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection("jdbc:mysql://localhost/museuid", "root", "");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
-            Messenger.alerta("Erro ao conectar-se com a base de dados! \n" + ex);
+            Messenger.alert("Erro ao conectar-se com a base de dados! \n" + ex);
         }
     }
 

@@ -127,9 +127,9 @@ public class MovimentacaoController extends AnchorPane {
         LocalDate data = dtMovimentacao.getValue();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbTipo.getValue() == null) {
-            Nota.alert("Tipo da Movimentação não encontrada!");
+            NoticeUtils.alert("Tipo da Movimentação não encontrada!");
         } else {
             Movimentacao movi = new Movimentacao(idMovimentacao, objetos, responsavel, origem, destino, tipo, descricao, data);
 
@@ -170,7 +170,7 @@ public class MovimentacaoController extends AnchorPane {
             idMovimentacao = movi.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um movimentação na tabela para edição!");
+            NoticeUtils.alert("Selecione um movimentação na tabela para edição!");
         }
     }
 
@@ -179,9 +179,9 @@ public class MovimentacaoController extends AnchorPane {
         try {
             Movimentacao movimentacao = tbMovimentacao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir movimentação " + movimentacao.getId() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir movimentação " + movimentacao.getId() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getMovimentacaoDAO().excluir(movimentacao.getId());
                 sincronizarBase();
                 tabela();
@@ -190,7 +190,7 @@ public class MovimentacaoController extends AnchorPane {
             tbMovimentacao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione movimentação na tabela para exclusão!");
+            Messenger.alert("Selecione movimentação na tabela para exclusão!");
         }
     }
 

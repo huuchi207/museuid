@@ -1,6 +1,6 @@
 package br.com.museuid.util;
 
-import br.com.museuid.util.Dialogo.Resposta;
+import br.com.museuid.util.DialogUtils.Resposta;
 
 /**
  * Criação de mensagem apartir do classe de dialogo
@@ -11,34 +11,34 @@ public class Messenger {
     }
 
     public static void info(String mensagem) {
-        Dialogo.message("INFO", "Informação", mensagem);
+        DialogUtils.message("INFO", "Informação", mensagem);
     }
 
     public static void info(String mensagem, String titulo) {
-        Dialogo.message("INFO", titulo, mensagem);
+        DialogUtils.message("INFO", titulo, mensagem);
     }
 
     public static void erro(String mensagem) {
-        Dialogo.message("ERRO", "Erro", mensagem);
+        DialogUtils.message("ERRO", "Erro", mensagem);
     }
 
     public static void erro(String mensagem, String titulo) {
-        Dialogo.message("ERRO", titulo, mensagem);
+        DialogUtils.message("ERRO", titulo, mensagem);
     }
 
-    public static void alerta(String mensagem) {
-        Dialogo.message("ALERTA", "Alerta", mensagem);
+    public static void alert(String mensagem) {
+        DialogUtils.message("ALERTA", "Alerta", mensagem);
     }
 
-    public static void alerta(String mensagem, String titulo) {
-        Dialogo.message("ALERTA", titulo, mensagem);
+    public static void alert(String mensagem, String titulo) {
+        DialogUtils.message("ALERTA", titulo, mensagem);
     }
 
-    public static Resposta confirmar(String mensagem) {
-        return Dialogo.mensageConfirmar("Confirmar", mensagem);
+    public static Resposta confirm(String mensagem) {
+        return DialogUtils.mensageConfirmar("Xác nhận", mensagem);
     }
 
-    public static Resposta confirmar(String titulo, String mensagem) {
-        return Dialogo.mensageConfirmar(titulo, mensagem);
+    public static Resposta confirm(String titulo, String mensagem) {
+        return DialogUtils.mensageConfirmar(titulo, mensagem);
     }
 }

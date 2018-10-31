@@ -24,7 +24,7 @@
             <children>
                 <Label fx:id="lbTitle" alignment="BOTTOM_LEFT" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="Título" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
                 </Label>
-                <TextField fx:id="txtPesquisar" prefHeight="50.0" prefWidth="417.0" promptText="Pesquisar" styleClass="pesquisar" visible="false" />
+                <TextField fx:id="txtSearch" prefHeight="50.0" prefWidth="417.0" promptText="Tìm kiếm" styleClass="pesquisar" />
                 <ToggleButton mnemonicParsing="false" onAction="#tbAdd" text="">
                     <styleClass>
                         <String fx:value="menus-tela" />
@@ -48,7 +48,8 @@
                 </ToggleButton>
             </children>
         </HBox>
-        <GridPane fx:id="telaCadastro" hgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+        <GridPane fx:id="telaCadastro" hgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
+          AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="994.0" minWidth="631.0" prefWidth="631.0" />
             <ColumnConstraints maxWidth="536.0" minWidth="173.0" prefWidth="536.0" />
@@ -62,16 +63,16 @@
                 <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
             </rowConstraints>
             <children>
-                <Label styleClass="lb-info-requerido" text="Tên đăng nhập" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label styleClass="lb-info-requerido" text="%txt_nick_name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <TextField fx:id="txtUserName" styleClass="campo" visible="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-                <Label layoutX="10.0" layoutY="17.0" styleClass="lb-info-requerido" text="Họ và tên" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label layoutX="10.0" layoutY="17.0" styleClass="lb-info-requerido" text="%txt_full_name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <TextField fx:id="txtName" layoutX="10.0" layoutY="40.0" styleClass="campo" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label styleClass="lb-info" text="Số điện thoại" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <Label styleClass="lb-info" text="%txt_phone_number" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                 <TextArea fx:id="txtPhoneNumber" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
 
-              <Label styleClass="lb-info" text="Địa chỉ" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+              <Label styleClass="lb-info" text="%txt_address" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
               <TextArea fx:id="txtAddress" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
             </children>
         </GridPane>
@@ -80,10 +81,10 @@
                 <TableView fx:id="tbUser" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
                     <columns>
                         <TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />
-                        <TableColumn fx:id="colUserName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="Formação" />
-                        <TableColumn fx:id="colName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="Formação" />
-                        <TableColumn fx:id="colPhoneNumber" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="Grupo" />
-                        <TableColumn fx:id="colAddress" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="Descrição" />
+                        <TableColumn fx:id="colUserName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_nick_name" />
+                        <TableColumn fx:id="colName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_full_name" />
+                        <TableColumn fx:id="colPhoneNumber" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="%txt_phone_number" />
+                        <TableColumn fx:id="colAddress" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="%txt_address" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -95,21 +96,24 @@
             <children>
                 <StackPane AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                     <children>
-                        <Button fx:id="btSave" contentDisplay="TOP" mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="200.0" style="" text="Lưu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button fx:id="btSave" contentDisplay="TOP" mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="200.0" style=""
+                          text="%txt_save" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <styleClass>
                                 <String fx:value="menus-acoes" />
                                 <String fx:value="acao-salvar" />
                         <String fx:value="menu-green" />
                             </styleClass>
                         </Button>
-                        <Button id="" fx:id="btEdit" contentDisplay="TOP" mnemonicParsing="false" onAction="#edit" prefHeight="40.0" prefWidth="200.0" style="" text="Sửa" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button id="" fx:id="btEdit" contentDisplay="TOP" mnemonicParsing="false" onAction="#edit" prefHeight="40.0" prefWidth="200.0" style=""
+                          text="%txt_edit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <styleClass>
                                 <String fx:value="menus-acoes" />
                                 <String fx:value="acao-editar" />
                         <String fx:value="menu-laranja" />
                             </styleClass>
                         </Button>
-                        <Button id="" fx:id="btExclude" contentDisplay="TOP" mnemonicParsing="false" onAction="#exclude" prefHeight="40.0" prefWidth="200.0" style="" text="Loại bỏ" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button id="" fx:id="btExclude" contentDisplay="TOP" mnemonicParsing="false" onAction="#exclude" prefHeight="40.0"
+                          prefWidth="200.0" style="" text="%txt_delete" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <styleClass>
                                 <String fx:value="menus-acoes" />
                                 <String fx:value="acao-excluir" />
@@ -118,7 +122,7 @@
                         </Button>
                     </children>
                 </StackPane>
-                <Label fx:id="legenda" layoutX="36.0" layoutY="17.0" styleClass="lb-info-requerido" text="Các trường bắt buộc" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0" />
+                <Label fx:id="legenda" layoutX="36.0" layoutY="17.0" styleClass="lb-info-requerido" text="%txt_required_fields" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0" />
             </children>
         </AnchorPane>
     </children>

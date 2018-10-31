@@ -127,13 +127,13 @@ public class UsuarioController extends AnchorPane {
         TipoUsuario tipo = cbPermissaoUsuario.getValue();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbPermissaoUsuario.getValue() == null) {
-            Nota.alert("Permissão do Usuário não encontrada!");
+            NoticeUtils.alert("Permissão do Usuário não encontrada!");
         } else if (!senha.equals(confirmar)) {
-            Nota.alert("Senha inválida, verifique se senhas são iguais!");
+            NoticeUtils.alert("Senha inválida, verifique se senhas são iguais!");
         } else if (ControleDAO.getBanco().getUsuarioDAO().isUsuario(idUsuario, login)) {
-            Nota.alert("Login já cadastrado na base de dados!");
+            NoticeUtils.alert("Login já cadastrado na base de dados!");
         } else {
             Usuario user = new Usuario(idUsuario, nome, login, Criptografia.converter(senha), email, status, null, descricao, tipo);
 
@@ -173,7 +173,7 @@ public class UsuarioController extends AnchorPane {
             idUsuario = user.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um usuário na tabela para edição!");
+            NoticeUtils.alert("Selecione um usuário na tabela para edição!");
         }
     }
 
@@ -182,9 +182,9 @@ public class UsuarioController extends AnchorPane {
         try {
             Usuario usuario = tbUsuario.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir usuário " + usuario.getNome() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir usuário " + usuario.getNome() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getUsuarioDAO().excluir(usuario.getId());
                 sincronizarBase();
                 tabela();
@@ -193,7 +193,7 @@ public class UsuarioController extends AnchorPane {
             tbUsuario.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione usuário na tabela para exclusão!");
+            Messenger.alert("Selecione usuário na tabela para exclusão!");
         }
     }
 

@@ -157,19 +157,19 @@ public class CatalogarController extends AnchorPane {
         String data = dtEntrada.getValue() == null ? "" : dtEntrada.getValue().toString();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (ControleDAO.getBanco().getCatalogacaoDAO().validarNumeroOrdem(numOrdem, idCatalogacao)) {
-            Nota.alert("Ordem já cadastrada!");
+            NoticeUtils.alert("Ordem já cadastrada!");
         } else if (ControleDAO.getBanco().getCatalogacaoDAO().validarEtiquetaRFID(etiquetaRfid, idCatalogacao)) {
-            Nota.alert("Etiqueta RFID já cadastrada!");
+            NoticeUtils.alert("Etiqueta RFID já cadastrada!");
         } else if (numPartes == 0) {
-            Nota.alert("N° de partes da catalogação deve ser maior que zero!");
+            NoticeUtils.alert("N° de partes da catalogação deve ser maior que zero!");
         } else if (cbColecao.getValue() == null) {
-            Nota.alert("Coleção não encontrada!");
+            NoticeUtils.alert("Coleção não encontrada!");
         } else if (cbEstratigrafia.getValue() == null) {
-            Nota.alert("Estratigrafia não encontrada!");
+            NoticeUtils.alert("Estratigrafia não encontrada!");
         } else if (cbDesignacao.getValue() == null) {
-            Nota.alert("Designação não encontrada!");
+            NoticeUtils.alert("Designação não encontrada!");
         } else {
             Catalogacao catalogacao = new Catalogacao(idCatalogacao, numOrdem, etiquetaRfid, procedencia, procedenciaDetalhes, dimensao, numPartes, localizacao, descricao, data, false, designacao, estratigrafia, colecao);
 
@@ -214,7 +214,7 @@ public class CatalogarController extends AnchorPane {
             idCatalogacao = catalogacao.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um catalogação na tabela para edição!");
+            NoticeUtils.alert("Selecione um catalogação na tabela para edição!");
         }
     }
 
@@ -223,9 +223,9 @@ public class CatalogarController extends AnchorPane {
         try {
             Catalogacao catalogacao = tbCatalogacao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir catalogação " + catalogacao.getNumeroOrdem() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir catalogação " + catalogacao.getNumeroOrdem() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getCatalogacaoDAO().excluir(catalogacao.getId());
                 sincronizarBase();
                 tabela();
@@ -234,7 +234,7 @@ public class CatalogarController extends AnchorPane {
             tbCatalogacao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione catalogação na tabela para exclusão!");
+            Messenger.alert("Selecione catalogação na tabela para exclusão!");
         }
     }
 

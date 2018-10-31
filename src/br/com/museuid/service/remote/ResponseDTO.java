@@ -1,4 +1,4 @@
-package br.com.museuid.service;
+package br.com.museuid.service.remote;
 
 import com.google.gson.annotations.SerializedName;
 

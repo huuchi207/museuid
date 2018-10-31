@@ -95,7 +95,7 @@ public class PesquisarController extends AnchorPane {
             Model.getIdentificacao(AppController.getInstance().getBoxConteudo());//chamar modulo de identificação
             IdentificacaoController.getInstance().identificar(identificador);//informar identificador
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione na tabela a catalogação que deseja obter mais informações");
+            Messenger.alert("Selecione na tabela a catalogação que deseja obter mais informações");
         }
 
         tbCatalogacao.getSelectionModel().clearSelection();//resetField seleção na tabela

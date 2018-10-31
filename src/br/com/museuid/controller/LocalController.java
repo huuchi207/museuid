@@ -108,9 +108,9 @@ public class LocalController extends AnchorPane {
         Setor setor = cbSetor.getValue();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbSetor.getValue() == null) {
-            Nota.alert("Setor do local não encontrada!");
+            NoticeUtils.alert("Setor do local não encontrada!");
         } else {
             Local local = new Local(idLocal, nome, descricao, setor);
 
@@ -145,7 +145,7 @@ public class LocalController extends AnchorPane {
             idLocal = local.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um local na tabela para edição!");
+            NoticeUtils.alert("Selecione um local na tabela para edição!");
         }
     }
 
@@ -154,9 +154,9 @@ public class LocalController extends AnchorPane {
         try {
             Local local = tbLocal.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir local " + local.getNome() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir local " + local.getNome() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getLocalDAO().excluir(local.getId());
                 sincronizarBase();
                 tabela();
@@ -165,7 +165,7 @@ public class LocalController extends AnchorPane {
             tbLocal.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione local na tabela para exclusão!");
+            Messenger.alert("Selecione local na tabela para exclusão!");
         }
     }
 

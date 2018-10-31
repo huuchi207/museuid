@@ -116,9 +116,9 @@ public class DesignacaoController extends AnchorPane {
         String descricao = txtDescricao.getText();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (ControleDAO.getBanco().getDesignacaoDAO().isDesignacao(genero, idDesignacao)) {
-            Nota.alert("Genêro já cadastrada!");
+            NoticeUtils.alert("Genêro já cadastrada!");
         } else {
             Designacao designacao = new Designacao(idDesignacao, genero, especie, famalia, ordem, classe, descricao);
 
@@ -156,7 +156,7 @@ public class DesignacaoController extends AnchorPane {
             idDesignacao = designacao.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um designação na tabela para edição!");
+            NoticeUtils.alert("Selecione um designação na tabela para edição!");
         }
     }
 
@@ -165,9 +165,9 @@ public class DesignacaoController extends AnchorPane {
         try {
             Designacao designacao = tbDesignacao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir designação " + designacao.getGenero() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir designação " + designacao.getGenero() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getDesignacaoDAO().excluir(designacao.getId());
                 sincronizarBase();
                 tabela();
@@ -176,7 +176,7 @@ public class DesignacaoController extends AnchorPane {
             tbDesignacao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione designação na tabela para exclusão!");
+            Messenger.alert("Selecione designação na tabela para exclusão!");
         }
     }
 

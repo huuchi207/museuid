@@ -130,9 +130,9 @@ public class IdentificacaoController extends AnchorPane {
     public void identificar(String identificador) {
 
         if (identificador.trim().isEmpty() || identificador.equals("0")) {
-            Messenger.alerta("Informe número de identificação da catalogação para consulta!");
+            Messenger.alert("Informe número de identificação da catalogação para consulta!");
         } else if (!ControleDAO.getBanco().getIdentificacaoDAO().validarIdentificador(identificador)) {
-            Messenger.alerta("Fóssil não encontrado!");
+            Messenger.alert("Fóssil não encontrado!");
         } else {
             fossil = ControleDAO.getBanco().getIdentificacaoDAO().identificar(identificador);
             info(fossil);

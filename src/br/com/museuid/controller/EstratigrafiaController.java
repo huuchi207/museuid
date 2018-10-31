@@ -102,9 +102,9 @@ public class EstratigrafiaController extends AnchorPane {
         String descricao = txtDescricao.getText();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (ControleDAO.getBanco().getEstratigrafiaDAO().isEstratigrafia(formacao, idEstratigrafia)) {
-            Nota.alert("Formação já cadastrada!");
+            NoticeUtils.alert("Formação já cadastrada!");
         } else {
             Estratigrafia estratigrafia = new Estratigrafia(idEstratigrafia, formacao, grupo, descricao);
 
@@ -139,7 +139,7 @@ public class EstratigrafiaController extends AnchorPane {
             idEstratigrafia = estratigrafia.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um estratigrafia na tabela para edição!");
+            NoticeUtils.alert("Selecione um estratigrafia na tabela para edição!");
         }
     }
 
@@ -148,9 +148,9 @@ public class EstratigrafiaController extends AnchorPane {
         try {
             Estratigrafia estratigrafia = tbEstratigrafia.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir estratigrafia " + estratigrafia.getFormacao() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir estratigrafia " + estratigrafia.getFormacao() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getEstratigrafiaDAO().excluir(estratigrafia.getId());
                 sincronizarBase();
                 tabela();
@@ -159,7 +159,7 @@ public class EstratigrafiaController extends AnchorPane {
             tbEstratigrafia.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione estratigrafia na tabela para exclusão!");
+            Messenger.alert("Selecione estratigrafia na tabela para exclusão!");
         }
     }
 

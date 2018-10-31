@@ -1,0 +1,2 @@
+utf 8 in properties file:  https://stackoverflow.com/a/9818962/5394091
+https://stackoverflow.com/a/53078749/5394091

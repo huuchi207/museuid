@@ -96,9 +96,9 @@ public class ColecaoController extends AnchorPane {
         String descricao = txtDescricao.getText();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (ControleDAO.getBanco().getColecaoDAO().isColecao(nome, idColecao)) {
-            Nota.alert("Coleção já cadastrada!");
+            NoticeUtils.alert("Coleção já cadastrada!");
         } else {
             Colecao colecao = new Colecao(idColecao, nome, descricao);
 
@@ -132,7 +132,7 @@ public class ColecaoController extends AnchorPane {
             idColecao = colecao.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um coleção na tabela para edição!");
+            NoticeUtils.alert("Selecione um coleção na tabela para edição!");
         }
     }
 
@@ -141,9 +141,9 @@ public class ColecaoController extends AnchorPane {
         try {
             Colecao colecao = tbColecao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir coleção " + colecao.getNome() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir coleção " + colecao.getNome() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getColecaoDAO().excluir(colecao.getId());
                 sincronizarBase();
                 tabela();
@@ -152,7 +152,7 @@ public class ColecaoController extends AnchorPane {
             tbColecao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione coleção na tabela para exclusão!");
+            Messenger.alert("Selecione coleção na tabela para exclusão!");
         }
     }
 

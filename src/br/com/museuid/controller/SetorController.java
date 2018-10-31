@@ -107,9 +107,9 @@ public class SetorController extends AnchorPane {
         Organizacao organizacao = cbOrganizacao.getValue();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbOrganizacao.getValue() == null) {
-            Nota.alert("Organização do setor não encontrada!");
+            NoticeUtils.alert("Organização do setor não encontrada!");
         } else {
             Setor setor = new Setor(idSetor, nome, descricao, organizacao);
 
@@ -144,7 +144,7 @@ public class SetorController extends AnchorPane {
             idSetor = setor.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um setor na tabela para edição!");
+            NoticeUtils.alert("Selecione um setor na tabela para edição!");
         }
     }
 
@@ -153,9 +153,9 @@ public class SetorController extends AnchorPane {
         try {
             Setor setor = tbSetor.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir setor " + setor.getNome() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir setor " + setor.getNome() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getSetorDAO().excluir(setor.getId());
                 sincronizarBase();
                 tabela();
@@ -164,7 +164,7 @@ public class SetorController extends AnchorPane {
             tbSetor.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione setor na tabela para exclusão!");
+            Messenger.alert("Selecione setor na tabela para exclusão!");
         }
     }
 

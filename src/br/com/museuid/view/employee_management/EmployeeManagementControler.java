@@ -1,17 +1,21 @@
 package br.com.museuid.view.employee_management;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.dto.sample.Item;
 import br.com.museuid.model.Employee;
+import br.com.museuid.service.remote.sample.SampleCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.FieldViewUtils;
-import br.com.museuid.util.Dialogo;
+import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FileUtils;
-import br.com.museuid.util.Filtro;
 import br.com.museuid.util.Grupo;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Model;
-import br.com.museuid.util.Nota;
+import br.com.museuid.util.NoticeUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -56,7 +60,7 @@ public class EmployeeManagementControler extends AnchorPane{
   @FXML
   private TableColumn colName;
   @FXML
-  private TextField txtPesquisar;
+  private TextField txtSearch;
   @FXML
   private TableColumn colPhoneNumber;
   @FXML
@@ -71,38 +75,40 @@ public class EmployeeManagementControler extends AnchorPane{
   private TextField txtName;
   @FXML
   private AnchorPane apEdit;
-
+  private ResourceBundle bundle;
   public EmployeeManagementControler() {
     try {
       FXMLLoader fxml = new FXMLLoader(getClass().getResource("employee_management.fxml"));
 
       fxml.setRoot(this);
       fxml.setController(this);
+      bundle = BundleUtils.getResourceBundle();
+      fxml.setResources(bundle);
       fxml.load();
 
     } catch (Exception ex) {
-      Messenger.erro("Erro ao carregar tela estratigrafia! \n" + ex);
+      Messenger.erro(bundle.getString("txt_loading_screen_error") + ex);
     }
   }
 
   @FXML
   void tbAdd(ActionEvent event) {
-    config("Cadastrar Estratigrafia", "Các trường bắt buộc", 0);
+    config(bundle.getString("txt_create_employee"), bundle.getString("txt_required_fields"), 0);
     Model.visualize(true, telaCadastro, btSave);
     resetField();
   }
 
   @FXML
   void tbEdit(ActionEvent event) {
-    config("Editar Estratigrafia", "Quantidade de estratigrafias encontradas", 1);
-    Model.visualize(true, apEdit, btEdit, txtPesquisar);
+    config(bundle.getString("txt_edit_employee_info"), "", 1);
+    Model.visualize(true, apEdit, btEdit, txtSearch);
     updateTable();
   }
 
   @FXML
   void tbExclude(ActionEvent event) {
-    config("Excluir Estratigrafia", "Quantidade de estratigrafias encontradas", 2);
-    Model.visualize(true, apEdit, btExclude, txtPesquisar);
+    config(bundle.getString("txt_employee_deleted"), "", 2);
+    Model.visualize(true, apEdit, btExclude, txtSearch);
     updateTable();
   }
 
@@ -116,10 +122,10 @@ public class EmployeeManagementControler extends AnchorPane{
     String phoneNumber = txtPhoneNumber.getText();
     String address = txtAddress.getText();
     if (isValid) {
-      Nota.alert("Vui lòng nhập đủ thông tin!");
+      NoticeUtils.alert(bundle.getString("txt_please_enter_info"));
     }
 //    else if (ControleDAO.getBanco().getEstratigrafiaDAO().isEstratigrafia(formacao, selectedEmployeeId)) {
-//      Nota.alert("Formação já cadastrada!");
+//      NoticeUtils.alert("Formação já cadastrada!");
 //    }
     else {
       Employee employee = new Employee(selectedEmployeeId, userName, name, phoneNumber, address);
@@ -130,7 +136,7 @@ public class EmployeeManagementControler extends AnchorPane{
         if (ConstantConfig.FAKE){
           employeeList.add(employee);
           updateTable();
-          Messenger.info("Thao tác thành công!");
+          Messenger.info(bundle.getString("txt_operation_successful"));
         }
       } else {
         //TODO: edit user
@@ -139,7 +145,7 @@ public class EmployeeManagementControler extends AnchorPane{
           employeeList.remove(tbUser.getSelectionModel().getSelectedItem());
           employeeList.add(employee);
           updateTable();
-          Messenger.info("Thao tác thành công!");
+          Messenger.info(bundle.getString("txt_operation_successful"));
         }
       }
 
@@ -153,19 +159,25 @@ public class EmployeeManagementControler extends AnchorPane{
     try {
       Employee selectedEmployee = tbUser.getSelectionModel().getSelectedItem();
 
+      if (selectedEmployee == null){
+        NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+        return;
+      }
+
       tbAdd(null);
 
       txtUserName.setText(selectedEmployee.getUserName());
       txtName.setText(selectedEmployee.getName());
       txtPhoneNumber.setText(selectedEmployee.getPhoneNumber());
+      txtAddress.setText(selectedEmployee.getAddress());
 
-      lbTitle.setText("Editar Estratigrafia");
+      lbTitle.setText(bundle.getString("txt_edit_employee_info"));
       menu.selectToggle(menu.getToggles().get(1));
 
       selectedEmployeeId = selectedEmployee.getId();
 
     } catch (NullPointerException ex) {
-      Nota.alert("Selecione um estratigrafia na updateTable para edição!");
+      NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
     }
   }
 
@@ -174,13 +186,18 @@ public class EmployeeManagementControler extends AnchorPane{
     try {
       Employee selectedEmployee = tbUser.getSelectionModel().getSelectedItem();
 
-      Dialogo.Resposta response = Messenger.confirmar("Excluir estratigrafia " + selectedEmployee.getUserName() + " ?");
+      if (selectedEmployee == null){
+        NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+        return;
+      }
 
-      if (response == Dialogo.Resposta.YES) {
+      DialogUtils.Resposta response = Messenger.confirm("Loại trừ " + selectedEmployee.getUserName() + " ?");
+
+      if (response == DialogUtils.Resposta.YES) {
 //        ControleDAO.getBanco().getEstratigrafiaDAO().excluir(selectedEmployee.getId());
         //TODO: call api delete user
         if(ConstantConfig.FAKE){
-          Messenger.info("Xóa thành công");
+          Messenger.info(bundle.getString("txt_delete_successfully"));
           employeeList.remove(selectedEmployee);
           updateTable();
           tbUser.getSelectionModel().clearSelection();
@@ -193,7 +210,7 @@ public class EmployeeManagementControler extends AnchorPane{
       tbUser.getSelectionModel().clearSelection();
 
     } catch (NullPointerException ex) {
-      Messenger.alerta("Selecione estratigrafia na updateTable para exclusão!");
+      Messenger.alert(bundle.getString("txt_please_choose_target"));
     }
   }
 
@@ -204,9 +221,9 @@ public class EmployeeManagementControler extends AnchorPane{
     Grupo.notEmpty(menu);
     synchronizeBase();
 
-//        txtPesquisar.textProperty().addListener((obs, old, novo) -> {
-//            filter(novo, FXCollections.observableArrayList(employeeList));
-//        });
+        txtSearch.textProperty().addListener((obs, old, novo) -> {
+            filter(novo, FXCollections.observableArrayList(employeeList));
+        });
   }
 
   /**
@@ -214,7 +231,7 @@ public class EmployeeManagementControler extends AnchorPane{
    */
   private void config(String tituloTela, String msg, int grupoMenu) {
     lbTitle.setText(tituloTela);
-    Model.visualize(false, btExclude, btSave, btEdit, telaCadastro, apEdit, txtPesquisar);
+    Model.visualize(false, btExclude, btSave, btEdit, telaCadastro, apEdit, txtSearch);
 
     legenda.setText(msg);
     tbUser.getSelectionModel().clearSelection();
@@ -229,10 +246,22 @@ public class EmployeeManagementControler extends AnchorPane{
   private void synchronizeBase() {
 //    employeeList = ControleDAO.getBanco().getEstratigrafiaDAO().listar();
     //TODO: call list user api and set interval
-    if(ConstantConfig.FAKE && employeeList!= null){
+    if(ConstantConfig.FAKE){
+      if (employeeList== null){
+        employeeList = FileUtils.getFakeEmployeeList();
+      }
+      ServiceBuilder.getApiService().getSample("12,32,15,37,10", "b1412ab2fc899acb1e7612034bfdf412").enqueue(new SampleCallback<Item>() {
+        @Override
+        public void onError(String errorCode, String errorMessage) {
 
-    }else
-      employeeList = FileUtils.getFakeEmployeeList();
+        }
+
+        @Override
+        public void onSuccess(List<Item> data) {
+
+        }
+      });
+    }
   }
 
   /**
@@ -271,7 +300,7 @@ public class EmployeeManagementControler extends AnchorPane{
 
     SortedList<Employee> dadosOrdenados = new SortedList<>(dadosFiltrados);
     dadosOrdenados.comparatorProperty().bind(tbUser.comparatorProperty());
-    Filtro.mensagem(legenda, dadosOrdenados.size(), "Quantidade de estratigrafias encontradas");
+//    Filtro.mensagem(legenda, dadosOrdenados.size(), "Quantidade de estratigrafias encontradas");
 
     tbUser.setItems(dadosOrdenados);
   }
@@ -281,6 +310,6 @@ public class EmployeeManagementControler extends AnchorPane{
    */
   private void resetField() {
     FieldViewUtils.resetField(txtUserName, txtName);
-    FieldViewUtils.resetField(txtPhoneNumber);
+    FieldViewUtils.resetField(txtPhoneNumber, txtAddress);
   }
 }

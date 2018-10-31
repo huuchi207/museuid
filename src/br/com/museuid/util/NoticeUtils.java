@@ -11,11 +11,11 @@ import javafx.scene.layout.VBox;
 /**
  * Criar Notas informativas, simplicação sistema de mensagem
  */
-public class Nota {
+public class NoticeUtils {
 
     private static int qtNotas = 0;
 
-    private Nota() {
+    private NoticeUtils() {
     }
 
     /**

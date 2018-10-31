@@ -154,11 +154,11 @@ public class ExcursaoController extends AnchorPane {
 
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbInstituicao.getValue() == null) {
-            Nota.alert("Instituição não encontrada!");
+            NoticeUtils.alert("Instituição não encontrada!");
         } else if (participantes == 0) {
-            Nota.alert("Informe quantidade de participantes!");
+            NoticeUtils.alert("Informe quantidade de participantes!");
         } else {
             Excursao excursao = new Excursao(idExcursao, curso, participantes, responsavel, contato, guias, horario, data, descricao, agendamenta, status, instituicao);
 
@@ -209,7 +209,7 @@ public class ExcursaoController extends AnchorPane {
             idExcursao = excursao.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um excursao na tabela para edição!");
+            NoticeUtils.alert("Selecione um excursao na tabela para edição!");
         }
     }
 
@@ -218,9 +218,9 @@ public class ExcursaoController extends AnchorPane {
         try {
             Excursao excursao = tbExcursao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir excursão ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir excursão ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getExcursaoDAO().excluir(excursao.getId());
                 sincronizarBase();
                 tabela();
@@ -229,7 +229,7 @@ public class ExcursaoController extends AnchorPane {
             tbExcursao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione excursão na tabela para exclusão!");
+            Messenger.alert("Selecione excursão na tabela para exclusão!");
         }
     }
 

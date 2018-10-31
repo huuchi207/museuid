@@ -85,15 +85,15 @@ public class DevolucaoController extends AnchorPane {
         LocalDate dataEntrega = dtEntrega.getValue();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbEmprestimo.getItems().isEmpty()) {
-            Nota.alert("Empréstimo não encontrados!");
+            NoticeUtils.alert("Empréstimo não encontrados!");
         } else {
 
             List<Catalogacao> itens = ControleDAO.getBanco().getEmprestimoDAO().itensEmprestimo(emprestimo.getId());
 
             if (itens.isEmpty()) {
-                Nota.alert("Empréstimo não contém itens para devolução!");
+                NoticeUtils.alert("Empréstimo não contém itens para devolução!");
             } else {
                 ControleDAO.getBanco().getEmprestimoDAO().devolucao(emprestimo.getId(), dataEntrega, observacao);//relizar devolução item
 
@@ -101,7 +101,7 @@ public class DevolucaoController extends AnchorPane {
                     ControleDAO.getBanco().getCatalogacaoDAO().statusEmprestada(catalogacao.getId(), false);
                 }
 
-                Nota.alert("Devolução dp empréstimo feita cm sucesso!");
+                NoticeUtils.alert("Devolução dp empréstimo feita cm sucesso!");
             }
 
             sincronizarBase(emprestimo.getId());

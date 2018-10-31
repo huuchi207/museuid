@@ -77,16 +77,16 @@ public class LocalizacaoController extends AnchorPane {
         String ordem = txtNumOrdem.getText();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbLocal.getItems().isEmpty()) {
-            Nota.alert("Local não encontrados!");
+            NoticeUtils.alert("Local não encontrados!");
         } else {
             int catalogacao = ControleDAO.getBanco().getCatalogacaoDAO().infoId(ordem);//consultar identificador da catalogacao atraves de seu numero de ordem
 
             if (catalogacao == 0) {
-                Nota.alert("Catalogação não encontrada!");
+                NoticeUtils.alert("Catalogação não encontrada!");
             } else if (ControleDAO.getBanco().getLocalizacaoDAO().isLocalizacao(catalogacao)) {
-                Nota.info("Catalogação já possui cadastro de localização");
+                NoticeUtils.info("Catalogação já possui cadastro de localização");
             } else {
                 ControleDAO.getBanco().getLocalizacaoDAO().inserir(local.getId(), catalogacao);
             }
@@ -105,7 +105,7 @@ public class LocalizacaoController extends AnchorPane {
             baseDados(cbLocal.getValue() == null ? 0 : cbLocal.getValue().getId());
             tabela();
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione item da localização que deseja remover na tabela!");
+            NoticeUtils.alert("Selecione item da localização que deseja remover na tabela!");
         }
     }
 

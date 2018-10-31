@@ -78,16 +78,16 @@ public class ItensController extends AnchorPane {
         String ordem = txtNumOrdem.getText();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else if (cbEmprestimo.getItems().isEmpty()) {
-            Nota.alert("Empréstimo não encontrados!");
+            NoticeUtils.alert("Empréstimo não encontrados!");
         } else {
             int catalogacao = ControleDAO.getBanco().getCatalogacaoDAO().infoId(ordem);//caso numero de ordem não seja encontrado retornar 0
 
             if (catalogacao == 0) {
-                Nota.alert("Catalogação não encontrada!");
+                NoticeUtils.alert("Catalogação não encontrada!");
             } else if (ControleDAO.getBanco().getCatalogacaoDAO().isEmprestada(catalogacao)) {
-                Nota.alert("Catalogação já encontra-se emprestada!");//verificar se catalogação já está emprestada
+                NoticeUtils.alert("Catalogação já encontra-se emprestada!");//verificar se catalogação já está emprestada
             } else {
                 EmprestimoItem item = new EmprestimoItem(0, conservacao, emprestimo, new Catalogacao(catalogacao));//criar item
                 ControleDAO.getBanco().getEmprestimoDAO().addItem(item);//adiciona item ao emprestimo
@@ -114,7 +114,7 @@ public class ItensController extends AnchorPane {
             sincronizarBase(item.getEmprestimo().getId());
             tabela();
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione o item do empréstimo na tabela que deseja remover!");
+            NoticeUtils.alert("Selecione o item do empréstimo na tabela que deseja remover!");
         }
     }
 

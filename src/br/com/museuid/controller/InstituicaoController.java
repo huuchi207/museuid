@@ -123,7 +123,7 @@ public class InstituicaoController extends AnchorPane {
         String descricao = txtDescricao.getText();
 
         if (vazio) {
-            Nota.alert("Vui lòng nhập đủ thông tin!");
+            NoticeUtils.alert("Vui lòng nhập đủ thông tin!");
         } else {
             Instituicao instituicao = new Instituicao(idInstituicao, nome, representante, telefone, cidade, estado, pais, descricao);
 
@@ -162,7 +162,7 @@ public class InstituicaoController extends AnchorPane {
             idInstituicao = instituicao.getId();
 
         } catch (NullPointerException ex) {
-            Nota.alert("Selecione um instituição na tabela para edição!");
+            NoticeUtils.alert("Selecione um instituição na tabela para edição!");
         }
     }
 
@@ -171,9 +171,9 @@ public class InstituicaoController extends AnchorPane {
         try {
             Instituicao instituicao = tbInstituicao.getSelectionModel().getSelectedItem();
 
-            Dialogo.Resposta response = Messenger.confirmar("Excluir instituição " + instituicao.getNome() + " ?");
+            DialogUtils.Resposta response = Messenger.confirm("Excluir instituição " + instituicao.getNome() + " ?");
 
-            if (response == Dialogo.Resposta.YES) {
+            if (response == DialogUtils.Resposta.YES) {
                 ControleDAO.getBanco().getInstituicaoDAO().excluir(instituicao.getId());
                 sincronizarBase();
                 tabela();
@@ -182,7 +182,7 @@ public class InstituicaoController extends AnchorPane {
             tbInstituicao.getSelectionModel().clearSelection();
 
         } catch (NullPointerException ex) {
-            Messenger.alerta("Selecione instituição na tabela para exclusão!");
+            Messenger.alert("Selecione instituição na tabela para exclusão!");
         }
     }
 
