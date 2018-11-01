@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="make module employee management">
-      <change afterPath="$PROJECT_DIR$/src/br/com/museuid/dto/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/museuid/dto/ProductListDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/museuid/json_fake/product.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/museuid/model/ProductInOrder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/museuid/view/create_order_screen/CreateOrderScreenControler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/br/com/museuid/view/create_order_screen/create_order_screen.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MuseuID/br/com/museuid/app/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MuseuID/br/com/museuid/app/App.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MuseuID/br/com/museuid/app/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MuseuID/br/com/museuid/app/Login.class" afterDir="false" />
@@ -117,78 +111,8 @@
       <change beforePath="$PROJECT_DIR$/out/production/MuseuID/br/com/museuid/view/setor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MuseuID/br/com/museuid/view/setor.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MuseuID/br/com/museuid/view/usuario.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MuseuID/br/com/museuid/view/usuario.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MuseuID/br/com/museuid/view/visitante.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MuseuID/br/com/museuid/view/visitante.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/banco/dao/EmprestimoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/banco/dao/EmprestimoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/CatalogarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/CatalogarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/ColecaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/ColecaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/DesignacaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/DesignacaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/EmprestimoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/EmprestimoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/EstratigrafiaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/EstratigrafiaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/ExcursaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/ExcursaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/HistoricoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/HistoricoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/IdentificacaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/IdentificacaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/InstituicaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/InstituicaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/LocalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/LocalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/MovimentacaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/MovimentacaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/OrganizacaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/OrganizacaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/PesquisarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/PesquisarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/SetorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/SetorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/UsuarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/ValidacaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/ValidacaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/controller/VisitanteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/controller/VisitanteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/css/custom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/dto/EmployeeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/dto/EmployeeListDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/excluir.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/exclude.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/movi-b.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/reset-black2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/movi-h.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/reset-green.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/movi-m.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/reset-black.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/movi.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/reset-white.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/obrigatorio.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/require.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/pesquisa.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/search.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/pesquisar-b.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/search_black.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/pesquisar.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/search_white.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/relatorio-b.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/report-white.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/relatorio-contente.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/report-green.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/relatorio-h.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/report-h.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/relatorio.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/report-white2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/sair.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/exit.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/valida-b.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/valid-b.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/valida-h.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/valid-h.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/valida-m.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/valid-m.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/valida.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/valid.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/validados.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/validated.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/visitas-h.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/person-h.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/img/icon/visitas-m.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/img/icon/person.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/dto/EmployeeDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/util/DialogUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/util/DialogUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/util/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/util/FileUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/util/Filtro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/util/Filtro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/util/GraficoLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/util/GraficoLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/util/GraficoPie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/util/GraficoPie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/util/Link.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/util/Link.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/util/Messenger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/util/Messenger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/util/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/util/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/util/NoticeUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/util/NoticeUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/app/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/app/AppController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/app/app.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/app/app.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/catalogar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/catalogar.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/colecao.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/colecao.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/designacao.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/designacao.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/employee_management/EmployeeManagementControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/employee_management/EmployeeManagementControler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/employee_management/employee_management.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/employee_management/employee_management.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/emprestimo.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/emprestimo.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/estratigrafia.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/estratigrafia.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/excursao.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/excursao.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/instituicao.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/instituicao.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/local.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/local.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/movimentacao.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/movimentacao.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/organizacao.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/organizacao.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/relatorio.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/relatorio.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/setor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/setor.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/usuario.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/usuario.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/visitante.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/visitante.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/LangBundle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/LangBundle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/LangBundle_vi.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/LangBundle_vi.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/model/ProductInOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/model/ProductInOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/museuid/view/create_order_screen/CreateOrderScreenControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/museuid/view/create_order_screen/CreateOrderScreenControler.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -283,7 +207,7 @@
           <entry key="fxml" value="29" />
           <entry key="gitignore" value="1" />
           <entry key="iml" value="3" />
-          <entry key="java" value="115" />
+          <entry key="java" value="116" />
           <entry key="json" value="8" />
           <entry key="png" value="101" />
           <entry key="properties" value="8" />
@@ -297,7 +221,7 @@
           <entry key="CSS" value="4" />
           <entry key="IDEA_MODULE" value="3" />
           <entry key="Image" value="101" />
-          <entry key="JAVA" value="115" />
+          <entry key="JAVA" value="116" />
           <entry key="JSON" value="8" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="Properties" value="8" />
@@ -314,17 +238,17 @@
         <counts>
           <entry key="dummy" value="56" />
           <entry key="fxml" value="1188" />
-          <entry key="java" value="5578" />
+          <entry key="java" value="5716" />
           <entry key="json" value="338" />
           <entry key="properties" value="212" />
-          <entry key="txt" value="106" />
+          <entry key="txt" value="133" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="5578" />
+          <entry key="JAVA" value="5716" />
           <entry key="JSON" value="338" />
-          <entry key="PLAIN_TEXT" value="162" />
+          <entry key="PLAIN_TEXT" value="189" />
           <entry key="Properties" value="212" />
           <entry key="XML" value="1188" />
         </counts>
@@ -342,8 +266,26 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/br/com/museuid/view/create_order_screen/CreateOrderScreenControler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="113" column="89" selection-start-line="113" selection-start-column="83" selection-end-line="113" selection-end-column="89" />
+            <state relative-caret-position="300">
+              <caret line="111" column="40" selection-start-line="111" selection-start-column="40" selection-end-line="111" selection-end-column="40" />
+              <folding>
+                <element signature="e#4154#4170#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/br/com/museuid/model/ProductInOrder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="307">
+              <caret line="22" column="49" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
+              <folding>
+                <element signature="e#715#716#0" expanded="true" />
+                <element signature="e#749#750#0" expanded="true" />
+                <element signature="e#803#804#0" expanded="true" />
+                <element signature="e#849#850#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -351,11 +293,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/javafx-src.zip!/javafx/scene/control/TableColumn.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="787" column="34" selection-start-line="787" selection-start-column="34" selection-end-line="787" selection-end-column="34" />
+            <state relative-caret-position="174">
+              <caret line="799" column="17" selection-start-line="799" selection-start-column="17" selection-end-line="799" selection-end-column="17" />
               <folding>
                 <element signature="e#31308#31309#0" expanded="true" />
                 <element signature="e#31342#31343#0" expanded="true" />
+                <element signature="e#31808#31809#0" expanded="true" />
+                <element signature="e#31847#31848#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -389,15 +333,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/src.zip!/java/lang/Integer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="764" column="26" selection-start-line="764" selection-start-column="26" selection-end-line="764" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/br/com/museuid/view/app/app.fxml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-207">
@@ -415,19 +350,6 @@
             </state>
           </provider>
           <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/javafx-src.zip!/javafx/scene/control/TableView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="999" column="44" selection-start-line="999" selection-start-column="44" selection-end-line="999" selection-end-column="44" />
-              <folding>
-                <element signature="e#46945#46946#0" expanded="true" />
-                <element signature="e#46988#46989#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -543,7 +465,6 @@
         <option value="$PROJECT_DIR$/src/br/com/museuid/dto/ProductListDTO.java" />
         <option value="$PROJECT_DIR$/src/br/com/museuid/util/FileUtils.java" />
         <option value="$PROJECT_DIR$/src/br/com/museuid/css/custom.css" />
-        <option value="$PROJECT_DIR$/src/br/com/museuid/model/ProductInOrder.java" />
         <option value="$PROJECT_DIR$/src/br/com/museuid/dto/Product.java" />
         <option value="$PROJECT_DIR$/src/br/com/museuid/view/new_order_screen/NewOrderScreenControler.java" />
         <option value="$PROJECT_DIR$/src/br/com/museuid/view/new_order_screen/new_order_screen.fxml" />
@@ -556,6 +477,7 @@
         <option value="$PROJECT_DIR$/src/resources/LangBundle_vi.properties" />
         <option value="$PROJECT_DIR$/src/br/com/museuid/util/Model.java" />
         <option value="$PROJECT_DIR$/src/br/com/museuid/view/create_order_screen/create_order_screen.fxml" />
+        <option value="$PROJECT_DIR$/src/br/com/museuid/model/ProductInOrder.java" />
         <option value="$PROJECT_DIR$/src/br/com/museuid/view/create_order_screen/CreateOrderScreenControler.java" />
       </list>
     </option>
@@ -922,7 +844,7 @@
     <property name="SearchEverywhereHistoryKey" value="fileu&#9;PSI&#9;JAVA://br.com.museuid.util.FileUtils&#10;acao-salvar&#9;null&#9;null&#10;empl&#9;FILE&#9;file:///Users/admin/Documents/java-prjs/museuid/src/br/com/museuid/view/employee_management/EmployeeManagementControler.java&#10;emplo&#9;FILE&#9;file:///Users/admin/Documents/java-prjs/museuid/src/br/com/museuid/json_fake/employee.json&#10;constan&#9;FILE&#9;file:///Users/admin/Documents/java-prjs/museuid/src/br/com/museuid/config/ConstantConfig.java&#10;appcon&#9;FILE&#9;file:///Users/admin/Documents/java-prjs/museuid/src/br/com/museuid/view/app/AppController.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541070282752" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541071094258" />
     <property name="dynamic.classpath" value="false" />
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="ignore_missing_gitignore" value="true" />
@@ -1311,7 +1233,7 @@
       <workItem from="1540888386607" duration="813000" />
       <workItem from="1540891573802" duration="6312000" />
       <workItem from="1540949243514" duration="28389000" />
-      <workItem from="1541035921445" duration="18445000" />
+      <workItem from="1541035921445" duration="19458000" />
     </task>
     <task id="LOCAL-00001" summary="retake the base">
       <created>1540897101262</created>
@@ -1341,11 +1263,18 @@
       <option name="project" value="LOCAL" />
       <updated>1540984446036</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="make create order feature">
+      <created>1541070443867</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1541070443867</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="226485000" />
+    <option name="totallyTimeSpent" value="227498000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1481,7 +1410,8 @@
     <MESSAGE value="retake the base" />
     <MESSAGE value="make module employee management" />
     <MESSAGE value="add api service" />
-    <option name="LAST_COMMIT_MESSAGE" value="add api service" />
+    <MESSAGE value="make create order feature" />
+    <option name="LAST_COMMIT_MESSAGE" value="make create order feature" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1494,13 +1424,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/br/com/museuid/view/create_order_screen/CreateOrderScreenControler.java</url>
-          <line>219</line>
+          <line>221</line>
           <properties />
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/br/com/museuid/view/create_order_screen/CreateOrderScreenControler.java</url>
-          <line>187</line>
+          <line>189</line>
           <properties />
           <option name="timeStamp" value="31" />
         </line-breakpoint>
@@ -1658,19 +1588,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/museuid/model/ProductInOrder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding>
-            <element signature="e#334#335#0" expanded="true" />
-            <element signature="e#362#363#0" expanded="true" />
-            <element signature="e#401#402#0" expanded="true" />
-            <element signature="e#435#436#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1871,19 +1788,37 @@
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/javafx-src.zip!/javafx/scene/control/TableColumn.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="787" column="34" selection-start-line="787" selection-start-column="34" selection-end-line="787" selection-end-column="34" />
+        <state relative-caret-position="174">
+          <caret line="799" column="17" selection-start-line="799" selection-start-column="17" selection-end-line="799" selection-end-column="17" />
           <folding>
             <element signature="e#31308#31309#0" expanded="true" />
             <element signature="e#31342#31343#0" expanded="true" />
+            <element signature="e#31808#31809#0" expanded="true" />
+            <element signature="e#31847#31848#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/museuid/model/ProductInOrder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="22" column="49" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
+          <folding>
+            <element signature="e#715#716#0" expanded="true" />
+            <element signature="e#749#750#0" expanded="true" />
+            <element signature="e#803#804#0" expanded="true" />
+            <element signature="e#849#850#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/br/com/museuid/view/create_order_screen/CreateOrderScreenControler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="113" column="89" selection-start-line="113" selection-start-column="83" selection-end-line="113" selection-end-column="89" />
+        <state relative-caret-position="300">
+          <caret line="111" column="40" selection-start-line="111" selection-start-column="40" selection-end-line="111" selection-end-column="40" />
+          <folding>
+            <element signature="e#4154#4170#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

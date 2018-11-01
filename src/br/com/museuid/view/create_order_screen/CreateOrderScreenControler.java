@@ -30,6 +30,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 
+import static javafx.scene.control.cell.TextFieldTableCell.forTableColumn;
+
 public class CreateOrderScreenControler extends AnchorPane {
     //header
     public Label lbTitle;
@@ -48,7 +50,7 @@ public class CreateOrderScreenControler extends AnchorPane {
     public TableColumn colProductNameInOrder;
     public TableColumn colDescriptionInOrder;
     public TableColumn colPriceInOrder;
-    public TableColumn<ProductInOrder, Integer> colCountInOrder;
+    public TableColumn<ProductInOrder, String> colCountInOrder;
     public TableColumn colStatus;
 
     //bottom button
@@ -105,15 +107,16 @@ public class CreateOrderScreenControler extends AnchorPane {
         colProductNameInOrder.setCellValueFactory(new PropertyValueFactory<>("productName"));
         colDescriptionInOrder.setCellValueFactory(new PropertyValueFactory<>("Description"));
         colPriceInOrder.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colCountInOrder.setCellValueFactory(new PropertyValueFactory<ProductInOrder, Integer>("count"));
+        colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("countString"));
 
+        colCountInOrder.setEditable(true);
 //        colCountInOrder.setMinWidth(200);
         colCountInOrder.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
         // Khi edit xong 1 ô ở cột FullName
-        colCountInOrder.setOnEditCommit((TableColumn.CellEditEvent<ProductInOrder, Integer> event) -> {
-            TablePosition<ProductInOrder, Integer> pos = event.getTablePosition();
+        colCountInOrder.setOnEditCommit((TableColumn.CellEditEvent<ProductInOrder, String> event) -> {
+            TablePosition<ProductInOrder, String> pos = event.getTablePosition();
 
-            Integer newCountString = event.getNewValue();
+            String newCountString = event.getNewValue();
             int newCount;
             try{
                 newCount = Integer.valueOf(newCountString);
