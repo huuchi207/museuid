@@ -103,11 +103,11 @@
 }
 
 .menu-relatorios {
-    -fx-graphic: url("../img/icon/relatorio.png");
+    -fx-graphic: url("../img/icon/report-white2.png");
 }
 
 .menu-relatorios:selected {
-    -fx-graphic: url("../img/icon/relatorio-h.png");
+    -fx-graphic: url("../img/icon/report-h.png");
 }
 
 .menu-identificacao {
@@ -119,27 +119,27 @@
 }
 
 .menu-pesquisar {
-    -fx-graphic: url("../img/icon/pesquisar.png");
+    -fx-graphic: url("../img/icon/search_white.png");
 }
 
 .menu-pesquisar:selected {
-    -fx-graphic: url("../img/icon/pesquisar-b.png");
+    -fx-graphic: url("../img/icon/search_black.png");
 }
 
 .menu-movimentacao {
-    -fx-graphic: url("../img/icon/movi.png");
+    -fx-graphic: url("../img/icon/reset-white.png");
 }
 
 .menu-movimentacao:selected {
-    -fx-graphic: url("../img/icon/movi-b.png");
+    -fx-graphic: url("../img/icon/reset-black2.png");
 }
 
 .menu-seguranca {
-    -fx-graphic: url("../img/icon/valida.png");
+    -fx-graphic: url("../img/icon/valid.png");
 }
 
 .menu-seguranca:selected {
-    -fx-graphic: url("../img/icon/valida-b.png");
+    -fx-graphic: url("../img/icon/valid-b.png");
 }
 
 .menu-localizacao {
@@ -198,7 +198,7 @@
     -fx-cursor: hand;
     -fx-content-display: right;
     -fx-graphic-text-gap: 10;
-    -fx-graphic: url("../img/icon/sair.png");
+    -fx-graphic: url("../img/icon/exit.png");
 }
 
 .menu-sair:hover,

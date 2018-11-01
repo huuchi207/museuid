@@ -27,7 +27,7 @@
 }
 
 .lb-info-requerido {
-    -fx-graphic: url("../img/icon/obrigatorio.png");
+    -fx-graphic: url("../img/icon/require.png");
     -fx-graphic-text-gap: 4;
 }
 
@@ -107,7 +107,7 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: right center;
     -fx-padding: 0 30 0 5;
-    -fx-background-image: url("../img/icon/pesquisa.png");
+    -fx-background-image: url("../img/icon/search.png");
     -fx-border-width: 0 0 1 0;
     -fx-border-insets: 0;
     -fx-background-insets: 0;
@@ -218,21 +218,21 @@
 }
 
 .menu-movimentacao {
-    -fx-graphic: url("../img/icon/movi-m.png");
+    -fx-graphic: url("../img/icon/reset-black.png");
 }
 
 .menu-movimentacao:hover,
 .menu-movimentacao:selected {
-    -fx-graphic: url("../img/icon/movi-h.png");
+    -fx-graphic: url("../img/icon/reset-green.png");
 }
 
 .menu-validacao {
-    -fx-graphic: url("../img/icon/valida-m.png");
+    -fx-graphic: url("../img/icon/valid-m.png");
 }
 
 .menu-validacao:hover,
 .menu-validacao:selected {
-    -fx-graphic: url("../img/icon/valida-h.png");
+    -fx-graphic: url("../img/icon/valid-h.png");
 }
 
 .menu-emprestimo {
@@ -245,12 +245,12 @@
 }
 
 .menu-visitas {
-    -fx-graphic: url("../img/icon/visitas-m.png");
+    -fx-graphic: url("../img/icon/person.png");
 }
 
 .menu-visitas:hover,
 .menu-visitas:selected {
-    -fx-graphic: url("../img/icon/visitas-h.png");
+    -fx-graphic: url("../img/icon/person-h.png");
 }
 
 .menu-catalogar {
@@ -357,22 +357,22 @@
     -fx-border-color: #73cb80;
 }
 
-.menu-laranja {
+.menu-orange {
     -fx-background-color: linear-gradient(to top right, #ffc234, #fdb440);
     -fx-border-color: linear-gradient(to top right, #ffc234, #fdb440);
 }
 
-.menu-laranja:pressed {
+.menu-orange:pressed {
     -fx-background-color: #ffc234;
     -fx-border-color: #fdb440;
 }
 
-.menu-roxo {
+.menu-violet {
     -fx-background-color: linear-gradient(to top right, #79589F, #534A93);
     -fx-border-color: linear-gradient(to top right, #79589F, #534A93);
 }
 
-.menu-roxo:pressed {
+.menu-violet:pressed {
     -fx-background-color: #79589F;
     -fx-border-color: #79589F;
 }
@@ -390,11 +390,11 @@
 }
 
 .acao-excluir {
-    -fx-graphic: url("../img/icon/excluir.png");
+    -fx-graphic: url("../img/icon/exclude.png");
 }
 
 .acao-relatorio {
-    -fx-graphic: url("../img/icon/relatorio-b.png");
+    -fx-graphic: url("../img/icon/report-white.png");
 }
 
 .acao-adicionar {
@@ -422,7 +422,7 @@
 }
 
 .acao-cancelar {
-    -fx-graphic: url("../img/icon/excluir.png");
+    -fx-graphic: url("../img/icon/exclude.png");
 }
 
 /* ....... Campos Identificação .....*/
@@ -694,7 +694,7 @@
 }
 
 .lb-contagem-validados {
-    -fx-graphic: url("../img/icon/validados.png");
+    -fx-graphic: url("../img/icon/validated.png");
 }
 
 .lb-contagem-invalidados {

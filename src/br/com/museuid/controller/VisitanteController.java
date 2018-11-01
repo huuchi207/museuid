@@ -99,21 +99,21 @@ public class VisitanteController extends AnchorPane {
     @FXML
     void telaCadastro(ActionEvent event) {
         configTela("Cadastrar Visitantes", "Các trường bắt buộc", 0);
-        Model.visualize(true, telaCadastro, btSalvar);
+        Model.setVisibility(true, telaCadastro, btSalvar);
         limparCampos();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         configTela("Editar Visitantes", "Quantidade de visitantes encontrados", 1);
-        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         configTela("Excluir Visitantes", "Quantidade de visitantes encontrados", 2);
-        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
@@ -185,9 +185,9 @@ public class VisitanteController extends AnchorPane {
         try {
             Visitante visitante = tbVisitante.getSelectionModel().getSelectedItem();
 
-            DialogUtils.Resposta response = Messenger.confirm("Excluir visitante " + visitante.getNome() + " ?");
+            DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Excluir visitante " + visitante.getNome() + " ?");
 
-            if (response == DialogUtils.Resposta.YES) {
+            if (responseMessage == DialogUtils.ResponseMessage.YES) {
                 ControleDAO.getBanco().getVisitanteDAO().excluir(visitante.getId());
                 sincronizarBase();
                 tabela();
@@ -227,7 +227,7 @@ public class VisitanteController extends AnchorPane {
      */
     private void configTela(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.setVisibility(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);
         tbVisitante.getSelectionModel().clearSelection();

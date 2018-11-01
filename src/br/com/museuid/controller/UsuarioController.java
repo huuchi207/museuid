@@ -94,21 +94,21 @@ public class UsuarioController extends AnchorPane {
     @FXML
     void telaCadastro(ActionEvent event) {
         config("Cadastrar Usuário", "Các trường bắt buộc", 0);
-        Model.visualize(true, telaCadastro, btSalvar);
+        Model.setVisibility(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         config("Editar Usuário", "Quantidade de usuários encontrados", 1);
-        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         config("Excluir Usuário", "Quantidade de usuários encontrados", 2);
-        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
@@ -182,9 +182,9 @@ public class UsuarioController extends AnchorPane {
         try {
             Usuario usuario = tbUsuario.getSelectionModel().getSelectedItem();
 
-            DialogUtils.Resposta response = Messenger.confirm("Excluir usuário " + usuario.getNome() + " ?");
+            DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Excluir usuário " + usuario.getNome() + " ?");
 
-            if (response == DialogUtils.Resposta.YES) {
+            if (responseMessage == DialogUtils.ResponseMessage.YES) {
                 ControleDAO.getBanco().getUsuarioDAO().excluir(usuario.getId());
                 sincronizarBase();
                 tabela();
@@ -223,7 +223,7 @@ public class UsuarioController extends AnchorPane {
      */
     private void config(String tituloTela, String mensagem, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.setVisibility(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(mensagem);
         tbUsuario.getSelectionModel().clearSelection();

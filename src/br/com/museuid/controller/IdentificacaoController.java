@@ -99,7 +99,7 @@ public class IdentificacaoController extends AnchorPane {
     @FXML
     void telaIdentificar(ActionEvent event) {
         config("Identificar Acervo", 0);
-        Model.visualize(true, txtIdentificador);
+        Model.setVisibility(true, txtIdentificador);
     }
 
     @FXML

@@ -116,21 +116,21 @@ public class EmprestimoController extends AnchorPane {
     @FXML
     void telaCadastro(ActionEvent event) {
         config("Cadastrar Empréstimo", "Các trường bắt buộc", 0);
-        Model.visualize(true, telaCadastro, btSalvar);
+        Model.setVisibility(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         config("Editar Empréstimo", "Quantidade de empréstimos encontrados", 1);
-        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         config("Excluir Empréstimo", "Quantidade de empréstimos encontrados", 2);
-        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
@@ -210,9 +210,9 @@ public class EmprestimoController extends AnchorPane {
         try {
             Emprestimo emprestimo = tbEmprestimo.getSelectionModel().getSelectedItem();
 
-            DialogUtils.Resposta response = Messenger.confirm("Excluir empréstimo " + emprestimo.getNumeroEmprestimo() + " ?");
+            DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Excluir empréstimo " + emprestimo.getNumeroEmprestimo() + " ?");
 
-            if (response == DialogUtils.Resposta.YES) {
+            if (responseMessage == DialogUtils.ResponseMessage.YES) {
                 ControleDAO.getBanco().getEmprestimoDAO().excluir(emprestimo.getId());
                 sincronizarBase();
                 tabela();
@@ -253,7 +253,7 @@ public class EmprestimoController extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.setVisibility(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);
         tbEmprestimo.getSelectionModel().clearSelection();

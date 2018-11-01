@@ -20,7 +20,7 @@ public class Link {
         try {
             Desktop.getDesktop().browse(new URI(link));
         } catch (URISyntaxException | IOException ex) {
-            Messenger.erro("Não possível exibir www.fapce.edu.br !");
+            Messenger.erro("Não possível showDialog www.fapce.edu.br !");
         }
     }
 

@@ -32,6 +32,32 @@
                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                       AnchorPane.topAnchor="41.0">
                       <children>
+                        <ToggleButton fx:id="btOrderSection" alignment="CENTER_LEFT"
+                          layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308"
+                          mnemonicParsing="false" onAction="#menuAppManagement" selected="true"
+                          text="%txt_order">
+                          <toggleGroup>
+                            <ToggleGroup fx:id="gOrderSection" />
+                          </toggleGroup>
+                          <styleClass>
+                            <String fx:value="menus" />
+                            <String fx:value="menu-catalogacao" />
+                            <String fx:value="menu-grupo" />
+                          </styleClass>
+                        </ToggleButton>
+                        <VBox fx:id="boxOrderSection" layoutX="10.0" layoutY="55.0"
+                          styleClass="box-submenus">
+                          <children>
+                            <ToggleButton fx:id="btNewOrder" alignment="CENTER_LEFT" layoutX="10.0"
+                              layoutY="10.0" maxWidth="1.7976931348623157E308"
+                              mnemonicParsing="false" onAction="#openCreateOrderScreen"
+                              styleClass="submenus" text="%txt_new_order"/>
+                            <ToggleButton fx:id="btMyHandlingOrder" alignment="CENTER_LEFT" layoutX="10.0"
+                              layoutY="10.0" maxWidth="1.7976931348623157E308"
+                              mnemonicParsing="false" onAction="#openMyHandlingOrderScreen"
+                              styleClass="submenus" text="%txt_my_handling_order"/>
+                          </children>
+                        </VBox>
                         <ToggleButton fx:id="btAppManagementSection" alignment="CENTER_LEFT"
                           layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308"
                           mnemonicParsing="false" onAction="#menuAppManagement" selected="true"
@@ -285,7 +311,7 @@
       <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
           <children>
-            <AnchorPane fx:id="boxConteudo" layoutX="10.0" layoutY="10.0"
+            <AnchorPane fx:id="boxContainer" layoutX="10.0" layoutY="10.0"
               AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="30.0" styleClass="box-footer"

@@ -25,7 +25,7 @@ public class AppController {
   public ToggleGroup gAppManagementSection;
 
   @FXML
-    private AnchorPane boxConteudo;
+    private AnchorPane boxContainer;
     @FXML
     private VBox boxEmprestimo;
     @FXML
@@ -118,7 +118,7 @@ public class AppController {
 
     @FXML
     void menuDashboard(MouseEvent event) {
-        Model.getDashboard(boxConteudo);
+        Model.getDashboard(boxContainer);
     }
 
     @FXML
@@ -148,107 +148,107 @@ public class AppController {
 
     @FXML
     void menuIdentificacao(ActionEvent event) {
-        Model.getIdentificacao(boxConteudo);
+        Model.getIdentificacao(boxContainer);
     }
 
     @FXML
     void menuMovimentacao(ActionEvent event) {
-        Model.getMovimentacao(boxConteudo);
+        Model.getMovimentacao(boxContainer);
     }
 
     @FXML
     void menuSeguranca(ActionEvent event) {
-        Model.getValidacao(boxConteudo);
+        Model.getValidacao(boxContainer);
     }
 
     @FXML
     void menuPesquisa(ActionEvent event) {
-        Model.getPesquisar(boxConteudo);
+        Model.getPesquisar(boxContainer);
     }
 
     @FXML
     void menuRelatorios(ActionEvent event) {
-        Model.getRelatorio(boxConteudo);
+        Model.getRelatorio(boxContainer);
     }
 
     @FXML
     void subVisitantes(ActionEvent event) {
-        Model.getVisitante(boxConteudo);
+        Model.getVisitante(boxContainer);
     }
 
     @FXML
     void subInstituicao(ActionEvent event) {
-        Model.getInstituicao(boxConteudo);
+        Model.getInstituicao(boxContainer);
     }
 
     @FXML
     void subExcursao(ActionEvent event) {
-        Model.getExcursao(boxConteudo);
+        Model.getExcursao(boxContainer);
     }
 
     @FXML
     void subCatalogar(ActionEvent event) {
-        Model.getCatalogar(boxConteudo);
+        Model.getCatalogar(boxContainer);
     }
 
     @FXML
     void subDesignacao(ActionEvent event) {
-        Model.getDesignacao(boxConteudo);
+        Model.getDesignacao(boxContainer);
     }
 
     @FXML
     void subEstratigrafia(ActionEvent event) {
-        Model.getEstratigrafia(boxConteudo);
+        Model.getEstratigrafia(boxContainer);
     }
 
     @FXML
     void subColecao(ActionEvent event) {
-        Model.getColecao(boxConteudo);
+        Model.getColecao(boxContainer);
     }
 
     @FXML
     void subEmprestimo(ActionEvent event) {
-        Model.getEmprestimo(boxConteudo);
+        Model.getEmprestimo(boxContainer);
     }
 
     @FXML
     void subItensEmprestimo(ActionEvent event) {
-        Model.getItensEmprestimo(boxConteudo);
+        Model.getItensEmprestimo(boxContainer);
     }
 
     @FXML
     void subDevolucaoEmprestimo(ActionEvent event) {
-        Model.getDevolucao(boxConteudo);
+        Model.getDevolucao(boxContainer);
     }
 
     @FXML
     void subHistoricoEmprestimo(ActionEvent event) {
-        Model.getHistorico(boxConteudo);
+        Model.getHistorico(boxContainer);
     }
 
     @FXML
     void subOrganizacao(ActionEvent event) {
-        Model.getOrganizacao(boxConteudo);
+        Model.getOrganizacao(boxContainer);
     }
 
     @FXML
     void subSetor(ActionEvent event) {
-        Model.getSetor(boxConteudo);
+        Model.getSetor(boxContainer);
     }
 
     @FXML
     void subLocal(ActionEvent event) {
-        Model.getLocal(boxConteudo);
+        Model.getLocal(boxContainer);
     }
 
     @FXML
     void subLocalizar(ActionEvent event) {
-        Model.getLocalizacao(boxConteudo);
+        Model.getLocalizacao(boxContainer);
     }
 
     @FXML
     void subUsuarios(ActionEvent event) {
-        Model.getUsuario(boxConteudo);
+        Model.getUsuario(boxContainer);
     }
 
     @FXML
@@ -283,21 +283,21 @@ public class AppController {
      * Obter componente para exibição dos modulos da aplicação
      */
     public AnchorPane getBoxConteudo() {
-        return boxConteudo;
+        return boxContainer;
     }
 
     /**
      * Exibir e ocultar submenus
      */
     public void submenus(ToggleButton menu, VBox box, ToggleButton... submenus) {
-        if (box.getChildren().isEmpty()) {
-            box.getChildren().addAll(submenus);
-            Animacao.fade(box);
-            estilo(menu, "menu-grupo");
-        } else {
-            desativarSubmenus(box);
-            estilo(menu, "menu-grupo-inativo");
-        }
+//        if (box.getChildren().isEmpty()) {
+//            box.getChildren().addAll(submenus);
+//            Animacao.fade(box);
+//            estilo(menu, "menu-grupo");
+//        } else {
+//            desativarSubmenus(box);
+//            estilo(menu, "menu-grupo-inativo");
+//        }
     }
 
     /**
@@ -318,7 +318,15 @@ public class AppController {
     }
 
   public void openEmployeeManagement(ActionEvent actionEvent) {
-      Model.getEmployeeManagement(boxConteudo);
+      Model.getEmployeeManagementScreen(boxContainer);
 
   }
+
+    public void openCreateOrderScreen(ActionEvent actionEvent) {
+        Model.getCreateOrderScreen(boxContainer);
+    }
+
+    public void openMyHandlingOrderScreen(ActionEvent actionEvent) {
+
+    }
 }

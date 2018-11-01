@@ -70,7 +70,7 @@ public class NoticeUtils {
     }
 
     /**
-     * Conforme o tipo da nota exibir seu respectivo icone
+     * Conforme o tipo da nota showDialog seu respectivo icone
      */
     private static void icone(String tipo, Label mensagem) {
         switch (tipo) {

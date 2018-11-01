@@ -106,7 +106,7 @@
                             <styleClass>
                                 <String fx:value="menus-acoes" />
                                 <String fx:value="acao-relatorio" />
-                        <String fx:value="menu-roxo" />
+                        <String fx:value="menu-violet" />
                             </styleClass>
                         </Button>
                     </children>

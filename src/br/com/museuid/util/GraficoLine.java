@@ -60,7 +60,7 @@ public class GraficoLine {
     }
 
     /**
-     * Ao passar o mouse pelas series exibir valor atingido
+     * Ao passar o mouse pelas series showDialog valor atingido
      */
     private static StackPane info(double value) {
 

@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.sample.Item;
-import br.com.museuid.model.Employee;
+import br.com.museuid.dto.EmployeeDTO;
 import br.com.museuid.service.remote.sample.SampleCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
@@ -38,7 +38,7 @@ public class EmployeeManagementControler extends AnchorPane{
 
   public TableColumn colUserName;
   public TextArea txtAddress;
-  private List<Employee> employeeList;
+  private List<EmployeeDTO> employeeList;
   private String selectedEmployeeId = "0";
 
   @FXML
@@ -48,7 +48,7 @@ public class EmployeeManagementControler extends AnchorPane{
   @FXML
   private Button btExclude;
   @FXML
-  private TableView<Employee> tbUser;
+  private TableView<EmployeeDTO> tbUser;
   @FXML
   private TextField txtUserName;
   @FXML
@@ -94,21 +94,21 @@ public class EmployeeManagementControler extends AnchorPane{
   @FXML
   void tbAdd(ActionEvent event) {
     config(bundle.getString("txt_create_employee"), bundle.getString("txt_required_fields"), 0);
-    Model.visualize(true, telaCadastro, btSave);
+    Model.setVisibility(true, telaCadastro, btSave);
     resetField();
   }
 
   @FXML
   void tbEdit(ActionEvent event) {
     config(bundle.getString("txt_edit_employee_info"), "", 1);
-    Model.visualize(true, apEdit, btEdit, txtSearch);
+    Model.setVisibility(true, apEdit, btEdit, txtSearch);
     updateTable();
   }
 
   @FXML
   void tbExclude(ActionEvent event) {
     config(bundle.getString("txt_employee_deleted"), "", 2);
-    Model.visualize(true, apEdit, btExclude, txtSearch);
+    Model.setVisibility(true, apEdit, btExclude, txtSearch);
     updateTable();
   }
 
@@ -128,7 +128,7 @@ public class EmployeeManagementControler extends AnchorPane{
 //      NoticeUtils.alert("Formação já cadastrada!");
 //    }
     else {
-      Employee employee = new Employee(selectedEmployeeId, userName, name, phoneNumber, address);
+      EmployeeDTO employee = new EmployeeDTO(selectedEmployeeId, userName, name, phoneNumber, address);
 
       if (selectedEmployeeId .equals("0")) {
         //TODO: insert user
@@ -157,7 +157,7 @@ public class EmployeeManagementControler extends AnchorPane{
   @FXML
   void edit(ActionEvent event) {
     try {
-      Employee selectedEmployee = tbUser.getSelectionModel().getSelectedItem();
+      EmployeeDTO selectedEmployee = tbUser.getSelectionModel().getSelectedItem();
 
       if (selectedEmployee == null){
         NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
@@ -184,16 +184,16 @@ public class EmployeeManagementControler extends AnchorPane{
   @FXML
   void exclude(ActionEvent event) {
     try {
-      Employee selectedEmployee = tbUser.getSelectionModel().getSelectedItem();
+      EmployeeDTO selectedEmployee = tbUser.getSelectionModel().getSelectedItem();
 
       if (selectedEmployee == null){
         NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
         return;
       }
 
-      DialogUtils.Resposta response = Messenger.confirm("Loại trừ " + selectedEmployee.getUserName() + " ?");
+      DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Loại trừ " + selectedEmployee.getUserName() + " ?");
 
-      if (response == DialogUtils.Resposta.YES) {
+      if (responseMessage == DialogUtils.ResponseMessage.YES) {
 //        ControleDAO.getBanco().getEstratigrafiaDAO().excluir(selectedEmployee.getId());
         //TODO: call api delete user
         if(ConstantConfig.FAKE){
@@ -231,7 +231,7 @@ public class EmployeeManagementControler extends AnchorPane{
    */
   private void config(String tituloTela, String msg, int grupoMenu) {
     lbTitle.setText(tituloTela);
-    Model.visualize(false, btExclude, btSave, btEdit, telaCadastro, apEdit, txtSearch);
+    Model.setVisibility(false, btExclude, btSave, btEdit, telaCadastro, apEdit, txtSearch);
 
     legenda.setText(msg);
     tbUser.getSelectionModel().clearSelection();
@@ -282,10 +282,10 @@ public class EmployeeManagementControler extends AnchorPane{
   /**
    * FieldViewUtils de pesquisar para filtrar dados na updateTable
    */
-  private void filter(String valor, ObservableList<Employee> employees) {
+  private void filter(String valor, ObservableList<EmployeeDTO> employees) {
 
-    FilteredList<Employee> dadosFiltrados = new FilteredList<>(employees, estratigrafia -> true);
-    dadosFiltrados.setPredicate(employee -> {
+    FilteredList<EmployeeDTO> filtedList = new FilteredList<>(employees, employee -> true);
+    filtedList.setPredicate(employee -> {
 
       if (valor == null || valor.isEmpty()) {
         return true;
@@ -298,7 +298,7 @@ public class EmployeeManagementControler extends AnchorPane{
       return false;
     });
 
-    SortedList<Employee> dadosOrdenados = new SortedList<>(dadosFiltrados);
+    SortedList<EmployeeDTO> dadosOrdenados = new SortedList<>(filtedList);
     dadosOrdenados.comparatorProperty().bind(tbUser.comparatorProperty());
 //    Filtro.mensagem(legenda, dadosOrdenados.size(), "Quantidade de estratigrafias encontradas");
 

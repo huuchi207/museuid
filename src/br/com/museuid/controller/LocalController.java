@@ -79,21 +79,21 @@ public class LocalController extends AnchorPane {
     @FXML
     void telaCadastro(ActionEvent event) {
         configTela("Cadastrar Local", "Các trường bắt buộc", 0);
-        Model.visualize(true, telaCadastro, btSalvar);
+        Model.setVisibility(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         configTela("Editar Local", "Quantidade de locais encontrados", 1);
-        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         configTela("Excluir Local", "Quantidade de locais encontrados", 2);
-        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
@@ -154,9 +154,9 @@ public class LocalController extends AnchorPane {
         try {
             Local local = tbLocal.getSelectionModel().getSelectedItem();
 
-            DialogUtils.Resposta response = Messenger.confirm("Excluir local " + local.getNome() + " ?");
+            DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Excluir local " + local.getNome() + " ?");
 
-            if (response == DialogUtils.Resposta.YES) {
+            if (responseMessage == DialogUtils.ResponseMessage.YES) {
                 ControleDAO.getBanco().getLocalDAO().excluir(local.getId());
                 sincronizarBase();
                 tabela();
@@ -187,7 +187,7 @@ public class LocalController extends AnchorPane {
      */
     private void configTela(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.setVisibility(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);//mensagem legenda
         tbLocal.getSelectionModel().clearSelection();

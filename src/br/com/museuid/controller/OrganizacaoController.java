@@ -106,21 +106,21 @@ public class OrganizacaoController extends AnchorPane {
     @FXML
     void telaCadastro(ActionEvent event) {
         config("Cadastrar Organização", "Các trường bắt buộc", 0);
-        Model.visualize(true, telaCadastro, btSalvar);
+        Model.setVisibility(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         config("Editar Organização", "Quantidade de organizações encontrados", 1);
-        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         config("Excluir Organização", "Quantidade de organizações encontrados", 2);
-        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
@@ -193,9 +193,9 @@ public class OrganizacaoController extends AnchorPane {
         try {
             Organizacao orgao = tbOrganizacao.getSelectionModel().getSelectedItem();
 
-            DialogUtils.Resposta response = Messenger.confirm("Excluir organização " + orgao.getNome() + " ?");
+            DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Excluir organização " + orgao.getNome() + " ?");
 
-            if (response == DialogUtils.Resposta.YES) {
+            if (responseMessage == DialogUtils.ResponseMessage.YES) {
                 ControleDAO.getBanco().getOrganizacaoDAO().excluir(orgao.getId());
                 sincronizarBase();
                 tabela();
@@ -225,7 +225,7 @@ public class OrganizacaoController extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.setVisibility(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);//mensagem legenda
         tbOrganizacao.getSelectionModel().clearSelection();

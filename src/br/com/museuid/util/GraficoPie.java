@@ -25,7 +25,7 @@ public class GraficoPie {
     }
 
     /**
-     * Criar grafico de pizza e exibir dados aparitr do map informado
+     * Criar grafico de pizza e showDialog dados aparitr do map informado
      */
     public static PieChart criar(String titulo, Map<String, List<Relatorio>> map) {
 

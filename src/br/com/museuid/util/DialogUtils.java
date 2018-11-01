@@ -4,7 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -19,14 +22,14 @@ public class DialogUtils {
 
     private static final Screen screen = Screen.getPrimary();
     private static final Rectangle2D windows = screen.getVisualBounds();
-    static Dialog dialogo;
-    private static Resposta resposta = Resposta.CANCEL;
+    static Dialog dialog;
+    private static ResponseMessage responseMessage = ResponseMessage.CANCEL;
 
     private DialogUtils() {
     }
 
     /**
-     * Conforme o tipo da mensagem exibir seu respectivo icone
+     * Conforme o tipo da mensagem showDialog seu respectivo icone
      */
     public static Label icone(String tipo) {
 
@@ -77,9 +80,9 @@ public class DialogUtils {
         HBox box = new HBox();
         box.getStyleClass().add("box-acao-dialog");
 
-        Button ok = new Button("OK");
+        Button ok = new Button(BundleUtils.getResourceBundle().getString("txt_ok"));
         ok.setOnAction((ActionEvent e) -> {
-            dialogo.close();
+            dialog.close();
         });
 
         ok.getStyleClass().add("bt-ok");
@@ -96,31 +99,31 @@ public class DialogUtils {
     }
 
     /**
-     * Permite que o usuário retorne uma resposta da mensagem de acordo com o
+     * Permite que o usuário retorne uma responseMessage da mensagem de acordo com o
      * tipo da mensagem como: OK, SIM, NÃO e CANCELAR
      */
-    public static Resposta mensageConfirmar(String titulo, String mensagem) {
+    public static ResponseMessage mensageConfirmar(String titulo, String mensagem) {
         HBox box = new HBox();
         box.getStyleClass().add("box-acao-dialog");
 
-        Button yes = new Button("Đồng ý");
+        Button yes = new Button(BundleUtils.getResourceBundle().getString("txt_ok"));
         yes.setOnAction((ActionEvent e) -> {
-            dialogo.close();
-            resposta = Resposta.YES;
+            dialog.close();
+            responseMessage = ResponseMessage.YES;
         });
         yes.getStyleClass().add("bt-sim");
 
-        Button no = new Button("Hủy");
+        Button no = new Button(BundleUtils.getResourceBundle().getString("txt_cancel"));
         no.setOnAction((ActionEvent e) -> {
-            dialogo.close();
-            resposta = Resposta.NO;
+            dialog.close();
+            responseMessage = ResponseMessage.NO;
         });
         no.getStyleClass().add("bt-nao");
         box.getChildren().addAll(yes, no);
 
         box(icone("CONFIRMAR"), texto(titulo, mensagem), box);
 
-        return resposta;
+        return responseMessage;
     }
 
     /**
@@ -154,16 +157,16 @@ public class DialogUtils {
         scene.getStylesheets().add("br/com/museuid/css/dialog.css");
         scene.setFill(Color.TRANSPARENT);
 
-        dialogo = new Dialog(new Stage(), scene);
-        dialogo.exibir();
+        dialog = new Dialog(new Stage(), scene);
+        dialog.showDialog();
     }
 
-    public enum Resposta {
+    public enum ResponseMessage {
         NO, YES, OK, CANCEL
     }
 
     /**
-     * Cria e formata a stage principal que sera exibido a mensagem de dialogo
+     * Cria e formata a stage principal que sera exibido a mensagem de dialog
      */
     static class Dialog extends Stage {
 
@@ -178,10 +181,16 @@ public class DialogUtils {
             setScene(scene);
         }
 
-        public void exibir() {
+        public void showDialog() {
             centerOnScreen();
             showAndWait();
         }
     }
 
+
+    private static  void closeDialog(){
+        if (dialog.isShowing()){
+            dialog.close();
+        }
+    }
 }

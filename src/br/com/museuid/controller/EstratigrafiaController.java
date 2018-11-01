@@ -74,21 +74,21 @@ public class EstratigrafiaController extends AnchorPane {
     @FXML
     void telaCadastro(ActionEvent event) {
         config("Cadastrar Estratigrafia", "Các trường bắt buộc", 0);
-        Model.visualize(true, telaCadastro, btSalvar);
+        Model.setVisibility(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         config("Editar Estratigrafia", "Quantidade de estratigrafias encontradas", 1);
-        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         config("Excluir Estratigrafia", "Quantidade de estratigrafias encontradas", 2);
-        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
@@ -148,9 +148,9 @@ public class EstratigrafiaController extends AnchorPane {
         try {
             Estratigrafia estratigrafia = tbEstratigrafia.getSelectionModel().getSelectedItem();
 
-            DialogUtils.Resposta response = Messenger.confirm("Excluir estratigrafia " + estratigrafia.getFormacao() + " ?");
+            DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Excluir estratigrafia " + estratigrafia.getFormacao() + " ?");
 
-            if (response == DialogUtils.Resposta.YES) {
+            if (responseMessage == DialogUtils.ResponseMessage.YES) {
                 ControleDAO.getBanco().getEstratigrafiaDAO().excluir(estratigrafia.getId());
                 sincronizarBase();
                 tabela();
@@ -180,7 +180,7 @@ public class EstratigrafiaController extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.setVisibility(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);
         tbEstratigrafia.getSelectionModel().clearSelection();

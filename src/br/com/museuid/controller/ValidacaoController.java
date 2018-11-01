@@ -166,9 +166,9 @@ public class ValidacaoController extends AnchorPane {
 
     @FXML
     void cancelar(ActionEvent event) {
-        DialogUtils.Resposta resposta = Messenger.confirm("Cancelar validação ?");
+        DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Cancelar validação ?");
 
-        if (resposta == DialogUtils.Resposta.YES) {
+        if (responseMessage == DialogUtils.ResponseMessage.YES) {
             if (statusValidacao) {
                 limparDados();
                 infoContadores();
@@ -180,9 +180,9 @@ public class ValidacaoController extends AnchorPane {
 
     @FXML
     void finalizar(ActionEvent event) {
-        DialogUtils.Resposta resposta = Messenger.confirm("Finalizar validação ?");
+        DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Finalizar validação ?");
 
-        if (resposta == DialogUtils.Resposta.YES) {
+        if (responseMessage == DialogUtils.ResponseMessage.YES) {
             if (statusValidacao) {
                 boxValidacao.setCursor(Cursor.WAIT);
 
@@ -241,8 +241,8 @@ public class ValidacaoController extends AnchorPane {
         menu.selectToggle(menu.getToggles().get(grupo - 1));
         tipoRelatorio = grupo;
 
-        Model.visualize(false, gridValidacao, cbColecao, cbDesignacao, cbEstratigrafia, cbGenerico);
-        Model.visualize(true, combo, tela);
+        Model.setVisibility(false, gridValidacao, cbColecao, cbDesignacao, cbEstratigrafia, cbGenerico);
+        Model.setVisibility(true, combo, tela);
     }
 
     /**

@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 
 /**
- * Filtrar dados da tabela atravÊs de um campo de pesquisa e exibir resultado da quantidade de
+ * Filtrar dados da tabela atravÊs de um campo de pesquisa e showDialog resultado da quantidade de
  * itens retornados da pesquisa na legenda
  */
 public class Filtro {

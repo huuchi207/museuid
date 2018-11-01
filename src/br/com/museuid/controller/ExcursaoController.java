@@ -117,21 +117,21 @@ public class ExcursaoController extends AnchorPane {
     @FXML
     void telaCadastro(ActionEvent event) {
         configTela("Cadastrar Excursão", "Các trường bắt buộc", 0);
-        Model.visualize(true, telaCadastro, btSalvar);
+        Model.setVisibility(true, telaCadastro, btSalvar);
         limparCampos();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         configTela("Editar Excursão", "Quantidade de excursões encontrados", 1);
-        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         configTela("Excluir Excursão", "Quantidade de excursões encontrados", 2);
-        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
@@ -218,9 +218,9 @@ public class ExcursaoController extends AnchorPane {
         try {
             Excursao excursao = tbExcursao.getSelectionModel().getSelectedItem();
 
-            DialogUtils.Resposta response = Messenger.confirm("Excluir excursão ?");
+            DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Excluir excursão ?");
 
-            if (response == DialogUtils.Resposta.YES) {
+            if (responseMessage == DialogUtils.ResponseMessage.YES) {
                 ControleDAO.getBanco().getExcursaoDAO().excluir(excursao.getId());
                 sincronizarBase();
                 tabela();
@@ -274,7 +274,7 @@ public class ExcursaoController extends AnchorPane {
      */
     private void configTela(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);//informar titulo da tela
-        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);//menus e elementos que serão exibidos conforme contexto da subtela
+        Model.setVisibility(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);//menus e elementos que serão exibidos conforme contexto da subtela
 
         legenda.setText(msg);
         tbExcursao.getSelectionModel().clearSelection();

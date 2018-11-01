@@ -119,21 +119,21 @@ public class CatalogarController extends AnchorPane {
     @FXML
     void telaCadastro(ActionEvent event) {
         config("Cadastrar Catalogação", "Các trường bắt buộc", 0);
-        Model.visualize(true, telaCadastro, btSalvar);
+        Model.setVisibility(true, telaCadastro, btSalvar);
         limpar();
     }
 
     @FXML
     void telaEdicao(ActionEvent event) {
         config("Editar Catalogação", "Quantidade de catalogações encontradas", 1);
-        Model.visualize(true, telaEdicao, btEditar, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btEditar, txtPesquisar);
         tabela();
     }
 
     @FXML
     void telaExcluir(ActionEvent event) {
         config("Excluir Catalogação", "Quantidade de catalogações encontradas", 2);
-        Model.visualize(true, telaEdicao, btExcluir, txtPesquisar);
+        Model.setVisibility(true, telaEdicao, btExcluir, txtPesquisar);
         tabela();
     }
 
@@ -223,9 +223,9 @@ public class CatalogarController extends AnchorPane {
         try {
             Catalogacao catalogacao = tbCatalogacao.getSelectionModel().getSelectedItem();
 
-            DialogUtils.Resposta response = Messenger.confirm("Excluir catalogação " + catalogacao.getNumeroOrdem() + " ?");
+            DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Excluir catalogação " + catalogacao.getNumeroOrdem() + " ?");
 
-            if (response == DialogUtils.Resposta.YES) {
+            if (responseMessage == DialogUtils.ResponseMessage.YES) {
                 ControleDAO.getBanco().getCatalogacaoDAO().excluir(catalogacao.getId());
                 sincronizarBase();
                 tabela();
@@ -259,7 +259,7 @@ public class CatalogarController extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        Model.visualize(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
+        Model.setVisibility(false, btExcluir, btSalvar, btEditar, telaCadastro, telaEdicao, txtPesquisar);
 
         legenda.setText(msg);//mensagem legenda
         tbCatalogacao.getSelectionModel().clearSelection();

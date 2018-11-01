@@ -288,7 +288,7 @@ public class EmprestimoDAO extends DAO {
     }
 
     /**
-     * Consultar empréstimos que já foram entregues e exibir no combo
+     * Consultar empréstimos que já foram entregues e showDialog no combo
      */
     public List<Emprestimo> comboDevolucao() {
 

@@ -1,9 +1,7 @@
 package br.com.museuid.util;
 
-import br.com.museuid.util.DialogUtils.Resposta;
-
 /**
- * Criação de mensagem apartir do classe de dialogo
+ * Criação de mensagem apartir do classe de dialog
  */
 public class Messenger {
 
@@ -11,7 +9,7 @@ public class Messenger {
     }
 
     public static void info(String mensagem) {
-        DialogUtils.message("INFO", "Informação", mensagem);
+        DialogUtils.message("INFO", BundleUtils.getResourceBundle().getString("txt_announcement"), mensagem);
     }
 
     public static void info(String mensagem, String titulo) {
@@ -34,11 +32,11 @@ public class Messenger {
         DialogUtils.message("ALERTA", titulo, mensagem);
     }
 
-    public static Resposta confirm(String mensagem) {
+    public static DialogUtils.ResponseMessage confirm(String mensagem) {
         return DialogUtils.mensageConfirmar("Xác nhận", mensagem);
     }
 
-    public static Resposta confirm(String titulo, String mensagem) {
+    public static DialogUtils.ResponseMessage confirm(String titulo, String mensagem) {
         return DialogUtils.mensageConfirmar(titulo, mensagem);
     }
 }

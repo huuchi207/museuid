@@ -86,7 +86,7 @@
                             <styleClass>
                                 <String fx:value="menus-acoes" />
                                 <String fx:value="acao-editar" />
-                        <String fx:value="menu-laranja" />
+                        <String fx:value="menu-orange" />
                             </styleClass>
                         </Button>
                         <Button id="" fx:id="btExcluir" contentDisplay="TOP" mnemonicParsing="false" onAction="#excluir" prefHeight="40.0" prefWidth="200.0" style="" text="Excluir" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

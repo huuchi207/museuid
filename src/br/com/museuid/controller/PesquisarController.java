@@ -84,7 +84,7 @@ public class PesquisarController extends AnchorPane {
     @FXML
     void telaPesquisa(ActionEvent event) {
         config("Pesquisar Acervo", "Quantidade de catalogações encontrados", 0);
-        Model.visualize(true, btDetalhes, txtPesquisar, legenda);
+        Model.setVisibility(true, btDetalhes, txtPesquisar, legenda);
     }
 
     @FXML

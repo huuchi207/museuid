@@ -23,6 +23,7 @@ import br.com.museuid.controller.ValidacaoController;
 import br.com.museuid.controller.ExcursaoController;
 import br.com.museuid.controller.InstituicaoController;
 import br.com.museuid.controller.VisitanteController;
+import br.com.museuid.view.create_order_screen.CreateOrderScreenControler;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
@@ -60,7 +61,9 @@ public class Model {
     private static RelatorioController relatorio;
     private static DashController dashboard;
 
+    //new code
     private static EmployeeManagementControler employeeManagement;
+    private static CreateOrderScreenControler createOrderScreenControler;
     private Model() {
     }
 
@@ -194,13 +197,19 @@ public class Model {
      * Auxiliar na visualização de elementos da tela como: subenus, subtelas e
      * etc...
      */
-    public static void visualize(boolean valor, Node... no) {
+    public static void setVisibility(boolean valor, Node... no) {
         for (Node elemento : no) {
             elemento.setVisible(valor);
         }
     }
-  public static void getEmployeeManagement(AnchorPane box) {
-    employeeManagement = employeeManagement == null ? new EmployeeManagementControler() : employeeManagement;
-    config(box, employeeManagement);
-  }
+
+    public static void getEmployeeManagementScreen(AnchorPane box) {
+        employeeManagement = employeeManagement == null ? new EmployeeManagementControler() : employeeManagement;
+        config(box, employeeManagement);
+    }
+
+    public static void getCreateOrderScreen(AnchorPane box){
+        createOrderScreenControler = new CreateOrderScreenControler();
+        config(box, createOrderScreenControler);
+    }
 }
