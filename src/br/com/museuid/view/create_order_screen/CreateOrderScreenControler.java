@@ -181,9 +181,8 @@ public class CreateOrderScreenControler extends AnchorPane {
     //TODO: call get product list api
     private void getProductList(){
         if (ConstantConfig.FAKE){
-            DialogUtils.boxDialogo(apEditOrderList);
-            new Thread(new Runnable()
-            {
+
+            new Thread(new Runnable() {
                 public void run()
                 {
                     try
