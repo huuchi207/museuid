@@ -1,4 +1,4 @@
-package br.com.museuid.model;
+package br.com.museuid.model.data;
 
 import br.com.museuid.dto.Product;
 

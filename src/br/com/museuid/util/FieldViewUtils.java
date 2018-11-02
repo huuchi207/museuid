@@ -23,7 +23,7 @@ public class FieldViewUtils {
 
         for (TextField campo : field) {
             if (campo.getText().trim().isEmpty()) {
-                erro(campo, "Verificar valor vazio!");
+                erro(campo, BundleUtils.getResourceBundle().getString("txt_check_empty_txt"));
                 vazio = true;
             }
         }
@@ -68,7 +68,7 @@ public class FieldViewUtils {
                 origem(no);
             }
         } catch (Exception ex) {
-            NoticeUtils.erro("Erro erro campo");
+            Messenger.erro(BundleUtils.getResourceBundle().getString("txt_error") + ex);
         }
     }
 

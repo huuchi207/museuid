@@ -169,7 +169,6 @@ public class DialogUtils {
      * Cria e formata a stage principal que sera exibido a mensagem de dialog
      */
     static class Dialog extends Stage {
-
         public Dialog(Stage stage, Scene scene) {
             initStyle(StageStyle.TRANSPARENT);
             initModality(Modality.APPLICATION_MODAL);
@@ -188,7 +187,7 @@ public class DialogUtils {
     }
 
 
-    private static  void closeDialog(){
+    public static void closeDialog(){
         if (dialog.isShowing()){
             dialog.close();
         }

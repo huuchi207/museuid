@@ -190,7 +190,7 @@ public class Relatorios {
                     boxConteudo(box, GraficoLine.criar(titulo, eixo, map));
                     break;
                 case 3:
-                    boxConteudo(box, GraficoBar.criar(titulo, eixo, map));
+                    boxConteudo(box, BarChartUtils.create(titulo, eixo, map));
                     break;
             }
         } else {

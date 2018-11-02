@@ -71,14 +71,14 @@ public class LocalController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Messenger.erro("Erro ao carregar tela local da local! \n" + ex);
+            Messenger.erro(BundleUtils.getResourceBundle().getString("txt_error"), ex.getMessage());
             ex.printStackTrace();
         }
     }
 
     @FXML
     void telaCadastro(ActionEvent event) {
-        configTela("Cadastrar Local", "Các trường bắt buộc", 0);
+        configTela("Cadastrar Local", BundleUtils.getResourceBundle().getString("txt_required_fields"), 0);
         Model.setVisibility(true, telaCadastro, btSalvar);
         limpar();
     }

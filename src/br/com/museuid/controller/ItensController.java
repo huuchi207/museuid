@@ -89,7 +89,7 @@ public class ItensController extends AnchorPane {
             } else if (ControleDAO.getBanco().getCatalogacaoDAO().isEmprestada(catalogacao)) {
                 NoticeUtils.alert("Catalogação já encontra-se emprestada!");//verificar se catalogação já está emprestada
             } else {
-                EmprestimoItem item = new EmprestimoItem(0, conservacao, emprestimo, new Catalogacao(catalogacao));//criar item
+                EmprestimoItem item = new EmprestimoItem(0, conservacao, emprestimo, new Catalogacao(catalogacao));//create item
                 ControleDAO.getBanco().getEmprestimoDAO().addItem(item);//adiciona item ao emprestimo
                 ControleDAO.getBanco().getCatalogacaoDAO().statusEmprestada(catalogacao, true);//atualiza status de emprestimo da catalogacao para ativo = 1
             }

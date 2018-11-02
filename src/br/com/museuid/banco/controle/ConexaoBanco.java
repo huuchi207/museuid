@@ -1,5 +1,6 @@
 package br.com.museuid.banco.controle;
 
+import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
 
 import java.sql.Connection;
@@ -21,7 +22,7 @@ public class ConexaoBanco {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection("jdbc:mysql://localhost/museuid", "root", "");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
-            Messenger.alert("Erro ao conectar-se com a base de dados! \n" + ex);
+            Messenger.erro(BundleUtils.getResourceBundle().getString("txt_error") + ex);
         }
     }
 

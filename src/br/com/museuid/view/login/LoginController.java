@@ -4,6 +4,7 @@ import br.com.museuid.app.Login;
 import br.com.museuid.banco.controle.ControleDAO;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.model.Usuario;
+import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Link;
 import br.com.museuid.app.App;
@@ -42,11 +43,11 @@ public class LoginController {
                 new App().start(new Stage());
                 Login.palco.close();
             } else {
-                lbErroLogin.setText("Senha incorreta, verifique os valores!");
+                lbErroLogin.setText(BundleUtils.getResourceBundle().getString("txt_invalid_password"));
                 FieldViewUtils.erroLogin(psSenha);
             }
         } else {
-            lbErroLogin.setText("Usuário não existe ou inativo!");
+            lbErroLogin.setText(BundleUtils.getResourceBundle().getString("txt_not_existed_user"));
             FieldViewUtils.erroLogin(txtUsuario);
         }
     }

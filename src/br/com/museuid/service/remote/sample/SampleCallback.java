@@ -67,7 +67,7 @@ public abstract class SampleCallback<T> implements Callback<SampleResponseDTO<T>
 
 
   private String getServerMsg() {
-    return BundleUtils.getResourceBundle().getString("server.error");
+    return BundleUtils.getResourceBundle().getString("server_error");
   }
 
   public abstract void onError(String errorCode, String errorMessage);

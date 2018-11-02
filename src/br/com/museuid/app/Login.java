@@ -1,6 +1,7 @@
 package br.com.museuid.app;
 
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.Messenger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -49,7 +50,7 @@ public class Login extends Application {
             stage.show();
 
         } catch (Exception ex) {
-            System.out.println("Erro ao inicializar aplicação!" + ex);
+            Messenger.erro(BundleUtils.getResourceBundle().getString("txt_error") + ex);
         }
     }
 

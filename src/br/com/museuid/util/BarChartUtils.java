@@ -17,32 +17,32 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Criar gráficos de barra
+ * Barchart
  */
-public class GraficoBar {
+public class BarChartUtils {
 
-    private static CategoryAxis eixoX;
-    private static NumberAxis eixoY;
-    private static BarChart<String, Number> grafico;
+    private static CategoryAxis axisX;
+    private static NumberAxis axisY;
+    private static BarChart<String, Number> graphic;
 
-    private GraficoBar() {
+    private BarChartUtils() {
     }
 
     /**
-     * Criar grafico de barra e inserir dados das series, datas e valores apartir do map informado
+     * Create bar graph and insert data of the series, dates and values from the map informed
      */
-    public static BarChart criar(String titulo, String eixo, Map<String, List<Relatorio>> mapa) {
+    public static BarChart create(String title, String axis, Map<String, List<Relatorio>> mapa) {
 
-        eixoX = new CategoryAxis();
-        eixoY = new NumberAxis();
-        grafico = new BarChart<>(eixoX, eixoY);
-        config(titulo, eixo);
+        axisX = new CategoryAxis();
+        axisY = new NumberAxis();
+        graphic = new BarChart<>(axisX, axisY);
+        config(title, axis);
 
-        for (String chave : mapa.keySet()) {
+        for (String key : mapa.keySet()) {
             XYChart.Series<String, Number> serie = new XYChart.Series<>();
-            serie.setName(chave);
+            serie.setName(key);
 
-            List<Relatorio> relatorios = mapa.get(chave);
+            List<Relatorio> relatorios = mapa.get(key);
             for (Relatorio relatorio : relatorios) {
                 XYChart.Data<String, Number> dado = new XYChart.Data<>(relatorio.getFormatar(), relatorio.getTotal());
 
@@ -54,16 +54,16 @@ public class GraficoBar {
 
                 serie.getData().add(dado);
             }
-            grafico.getData().add(serie);
+            graphic.getData().add(serie);
         }
 
-        eixoY.setUpperBound(eixoY.getUpperBound() + 10);
+        axisY.setUpperBound(axisY.getUpperBound() + 10);
 
-        return grafico;
+        return graphic;
     }
 
     /**
-     * Exibir acima da barra valor atingido
+     * Display above bar value reached
      */
     private static void info(XYChart.Data<String, Number> data) {
         Text texto = new Text(data.getYValue().toString());
@@ -86,11 +86,11 @@ public class GraficoBar {
     }
 
     /**
-     * Configurar elementos do grafico eixos, titulos, legendas
+     * Configure Graphical Elements Axes, Titles, Captions
      */
     public static void config(String titulo, String eixo) {
-        grafico.getData().clear();
-        eixoX.setLabel(eixo);
-        grafico.setLegendVisible(false);
+        graphic.getData().clear();
+        axisX.setLabel(eixo);
+        graphic.setLegendVisible(false);
     }
 }

@@ -14,7 +14,7 @@ public class Animacao {
     private Animacao() {
     }
 
-    //criar animação fade
+    //create animação fade
     public static void fade(Node no) {
         fade = new FadeTransition(Duration.seconds(1), no);
         fade.setFromValue(0);
@@ -24,7 +24,7 @@ public class Animacao {
         fade.play();
     }
 
-    //criar animação fade definindo opacidade de origem, destino e duração da animação
+    //create animação fade definindo opacidade de origem, destino e duração da animação
     public static void fade(Node no, double inicio, double fim, int tempo) {
         fade = new FadeTransition(Duration.seconds(tempo), no);
         fade.setFromValue(inicio);
@@ -34,7 +34,7 @@ public class Animacao {
         fade.play();
     }
 
-    //criar animação fade definindo opacidade de origem, destino e duração da animação
+    //create animação fade definindo opacidade de origem, destino e duração da animação
     public static void stopfade() {
         fade.stop();
     }

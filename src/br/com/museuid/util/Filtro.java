@@ -18,7 +18,7 @@ public class Filtro {
      * Exibir mensagem na legenda da quantidade de itens filtrados pela pesquisas realizadas nas telas de edição e exclusão
      */
     public static void mensagem(Label legenda, int qtItens, String mensagem) {
-        IntegerProperty size = new SimpleIntegerProperty(qtItens);//criar um property para tamanho da listar de itens filtrados e ordenados
+        IntegerProperty size = new SimpleIntegerProperty(qtItens);//create um property para tamanho da listar de itens filtrados e ordenados
 
         legenda.textProperty().bind(new StringBinding() {
             {
@@ -30,6 +30,6 @@ public class Filtro {
             }
         });
 
-        legenda.textProperty().unbind();//remove bind para não gerar erro
+        legenda.textProperty().unbind();
     }
 }

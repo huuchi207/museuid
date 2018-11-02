@@ -48,7 +48,7 @@
                 </ToggleButton>
             </children>
         </HBox>
-        <GridPane fx:id="telaCadastro" hgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
+        <GridPane fx:id="apAdd" hgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
           AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="994.0" minWidth="631.0" prefWidth="631.0" />

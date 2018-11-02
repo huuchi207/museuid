@@ -2,6 +2,7 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Auditoria;
 import br.com.museuid.model.Usuario;
+import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Tempo;
 
@@ -36,7 +37,7 @@ public class AuditoriaDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao inserir logs na base de dados! \n" + ex);
+            Messenger.erro(BundleUtils.getResourceBundle().getString("txt_error") + ex);
         }
     }
 
@@ -54,7 +55,7 @@ public class AuditoriaDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao excluir logs na base de dados! \n" + ex);
+            Messenger.erro(BundleUtils.getResourceBundle().getString("txt_error") + ex);
         }
     }
 
@@ -83,7 +84,7 @@ public class AuditoriaDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao consultar logs na base de dados! \n" + ex);
+            Messenger.erro(BundleUtils.getResourceBundle().getString("txt_error") + ex);
         }
 
         return dados;
@@ -112,7 +113,7 @@ public class AuditoriaDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao consultar logs na base de dados! \n" + ex);
+            Messenger.erro(BundleUtils.getResourceBundle().getString("txt_error") + ex);
         }
 
         return dados;

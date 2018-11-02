@@ -65,7 +65,7 @@
 }
 
 .menu-grupo:selected {
-    -fx-background-image: url("../img/icon/menu-ative.png");
+    -fx-background-image: url("../img/icon/menu-ative2.png");
 }
 
 .menu-grupo-inativo {

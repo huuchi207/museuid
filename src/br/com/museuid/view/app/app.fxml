@@ -41,8 +41,6 @@
                           </toggleGroup>
                           <styleClass>
                             <String fx:value="menus" />
-                            <String fx:value="menu-catalogacao" />
-                            <String fx:value="menu-grupo" />
                           </styleClass>
                         </ToggleButton>
                         <VBox fx:id="boxOrderSection" layoutX="10.0" layoutY="55.0"
@@ -52,6 +50,10 @@
                               layoutY="10.0" maxWidth="1.7976931348623157E308"
                               mnemonicParsing="false" onAction="#openCreateOrderScreen"
                               styleClass="submenus" text="%txt_create_order"/>
+                              <ToggleButton fx:id="btOrderCreated" alignment="CENTER_LEFT"
+                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openOrderCreatedScreen"
+                                  styleClass="submenus" text="%txt_order_created" />
                             <ToggleButton fx:id="btMyHandlingOrder" alignment="CENTER_LEFT" layoutX="10.0"
                               layoutY="10.0" maxWidth="1.7976931348623157E308"
                               mnemonicParsing="false" onAction="#openMyHandlingOrderScreen"
@@ -67,8 +69,6 @@
                           </toggleGroup>
                           <styleClass>
                             <String fx:value="menus" />
-                            <String fx:value="menu-catalogacao" />
-                            <String fx:value="menu-grupo" />
                           </styleClass>
                         </ToggleButton>
                         <VBox fx:id="boxEmployee" layoutX="10.0" layoutY="55.0"
@@ -80,7 +80,16 @@
                               styleClass="submenus" text="%txt_employee_management"/>
                           </children>
                         </VBox>
-
+                          <VBox fx:id="boxStatistic" layoutX="10.0" layoutY="55.0"
+                              styleClass="box-submenus">
+                              <children>
+                                  <ToggleButton fx:id="btStatistic" alignment="CENTER_LEFT"
+                                      layoutX="10.0" layoutY="10.0"
+                                      maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                                      onAction="#openStatistic" styleClass="submenus"
+                                      text="%txt_statistic" />
+                              </children>
+                          </VBox>
 
 
 

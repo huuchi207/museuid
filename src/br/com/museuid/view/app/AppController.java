@@ -26,6 +26,7 @@ public class AppController {
     public VBox boxOrderSection;
     public ToggleButton btCreateOrder;
     public ToggleButton btMyHandlingOrder;
+    public VBox boxStatistic;
 
     @FXML
     private AnchorPane boxContainer;
@@ -330,6 +331,14 @@ public class AppController {
     }
 
     public void openMyHandlingOrderScreen(ActionEvent actionEvent) {
+
+    }
+
+    public void openOrderCreatedScreen(ActionEvent actionEvent) {
+
+    }
+
+    public void openStatistic(ActionEvent actionEvent) {
 
     }
 }

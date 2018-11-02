@@ -7,8 +7,9 @@ import java.util.ResourceBundle;
 
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.Product;
-import br.com.museuid.model.ProductInOrder;
+import br.com.museuid.model.data.ProductInOrder;
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FileUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Model;
@@ -177,12 +178,28 @@ public class CreateOrderScreenControler extends AnchorPane {
 
         tbProduct.setItems(dadosOrdenados);
     }
-
+    //TODO: call get product list api
     private void getProductList(){
         if (ConstantConfig.FAKE){
+            DialogUtils.boxDialogo(apEditOrderList);
+            new Thread(new Runnable()
+            {
+                public void run()
+                {
+                    try
+                    {
+                        Thread.sleep(10000);
+                       DialogUtils.closeDialog();
+                    }
+                    catch ( Throwable th )
+                    {
+
+                    }
+                }
+            }).start();
             productList = FileUtils.getFakeProductList();
+            updateProductTable();
         }
-        updateProductTable();
     }
 
     @FXML

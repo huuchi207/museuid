@@ -47,7 +47,7 @@ public class App extends Application {
             stage.show();
 
         } catch (Exception ex) {
-            System.out.println("Erro ao inicializar aplicação!" + ex);
+            System.out.println(BundleUtils.getResourceBundle().getString("txt_error_when_launch_app") + ex);
         }
     }
 

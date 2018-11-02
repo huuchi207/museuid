@@ -1,6 +1,6 @@
 package br.com.museuid.dto;
 
-import br.com.museuid.model.ProductInOrder;
+import br.com.museuid.model.data.ProductInOrder;
 
 public class Product {
     private String id;
