@@ -18,13 +18,16 @@ import javafx.stage.Stage;
 public class AppController {
 
     private static AppController instance;
-  @FXML
+    @FXML
     public ToggleButton btEmployeeManagement;
-  public VBox boxEmployee;
-  public ToggleButton btAppManagementSection;
-  public ToggleGroup gAppManagementSection;
+    public VBox boxEmployee;
+    public ToggleButton btAppManagementSection;
+    public ToggleGroup gAppManagementSection;
+    public VBox boxOrderSection;
+    public ToggleButton btCreateOrder;
+    public ToggleButton btMyHandlingOrder;
 
-  @FXML
+    @FXML
     private AnchorPane boxContainer;
     @FXML
     private VBox boxEmprestimo;
@@ -266,7 +269,7 @@ public class AppController {
     void initialize() {
         instance = this;
         if (ConstantConfig.FAKE)
-          return;
+            return;
         Grupo.notEmpty(grupoMenus, grupoCatalogacao, grupoEmprestimo, grupoLocaliacao, grupoUtilidades, grupoVisitantes);//não permite grupos de menus com menus deselecionados
         menuDashboard(null);
         //lbUser.setText("Olá, " + LoginController.usuarioLogado.getNome());
@@ -317,10 +320,10 @@ public class AppController {
         no.getStyleClass().add(estilo);
     }
 
-  public void openEmployeeManagement(ActionEvent actionEvent) {
-      Model.getEmployeeManagementScreen(boxContainer);
+    public void openEmployeeManagement(ActionEvent actionEvent) {
+        Model.getEmployeeManagementScreen(boxContainer);
 
-  }
+    }
 
     public void openCreateOrderScreen(ActionEvent actionEvent) {
         Model.getCreateOrderScreen(boxContainer);
