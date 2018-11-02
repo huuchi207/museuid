@@ -13,9 +13,9 @@
                     maxWidth="1.7976931348623157E308" styleClass="titulo"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0"
-                    HBox.hgrow="ALWAYS"/>
-                <TextField fx:id="txtSearch" prefHeight="50.0" prefWidth="417.0"
-                    promptText="%txt_search" styleClass="pesquisar" visible="false" />
+                    HBox.hgrow="ALWAYS" text="App"/>
+              <TextField fx:id="txtSearch" prefHeight="50.0" prefWidth="417.0"
+                promptText="%txt_search" styleClass="search-txt-field"  />
             </children>
         </HBox>
 
@@ -75,7 +75,7 @@
                     <StackPane>
                         <children>
                             <Button id="" fx:id="btBackToList" mnemonicParsing="false"
-                                onAction="#backToList" prefHeight="40.0" prefWidth="200.0" style=""
+                                onAction="#goToProductList" prefHeight="40.0" prefWidth="200.0" style=""
                                 text="%txt_back_to_product_list">
                                 <styleClass>
                                     <String fx:value="menus-acoes" />

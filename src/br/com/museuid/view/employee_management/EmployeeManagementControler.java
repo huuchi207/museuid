@@ -289,9 +289,9 @@ public class EmployeeManagementControler extends AnchorPane{
 
       if (valor == null || valor.isEmpty()) {
         return true;
-      } else if (employee.getName().toLowerCase().startsWith(valor.toLowerCase())) {
+      } else if (employee.getName().toLowerCase().contains(valor.toLowerCase())) {
         return true;
-      } else if (employee.getUserName().toLowerCase().startsWith(valor.toLowerCase())) {
+      } else if (employee.getUserName().toLowerCase().contains(valor.toLowerCase())) {
         return true;
       }
 

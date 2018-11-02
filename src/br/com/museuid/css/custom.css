@@ -99,7 +99,7 @@
 
 /*....... Menu Pesquisar  .....*/
 
-.pesquisar {
+.search-txt-field {
     -fx-max-width: 200px;
     -fx-min-width: 200px;
     -fx-max-height: 30px;
@@ -115,7 +115,7 @@
     -fx-background-radius: 0;
 }
 
-.pesquisar:focused {
+.search-txt-field:focused {
     -fx-border-insets: 0;
     -fx-background-insets: 0;
     -fx-border-radius: 0;
@@ -1147,3 +1147,8 @@
     -fx-padding: 0;
 }
 
+.lbl-total {
+    -fx-text-fill: #ff4d5d;
+    -fx-font-size: 20px;
+    -fx-font-family: "Open Sans";
+}

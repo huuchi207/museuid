@@ -38,14 +38,14 @@ public class CreateOrderScreenControler extends AnchorPane {
     public TextField txtSearch;
     //product list
     public AnchorPane apProductList;
-    public TableView tbProduct;
+    public TableView<Product> tbProduct;
     public TableColumn colId;
     public TableColumn colProductName;
     public TableColumn colDescription;
     public TableColumn colPrice;
     //order
     public AnchorPane apEditOrderList;
-    public TableView tbProductInOrder;
+    public TableView<ProductInOrder> tbProductInOrder;
     public TableColumn colIdInOrder;
     public TableColumn colProductNameInOrder;
     public TableColumn colDescriptionInOrder;
@@ -57,6 +57,7 @@ public class CreateOrderScreenControler extends AnchorPane {
     public Button btEditOrder;
     public Button btCreateOrder;
     public Button btBackToList;
+    public Label lbLegend;
 
     private ResourceBundle bundle;
 
@@ -66,6 +67,7 @@ public class CreateOrderScreenControler extends AnchorPane {
 
     private ObservableList<Product> productObservableList;
     private ObservableList<ProductInOrder> productInOrderObservableList;
+    private int totalPrice;
     public CreateOrderScreenControler() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("create_order_screen.fxml"));
@@ -85,10 +87,10 @@ public class CreateOrderScreenControler extends AnchorPane {
     @FXML
     public void initialize() {
         initTable();
-        backToList(null);
+        goToProductList(null);
 
         txtSearch.textProperty().addListener((obs, old, novo) -> {
-//            filter(novo, FXCollections.observableArrayList(employeeList));
+            filter(novo, FXCollections.observableArrayList(productList));
         });
     }
 
@@ -98,18 +100,18 @@ public class CreateOrderScreenControler extends AnchorPane {
         );
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
 
         colIdInOrder.setCellValueFactory(new PropertyValueFactory<>("id"));
         colProductNameInOrder.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        colDescriptionInOrder.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        colDescriptionInOrder.setCellValueFactory(new PropertyValueFactory<>("description"));
         colPriceInOrder.setCellValueFactory(new PropertyValueFactory<>("price"));
         colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("countString"));
 
-        colCountInOrder.setEditable(true);
+        tbProductInOrder.setEditable(true);
 //        colCountInOrder.setMinWidth(200);
         colCountInOrder.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
         // Khi edit xong 1 ô ở cột FullName
@@ -123,13 +125,17 @@ public class CreateOrderScreenControler extends AnchorPane {
             }catch (NumberFormatException e){
                 newCount = -1;
             }
-            if (newCount <0){
-                Messenger.erro(bundle.getString("txt_number_must_large_or_equal_0"));
-                return;
-            }
             int row = pos.getRow();
             ProductInOrder productInOrder = event.getTableView().getItems().get(row);
+            if (newCount <0){
+                Messenger.erro(bundle.getString("txt_number_must_large_or_equal_0"));
+                tbProductInOrder.getItems().set(row, productInOrder);
+                return;
+            }
+
             productInOrder.setCount(newCount);
+
+            updateProductInOrderScreenData();
         });
     }
 
@@ -158,7 +164,7 @@ public class CreateOrderScreenControler extends AnchorPane {
 
             if (valor == null || valor.isEmpty()) {
                 return true;
-            } else if (product.getProductName().toLowerCase().startsWith(valor.toLowerCase())) {
+            } else if (product.getProductName().toLowerCase().contains(valor.toLowerCase())) {
                 return true;
             }
 
@@ -188,28 +194,33 @@ public class CreateOrderScreenControler extends AnchorPane {
         }
         updateProductInOrderTable();
         lbTitle.setText(bundle.getString("txt_edit_order"));
-        Model.setVisibility(false, btEditOrder, apProductList);
+        lbLegend.setText(bundle.getString("txt_total_price")+ ": 0 "+ bundle.getString("txt_vnd"));
+        Model.setVisibility(false, btEditOrder, apProductList, txtSearch);
         Model.setVisibility(true, btBackToList, btCreateOrder, apEditOrderList);
     }
 
     @FXML
     void createOrder(ActionEvent event){
         //TODO: call create order api
-//        ArrayList<ProductInOrder> productInOrders= new ArrayList<
+        if (totalPrice<=0){
+            Messenger.alert(bundle.getString("txt_please_choose_number_of_product_correctly"));
+            return;
+        }
         if (ConstantConfig.FAKE){
             Messenger.info(bundle.getString("msg_create_order_successfully") +"\""+ bundle.getString("txt_order_created") +"\"");
         }
 
-        backToList(event);
+        goToProductList(event);
     }
 
     @FXML
-    void backToList(ActionEvent event){
+    void goToProductList(ActionEvent event){
         getProductList();
         lbTitle.setText(bundle.getString("txt_product_list"));
+        lbLegend.setText(bundle.getString("txt_hold_ctrl_to_choose_items"));
         tbProduct.getSelectionModel().clearSelection();
 
-        Model.setVisibility(true, btEditOrder, apProductList);
+        Model.setVisibility(true, btEditOrder, apProductList,txtSearch);
         Model.setVisibility(false, btBackToList, btCreateOrder, apEditOrderList);
     }
     List<ProductInOrder> createProductInOrderListFromSelectedProductList(){
@@ -231,5 +242,19 @@ public class CreateOrderScreenControler extends AnchorPane {
         }
         return selectedProducts;
     }
+    private void updateProductInOrderScreenData(){
+        //reset total for counting
+        totalPrice = 0;
+        ObservableList<ProductInOrder> orderObservableList = tbProductInOrder.getItems();
 
+        ListIterator<ProductInOrder> iterator = orderObservableList.listIterator();
+        while (iterator.hasNext()) {
+            ProductInOrder item = iterator.next();
+            totalPrice+= item.getPrice() * item.getCount();
+        }
+        //update list
+        iterator.forEachRemaining(productInOrders::add);
+        //update text
+        lbLegend.setText(bundle.getString("txt_total_price")+ ": " + totalPrice +" "+ bundle.getString("txt_vnd"));
+    }
 }
