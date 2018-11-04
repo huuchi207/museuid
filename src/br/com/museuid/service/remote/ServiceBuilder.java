@@ -3,6 +3,7 @@ package br.com.museuid.service.remote;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import br.com.museuid.Constants;
 import br.com.museuid.config.ConstantConfig;
@@ -32,6 +33,8 @@ public class ServiceBuilder {
       }
       OkHttpClient client = new OkHttpClient.Builder()
           .addInterceptor(interceptor)
+          .readTimeout(20, TimeUnit.SECONDS)
+          .connectTimeout(20, TimeUnit.SECONDS)
           .addInterceptor(new Interceptor() {
             // User agent default
             @Override

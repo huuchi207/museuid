@@ -10,7 +10,7 @@ import br.com.museuid.dto.Product;
 import br.com.museuid.model.data.ProductInOrder;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.DialogUtils;
-import br.com.museuid.util.FileUtils;
+import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Model;
 import javafx.collections.FXCollections;
@@ -196,7 +196,7 @@ public class CreateOrderScreenControler extends AnchorPane {
                     }
                 }
             }).start();
-            productList = FileUtils.getFakeProductList();
+            productList = FakeDataUtils.getFakeProductList();
             updateProductTable();
         }
     }

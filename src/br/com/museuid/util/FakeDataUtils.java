@@ -15,7 +15,7 @@ import br.com.museuid.dto.Product;
 import br.com.museuid.dto.ProductListDTO;
 import br.com.museuid.service.remote.ResponseDTO;
 
-public class FileUtils {
+public class FakeDataUtils {
   public static List<EmployeeDTO> getFakeEmployeeList(){
     try{
       JsonReader reader = readFile("src/br/com/museuid/json_fake/employee.json");

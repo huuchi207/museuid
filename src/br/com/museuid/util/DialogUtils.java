@@ -2,6 +2,7 @@ package br.com.museuid.util;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -29,7 +30,7 @@ public class DialogUtils {
     }
 
     /**
-     * Conforme o tipo da mensagem showDialog seu respectivo icone
+     * According to the message type showDialog its respective icon
      */
     public static Label icone(String tipo) {
 
@@ -56,7 +57,7 @@ public class DialogUtils {
     }
 
     /**
-     * Formata texto (titulo e descrição) da mensagem
+     * Formats text (title and description) of the message
      */
     public static VBox texto(String title, String msg) {
         VBox box = new VBox();
@@ -74,7 +75,7 @@ public class DialogUtils {
     }
 
     /**
-     * Adiciona ações como Sim, Não, Cancelar, Ok
+     * Add actions like Yes, No, Cancel, Ok
      */
     public static HBox acoes() {
         HBox box = new HBox();
@@ -92,17 +93,16 @@ public class DialogUtils {
     }
 
     /**
-     * Adiciona titulo e descriçao do alert ao box de mensagem
+     * Add alert title and description to the message box
      */
     public static void message(String tipo, String title, String message) {
         box(icone(tipo), texto(title, message), acoes());
     }
 
     /**
-     * Permite que o usuário retorne uma responseMessage da mensagem de acordo com o
-     * tipo da mensagem como: OK, SIM, NÃO e CANCELAR
+     * Allows the user to return a responseMessage of the message according to the type of the message as: OK, YES, NO and CANCEL
      */
-    public static ResponseMessage mensageConfirmar(String titulo, String mensagem) {
+    public static ResponseMessage mensageConfirmer(String titulo, String mensagem) {
         HBox box = new HBox();
         box.getStyleClass().add("box-acao-dialog");
 
@@ -127,8 +127,7 @@ public class DialogUtils {
     }
 
     /**
-     * Box principal que adiciona e formata o icone, mensagem e ação ao box de
-     * mensagem
+     * Main Box that adds and formats the icon, message and action to the message box
      */
     public static void box(Label icon, VBox mensagem, HBox acoes) {
         GridPane grid = new GridPane();
@@ -150,7 +149,7 @@ public class DialogUtils {
     }
 
     /**
-     * Box principal da mensagem e adicionado a tela principal
+     * Main message box and added the main screen
      */
     public static void boxDialogo(AnchorPane pane) {
         Scene scene = new Scene(pane);
@@ -166,7 +165,7 @@ public class DialogUtils {
     }
 
     /**
-     * Cria e formata a stage principal que sera exibido a mensagem de dialog
+     * Creates and formats the main stage that will display the dialog message
      */
     static class Dialog extends Stage {
         public Dialog(Stage stage, Scene scene) {
@@ -188,7 +187,7 @@ public class DialogUtils {
 
 
     public static void closeDialog(){
-        if (dialog.isShowing()){
+        if (dialog != null && dialog.isShowing()){
             dialog.close();
         }
     }

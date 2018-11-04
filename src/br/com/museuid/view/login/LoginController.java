@@ -36,6 +36,7 @@ public class LoginController {
         if (ConstantConfig.FAKE){
           new App().start(new Stage());
           Login.palco.close();
+          return;
         }
         if (ControleDAO.getBanco().getLoginDAO().autenticarUsername(login)) {
             if (ControleDAO.getBanco().getLoginDAO().autenticarSenha(login, senha)) {
@@ -50,16 +51,6 @@ public class LoginController {
             lbErroLogin.setText(BundleUtils.getResourceBundle().getString("txt_not_existed_user"));
             FieldViewUtils.erroLogin(txtUsuario);
         }
-    }
-
-    @FXML
-    void linkMuseuID(ActionEvent event) {
-        Link.endereco("http://www.museuid.com.br");
-    }
-
-    @FXML
-    void linkGeoPark(ActionEvent event) {
-        Link.endereco("http://geoparkararipe.org.br");
     }
 
     @FXML

@@ -3,7 +3,7 @@
 }
 
 .logo {
-    -fx-image: url("../img/logo-app.png");
+    /*-fx-image: url("../img/logo-app.png");*/
 }
 
 .box-logo {
@@ -44,19 +44,19 @@
     -fx-graphic-text-gap: 10;
 }
 
-.menus:hover {
-    -fx-text-fill: #cde073;
-    -fx-background-color: #2f2f2f;
-}
+/*.menus:hover {*/
+    /*-fx-text-fill: #cde073;*/
+    /*-fx-background-color: #2f2f2f;*/
+/*}*/
 
-.menus:selected {
-    -fx-background-color: #cde073;
-    -fx-border-color: #c4d66c;
-    -fx-text-fill: #3b3b3b;
-    -fx-background-insets: 0;
-    -fx-border-insets: 0;
-    -fx-border-radius: 0;
-}
+/*.menus:selected {*/
+    /*-fx-background-color: #cde073;*/
+    /*-fx-border-color: #c4d66c;*/
+    /*-fx-text-fill: #3b3b3b;*/
+    /*-fx-background-insets: 0;*/
+    /*-fx-border-insets: 0;*/
+    /*-fx-border-radius: 0;*/
+/*}*/
 
 .menu-grupo {
     -fx-background-image: url("../img/icon/menu-ative2.png");
@@ -65,7 +65,7 @@
 }
 
 .menu-grupo:selected {
-    -fx-background-image: url("../img/icon/menu-ative2.png");
+    -fx-background-image: url("../img/icon/menu-ative.png");
 }
 
 .menu-grupo-inativo {

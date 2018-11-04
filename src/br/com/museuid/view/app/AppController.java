@@ -1,22 +1,22 @@
 package br.com.museuid.view.app;
 
+import java.util.List;
+
 import br.com.museuid.app.App;
-import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.util.*;
 import br.com.museuid.app.Login;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AppController {
-
     private static AppController instance;
     @FXML
     public ToggleButton btEmployeeManagement;
@@ -27,237 +27,23 @@ public class AppController {
     public ToggleButton btCreateOrder;
     public ToggleButton btMyHandlingOrder;
     public VBox boxStatistic;
+    public ToggleButton btOrderSection;
+    public ToggleButton btOrderCreated;
+    public Label lbUser;
 
     @FXML
     private AnchorPane boxContainer;
     @FXML
-    private VBox boxEmprestimo;
-    @FXML
-    private VBox boxVisitas;
-    @FXML
-    private VBox boxLocalizacao;
-    @FXML
-    private VBox boxUtilitarios;
-    @FXML
     private VBox boxNotas;
+    private VBox[] listMenu;
+    private ToggleButton currentScreen;
     @FXML
-    private VBox boxCatalogacao;
-    @FXML
-    private Label lbUser;
-    @FXML
-    private Label lbMensagem;
-    @FXML
-    private ToggleButton btSetor;
-    @FXML
-    private ToggleButton btVisitas;
-    @FXML
-    private ToggleButton btLocal;
-    @FXML
-    private ToggleButton btInstituicao;
-    @FXML
-    private ToggleButton btExcursao;
-    @FXML
-    private ToggleButton btCatalogar;
-    @FXML
-    private ToggleButton btLocalizacao;
-    @FXML
-    private ToggleButton btLocalizar;
-    @FXML
-    private ToggleButton btColecao;
-    @FXML
-    private ToggleButton btEmprestimos;
-    @FXML
-    private ToggleButton btEmprestimo;
-    @FXML
-    private ToggleButton btHistorico;
-    @FXML
-    private ToggleButton btItens;
-    @FXML
-    private ToggleButton btUtilitarios;
-    @FXML
-    private ToggleButton btOrganizacao;
-    @FXML
-    private ToggleButton btDesginacao;
-    @FXML
-    private ToggleButton btUsuarios;
-    @FXML
-    private ToggleButton btDevolucao;
-    @FXML
-    private ToggleButton btCatalogacao;
-    @FXML
-    private ToggleButton btEstratigrafia;
-    @FXML
-    private ToggleButton btVisitantes;
-    @FXML
-    private ToggleButton btMovimentacao;
-    @FXML
-    private ToggleButton btIdentificacao;
-    @FXML
-    private ToggleButton btRelatorios;
-    @FXML
-    private ToggleButton btPesquisa;
-    @FXML
-    private ToggleButton btSeguranca;
-    @FXML
-    private ToggleGroup grupoLocaliacao;
-    @FXML
-    private ToggleGroup grupoUtilidades;
-    @FXML
-    private ToggleGroup grupoMenus;
-    @FXML
-    private ToggleGroup grupoEmprestimo;
-    @FXML
-    private ToggleGroup grupoCatalogacao;
-    @FXML
-    private ToggleGroup grupoVisitantes;
-
-
+    private ProgressIndicator progressIndicator;
     /**
      * Obter instancia do controler
      */
     public static AppController getInstance() {
         return instance;
-    }
-
-
-    @FXML
-    void menuDashboard(MouseEvent event) {
-        Model.getDashboard(boxContainer);
-    }
-
-    @FXML
-    void menuVisitas(ActionEvent event) {
-        submenus(btVisitas, boxVisitas, btVisitantes, btInstituicao, btExcursao);
-    }
-
-    @FXML
-    void menuAppManagement(ActionEvent event) {
-        submenus(btAppManagementSection, boxEmployee, btEmployeeManagement);
-    }
-
-    @FXML
-    void menuLocalizacao(ActionEvent event) {
-        submenus(btLocalizacao, boxLocalizacao, btLocalizar, btOrganizacao, btSetor, btLocal);
-    }
-
-    @FXML
-    void menuUtilitario(ActionEvent event) {
-        submenus(btUtilitarios, boxUtilitarios, btUsuarios);
-    }
-
-    @FXML
-    void menuEmprestimo(ActionEvent event) {
-        submenus(btEmprestimos, boxEmprestimo, btEmprestimo, btItens, btDevolucao, btHistorico);
-    }
-
-    @FXML
-    void menuIdentificacao(ActionEvent event) {
-        Model.getIdentificacao(boxContainer);
-    }
-
-    @FXML
-    void menuMovimentacao(ActionEvent event) {
-        Model.getMovimentacao(boxContainer);
-    }
-
-    @FXML
-    void menuSeguranca(ActionEvent event) {
-        Model.getValidacao(boxContainer);
-    }
-
-    @FXML
-    void menuPesquisa(ActionEvent event) {
-        Model.getPesquisar(boxContainer);
-    }
-
-    @FXML
-    void menuRelatorios(ActionEvent event) {
-        Model.getRelatorio(boxContainer);
-    }
-
-    @FXML
-    void subVisitantes(ActionEvent event) {
-        Model.getVisitante(boxContainer);
-    }
-
-    @FXML
-    void subInstituicao(ActionEvent event) {
-        Model.getInstituicao(boxContainer);
-    }
-
-    @FXML
-    void subExcursao(ActionEvent event) {
-        Model.getExcursao(boxContainer);
-    }
-
-    @FXML
-    void subCatalogar(ActionEvent event) {
-        Model.getCatalogar(boxContainer);
-    }
-
-    @FXML
-    void subDesignacao(ActionEvent event) {
-        Model.getDesignacao(boxContainer);
-    }
-
-    @FXML
-    void subEstratigrafia(ActionEvent event) {
-        Model.getEstratigrafia(boxContainer);
-    }
-
-    @FXML
-    void subColecao(ActionEvent event) {
-        Model.getColecao(boxContainer);
-    }
-
-    @FXML
-    void subEmprestimo(ActionEvent event) {
-        Model.getEmprestimo(boxContainer);
-    }
-
-    @FXML
-    void subItensEmprestimo(ActionEvent event) {
-        Model.getItensEmprestimo(boxContainer);
-    }
-
-    @FXML
-    void subDevolucaoEmprestimo(ActionEvent event) {
-        Model.getDevolucao(boxContainer);
-    }
-
-    @FXML
-    void subHistoricoEmprestimo(ActionEvent event) {
-        Model.getHistorico(boxContainer);
-    }
-
-    @FXML
-    void subOrganizacao(ActionEvent event) {
-        Model.getOrganizacao(boxContainer);
-    }
-
-    @FXML
-    void subSetor(ActionEvent event) {
-        Model.getSetor(boxContainer);
-    }
-
-    @FXML
-    void subLocal(ActionEvent event) {
-        Model.getLocal(boxContainer);
-    }
-
-    @FXML
-    void subLocalizar(ActionEvent event) {
-        Model.getLocalizacao(boxContainer);
-    }
-
-    @FXML
-    void subUsuarios(ActionEvent event) {
-        Model.getUsuario(boxContainer);
-    }
-
-    @FXML
-    void siteMuseu(ActionEvent event) {
-        Link.endereco("http://museuid.com.br");
     }
 
     @FXML
@@ -269,11 +55,12 @@ public class AppController {
     @FXML
     void initialize() {
         instance = this;
-        if (ConstantConfig.FAKE)
-            return;
-        Grupo.notEmpty(grupoMenus, grupoCatalogacao, grupoEmprestimo, grupoLocaliacao, grupoUtilidades, grupoVisitantes);//não permite grupos de menus com menus deselecionados
-        menuDashboard(null);
-        //lbUser.setText("Olá, " + LoginController.usuarioLogado.getNome());
+        //TODO: add more vbox list submenu
+        listMenu = new VBox[]{boxOrderSection, boxEmployee};
+        //TODO: change to default selected submenu
+        openCreateOrderScreen(new ActionEvent(btCreateOrder, null));
+        //TODO: show user data
+        lbUser.setText("Chào Chí!");
     }
 
     /**
@@ -314,31 +101,74 @@ public class AppController {
     }
 
     /**
-     * Aplicar estilo para mostrar/ocultar submenus
+     * Apply style to show / hide submenus
      */
     public void estilo(Node no, String estilo) {
-        no.getStyleClass().remove(3);
+        no.getStyleClass().remove(2);
         no.getStyleClass().add(estilo);
     }
 
     public void openEmployeeManagement(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == currentScreen){
+            return;
+        }
         Model.getEmployeeManagementScreen(boxContainer);
-
+        setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
     }
 
     public void openCreateOrderScreen(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == currentScreen){
+            return;
+        }
         Model.getCreateOrderScreen(boxContainer);
+        setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
     }
 
     public void openMyHandlingOrderScreen(ActionEvent actionEvent) {
-
+        if (actionEvent.getSource() == currentScreen){
+            return;
+        }
+        setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
     }
 
     public void openOrderCreatedScreen(ActionEvent actionEvent) {
-
+        if (actionEvent.getSource() == currentScreen){
+            return;
+        }
+        setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
     }
 
     public void openStatistic(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == currentScreen){
+            return;
+        }
+        setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    }
 
+    public void setCurrentSubMenuAndStyleThenHideProgressIndicator(ToggleButton currentSelectedSubMenu) {
+        currentScreen = currentSelectedSubMenu;
+        for (VBox boxMenu :listMenu){
+            List<Node> children = boxMenu.getChildren();
+            if (children!=null && !children.isEmpty()){
+                for (Node child : children){
+                    if (child instanceof ToggleButton){
+                        if (child!= currentSelectedSubMenu){
+                            ((ToggleButton) child).setSelected(false);
+                        } else {
+                            ((ToggleButton) child).setSelected(true);
+                        }
+                    }
+                }
+            }
+        }
+        hideProgressDialog();
+    }
+
+    public void showProgressDialog(){
+        progressIndicator.setVisible(true);
+    }
+
+    public void hideProgressDialog(){
+        progressIndicator.setVisible(false);
     }
 }

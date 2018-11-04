@@ -53,22 +53,6 @@
                 </Label>
             </children>
         </VBox>
-        <HBox alignment="CENTER" maxHeight="30.0" prefHeight="30.0" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <children>
-                <Hyperlink onAction="#linkMuseuID" text="MuseuID" textAlignment="CENTER">
-                    <styleClass>
-                        <String fx:value="link" />
-                        <String fx:value="link-museuid" />
-                    </styleClass>
-                </Hyperlink>
-                <Hyperlink layoutX="477.0" layoutY="17.0" onAction="#linkGeoPark" text="GeoPark Araripe" textAlignment="CENTER">
-                    <styleClass>
-                        <String fx:value="link" />
-                        <String fx:value="link-geopark" />
-                    </styleClass>
-                </Hyperlink>
-            </children>
-        </HBox>
         <HBox styleClass="box-janela" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Button mnemonicParsing="false" onAction="#minimizar" styleClass="minimizar" text="Minimizar" />

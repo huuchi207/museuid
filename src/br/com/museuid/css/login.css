@@ -38,11 +38,11 @@
 }
 
 .logo {
-    -fx-image: url("../img/logo.png");
+    /*-fx-image: url("../img/logo.png");*/
 }
 
 .login-img {
-    -fx-image: url("../img/login2.png");
+    /*-fx-image: url("../img/login2.png");*/
 }
 
 .login-txt {

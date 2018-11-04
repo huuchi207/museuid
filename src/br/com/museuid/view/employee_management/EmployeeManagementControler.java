@@ -11,20 +11,26 @@ import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.DialogUtils;
-import br.com.museuid.util.FileUtils;
+import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.Grupo;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.Model;
 import br.com.museuid.util.NoticeUtils;
+import br.com.museuid.view.app.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -33,6 +39,11 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class EmployeeManagementControler extends AnchorPane {
 
@@ -249,17 +260,19 @@ public class EmployeeManagementControler extends AnchorPane {
         //TODO: call list user api and set interval
         if (ConstantConfig.FAKE) {
             if (employeeList == null) {
-                employeeList = FileUtils.getFakeEmployeeList();
+                employeeList = FakeDataUtils.getFakeEmployeeList();
             }
+            AppController.getInstance().showProgressDialog();
             ServiceBuilder.getApiService().getSample("12,32,15,37,10", "b1412ab2fc899acb1e7612034bfdf412").enqueue(new SampleCallback<Item>() {
                 @Override
                 public void onError(String errorCode, String errorMessage) {
-
+                    AppController.getInstance().hideProgressDialog();
+                    Messenger.erro(errorMessage);
                 }
 
                 @Override
                 public void onSuccess(List<Item> data) {
-
+                    AppController.getInstance().hideProgressDialog();
                 }
             });
         }
@@ -313,4 +326,6 @@ public class EmployeeManagementControler extends AnchorPane {
         FieldViewUtils.resetField(txtUserName, txtName);
         FieldViewUtils.resetField(txtPhoneNumber, txtAddress);
     }
+
+
 }

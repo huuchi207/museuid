@@ -17,7 +17,7 @@ public class Messenger {
     }
 
     public static void erro(String mensagem) {
-        DialogUtils.message("ERRO", "Erro", mensagem);
+        DialogUtils.message("ERRO", BundleUtils.getResourceBundle().getString("txt_error"), mensagem);
     }
 
     public static void erro(String mensagem, String titulo) {
@@ -25,7 +25,7 @@ public class Messenger {
     }
 
     public static void alert(String mensagem) {
-        DialogUtils.message("ALERTA", "Alerta", mensagem);
+        DialogUtils.message("ALERTA", BundleUtils.getResourceBundle().getString("txt_alert"), mensagem);
     }
 
     public static void alert(String mensagem, String titulo) {
@@ -33,10 +33,10 @@ public class Messenger {
     }
 
     public static DialogUtils.ResponseMessage confirm(String mensagem) {
-        return DialogUtils.mensageConfirmar("Xác nhận", mensagem);
+        return DialogUtils.mensageConfirmer(BundleUtils.getResourceBundle().getString("txt-confirm"), mensagem);
     }
 
     public static DialogUtils.ResponseMessage confirm(String titulo, String mensagem) {
-        return DialogUtils.mensageConfirmar(titulo, mensagem);
+        return DialogUtils.mensageConfirmer(titulo, mensagem);
     }
 }
