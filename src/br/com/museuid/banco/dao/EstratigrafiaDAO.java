@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO responsável pela ações realizadas na base de dados referentes as estratigrafias
+ * DAO responsável pela ações realizadas na base de dados referentes as Estratigrafias
  */
 public class EstratigrafiaDAO extends DAO {
 
@@ -17,55 +17,55 @@ public class EstratigrafiaDAO extends DAO {
     }
 
     /**
-     * Inserir estratigrafia na base de dados
+     * Inserir Estratigrafia na base de dados
      */
-    public void inserir(Estratigrafia estratigrafia) {
+    public void inserir(Estratigrafia Estratigrafia) {
         try {
-            String sql = "INSERT INTO tb_estratigrafia (formacao, grupo, descricao) VALUES (?, ?, ?) ";
+            String sql = "INSERT INTO tb_Estratigrafia (formacao, grupo, descricao) VALUES (?, ?, ?) ";
 
             stm = conector.prepareStatement(sql);
 
-            stm.setString(1, estratigrafia.getFormacao());
-            stm.setString(2, estratigrafia.getGrupo());
-            stm.setString(3, estratigrafia.getDescricao());
+            stm.setString(1, Estratigrafia.getFormacao());
+            stm.setString(2, Estratigrafia.getGrupo());
+            stm.setString(3, Estratigrafia.getDescricao());
 
             stm.executeUpdate();
             stm.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao inserir na base de dados estratigrafias! \n" + ex);
+            Messenger.erro("Erro ao inserir na base de dados Estratigrafias! \n" + ex);
         }
     }
 
     /**
-     * Atualizar dados estratigrafia na base de dados
+     * Atualizar dados Estratigrafia na base de dados
      */
-    public void editar(Estratigrafia estratigrafia) {
+    public void editar(Estratigrafia Estratigrafia) {
         try {
-            String sql = "UPDATE tb_estratigrafia SET formacao=?, grupo=?, descricao=? WHERE id_estratigrafia=? ";
+            String sql = "UPDATE tb_Estratigrafia SET formacao=?, grupo=?, descricao=? WHERE id_Estratigrafia=? ";
 
             stm = conector.prepareStatement(sql);
 
-            stm.setString(1, estratigrafia.getFormacao());
-            stm.setString(2, estratigrafia.getGrupo());
-            stm.setString(3, estratigrafia.getDescricao());
+            stm.setString(1, Estratigrafia.getFormacao());
+            stm.setString(2, Estratigrafia.getGrupo());
+            stm.setString(3, Estratigrafia.getDescricao());
 
-            stm.setInt(4, estratigrafia.getId());
+            stm.setInt(4, Estratigrafia.getId());
 
             stm.executeUpdate();
             stm.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao atualizar na base de dados estratigrafias! \n" + ex);
+            Messenger.erro("Erro ao atualizar na base de dados Estratigrafias! \n" + ex);
         }
     }
 
     /**
-     * Excluir estratigrafia da base de dados
+     * Excluir Estratigrafia da base de dados
      */
     public void excluir(int idEstratigrafia) {
         try {
-            String sql = "DELETE FROM tb_estratigrafia WHERE id_estratigrafia = ? ";
+            String sql = "DELETE FROM tb_Estratigrafia WHERE id_Estratigrafia = ? ";
 
             stm = conector.prepareStatement(sql);
             stm.setInt(1, idEstratigrafia);
@@ -74,72 +74,72 @@ public class EstratigrafiaDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao excluir na base de dados estratigrafias! \n" + ex);
+            Messenger.erro("Erro ao excluir na base de dados Estratigrafias! \n" + ex);
         }
     }
 
     /**
-     * Consultar todas estratigrafia cadastradas na base de dados
+     * Consultar todas Estratigrafia cadastradas na base de dados
      */
     public List<Estratigrafia> listar() {
 
         List<Estratigrafia> dadosEstratigrafia = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM tb_estratigrafia ";
+            String sql = "SELECT * FROM tb_Estratigrafia ";
 
             stm = conector.prepareStatement(sql);
             rs = stm.executeQuery(sql);
 
             while (rs.next()) {
-                Estratigrafia estratigrafia = new Estratigrafia(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
-                dadosEstratigrafia.add(estratigrafia);
+                Estratigrafia Estratigrafia = new Estratigrafia(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                dadosEstratigrafia.add(Estratigrafia);
             }
 
             stm.close();
             rs.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao consultar na base de dados estratigrafias! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados Estratigrafias! \n" + ex);
         }
 
         return dadosEstratigrafia;
     }
 
     /**
-     * Consultar estratigrafias cadastradas na base de dados para criação de combos de estratigrafia
+     * Consultar Estratigrafias cadastradas na base de dados para criação de combos de Estratigrafia
      */
     public List<Estratigrafia> combo() {
 
         List<Estratigrafia> dadosEstratigrafia = new ArrayList<>();
 
         try {
-            String sql = "SELECT id_estratigrafia, formacao FROM tb_estratigrafia ORDER BY formacao ";
+            String sql = "SELECT id_Estratigrafia, formacao FROM tb_Estratigrafia ORDER BY formacao ";
 
             stm = conector.prepareStatement(sql);
             rs = stm.executeQuery();
 
             while (rs.next()) {
-                Estratigrafia estratigrafia = new Estratigrafia(rs.getInt(1), rs.getString(2));
-                dadosEstratigrafia.add(estratigrafia);
+                Estratigrafia Estratigrafia = new Estratigrafia(rs.getInt(1), rs.getString(2));
+                dadosEstratigrafia.add(Estratigrafia);
             }
 
             stm.close();
             rs.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao consultar na base de dados estratigrafias! \n" + ex);
+            Messenger.erro("Erro ao consultar na base de dados Estratigrafias! \n" + ex);
         }
 
         return dadosEstratigrafia;
     }
 
     /**
-     * Consultar se nome da estratigrafia já está cadastrado na base
+     * Consultar se nome da Estratigrafia já está cadastrado na base
      */
     public boolean isEstratigrafia(String formacao, int id) {
         try {
-            String sql = "SELECT formacao FROM tb_estratigrafia WHERE formacao =? AND id_estratigrafia != ? ";
+            String sql = "SELECT formacao FROM tb_Estratigrafia WHERE formacao =? AND id_Estratigrafia != ? ";
 
             stm = conector.prepareStatement(sql);
             stm.setString(1, formacao);
@@ -154,18 +154,18 @@ public class EstratigrafiaDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao validar formação da estratigrafia na base de dados! \n" + ex);
+            Messenger.erro("Erro ao validar formação da Estratigrafia na base de dados! \n" + ex);
         }
 
         return false;
     }
 
     /**
-     * Consultar total de estratigrafias cadastradas
+     * Consultar total de Estratigrafias cadastradas
      */
     public int total() {
         try {
-            String sql = "SELECT COUNT(*) FROM tb_estratigrafia";
+            String sql = "SELECT COUNT(*) FROM tb_Estratigrafia";
 
             stm = conector.prepareStatement(sql);
             rs = stm.executeQuery();
@@ -178,7 +178,7 @@ public class EstratigrafiaDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao consultar total de estratigrafias cadastradas na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar total de Estratigrafias cadastradas na base de dados! \n" + ex);
         }
 
         return 0;

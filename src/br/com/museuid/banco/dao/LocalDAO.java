@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO responsável pela ações realizadas na base de dados referentes as local da localização
+ * DAO responsável pela ações realizadas na base de dados referentes as local da Location
  */
 public class LocalDAO extends DAO {
 

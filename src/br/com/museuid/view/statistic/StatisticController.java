@@ -8,7 +8,7 @@ import br.com.museuid.util.Combo;
 import br.com.museuid.util.Grupo;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NoticeUtils;
-import br.com.museuid.util.Relatorios;
+import br.com.museuid.util.ReportUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -65,19 +65,19 @@ public class StatisticController extends AnchorPane {
 
     @FXML
     void catalogacao(ActionEvent event) {
-        config("Relatório Catalogação", 1);
-        combo("Data Catalogação", "Procêdencia", "Dimensões", "N° Partes", "Localização", "Designação", "Estratigrafia", "Coleção");
+        config("Catalog Report", 1);
+        combo("Date Cataloging", "Search", "Dimensions", "N ° Parties", "Location", "Designation", "Estratigrafia", "Collection");
     }
 
     @FXML
     void visitas(ActionEvent event) {
-        config("Relatório Visitas", 2);
+        config("Visit Report", 2);
         combo("Visitas");
     }
 
     @FXML
     void emprestimo(ActionEvent event) {
-        config("Relatório Empréstimo", 3);
+        config("Loan Report", 3);
         combo("Empréstimo");
     }
 
@@ -96,13 +96,13 @@ public class StatisticController extends AnchorPane {
     @FXML
     void relatorio(ActionEvent event) {
         if (data == null) {
-            NoticeUtils.alert("Data não informada!");
+            NoticeUtils.alert("Data not informed!");
         } else if (cbTipoRelatorio.getItems().isEmpty()) {
-            NoticeUtils.alert("Tipo relatório não informado!");
+            NoticeUtils.alert("Type report not informed!");
         } else if (periodo == 0) {
-            NoticeUtils.alert("Selecione o periodo para geração do relatório!");
+            NoticeUtils.alert("Select the period for report generation!");
         } else {
-            Relatorios.criar(boxGrafico, cbTipoRelatorio.getValue(), periodo, data.getValue());
+            ReportUtils.create(boxGrafico, cbTipoRelatorio.getValue(), periodo, data.getValue());
         }
     }
 
@@ -125,9 +125,9 @@ public class StatisticController extends AnchorPane {
             @Override
             public void changed(ObservableValue obs, String old, String novo) {
                 Platform.runLater(() -> {
-                    data.setDisable(!"Data Catalogação".equals(novo) && relatorio == 1);
-                    boxPeriodo.setDisable(!"Data Catalogação".equals(novo) && relatorio == 1);
-                    periodo = !"Data Catalogação".equals(novo) && relatorio == 1 ? 1 : menuPeriodo.getToggles().indexOf(menuPeriodo.getSelectedToggle()) + 1;
+                    data.setDisable(!"Date Cataloging".equals(novo) && relatorio == 1);
+                    boxPeriodo.setDisable(!"Date Cataloging".equals(novo) && relatorio == 1);
+                    periodo = !"Date Cataloging".equals(novo) && relatorio == 1 ? 1 : menuPeriodo.getToggles().indexOf(menuPeriodo.getSelectedToggle()) + 1;
                 });
             }
         });

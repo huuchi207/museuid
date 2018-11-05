@@ -174,7 +174,7 @@ public class CreateOrderScreenControler extends AnchorPane {
 
         SortedList<Product> dadosOrdenados = new SortedList<>(filteredList);
         dadosOrdenados.comparatorProperty().bind(tbProduct.comparatorProperty());
-//    Filtro.mensagem(legenda, dadosOrdenados.size(), "Quantidade de estratigrafias encontradas");
+//    Filtro.mensagem(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
 
         tbProduct.setItems(dadosOrdenados);
     }

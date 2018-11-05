@@ -33,10 +33,10 @@
                         <String fx:value="menu-designacao" />
                     </styleClass>
                 </ToggleButton>
-                <ToggleButton layoutX="1186.0" layoutY="28.0" mnemonicParsing="false" onAction="#estratigrafia" text="" toggleGroup="$menu">
+                <ToggleButton layoutX="1186.0" layoutY="28.0" mnemonicParsing="false" onAction="#Estratigrafia" text="" toggleGroup="$menu">
                     <styleClass>
                         <String fx:value="menus-tela" />
-                        <String fx:value="menu-estratigrafia" />
+                        <String fx:value="menu-Estratigrafia" />
                     </styleClass>
                 </ToggleButton>
                 <ToggleButton layoutX="1072.0" layoutY="28.0" mnemonicParsing="false" onAction="#colecao" text="" toggleGroup="$menu">
@@ -128,19 +128,19 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="5.0" styleClass="hbox-id-descricao" GridPane.columnSpan="2" GridPane.rowIndex="8">
                     <children>
-                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Dimensões:" wrapText="true" GridPane.rowIndex="1" />
+                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Dimensions:" wrapText="true" GridPane.rowIndex="1" />
                         <Label fx:id="lbDimesoes" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" wrapText="true" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="5.0" styleClass="hbox-id-descricao" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8">
                     <children>
-                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Localização:" wrapText="true" GridPane.rowIndex="1" />
+                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Location:" wrapText="true" GridPane.rowIndex="1" />
                         <Label fx:id="lbLocalizacao" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" wrapText="true" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="542.0" layoutY="474.0" spacing="5.0" styleClass="hbox-id-descricao" GridPane.columnSpan="2" GridPane.rowIndex="9">
                     <children>
-                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Designação:" wrapText="true" GridPane.rowIndex="1" />
+                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Designation:" wrapText="true" GridPane.rowIndex="1" />
                         <Label fx:id="lbDesignacao" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" wrapText="true" />
                     </children>
                 </HBox>
@@ -152,7 +152,7 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="542.0" layoutY="504.0" spacing="5.0" styleClass="hbox-id-descricao" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="9">
                     <children>
-                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Coleção:" wrapText="true" GridPane.rowIndex="1" />
+                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Collection:" wrapText="true" GridPane.rowIndex="1" />
                         <Label fx:id="lbColecao" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" wrapText="true" />
                     </children>
                 </HBox>

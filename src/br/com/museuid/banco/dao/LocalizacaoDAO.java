@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO responsável pela ações realizadas na base de dados referentes as localização
+ * DAO responsável pela ações realizadas na base de dados referentes as Location
  */
 public class LocalizacaoDAO extends DAO {
 
@@ -37,7 +37,7 @@ public class LocalizacaoDAO extends DAO {
     }
 
     /**
-     * Consultar informações de localização do local
+     * Consultar informações de Location do local
      */
     public Local info(int catalogacao) {
         try {
@@ -64,7 +64,7 @@ public class LocalizacaoDAO extends DAO {
     }
 
     /**
-     * Consultar se catalogacao já está cadastrado em alguma localização e obter identifiador da catalogacao cadastrada
+     * Consultar se catalogacao já está cadastrado em alguma Location e obter identifiador da catalogacao cadastrada
      */
     public boolean isLocalizacao(int catalogacao) {
 
@@ -98,11 +98,11 @@ public class LocalizacaoDAO extends DAO {
 
         try {
             String sql = "SELECT tb_catalogacao.id_catalogacao, tb_catalogacao.numero_ordem, tb_designacao.id_designacao, " +
-                    "tb_designacao.genero, tb_estratigrafia.id_estratigrafia, tb_estratigrafia.formacao, tb_colecao.id_colecao,tb_colecao.nome, tb_localizacao.id_localizacao " +
-                    "FROM tb_catalogacao, tb_localizacao, tb_designacao, tb_estratigrafia,tb_colecao WHERE tb_localizacao.fk_local = ? " +
+                    "tb_designacao.genero, tb_Estratigrafia.id_Estratigrafia, tb_Estratigrafia.formacao, tb_colecao.id_colecao,tb_colecao.nome, tb_localizacao.id_localizacao " +
+                    "FROM tb_catalogacao, tb_localizacao, tb_designacao, tb_Estratigrafia,tb_colecao WHERE tb_localizacao.fk_local = ? " +
                     "AND tb_localizacao.fk_catalogacao = tb_catalogacao.id_catalogacao " +
                     "AND tb_designacao.id_designacao = tb_catalogacao.fk_designacao " +
-                    "AND tb_estratigrafia.id_estratigrafia = tb_catalogacao.fk_estratigrafia " +
+                    "AND tb_Estratigrafia.id_Estratigrafia = tb_catalogacao.fk_Estratigrafia " +
                     "AND tb_colecao.id_colecao = tb_catalogacao.fk_colecao ";
 
             stm = conector.prepareStatement(sql);
@@ -125,7 +125,7 @@ public class LocalizacaoDAO extends DAO {
     }
 
     /**
-     * Excluir localização
+     * Excluir Location
      */
     public void excluir(int localizacao) {
         try {
@@ -138,7 +138,7 @@ public class LocalizacaoDAO extends DAO {
             stm.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao excluir na base de dados localização! \n" + ex);
+            Messenger.erro("Erro ao excluir na base de dados Location! \n" + ex);
         }
     }
 }

@@ -2,7 +2,7 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Movimentacao;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Tempo;
+import br.com.museuid.util.TimeUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class MovimentacaoDAO extends DAO {
             stm.setString(4, movimentacao.getDestino());
             stm.setString(5, movimentacao.getTipo());
             stm.setString(6, movimentacao.getDescricao());
-            stm.setTimestamp(7, Tempo.toTimestamp(movimentacao.getData()));
+            stm.setTimestamp(7, TimeUtils.toTimestamp(movimentacao.getData()));
 
             stm.executeUpdate();
             stm.close();
@@ -57,7 +57,7 @@ public class MovimentacaoDAO extends DAO {
             stm.setString(4, movimentacao.getDestino());
             stm.setString(5, movimentacao.getTipo());
             stm.setString(6, movimentacao.getDescricao());
-            stm.setTimestamp(7, Tempo.toTimestamp(movimentacao.getData()));
+            stm.setTimestamp(7, TimeUtils.toTimestamp(movimentacao.getData()));
 
             stm.setInt(8, movimentacao.getId());
 
@@ -102,7 +102,7 @@ public class MovimentacaoDAO extends DAO {
 
             while (rs.next()) {
                 Movimentacao movimentacao = new Movimentacao(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getString(6), rs.getString(7), Tempo.toDate(rs.getTimestamp(8)));
+                        rs.getString(5), rs.getString(6), rs.getString(7), TimeUtils.toDate(rs.getTimestamp(8)));
                 dados.add(movimentacao);
             }
 

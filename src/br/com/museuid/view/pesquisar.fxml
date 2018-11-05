@@ -34,13 +34,13 @@
                         <TableColumn fx:id="colEtiquetaRFID" maxWidth="200.0" minWidth="100.0" prefWidth="150.0" text="Etiqueta RFID" />
                         <TableColumn fx:id="colProcedencia" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" text="Procedência" />
                         <TableColumn fx:id="colDetalheProcedencia" maxWidth="500.0" minWidth="150.0" prefWidth="200.0" text="Detalhe Procedência" />
-                        <TableColumn fx:id="colDimensao" maxWidth="120.0" minWidth="100.0" prefWidth="120.0" text="Dimensões" />
+                        <TableColumn fx:id="colDimensao" maxWidth="120.0" minWidth="100.0" prefWidth="120.0" text="Dimensions" />
                         <TableColumn fx:id="colNumeroPartes" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" text="Número de Partes" />
                         <TableColumn fx:id="colDataEntrada" maxWidth="120.0" minWidth="100.0" prefWidth="120.0" text="Data Entrada" />
-                        <TableColumn fx:id="colDesignacao" maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" text="Designação" />
+                        <TableColumn fx:id="colDesignacao" maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" text="Designation" />
                         <TableColumn fx:id="colEstratigrafia" maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" text="Estratigrafia" />
-                        <TableColumn fx:id="colColecao" maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" text="Coleção" />
-                        <TableColumn fx:id="colLocalizacao" maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" text="Localização" />
+                        <TableColumn fx:id="colColecao" maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" text="Collection" />
+                        <TableColumn fx:id="colLocalizacao" maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" text="Location" />
                         <TableColumn fx:id="colObservacao" maxWidth="-1.0" minWidth="200.0" prefWidth="300.0" text="Observação" />
                     </columns>
                 </TableView>

@@ -27,8 +27,8 @@ public class IdentificacaoDAO extends DAO {
         try {
             String sql = "SELECT cat.id_catalogacao, cat.numero_ordem, cat.etiqueta_rfid, cat.procedencia, cat.descricao_procedencia, cat.dimensoes, cat.numero_partes, cat.localizacao, "
                     + "cat.descricao, cat.data_entrada,cat.data_cadastro, cat.status_emprestimo, des.*, est.*, col.* "
-                    + "FROM tb_catalogacao AS cat, tb_designacao AS des, tb_estratigrafia AS est, tb_colecao AS col "
-                    + "WHERE cat.fk_designacao = des.id_designacao AND cat.fk_estratigrafia = est.id_estratigrafia "
+                    + "FROM tb_catalogacao AS cat, tb_designacao AS des, tb_Estratigrafia AS est, tb_colecao AS col "
+                    + "WHERE cat.fk_designacao = des.id_designacao AND cat.fk_Estratigrafia = est.id_Estratigrafia "
                     + "AND cat.fk_colecao = col.id_colecao AND cat.numero_ordem = ? OR cat.etiqueta_rfid = ? ";
 
             stm = conector.prepareStatement(sql);
@@ -38,12 +38,12 @@ public class IdentificacaoDAO extends DAO {
 
             while (rs.next()) {
                 Colecao colecao = new Colecao(rs.getInt(24), rs.getString(25), rs.getString(26));
-                Estratigrafia estratigrafia = new Estratigrafia(rs.getInt(20), rs.getString(21), rs.getString(22), rs.getString(23));
+                Estratigrafia Estratigrafia = new Estratigrafia(rs.getInt(20), rs.getString(21), rs.getString(22), rs.getString(23));
                 Designacao designacao = new Designacao(rs.getInt(13), rs.getString(14), rs.getString(15), rs.getString(16), rs.getString(17), rs.getString(18), rs.getString(19));
 
                 catalogacao = new Catalogacao(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
                         rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10),
-                        rs.getInt(12) == 1, designacao, estratigrafia, colecao);
+                        rs.getInt(12) == 1, designacao, Estratigrafia, colecao);
             }
 
             stm.close();

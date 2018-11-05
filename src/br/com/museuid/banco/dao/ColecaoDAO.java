@@ -17,7 +17,7 @@ public class ColecaoDAO extends DAO {
     }
 
     /**
-     * Inserir coleção na base de dados
+     * Inserir Collection na base de dados
      */
     public void inserir(Colecao colecao) {
         try {
@@ -37,7 +37,7 @@ public class ColecaoDAO extends DAO {
     }
 
     /**
-     * Atualizar dados coleção na base de dados
+     * Atualizar dados Collection na base de dados
      */
     public void editar(Colecao colecao) {
         try {
@@ -58,7 +58,7 @@ public class ColecaoDAO extends DAO {
     }
 
     /**
-     * Excluir coleção da base de dados
+     * Excluir Collection da base de dados
      */
     public void excluir(int idColecao) {
         try {
@@ -132,7 +132,7 @@ public class ColecaoDAO extends DAO {
     }
 
     /**
-     * Consultar se nome da coleção já está cadastrado na base
+     * Consultar se nome da Collection já está cadastrado na base
      */
     public boolean isColecao(String nome, int id) {
         try {
@@ -151,14 +151,14 @@ public class ColecaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao validar nome da coleção na base de dados! \n" + ex);
+            Messenger.erro("Erro ao validar nome da Collection na base de dados! \n" + ex);
         }
 
         return false;
     }
 
     /**
-     * Consultar total de estratigrafias cadastradas
+     * Consultar total de Estratigrafias cadastradas
      */
     public int total() {
         try {

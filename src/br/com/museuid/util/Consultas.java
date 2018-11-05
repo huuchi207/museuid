@@ -23,9 +23,9 @@ public class Consultas {
     /**
      * Consultar dados para geração de relatorios de catalogações estratigrafico
      */
-    public static Map<String, List<Relatorio>> estratigrafia() {
-        String sql = "SELECT 'Estratigrafias', tb_estratigrafia.formacao, count(fk_estratigrafia) AS total  FROM tb_catalogacao, tb_estratigrafia "
-                + "WHERE tb_catalogacao.fk_estratigrafia = tb_estratigrafia.id_estratigrafia GROUP BY fk_estratigrafia";
+    public static Map<String, List<Relatorio>> Estratigrafia() {
+        String sql = "SELECT 'Estratigrafias', tb_Estratigrafia.formacao, count(fk_Estratigrafia) AS total  FROM tb_catalogacao, tb_Estratigrafia "
+                + "WHERE tb_catalogacao.fk_Estratigrafia = tb_Estratigrafia.id_Estratigrafia GROUP BY fk_Estratigrafia";
         return ControleDAO.getBanco().getRelatorioDAO().consultar(sql);
     }
 
@@ -47,10 +47,10 @@ public class Consultas {
     }
 
     /**
-     * Consultar dados para geração de relatorios das catalogações de acordo com sua localização
+     * Consultar dados para geração de relatorios das catalogações de acordo com sua Location
      */
     public static Map<String, List<Relatorio>> localizacao() {
-        String sql = "SELECT localizacao, 'Localização', count(localizacao) AS total  FROM tb_catalogacao  GROUP BY localizacao";
+        String sql = "SELECT localizacao, 'Location', count(localizacao) AS total  FROM tb_catalogacao  GROUP BY localizacao";
         return ControleDAO.getBanco().getRelatorioDAO().consultar(sql);
     }
 
@@ -58,7 +58,7 @@ public class Consultas {
      * Consultar dados para geração de relatorios das catalogações de acordo com sua quantidade de partes
      */
     public static Map<String, List<Relatorio>> numeroPartes() {
-        String sql = "SELECT numero_partes, 'N° Partes', count(numero_partes) AS total  FROM tb_catalogacao  GROUP BY numero_partes";
+        String sql = "SELECT numero_partes, 'N ° Parties', count(numero_partes) AS total  FROM tb_catalogacao  GROUP BY numero_partes";
         return ControleDAO.getBanco().getRelatorioDAO().consultar(sql);
     }
 
@@ -66,7 +66,7 @@ public class Consultas {
      * Consultar dados para geração de relatorios das catalogações de acordo com suas dimensão
      */
     public static Map<String, List<Relatorio>> dimensoes() {
-        String sql = "SELECT dimensoes, 'Dimensões',count(dimensoes) AS total  FROM tb_catalogacao  GROUP BY dimensoes";
+        String sql = "SELECT dimensoes, 'Dimensions',count(dimensoes) AS total  FROM tb_catalogacao  GROUP BY dimensoes";
         return ControleDAO.getBanco().getRelatorioDAO().consultar(sql);
     }
 
@@ -90,7 +90,7 @@ public class Consultas {
      * Consultar dados para geração de relatorios de catalogações mensais
      */
     public static Map<String, List<Relatorio>> catalogacaoMensal(LocalDate data) {
-        String sql = "SELECT 'Data Catalogação', day(data_cadastro) AS dia, count(data_cadastro) AS total  FROM tb_catalogacao "
+        String sql = "SELECT 'Date Cataloging', day(data_cadastro) AS dia, count(data_cadastro) AS total  FROM tb_catalogacao "
                 + "WHERE (SELECT EXTRACT(YEAR_MONTH FROM data_cadastro)) = (SELECT EXTRACT(YEAR_MONTH FROM ?)) GROUP BY dia ";
         return ControleDAO.getBanco().getRelatorioDAO().periodico(sql, data);
     }
@@ -99,8 +99,8 @@ public class Consultas {
      * Consultar dados para geração de relatorios de catalogações anuais
      */
     public static Map<String, List<Relatorio>> catalogacaoAnual(LocalDate data) {
-        String sql = "SELECT 'Data Catalogação', month(data_cadastro) AS mes, count(data_cadastro)  AS total  FROM tb_catalogacao "
-                + "WHERE year(data_cadastro) = year(?) GROUP BY  mes ";
+        String sql = "SELECT 'Date Cataloging', month(data_cadastro) AS getMonthString, count(data_cadastro)  AS total  FROM tb_catalogacao "
+                + "WHERE year(data_cadastro) = year(?) GROUP BY  getMonthString ";
         return ControleDAO.getBanco().getRelatorioDAO().periodico(sql, data);
     }
 
@@ -126,8 +126,8 @@ public class Consultas {
      * Consultar dados para geração de relatorios de empréstimos anuais
      */
     public static Map<String, List<Relatorio>> emprestimoAnual(LocalDate data) {
-        String sql = "SELECT status_emprestimo AS status, month(data_emprestimo) AS mes, count(data_emprestimo)  AS total  "
-                + "FROM tb_emprestimo WHERE year(data_emprestimo) = year(?) GROUP BY status, mes ";
+        String sql = "SELECT status_emprestimo AS status, month(data_emprestimo) AS getMonthString, count(data_emprestimo)  AS total  "
+                + "FROM tb_emprestimo WHERE year(data_emprestimo) = year(?) GROUP BY status, getMonthString ";
         return ControleDAO.getBanco().getRelatorioDAO().periodico(sql, data);
     }
 
@@ -152,13 +152,13 @@ public class Consultas {
      * Consultar dados para geração de relatorios de movimentacões anuais
      */
     public static Map<String, List<Relatorio>> movimentacaoAnual(LocalDate data) {
-        String sql = "SELECT tipo, month(data_criacao) AS mes, count(data_criacao)  AS total  "
-                + "FROM tb_movimentacao WHERE year(data_criacao) = year(?) GROUP BY tipo, mes ";
+        String sql = "SELECT tipo, month(data_criacao) AS getMonthString, count(data_criacao)  AS total  "
+                + "FROM tb_movimentacao WHERE year(data_criacao) = year(?) GROUP BY tipo, getMonthString ";
         return ControleDAO.getBanco().getRelatorioDAO().periodico(sql, data);
     }
 
     /**
-     * Consultar dados para geração de relatorios de visitas diarios
+     * Consultar dados para geração de relatorios de Visit diarios
      */
     public static Map<String, List<Relatorio>> visitasDiaria(LocalDate data) {
         String sql = "SELECT tipo, 'Visitas', count(tipo) AS total  FROM tb_visitantes WHERE data_visita = ? GROUP BY tipo ";
@@ -178,8 +178,8 @@ public class Consultas {
      * Consultar dados para geração de relatorios de visitas anuais
      */
     public static Map<String, List<Relatorio>> visitasAnual(LocalDate data) {
-        String sql = "SELECT tipo , month(data_visita) AS mes, count(data_visita)  AS total  FROM tb_visitantes "
-                + "WHERE year(data_visita) = year(?) GROUP BY tipo, mes ";
+        String sql = "SELECT tipo , month(data_visita) AS getMonthString, count(data_visita)  AS total  FROM tb_visitantes "
+                + "WHERE year(data_visita) = year(?) GROUP BY tipo, getMonthString ";
         return ControleDAO.getBanco().getRelatorioDAO().periodico(sql, data);
     }
 
@@ -204,8 +204,8 @@ public class Consultas {
      * Consultar dados para geração de relatorios de visitas anuais
      */
     public static Map<String, List<Relatorio>> validacaoAnual(LocalDate data) {
-        String sql = "SELECT tipo , month(data_visita) AS mes, count(data_visita)  AS total  FROM tb_visitantes "
-                + "WHERE year(data_visita) = year(?) GROUP BY tipo, mes ";
+        String sql = "SELECT tipo , month(data_visita) AS getMonthString, count(data_visita)  AS total  FROM tb_visitantes "
+                + "WHERE year(data_visita) = year(?) GROUP BY tipo, getMonthString ";
         return ControleDAO.getBanco().getRelatorioDAO().periodico(sql, data);
     }
 

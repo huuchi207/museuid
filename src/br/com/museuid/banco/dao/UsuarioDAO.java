@@ -3,7 +3,7 @@ package br.com.museuid.banco.dao;
 import br.com.museuid.model.TipoUsuario;
 import br.com.museuid.model.Usuario;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Tempo;
+import br.com.museuid.util.TimeUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -104,7 +104,7 @@ public class UsuarioDAO extends DAO {
 
             while (rs.next()) {
                 TipoUsuario tipo = new TipoUsuario(rs.getInt(9), rs.getString(10));
-                Usuario user = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6) == 1 ? true : false, Tempo.toDate(rs.getTimestamp(8)), rs.getString(7), tipo);
+                Usuario user = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6) == 1 ? true : false, TimeUtils.toDate(rs.getTimestamp(8)), rs.getString(7), tipo);
 
                 usuarios.add(user);
             }

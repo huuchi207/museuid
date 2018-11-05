@@ -2,7 +2,7 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Visitante;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Tempo;
+import br.com.museuid.util.TimeUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class VisitanteDAO extends DAO {
             stm.setString(3, visitante.getCidade());
             stm.setString(4, visitante.getEstado());
             stm.setString(5, visitante.getPais());
-            stm.setTimestamp(6, Tempo.toTimestamp(visitante.getDataVisita()));
+            stm.setTimestamp(6, TimeUtils.toTimestamp(visitante.getDataVisita()));
             stm.setString(7, visitante.getDescricao());
             stm.setString(8, visitante.getTipo());
 
@@ -57,7 +57,7 @@ public class VisitanteDAO extends DAO {
             stm.setString(3, visitante.getCidade());
             stm.setString(4, visitante.getEstado());
             stm.setString(5, visitante.getPais());
-            stm.setTimestamp(6, Tempo.toTimestamp(visitante.getDataVisita()));
+            stm.setTimestamp(6, TimeUtils.toTimestamp(visitante.getDataVisita()));
             stm.setString(7, visitante.getDescricao());
             stm.setString(8, visitante.getTipo());
 
@@ -103,7 +103,7 @@ public class VisitanteDAO extends DAO {
 
             while (rs.next()) {
                 dados.add(new Visitante(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getString(6), Tempo.toDate(rs.getTimestamp(7)), rs.getString(8), rs.getString(9)));
+                        rs.getString(6), TimeUtils.toDate(rs.getTimestamp(7)), rs.getString(8), rs.getString(9)));
             }
 
             stm.close();

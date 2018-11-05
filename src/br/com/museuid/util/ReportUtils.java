@@ -10,17 +10,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Auxilia no controle e gestão da criação e geração dos relatorios
+ * Assists in the control and management of the creation and generation of reports
  */
-public class Relatorios {
+public class ReportUtils {
 
-    private Relatorios() {
+    private ReportUtils() {
     }
 
     /**
-     * Filtrar o tipo do relatorio e chamar a função correspondente para criação do grafico
+     * Filter the type of the report and call the corresponding function to create the graph
      */
-    public static void criar(AnchorPane box, String relatorio, int periodo, LocalDate data) {
+    public static void create(AnchorPane box, String relatorio, int periodo, LocalDate data) {
         switch (relatorio) {
             case "Movimentação":
                 movimentacao(box, periodo, data);
@@ -34,32 +34,32 @@ public class Relatorios {
             case "Validação":
                 validacao(box, periodo, data);
                 break;
-            case "Data Catalogação":
+            case "Date Cataloging":
                 dataCatalogacao(box, periodo, data);
                 break;
-            case "Procêdencia":
+            case "Search":
                 procedencia(box);
                 break;
-            case "Dimensões":
+            case "Dimensions":
                 dimensoes(box);
                 break;
-            case "N° Partes":
+            case "N ° Parties":
                 numeroPartes(box);
                 break;
-            case "Localização":
+            case "Location":
                 localizacao(box);
                 break;
-            case "Designação":
+            case "Designation":
                 designacao(box);
                 break;
             case "Estratigrafia":
-                estratigrafia(box);
+                Estratigrafia(box);
                 break;
-            case "Coleção":
+            case "Collection":
                 colecao(box);
                 break;
             default:
-                Messenger.alert("Relátorio informado não encontrado.");
+                Messenger.alert("Informal report not found.");
         }
     }
 
@@ -132,14 +132,14 @@ public class Relatorios {
      * Dados e configurações para geração do gráfico de precêdencias do acervo
      */
     private static void procedencia(AnchorPane panel) {
-        boxGrafico(panel, "Procêdencia", "", 1, Consultas.procedencia());
+        boxGrafico(panel, "Search", "", 1, Consultas.procedencia());
     }
 
     /**
-     * Dados e configurações para geração do gráfico de acordo com as dimensões do acervo
+     * Dados e configurações para geração do gráfico de acordo com as Dimensions do acervo
      */
     private static void dimensoes(AnchorPane panel) {
-        boxGrafico(panel, "Dimensões", "", 1, Consultas.dimensoes());
+        boxGrafico(panel, "Dimensions", "", 1, Consultas.dimensoes());
     }
 
     /**
@@ -153,7 +153,7 @@ public class Relatorios {
      * Dados e configurações para geração do gráfico de
      */
     private static void localizacao(AnchorPane panel) {
-        boxGrafico(panel, "Localização Acervo", "", 1, Consultas.localizacao());
+        boxGrafico(panel, "Location Acervo", "", 1, Consultas.localizacao());
     }
 
     /**
@@ -166,8 +166,8 @@ public class Relatorios {
     /**
      * Dados e configurações para geração do gráfico de formações estratigraficas do acervo
      */
-    private static void estratigrafia(AnchorPane panel) {
-        boxGrafico(panel, "", "", 3, Consultas.estratigrafia());
+    private static void Estratigrafia(AnchorPane panel) {
+        boxGrafico(panel, "", "", 3, Consultas.Estratigrafia());
     }
 
     /**

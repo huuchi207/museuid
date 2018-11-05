@@ -4,7 +4,7 @@ import br.com.museuid.model.Auditoria;
 import br.com.museuid.model.Usuario;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Tempo;
+import br.com.museuid.util.TimeUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class AuditoriaDAO extends DAO {
             stm = conector.prepareStatement(sql);
 
             stm.setString(1, log.getAcao());
-            stm.setTimestamp(2, Tempo.toTimestamp(log.getData()));
+            stm.setTimestamp(2, TimeUtils.toTimestamp(log.getData()));
             stm.setString(3, log.getDescricao());
             stm.setInt(4, log.getUser().getId());
 
@@ -75,7 +75,7 @@ public class AuditoriaDAO extends DAO {
             rs = stm.executeQuery(sql);
 
             while (rs.next()) {
-                Auditoria logs = new Auditoria(rs.getInt(1), rs.getString(2), Tempo.toDate(rs.getTimestamp(3)), rs.getString(4), null);
+                Auditoria logs = new Auditoria(rs.getInt(1), rs.getString(2), TimeUtils.toDate(rs.getTimestamp(3)), rs.getString(4), null);
                 logs.setUser(new Usuario(rs.getInt(5), rs.getString(6)));
                 dados.add(logs);
             }
@@ -104,7 +104,7 @@ public class AuditoriaDAO extends DAO {
             rs = stm.executeQuery(sql);
 
             while (rs.next()) {
-                Auditoria logs = new Auditoria(rs.getInt(1), rs.getString(2), Tempo.toDate(rs.getTimestamp(3)), rs.getString(4), null);
+                Auditoria logs = new Auditoria(rs.getInt(1), rs.getString(2), TimeUtils.toDate(rs.getTimestamp(3)), rs.getString(4), null);
                 logs.setUser(new Usuario(rs.getInt(5), rs.getString(6)));
                 dados.add(logs);
             }

@@ -289,13 +289,13 @@
     -fx-graphic: url("../img/icon/colecao-h.png");
 }
 
-.menu-estratigrafia {
-    -fx-graphic: url("../img/icon/estratigrafia.png");
+.menu-Estratigrafia {
+    -fx-graphic: url("../img/icon/Estratigrafia.png");
 }
 
-.menu-estratigrafia:hover,
-.menu-estratigrafia:selected {
-    -fx-graphic: url("../img/icon/estratigrafia-h.png");
+.menu-Estratigrafia:hover,
+.menu-Estratigrafia:selected {
+    -fx-graphic: url("../img/icon/Estratigrafia-h.png");
 }
 
 /* ....... Menus ações  .....*/
@@ -483,8 +483,8 @@
     -fx-graphic: url("../img/icon/id-catalogacao.png");
 }
 
-.titulo-id-estratigrafia {
-    -fx-graphic: url("../img/icon/id-estratigrafia.png");
+.titulo-id-Estratigrafia {
+    -fx-graphic: url("../img/icon/id-Estratigrafia.png");
 }
 
 .titulo-id-colecao {
@@ -539,7 +539,7 @@
     -fx-text-fill: #fff;
 }
 
-/* .......  Tela Localização .....*/
+/* .......  Tela Location .....*/
 
 .box-acervo {
     -fx-background-color: #2cce53;
@@ -551,7 +551,7 @@
     -fx-border-color: #2cce53;
 }
 
-/* .......  Tela Relatorios .....*/
+/* .......  Tela ReportUtils .....*/
 .box-grafico {
     -fx-background-color: #fafafa;
     -fx-border-color: #f1f1f1;
@@ -765,7 +765,7 @@
 
 .info-designacao,
 .info-colecao,
-.info-estratigrafia,
+.info-Estratigrafia,
 .info-visitante,
 .info-catalogacao {
     -fx-padding: 0 0 3 0;
@@ -786,7 +786,7 @@
     -fx-border-color: #fdb440;
 }
 
-.info-estratigrafia {
+.info-Estratigrafia {
     -fx-border-color: #ff5359;
 }
 
@@ -1005,7 +1005,7 @@
     -fx-alignment: center-right;
 }
 
-/*.... Box contagem designação, estratigrafia e coleções....*/
+/*.... Box contagem Designation, Estratigrafia e coleções....*/
 
 .hbox-catalogacao {
     -fx-background-color: #fafafa;

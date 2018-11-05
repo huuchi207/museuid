@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO responsável pela ações realizadas na base de dados referentes aos setores da localização
+ * DAO responsável pela ações realizadas na base de dados referentes aos setores da Location
  */
 public class SetorDAO extends DAO {
 

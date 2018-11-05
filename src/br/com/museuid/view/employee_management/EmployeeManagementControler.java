@@ -144,7 +144,7 @@ public class EmployeeManagementControler extends AnchorPane {
 
             if (selectedEmployeeId.equals("0")) {
                 //TODO: insert user
-//        ControleDAO.getBanco().getEstratigrafiaDAO().inserir(estratigrafia);
+//        ControleDAO.getBanco().getEstratigrafiaDAO().inserir(Estratigrafia);
                 if (ConstantConfig.FAKE) {
                     employeeList.add(employee);
                     updateTable();
@@ -152,7 +152,7 @@ public class EmployeeManagementControler extends AnchorPane {
                 }
             } else {
                 //TODO: edit user
-//        ControleDAO.getBanco().getEstratigrafiaDAO().editar(estratigrafia);
+//        ControleDAO.getBanco().getEstratigrafiaDAO().editar(Estratigrafia);
                 if (ConstantConfig.FAKE) {
                     employeeList.remove(tbUser.getSelectionModel().getSelectedItem());
                     employeeList.add(employee);
@@ -314,13 +314,13 @@ public class EmployeeManagementControler extends AnchorPane {
 
         SortedList<EmployeeDTO> dadosOrdenados = new SortedList<>(filtedList);
         dadosOrdenados.comparatorProperty().bind(tbUser.comparatorProperty());
-//    Filtro.mensagem(legenda, dadosOrdenados.size(), "Quantidade de estratigrafias encontradas");
+//    Filtro.mensagem(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
 
         tbUser.setItems(dadosOrdenados);
     }
 
     /**
-     * Limpar campos textfield cadastro de estratigrafias
+     * Limpar campos textfield cadastro de Estratigrafias
      */
     private void resetField() {
         FieldViewUtils.resetField(txtUserName, txtName);

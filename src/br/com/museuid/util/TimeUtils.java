@@ -1,5 +1,6 @@
 package br.com.museuid.util;
 
+import br.com.museuid.config.ConstantConfig;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.util.Callback;
@@ -13,131 +14,130 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 /**
- * Tratar, formatar e clacular datas, auxiliando principalmente na conversão de datas da nova api do java LocalDate
- * para Timestamp para inserção na base de dados
+ * Handling, formatting and clacing dates,
+ *  mainly assisting in converting dates from the new java api from LocalDate to Timestamp for insertion into the database
  *
  * @author Angelica
  */
-public class Tempo {
+public class TimeUtils {
 
-    private Tempo() {
+    private TimeUtils() {
     }
 
     /**
-     * Converte um LocalDate para Timestamp com os horarios zerados, ou seja
-     * meia noite
+     * Converts a LocalDate to Timestamp with zeroed times, ie midnight
      */
     public static Timestamp toTimestamp(LocalDate data) {
         return Timestamp.valueOf(data.atStartOfDay());
     }
 
     /**
-     * Converte Local Date Time para Timestamp
+     * Convert Local Date Time to Timestamp
      */
     public static Timestamp toTimestamp(LocalDateTime data) {
         return Timestamp.valueOf(data);
     }
 
     /**
-     * Converte String em Timestamp
+     * Convert String to Timestamp
      */
     public static Timestamp toTimestamp(String data) {
         return Timestamp.valueOf(LocalDateTime.parse(data, formatter("yyyy-MM-dd HH:mm.ss")));
     }
 
     /**
-     * Converte String em Timestamp indicando o formato
+     * Converts String to Timestamp indicating the format
      */
     public static Timestamp toTimestamp(String data, String modelo) {
         return Timestamp.valueOf(LocalDateTime.parse(data, formatter(modelo)));
     }
 
     /**
-     * Converte Timestamp para Local Date Time
+     * Convert Timestamp to Local Date Time
      */
     public static LocalDateTime toDateTime(Timestamp time) {
         return time.toLocalDateTime();
     }
 
     /**
-     * Converte Timestamp para Local Date Time
+     * Convert Timestamp to Local Date Time
      */
     public static LocalDate toDate(Timestamp time) {
         return time.toLocalDateTime().toLocalDate();
     }
 
     /**
-     * Converte String em LocalDate
+     * Convert String to LocalDate
      */
     public static LocalDate toDate(String data) {
         return LocalDate.parse(data, formatter("yyyy-MM-dd"));
     }
 
     /**
-     * Converte String em LocalDate indicando o formato
+     * Converts String to LocalDate indicating the format
      */
-    public static LocalDate toDate(String data, String modelo) {
-        return LocalDate.parse(data, formatter(modelo));
+    public static LocalDate toDate(String data, String model) {
+        return LocalDate.parse(data, formatter(model));
     }
 
     /**
-     * Tranforma Timestamp em String
+     * Tranform Timestamp in String
      */
     public static String toString(Timestamp data) {
         return data == null ? "" : data.toLocalDateTime().format(formatter("dd/MM/yyyy"));
     }
 
     /**
-     * Tranforma Timestamp em String indicado formato
+     * Transforms Timestamp into String format indicated
      */
-    public static String toString(Timestamp data, String modelo) {
-        return data == null ? "" : data.toLocalDateTime().format(formatter(modelo));
+    public static String toString(Timestamp data, String model) {
+        return data == null ? "" : data.toLocalDateTime().format(formatter(model));
     }
 
     /**
-     * Converte LocalDateTime para String no formato dd/MM/yyyy
+     * Converts LocalDateTime to String in dd / MM / yyyy format
      */
     public static String toString(LocalDate data) {
         return data == null ? "" : data.format(formatter("dd/MM/yyyy"));
     }
 
     /**
-     * Converte LocalDateTime para String indicando o formato da toString
+     * Converts LocalDateTime to String indicating toString format
      */
-    public static String toString(LocalDate data, String modelo) {
-        return data == null ? "" : data.format(formatter(modelo));
+    public static String toString(LocalDate data, String model) {
+        return data == null ? "" : data.format(formatter(model));
     }
 
     /**
-     * Converte LocalDateTime para String indicando o formato da toString
+     * Converts LocalDateTime to String indicating toString format
      */
-    public static String toString(LocalDateTime data, String modelo) {
-        return data == null ? "" : data.format(formatter(modelo));
+    public static String toString(LocalDateTime data, String model) {
+        return data == null ? "" : data.format(formatter(model));
     }
 
     /**
-     * Informa a data do mês númerico e retorna seu nome abreviado em string Ex: 1->JAN, 2->FEV, 3->MAR ... 12->DEZ
+     * Informs the date of the number month and returns its abbreviated name in string Ex: 1-> JAN, 2-> FEV, 3-> MAR ... 12-> TEN
      */
-    public static String mes(String data) {
-        return Month.of(Integer.parseInt(data)).getDisplayName(TextStyle.SHORT, new Locale("pt")).toUpperCase();
+    public static String getMonthString(String data) {
+        return Month.of(Integer.parseInt(data)).getDisplayName(TextStyle.SHORT, new Locale(ConstantConfig.defaultLocaleCode)).toUpperCase();
     }
 
     /**
-     * Retorna data atual no formato timestamp
+     * Returns current date in timestamp format
      */
     public static Timestamp atual() {
         return toTimestamp(LocalDate.now());
     }
 
     /**
-     * Gerar um formatter para fomatação da toDate em string no formato indicado
+     * Generate a formatter for formatting toDate in string in the format indicated
      */
     private static DateTimeFormatter formatter(String modelo) {
         return DateTimeFormatter.ofPattern(modelo);
     }
 
     /**
-     * Bloquear dias dos DatePickers anteriores ao informado deixando em vermelhos datas não selecionaveis
+     * Block days of previous DatePickers to informed leaving in red dates not selectable
      */
     public static void blockDataAnterior(LocalDate data, DatePicker calendarario) {
 

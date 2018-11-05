@@ -4,7 +4,7 @@ import br.com.museuid.model.TipoUsuario;
 import br.com.museuid.model.Usuario;
 import br.com.museuid.util.Criptografia;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Tempo;
+import br.com.museuid.util.TimeUtils;
 
 import java.sql.SQLException;
 
@@ -92,7 +92,7 @@ public class LoginDAO extends DAO {
             while (rs.next()) {
                 TipoUsuario tipo = new TipoUsuario(rs.getInt(9), rs.getString(10));
                 user = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6) == 1 ? true : false, null, rs.getString(8), tipo);
-                user.setDataCriacao(Tempo.toDate(rs.getTimestamp(7)));
+                user.setDataCriacao(TimeUtils.toDate(rs.getTimestamp(7)));
             }
             stm.close();
             rs.close();

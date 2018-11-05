@@ -17,7 +17,7 @@ public class ControleDAO {
     private CatalogacaoDAO catalogacaoDAO = new CatalogacaoDAO();
     private ColecaoDAO colecaoDAO = new ColecaoDAO();
     private DesignacaoDAO designacaoDAO = new DesignacaoDAO();
-    private EstratigrafiaDAO estratigrafiaDAO = new EstratigrafiaDAO();
+    private EmprestimoDAO EstratigrafiaDAO = new EmprestimoDAO();
     private ExcursaoDAO excursaoDAO = new ExcursaoDAO();
     private InstituicaoDAO instituicaoDAO = new InstituicaoDAO();
     private VisitanteDAO visitanteDAO = new VisitanteDAO();
@@ -56,8 +56,8 @@ public class ControleDAO {
         return designacaoDAO;
     }
 
-    public EstratigrafiaDAO getEstratigrafiaDAO() {
-        return estratigrafiaDAO;
+    public EmprestimoDAO getEstratigrafiaDAO() {
+        return EstratigrafiaDAO;
     }
 
     public ExcursaoDAO getExcursaoDAO() {

@@ -66,13 +66,13 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="5.0" styleClass="hbox-id-descricao" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                     <children>
-                                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Dimensões:" wrapText="true" GridPane.rowIndex="1" />
+                                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Dimensions:" wrapText="true" GridPane.rowIndex="1" />
                                         <Label fx:id="txtDimesoes" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" wrapText="true" />
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="5.0" styleClass="hbox-id-descricao" GridPane.rowIndex="2">
                                     <children>
-                                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Localização:" wrapText="true" GridPane.rowIndex="1" />
+                                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Location:" wrapText="true" GridPane.rowIndex="1" />
                                         <Label fx:id="txtLocalizacao" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" wrapText="true" />
                                     </children>
                                 </HBox>
@@ -90,13 +90,13 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="5.0" styleClass="hbox-id-descricao" GridPane.rowIndex="3">
                                     <children>
-                                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Procêdencia:" wrapText="true" GridPane.rowIndex="1" />
+                                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Search:" wrapText="true" GridPane.rowIndex="1" />
                                         <Label fx:id="txtProcedencia" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" wrapText="true" />
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="5.0" styleClass="hbox-id-descricao" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                     <children>
-                                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Detalhes Procêdencia:" wrapText="true" GridPane.rowIndex="1" />
+                                        <Label minWidth="-Infinity" styleClass="lb-id-descricao" text="Detalhes Search:" wrapText="true" GridPane.rowIndex="1" />
                                         <Label fx:id="txtDeatlhesProcedencia" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" wrapText="true" />
                                     </children>
                                 </HBox>
@@ -109,7 +109,7 @@
                                 <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Estratigrafia" GridPane.rowIndex="5">
                                     <styleClass>
                                         <String fx:value="titulo-identificao" />
-                                        <String fx:value="titulo-id-estratigrafia" />
+                                        <String fx:value="titulo-id-Estratigrafia" />
                                         <String fx:value="box-titulo-identificacao" />
                                     </styleClass>
                                 </Label>
@@ -125,7 +125,7 @@
                                         <Label fx:id="txtFormacao" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" />
                                     </children>
                                 </HBox>
-                                <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Coleção" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Collection" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
                                     <styleClass>
                                         <String fx:value="titulo-identificao" />
                                         <String fx:value="titulo-id-colecao" />
@@ -144,7 +144,7 @@
                                         <Label fx:id="txtColecaoDescricao" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" />
                                     </children>
                                 </HBox>
-                                <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Localização" GridPane.rowIndex="9">
+                                <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Location" GridPane.rowIndex="9">
                                     <styleClass>
                                         <String fx:value="titulo-identificao" />
                                         <String fx:value="titulo-id-localizacao" />
@@ -169,7 +169,7 @@
                                         <Label fx:id="txtLocal" layoutX="10.0" layoutY="46.0" styleClass="lb-id-valor" />
                                     </children>
                                 </HBox>
-                                <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Designação" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                                <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Designation" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9">
                                     <styleClass>
                                         <String fx:value="titulo-identificao" />
                                         <String fx:value="titulo-id-designacao" />

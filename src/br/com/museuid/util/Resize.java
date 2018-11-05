@@ -13,15 +13,16 @@ public class Resize {
     }
 
     /**
-     * Função para facilitar o redimensionamento dos nós para seu tamanho de
-     * acordo com a distancia do seu parente
-     *
-     * @param no     node parente do componente a ser redimensionado
-     * @param top    distancia do topo com o nó parente
-     * @param right  distancia da direita com o nó parente
-     * @param bottom distancia do fundi com o nó parente
-     * @param left   distancia sa esquerda com o nó parente
-     */
+      * Function to facilitate the resizing of nodes to their size
+      * according to the distance of your relative
+      *
+      * @param in the relative node of the component to be resized
+      * @param top distance from top with parent node
+      * @param right distance from the right with the parent node
+      * @param bottom distance of the fundi with the relative node
+      * @param left distance sa left with parent node
+      */
+
     public static void margin(Node no, double top, double right, double bottom, double left) {
         AnchorPane.setTopAnchor(no, top);
         AnchorPane.setRightAnchor(no, right);
@@ -30,12 +31,12 @@ public class Resize {
     }
 
     /**
-     * Função para facilitar o redimensionamento dos nós para seu tamanho de
-     * acordo com a distancia do seu parente
-     *
-     * @param no    node parente do componente a ser redimensionado
-     * @param valor valores para todos os nodes
-     */
+      * Function to facilitate the resizing of nodes to their size
+      * according to the distance of your relative
+      *
+      * @param in the relative node of the component to be resized
+      * @param value values for all nodes
+      */
     public static void margin(Node no, double valor) {
         AnchorPane.setTopAnchor(no, valor);
         AnchorPane.setRightAnchor(no, valor);
@@ -44,7 +45,7 @@ public class Resize {
     }
 
     /**
-     * Defenir valores de margen topo, direita e esquerda em relação ao parente
+     * Define top, right, and left margin values relative to relative
      */
     public static void margin(Node no, double top, double right, double left) {
         AnchorPane.setTopAnchor(no, top);
@@ -53,7 +54,7 @@ public class Resize {
     }
 
     /**
-     * Defenir valores de margen direita e esquerda em relação ao parente
+     * Define right and left margin values relative to relative
      */
     public static void margin(Node no, double right, double left) {
         AnchorPane.setRightAnchor(no, right);
@@ -61,28 +62,28 @@ public class Resize {
     }
 
     /**
-     * Defenir valores de margen do topo
+     * Set top margin values
      */
     public static void marginTop(Node no, double top) {
         AnchorPane.setTopAnchor(no, top);
     }
 
     /**
-     * Defenir valores de margen direita
+     * Set right margin values
      */
     public static void marginRight(Node no, double right) {
         AnchorPane.setRightAnchor(no, right);
     }
 
     /**
-     * Defenir valores de margen rodape
+     * Define values of margin rodape
      */
     public static void marginBottom(Node no, double bottom) {
         AnchorPane.setBottomAnchor(no, bottom);
     }
 
     /**
-     * Defenir valores de margen esquerda
+     * Set left margin values
      */
     public static void marginLeft(Node no, double left) {
         AnchorPane.setLeftAnchor(no, left);

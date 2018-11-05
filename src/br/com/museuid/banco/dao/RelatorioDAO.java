@@ -2,7 +2,7 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.Relatorio;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Tempo;
+import br.com.museuid.util.TimeUtils;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -32,11 +32,11 @@ public class RelatorioDAO extends DAO {
             String sql = "SELECT data_cadastro, count(data_cadastro) FROM tb_catalogacao WHERE data_cadastro = ? GROUP BY data_cadastro ";
 
             stm = conector.prepareStatement(sql);
-            stm.setTimestamp(1, Tempo.toTimestamp(data));
+            stm.setTimestamp(1, TimeUtils.toTimestamp(data));
             rs = stm.executeQuery();
 
             while (rs.next()) {
-                String chave = Tempo.toString(rs.getTimestamp(1));
+                String chave = TimeUtils.toString(rs.getTimestamp(1));
 
                 if (map.get(chave) == null) {
                     map.put(chave, new ArrayList<>());
@@ -64,7 +64,7 @@ public class RelatorioDAO extends DAO {
 
         try {
             stm = conector.prepareStatement(sql);
-            stm.setTimestamp(1, Tempo.toTimestamp(data));
+            stm.setTimestamp(1, TimeUtils.toTimestamp(data));
             rs = stm.executeQuery();
 
             while (rs.next()) {

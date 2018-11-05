@@ -2,7 +2,7 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.*;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Tempo;
+import br.com.museuid.util.TimeUtils;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -36,8 +36,8 @@ public class EmprestimoDAO extends DAO {
             stm.setString(6, emprestimo.getEmail());
             stm.setString(7, emprestimo.getResponsavel());
             stm.setString(8, emprestimo.getStatus());
-            stm.setTimestamp(9, Tempo.toTimestamp(emprestimo.getDataEmprestimmo()));
-            stm.setTimestamp(10, Tempo.toTimestamp(emprestimo.getDataDevolucao()));
+            stm.setTimestamp(9, TimeUtils.toTimestamp(emprestimo.getDataEmprestimmo()));
+            stm.setTimestamp(10, TimeUtils.toTimestamp(emprestimo.getDataDevolucao()));
             stm.setString(11, emprestimo.getDescricao());
             stm.setInt(12, emprestimo.getInstituicao().getId());
 
@@ -67,8 +67,8 @@ public class EmprestimoDAO extends DAO {
             stm.setString(6, emprestimo.getEmail());
             stm.setString(7, emprestimo.getResponsavel());
             stm.setString(8, emprestimo.getStatus());
-            stm.setTimestamp(9, Tempo.toTimestamp(emprestimo.getDataEmprestimmo()));
-            stm.setTimestamp(10, Tempo.toTimestamp(emprestimo.getDataDevolucao()));
+            stm.setTimestamp(9, TimeUtils.toTimestamp(emprestimo.getDataEmprestimmo()));
+            stm.setTimestamp(10, TimeUtils.toTimestamp(emprestimo.getDataDevolucao()));
             stm.setString(11, emprestimo.getDescricao());
             stm.setInt(12, emprestimo.getInstituicao().getId());
 
@@ -134,7 +134,7 @@ public class EmprestimoDAO extends DAO {
             String sql = "UPDATE tb_emprestimo SET data_entregue =?, observacoes =? , status_emprestimo ='Entregue' WHERE id_emprestimo=? ";
 
             stm = conector.prepareStatement(sql);
-            stm.setTimestamp(1, Tempo.toTimestamp(dataEntrega));
+            stm.setTimestamp(1, TimeUtils.toTimestamp(dataEntrega));
             stm.setString(2, observacoes);
             stm.setInt(3, emprestimo);
 
@@ -202,8 +202,8 @@ public class EmprestimoDAO extends DAO {
 
             while (rs.next()) {
                 Emprestimo emprestimmo = new Emprestimo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), Tempo.toDate(rs.getTimestamp(10)),
-                        Tempo.toDate(rs.getTimestamp(11)), rs.getString(13), rs.getString(14), new Instituicao(rs.getInt(15), rs.getString(16)));
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), TimeUtils.toDate(rs.getTimestamp(10)),
+                        TimeUtils.toDate(rs.getTimestamp(11)), rs.getString(13), rs.getString(14), new Instituicao(rs.getInt(15), rs.getString(16)));
 
                 dados.add(emprestimmo);
             }
@@ -227,11 +227,11 @@ public class EmprestimoDAO extends DAO {
 
         try {
             String sql = "SELECT item.id_emprestimo_item, item.conservacao, emp.id_emprestimo, emp.numero_emprestimo, "
-                    + "cat.id_catalogacao, cat.numero_ordem, des.id_designacao, des.genero, est.id_estratigrafia, est.formacao  "
-                    + "FROM tb_emprestimo_item AS item, tb_emprestimo AS emp, tb_catalogacao AS cat, tb_estratigrafia AS est, tb_designacao AS des "
+                    + "cat.id_catalogacao, cat.numero_ordem, des.id_designacao, des.genero, est.id_Estratigrafia, est.formacao  "
+                    + "FROM tb_emprestimo_item AS item, tb_emprestimo AS emp, tb_catalogacao AS cat, tb_Estratigrafia AS est, tb_designacao AS des "
                     + "WHERE item.fk_emprestimo =? AND item.fk_emprestimo = emp.id_emprestimo "
                     + "AND item.fk_catalogacao = cat.id_catalogacao AND cat.fk_designacao = des.id_designacao "
-                    + "AND cat.fk_estratigrafia = est.id_estratigrafia ";
+                    + "AND cat.fk_Estratigrafia = est.id_Estratigrafia ";
 
             stm = conector.prepareStatement(sql);
             stm.setInt(1, emprestimo);
@@ -271,7 +271,7 @@ public class EmprestimoDAO extends DAO {
             while (rs.next()) {
                 Emprestimo emprestimmo = new Emprestimo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
                         rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),
-                        Tempo.toDate(rs.getTimestamp(10)), Tempo.toDate(rs.getTimestamp(11)), rs.getString(13),
+                        TimeUtils.toDate(rs.getTimestamp(10)), TimeUtils.toDate(rs.getTimestamp(11)), rs.getString(13),
                         rs.getString(14), new Instituicao(rs.getInt(15), rs.getString(16)));
 
                 dados.add(emprestimmo);
@@ -387,7 +387,7 @@ public class EmprestimoDAO extends DAO {
 
             while (rs.next()) {
                 dados.add(new Emprestimo(rs.getInt(1), rs.getString(2), rs.getString(3), "", "", "", "", "",
-                        rs.getString(4), null, Tempo.toDate(rs.getTimestamp(5)), "", "", new Instituicao(rs.getInt(6), rs.getString(7))));
+                        rs.getString(4), null, TimeUtils.toDate(rs.getTimestamp(5)), "", "", new Instituicao(rs.getInt(6), rs.getString(7))));
             }
 
             stm.close();

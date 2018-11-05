@@ -3,7 +3,7 @@ package br.com.museuid.banco.dao;
 import br.com.museuid.model.Validacao;
 import br.com.museuid.model.ValidacaoItem;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Tempo;
+import br.com.museuid.util.TimeUtils;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,7 +34,7 @@ public class ValidacaoDAO extends DAO {
             stm.setInt(4, validacao.getValidados());
             stm.setInt(5, validacao.getInvalidados());
             stm.setInt(6, validacao.isStatus() ? 1 : 0);
-            stm.setTimestamp(7, Tempo.toTimestamp(validacao.getData()));
+            stm.setTimestamp(7, TimeUtils.toTimestamp(validacao.getData()));
             stm.setInt(8, 1);
 
             stm.executeUpdate();

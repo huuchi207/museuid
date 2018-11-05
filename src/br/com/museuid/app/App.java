@@ -29,7 +29,7 @@ public class App extends Application {
     public void start(final Stage stage) {
         try {
             palco = stage;
-            FXMLLoader fxml = new FXMLLoader(App.class.getResource("../view/app/app.fxml"));
+            FXMLLoader fxml = new FXMLLoader(App.class.getResource("/br/com/museuid/view/app/app.fxml"));
             fxml.setResources(BundleUtils.getResourceBundle());
             page = fxml.load();
             cena = new Scene(page);

@@ -1,6 +1,6 @@
 package br.com.museuid.model;
 
-import br.com.museuid.util.Tempo;
+import br.com.museuid.util.TimeUtils;
 
 public class Relatorio {
 
@@ -31,7 +31,7 @@ public class Relatorio {
 
     public String getFormatar() {
         try {
-            return Tempo.mes(data);
+            return TimeUtils.getMonthString(data);
         } catch (NumberFormatException ex) {
             return data;
         }

@@ -24,7 +24,7 @@ public class CatalogacaoDAO extends DAO {
     public void inserir(Catalogacao catalogacao) {
         try {
             String sql = "INSERT INTO tb_catalogacao (numero_ordem, etiqueta_rfid, procedencia, descricao_procedencia, dimensoes, numero_partes, " +
-                    "localizacao, descricao, data_entrada, data_cadastro, status_emprestimo, fk_designacao, fk_estratigrafia, fk_colecao) "
+                    "localizacao, descricao, data_entrada, data_cadastro, status_emprestimo, fk_designacao, fk_Estratigrafia, fk_colecao) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, now(), ?, ?, ?, ?) ";
 
             stm = conector.prepareStatement(sql);
@@ -57,7 +57,7 @@ public class CatalogacaoDAO extends DAO {
     public void editar(Catalogacao catalogacao) {
         try {
             String sql = "UPDATE tb_catalogacao SET numero_ordem=?, etiqueta_rfid=?, procedencia=?, descricao_procedencia=?, dimensoes=?, numero_partes=?, localizacao=?, descricao=?, "
-                    + "data_entrada=?, status_emprestimo=?, fk_designacao=?, fk_estratigrafia=?, fk_colecao=? WHERE id_catalogacao=? ";
+                    + "data_entrada=?, status_emprestimo=?, fk_designacao=?, fk_Estratigrafia=?, fk_colecao=? WHERE id_catalogacao=? ";
 
             stm = conector.prepareStatement(sql);
 
@@ -223,9 +223,9 @@ public class CatalogacaoDAO extends DAO {
 
         try {
             String sql = "SELECT cat.id_catalogacao, cat.numero_ordem, cat.etiqueta_rfid, cat.dimensoes, cat.numero_partes, "
-                    + "cat.localizacao, des.id_designacao, des.genero, est.id_estratigrafia, est.formacao, col.id_colecao, col.descricao "
-                    + "FROM tb_catalogacao AS cat, tb_colecao AS col, tb_estratigrafia AS est, tb_designacao AS des "
-                    + "WHERE numero_ordem =? AND cat.fk_designacao = des.id_designacao AND cat.fk_estratigrafia = est.id_estratigrafia AND cat.fk_colecao = col.id_colecao ";
+                    + "cat.localizacao, des.id_designacao, des.genero, est.id_Estratigrafia, est.formacao, col.id_colecao, col.descricao "
+                    + "FROM tb_catalogacao AS cat, tb_colecao AS col, tb_Estratigrafia AS est, tb_designacao AS des "
+                    + "WHERE numero_ordem =? AND cat.fk_designacao = des.id_designacao AND cat.fk_Estratigrafia = est.id_Estratigrafia AND cat.fk_colecao = col.id_colecao ";
 
             stm = conector.prepareStatement(sql);
             stm.setString(1, numOrdem);
@@ -301,9 +301,9 @@ public class CatalogacaoDAO extends DAO {
             String sql = "SELECT cat.id_catalogacao, cat.numero_ordem, cat.etiqueta_rfid, cat.procedencia, cat.descricao_procedencia, "
                     + "cat.dimensoes, cat.numero_partes, cat.localizacao, cat.localizacao, cat.descricao, "
                     + "cat.data_entrada,cat.data_cadastro, cat.status_emprestimo, cat.fk_designacao, des.genero, "
-                    + "cat.fk_estratigrafia, est.formacao, cat.fk_colecao, col.nome "
-                    + "FROM tb_catalogacao AS cat, tb_designacao AS des, tb_estratigrafia AS est, tb_colecao AS col "
-                    + "WHERE cat.fk_designacao = des.id_designacao AND cat.fk_estratigrafia = est.id_estratigrafia "
+                    + "cat.fk_Estratigrafia, est.formacao, cat.fk_colecao, col.nome "
+                    + "FROM tb_catalogacao AS cat, tb_designacao AS des, tb_Estratigrafia AS est, tb_colecao AS col "
+                    + "WHERE cat.fk_designacao = des.id_designacao AND cat.fk_Estratigrafia = est.id_Estratigrafia "
                     + "AND cat.fk_colecao = col.id_colecao ";
 
             stm = conector.prepareStatement(sql);
@@ -311,12 +311,12 @@ public class CatalogacaoDAO extends DAO {
 
             while (rs.next()) {
                 Colecao colecao = new Colecao(rs.getInt(18), rs.getString(19));
-                Estratigrafia estratigrafia = new Estratigrafia(rs.getInt(16), rs.getString(17));
+                Estratigrafia Estratigrafia = new Estratigrafia(rs.getInt(16), rs.getString(17));
                 Designacao designacao = new Designacao(rs.getInt(14), rs.getString(15));
 
                 Catalogacao catalogacao = new Catalogacao(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
                         rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(10),
-                        rs.getString(11), rs.getInt(13) == 1, designacao, estratigrafia, colecao);
+                        rs.getString(11), rs.getInt(13) == 1, designacao, Estratigrafia, colecao);
 
                 dados.add(catalogacao);
             }
@@ -377,7 +377,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao consultar quantidade de itens da catalogação por designação na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar quantidade de itens da catalogação por Designation na base de dados! \n" + ex);
         }
 
         return map;
@@ -405,7 +405,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao consultar quantidade de itens da catalogação por coleção na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar quantidade de itens da catalogação por Collection na base de dados! \n" + ex);
         }
 
         return map;
@@ -414,13 +414,13 @@ public class CatalogacaoDAO extends DAO {
     /**
      * Consultar quantidade de designações por catalogações
      */
-    public Map<String, String> estratigrafias() {
+    public Map<String, String> Estratigrafias() {
 
         Map<String, String> map = new TreeMap<>();
 
         try {
-            String sql = "SELECT tb_estratigrafia.formacao AS estratigrafia, (SELECT count(*) FROM tb_catalogacao " +
-                    "WHERE tb_catalogacao.fk_estratigrafia = tb_estratigrafia.id_estratigrafia) AS total FROM tb_estratigrafia ORDER BY estratigrafia";
+            String sql = "SELECT tb_Estratigrafia.formacao AS Estratigrafia, (SELECT count(*) FROM tb_catalogacao " +
+                    "WHERE tb_catalogacao.fk_Estratigrafia = tb_Estratigrafia.id_Estratigrafia) AS total FROM tb_Estratigrafia ORDER BY Estratigrafia";
 
             stm = conector.prepareStatement(sql);
             rs = stm.executeQuery();
@@ -433,7 +433,7 @@ public class CatalogacaoDAO extends DAO {
             rs.close();
 
         } catch (SQLException ex) {
-            Messenger.erro("Erro ao consultar quantidade de itens da catalogação por coleção na base de dados! \n" + ex);
+            Messenger.erro("Erro ao consultar quantidade de itens da catalogação por Collection na base de dados! \n" + ex);
         }
 
         return map;

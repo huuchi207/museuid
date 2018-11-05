@@ -18,7 +18,7 @@ public class Catalogacao {
     private LocalDate dataCadastro;
     private Colecao colecao;
     private Designacao designacao;
-    private Estratigrafia estratigrafia;
+    private Estratigrafia Estratigrafia;
 
     public Catalogacao() {
     }
@@ -32,15 +32,15 @@ public class Catalogacao {
         this.numeroOrdem = numeroOrdem;
     }
 
-    public Catalogacao(int id, String numeroOrdem, Designacao designacao, Estratigrafia estratigrafia, Colecao colecao) {
+    public Catalogacao(int id, String numeroOrdem, Designacao designacao, Estratigrafia Estratigrafia, Colecao colecao) {
         this.id = id;
         this.numeroOrdem = numeroOrdem;
         this.designacao = designacao;
-        this.estratigrafia = estratigrafia;
+        this.Estratigrafia = Estratigrafia;
         this.colecao = colecao;
     }
 
-    public Catalogacao(int id, String numeroOrdem, String etiquetaRFID, String procedencia, String detalhesProcedencia, String dimensoes, int numeroPartes, String localizacao, String descricao, String dataEntrada, boolean emprestimo, Designacao designacao, Estratigrafia estratigrafia, Colecao colecao) {
+    public Catalogacao(int id, String numeroOrdem, String etiquetaRFID, String procedencia, String detalhesProcedencia, String dimensoes, int numeroPartes, String localizacao, String descricao, String dataEntrada, boolean emprestimo, Designacao designacao, Estratigrafia Estratigrafia, Colecao colecao) {
         this.id = id;
         this.numeroOrdem = numeroOrdem;
         this.etiquetaRFID = etiquetaRFID;
@@ -53,7 +53,7 @@ public class Catalogacao {
         this.dataEntrada = dataEntrada;
         this.emprestimo = emprestimo;
         this.designacao = designacao;
-        this.estratigrafia = estratigrafia;
+        this.Estratigrafia = Estratigrafia;
         this.colecao = colecao;
     }
 
@@ -162,11 +162,11 @@ public class Catalogacao {
     }
 
     public Estratigrafia getEstratigrafia() {
-        return estratigrafia;
+        return Estratigrafia;
     }
 
-    public void setEstratigrafia(Estratigrafia estratigrafia) {
-        this.estratigrafia = estratigrafia;
+    public void setEstratigrafia(Estratigrafia Estratigrafia) {
+        this.Estratigrafia = Estratigrafia;
     }
 
     public Colecao getColecao() {

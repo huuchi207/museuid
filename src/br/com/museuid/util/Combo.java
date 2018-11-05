@@ -17,7 +17,7 @@ public class Combo {
     }
 
     /**
-     * Popular combos generico atravês de uma coleção do tipo Item
+     * Popular combos generico atravês de uma Collection do tipo Item
      */
     public static void popular(ComboBox combo, List lista) {
         dados(combo, FXCollections.observableArrayList(lista));

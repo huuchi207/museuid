@@ -3,15 +3,15 @@ package br.com.museuid.model;
 public class Identificacao {
 
     private Catalogacao catalogacao;
-    private Estratigrafia estratigrafia;
+    private Estratigrafia Estratigrafia;
     private Colecao colecao;
     private Local localizacao;
     private Designacao designacao;
     private Emprestimo emprestimo;
 
-    public Identificacao(Catalogacao catalogacao, Estratigrafia estratigrafia, Colecao colecao, Local localizacao, Designacao designacao, Emprestimo emprestimo) {
+    public Identificacao(Catalogacao catalogacao, Estratigrafia Estratigrafia, Colecao colecao, Local localizacao, Designacao designacao, Emprestimo emprestimo) {
         this.catalogacao = catalogacao;
-        this.estratigrafia = estratigrafia;
+        this.Estratigrafia = Estratigrafia;
         this.colecao = colecao;
         this.localizacao = localizacao;
         this.designacao = designacao;
@@ -23,7 +23,7 @@ public class Identificacao {
     }
 
     public Estratigrafia getEstratigrafia() {
-        return estratigrafia;
+        return Estratigrafia;
     }
 
     public Colecao getColecao() {
