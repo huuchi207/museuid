@@ -4,15 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.EmployeeListDTO;
 import br.com.museuid.dto.EmployeeDTO;
 import br.com.museuid.dto.Product;
@@ -22,7 +21,7 @@ import br.com.museuid.service.remote.ResponseDTO;
 public class FakeDataUtils {
   public static List<EmployeeDTO> getFakeEmployeeList(){
     try{
-      JsonReader reader = readFile("src/br/com/museuid/json_fake/employee.json");
+      JsonReader reader = readFile("employee.json");
       if (reader != null){
         ResponseDTO<EmployeeListDTO> responseDTO = new Gson()
             .fromJson(reader, new TypeToken<ResponseDTO<EmployeeListDTO>>() {
@@ -41,7 +40,7 @@ public class FakeDataUtils {
 
     public static List<Product> getFakeProductList(){
         try{
-            JsonReader reader = readFile("src/br/com/museuid/json_fake/product.json");
+            JsonReader reader = readFile("product.json");
             if (reader != null){
                 ResponseDTO<ProductListDTO> responseDTO = new Gson()
                     .fromJson(reader, new TypeToken<ResponseDTO<ProductListDTO>>() {
@@ -59,6 +58,11 @@ public class FakeDataUtils {
     }
 
   public static JsonReader readFile(String fileDir){
+      if (ConstantConfig.RELEASE){
+          fileDir = "./data/json_fake/"+ fileDir;
+      }else {
+          fileDir = "src/br/com/museuid/json_fake/"+fileDir;
+      }
     JsonReader reader = null;
     try {
 //      reader = new JsonReader(new FileReader(fileDir);
