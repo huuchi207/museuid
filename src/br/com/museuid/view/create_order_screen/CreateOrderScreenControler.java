@@ -219,7 +219,7 @@ public class CreateOrderScreenControler extends AnchorPane {
     void createOrder(ActionEvent event){
         //TODO: call create order api
         if (totalPrice<=0){
-            Messenger.alert(bundle.getString("txt_please_choose_number_of_product_correctly"));
+            Messenger.info(bundle.getString("txt_please_choose_number_of_product_correctly"));
             return;
         }
         if (ConstantConfig.FAKE){
