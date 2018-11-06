@@ -44,7 +44,7 @@ public class Login extends Application {
             stage.setWidth(windows.getWidth());
             stage.setHeight(windows.getHeight());
 
-            stage.getIcons().addAll(new Image(Login.class.getResourceAsStream("icone.png")));
+            stage.getIcons().addAll(new Image(Login.class.getResourceAsStream("icon.png")));
 
             stage.setScene(cena);
             stage.show();

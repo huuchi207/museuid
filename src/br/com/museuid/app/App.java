@@ -41,7 +41,7 @@ public class App extends Application {
             stage.setWidth(windows.getWidth());
             stage.setHeight(windows.getHeight());
 
-//            stage.getIcons().addAll(new Image(App.class.getResourceAsStream("icone.png")));
+//            stage.getIcons().addAll(new Image(App.class.getResourceAsStream("icon.png")));
 
             stage.setScene(cena);
             stage.show();

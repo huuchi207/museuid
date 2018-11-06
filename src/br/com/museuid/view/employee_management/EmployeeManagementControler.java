@@ -14,23 +14,18 @@ import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.Grupo;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Model;
+import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.NoticeUtils;
 import br.com.museuid.view.app.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -39,11 +34,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class EmployeeManagementControler extends AnchorPane {
 
@@ -106,21 +96,21 @@ public class EmployeeManagementControler extends AnchorPane {
     @FXML
     void tbAdd(ActionEvent event) {
         config(bundle.getString("txt_create_employee"), bundle.getString("txt_required_fields"), 0);
-        Model.setVisibility(true, apAdd, btSave);
+        NavigationUtils.setVisibility(true, apAdd, btSave);
         resetField();
     }
 
     @FXML
     void tbEdit(ActionEvent event) {
         config(bundle.getString("txt_edit_employee_info"), "", 1);
-        Model.setVisibility(true, apEdit, btEdit, txtSearch);
+        NavigationUtils.setVisibility(true, apEdit, btEdit, txtSearch);
         updateTable();
     }
 
     @FXML
     void tbExclude(ActionEvent event) {
         config(bundle.getString("txt_employee_deleted"), "", 2);
-        Model.setVisibility(true, apEdit, btExclude, txtSearch);
+        NavigationUtils.setVisibility(true, apEdit, btExclude, txtSearch);
         updateTable();
     }
 
@@ -230,7 +220,7 @@ public class EmployeeManagementControler extends AnchorPane {
     public void initialize() {
         tbAdd(null);
 
-        Grupo.notEmpty(menu);
+//        Grupo.notEmpty(menu);
         synchronizeBase();
 
         txtSearch.textProperty().addListener((obs, old, novo) -> {
@@ -243,7 +233,7 @@ public class EmployeeManagementControler extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitle.setText(tituloTela);
-        Model.setVisibility(false, btExclude, btSave, btEdit, apAdd, apEdit, txtSearch);
+        NavigationUtils.setVisibility(false, btExclude, btSave, btEdit, apAdd, apEdit, txtSearch);
 
         legenda.setText(msg);
         tbUser.getSelectionModel().clearSelection();
@@ -314,7 +304,7 @@ public class EmployeeManagementControler extends AnchorPane {
 
         SortedList<EmployeeDTO> dadosOrdenados = new SortedList<>(filtedList);
         dadosOrdenados.comparatorProperty().bind(tbUser.comparatorProperty());
-//    Filtro.mensagem(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
+//    FilterUtils.mensage(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
 
         tbUser.setItems(dadosOrdenados);
     }

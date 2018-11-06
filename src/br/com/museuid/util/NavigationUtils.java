@@ -8,33 +8,32 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 /**
- * Principal classe para controle e carregamento dos modulos da aplicação,
- * cada menu e alguns submenus da aplicação representa um modulo na aplicação
+ * Main class for controlling and loading the application modules,
+ * each menu and some submenus of the application represents a module in the application
  */
-public class Model {
+public class NavigationUtils {
     //new code
     private static EmployeeManagementControler employeeManagement;
     private static CreateOrderScreenControler createOrderScreenControler;
-    private Model() {
+    private NavigationUtils() {
     }
 
-      /**
-     * Configuração da tela de conteúdo para resetField painel e adicionar nova
-     * tela, redimensionado seu tamanho para preencher a tela
+    /**
+     * Content screen setup for panel resetField and
+     * add new screen, resized its size to fill the screen
      */
     public static void config(AnchorPane box, AnchorPane conteudo) {
         box.getChildren().clear();
         box.getChildren().add(conteudo);
-        Resize.margin(conteudo, 0);
+        ResizeUtils.margin(conteudo, 0);
     }
 
     /**
-     * Auxiliar na visualização de elementos da tela como: subenus, subtelas e
-     * etc...
+     * Assist in the visualization of screen elements like: subenus, subtelas and etc ...
      */
     public static void setVisibility(boolean valor, Node... no) {
-        for (Node elemento : no) {
-            elemento.setVisible(valor);
+        for (Node element : no) {
+            element.setVisible(valor);
         }
     }
 
@@ -50,6 +49,6 @@ public class Model {
     public static void config(AnchorPane box, StackPane conteudo) {
         box.getChildren().clear();
         box.getChildren().add(conteudo);
-        Resize.margin(conteudo, 0);
+        ResizeUtils.margin(conteudo, 0);
     }
 }

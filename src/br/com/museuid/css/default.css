@@ -106,7 +106,7 @@
     -fx-background-insets: 0;
 }
 
-/*.............Item View Combo Box .............*/
+/*.............Item View ComboUtils Box .............*/
 
 .combo-box-popup > .list-view {
     -fx-background-color: #e0e0e0, #eaeaea, #fff;
@@ -325,7 +325,7 @@
     -fx-padding: 0px 0px 4px 0px;
 }
 
-/*............. Combo Data .............*/
+/*............. ComboUtils Data .............*/
 
 .date-picker > .arrow-button > .arrow {
     -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;

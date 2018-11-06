@@ -12,7 +12,7 @@ import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.Model;
+import br.com.museuid.util.NavigationUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -174,7 +174,7 @@ public class CreateOrderScreenControler extends AnchorPane {
 
         SortedList<Product> dadosOrdenados = new SortedList<>(filteredList);
         dadosOrdenados.comparatorProperty().bind(tbProduct.comparatorProperty());
-//    Filtro.mensagem(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
+//    FilterUtils.mensage(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
 
         tbProduct.setItems(dadosOrdenados);
     }
@@ -211,8 +211,8 @@ public class CreateOrderScreenControler extends AnchorPane {
         updateProductInOrderTable();
         lbTitle.setText(bundle.getString("txt_edit_order"));
         lbLegend.setText(bundle.getString("txt_total_price")+ ": 0 "+ bundle.getString("txt_vnd"));
-        Model.setVisibility(false, btEditOrder, apProductList, txtSearch);
-        Model.setVisibility(true, btBackToList, btCreateOrder, apEditOrderList);
+        NavigationUtils.setVisibility(false, btEditOrder, apProductList, txtSearch);
+        NavigationUtils.setVisibility(true, btBackToList, btCreateOrder, apEditOrderList);
     }
 
     @FXML
@@ -236,8 +236,8 @@ public class CreateOrderScreenControler extends AnchorPane {
         lbLegend.setText(bundle.getString("txt_hold_ctrl_to_choose_items"));
         tbProduct.getSelectionModel().clearSelection();
 
-        Model.setVisibility(true, btEditOrder, apProductList,txtSearch);
-        Model.setVisibility(false, btBackToList, btCreateOrder, apEditOrderList);
+        NavigationUtils.setVisibility(true, btEditOrder, apProductList,txtSearch);
+        NavigationUtils.setVisibility(false, btBackToList, btCreateOrder, apEditOrderList);
     }
     List<ProductInOrder> createProductInOrderListFromSelectedProductList(){
         if (productList == null || productList.isEmpty()){

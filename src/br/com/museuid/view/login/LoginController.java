@@ -6,7 +6,6 @@ import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.model.Usuario;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.FieldViewUtils;
-import br.com.museuid.util.Link;
 import br.com.museuid.app.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,61 +21,54 @@ public class LoginController {
     public static Usuario usuarioLogado = null;
 
     @FXML
-    private PasswordField psSenha;
+    private PasswordField pfPass;
     @FXML
-    private Label lbErroLogin;
+    private Label lbErrorLogin;
     @FXML
-    private TextField txtUsuario;
+    private TextField tfUser;
 
     @FXML
     void logar(ActionEvent event) {
 
-        String login = txtUsuario.getText();
-        String senha = psSenha.getText();
+        String login = tfUser.getText();
+        String password = pfPass.getText();
         if (ConstantConfig.FAKE){
           new App().start(new Stage());
           Login.palco.close();
           return;
         }
         if (ControleDAO.getBanco().getLoginDAO().autenticarUsername(login)) {
-            if (ControleDAO.getBanco().getLoginDAO().autenticarSenha(login, senha)) {
+            if (ControleDAO.getBanco().getLoginDAO().autenticarSenha(login, password)) {
                 usuarioLogado = ControleDAO.getBanco().getLoginDAO().usuarioLogado(login);
                 new App().start(new Stage());
                 Login.palco.close();
             } else {
-                lbErroLogin.setText(BundleUtils.getResourceBundle().getString("txt_invalid_password"));
-                FieldViewUtils.erroLogin(psSenha);
+                lbErrorLogin.setText(BundleUtils.getResourceBundle().getString("txt_invalid_password"));
+                FieldViewUtils.erroLogin(pfPass);
             }
         } else {
-            lbErroLogin.setText(BundleUtils.getResourceBundle().getString("txt_not_existed_user"));
-            FieldViewUtils.erroLogin(txtUsuario);
+            lbErrorLogin.setText(BundleUtils.getResourceBundle().getString("txt_not_existed_user"));
+            FieldViewUtils.erroLogin(tfUser);
         }
     }
 
     @FXML
-    void minimizar(ActionEvent event) {
+    void minimize(ActionEvent event) {
         Login.palco.setIconified(true);
     }
 
     @FXML
-    void fechar(ActionEvent event) {
+    void close(ActionEvent event) {
         Login.palco.close();
     }
 
     @FXML
     void initialize() {
-        acessar(psSenha);
-    }
-
-    /**
-     * Função para chamar procedimento de login ao clicar ENTER no campo de
-     * senha
-     */
-    private void acessar(PasswordField senha) {
-        senha.setOnKeyReleased((KeyEvent key) -> {
+        pfPass.setOnKeyReleased((KeyEvent key) -> {
             if (key.getCode() == KeyCode.ENTER) {
                 logar(null);
             }
         });
     }
+
 }

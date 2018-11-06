@@ -9,7 +9,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
- * Criar Notas informativas, simplicação sistema de mensagem
+ * Criar Notas informativas, simplicação sistema de mensage
  */
 public class NoticeUtils {
 
@@ -56,12 +56,12 @@ public class NoticeUtils {
     }
 
     /**
-     * Formatar mensagem da nota
+     * Formatar mensage da nota
      */
     private static Label label(String texto, String tipo) {
 
         Label mensagem = new Label(texto);
-        mensagem.getStyleClass().add("nota-texto");
+        mensagem.getStyleClass().add("nota-text");
         HBox.setHgrow(mensagem, Priority.ALWAYS);
         mensagem.setMaxWidth(Double.MAX_VALUE);
         icone(tipo, mensagem);
@@ -70,7 +70,7 @@ public class NoticeUtils {
     }
 
     /**
-     * Conforme o tipo da nota showDialog seu respectivo icone
+     * Conforme o tipo da nota showDialog seu respectivo icon
      */
     private static void icone(String tipo, Label mensagem) {
         switch (tipo) {

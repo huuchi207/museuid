@@ -1,7 +1,7 @@
 package br.com.museuid.util;
 
 /**
- * Criação de mensagem apartir do classe de dialog
+ * Criação de mensage apartir do classe de dialog
  */
 public class Messenger {
 

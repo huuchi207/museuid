@@ -2,13 +2,9 @@ package br.com.museuid.util;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -32,11 +28,11 @@ public class DialogUtils {
     /**
      * According to the message type showDialog its respective icon
      */
-    public static Label icone(String tipo) {
+    public static Label icon(String type) {
 
         Label label = new Label();
 
-        switch (tipo) {
+        switch (type) {
             case "INFO":
                 label.getStyleClass().add("img-dialog");
                 break;
@@ -59,17 +55,17 @@ public class DialogUtils {
     /**
      * Formats text (title and description) of the message
      */
-    public static VBox texto(String title, String msg) {
+    public static VBox text(String title, String msg) {
         VBox box = new VBox();
 
-        Label titulo = new Label(title);
-        titulo.getStyleClass().add("titulo-dialogs");
+        Label lbTitle = new Label(title);
+        lbTitle.getStyleClass().add("titulo-dialogs");
 
-        Label mensagem = new Label(msg);
-        mensagem.getStyleClass().add("mensagem-dialogs");
+        Label lbMsg = new Label(msg);
+        lbMsg.getStyleClass().add("mensage-dialogs");
 
-        box.getChildren().addAll(titulo, mensagem);
-        box.getStyleClass().add("caixa-mensagem");
+        box.getChildren().addAll(lbTitle, lbMsg);
+        box.getStyleClass().add("caixa-mensage");
 
         return box;
     }
@@ -77,7 +73,7 @@ public class DialogUtils {
     /**
      * Add actions like Yes, No, Cancel, Ok
      */
-    public static HBox acoes() {
+    public static HBox action() {
         HBox box = new HBox();
         box.getStyleClass().add("box-acao-dialog");
 
@@ -96,7 +92,7 @@ public class DialogUtils {
      * Add alert title and description to the message box
      */
     public static void message(String tipo, String title, String message) {
-        box(icone(tipo), texto(title, message), acoes());
+        box(icon(tipo), text(title, message), action());
     }
 
     /**
@@ -121,7 +117,7 @@ public class DialogUtils {
         no.getStyleClass().add("bt-nao");
         box.getChildren().addAll(yes, no);
 
-        box(icone("CONFIRMAR"), texto(titulo, mensagem), box);
+        box(icon("CONFIRMAR"), text(titulo, mensagem), box);
 
         return responseMessage;
     }
@@ -139,19 +135,19 @@ public class DialogUtils {
 
         HBox boxCentral = new HBox(grid);
         boxCentral.getStyleClass().add("box-msg");
-        Resize.margin(boxCentral, 0);
+        ResizeUtils.margin(boxCentral, 0);
 
         AnchorPane boxPrincipal = new AnchorPane(boxCentral);
         boxPrincipal.setStyle("-fx-background-color: rgba(0, 0, 0, 0.0);");
-        Resize.margin(boxPrincipal, 0);
+        ResizeUtils.margin(boxPrincipal, 0);
 
-        boxDialogo(boxPrincipal);
+        boxDialog(boxPrincipal);
     }
 
     /**
      * Main message box and added the main screen
      */
-    public static void boxDialogo(AnchorPane pane) {
+    public static void boxDialog(AnchorPane pane) {
         Scene scene = new Scene(pane);
         scene.getStylesheets().add("br/com/museuid/css/dialog.css");
         scene.setFill(Color.TRANSPARENT);

@@ -2,7 +2,7 @@ package br.com.museuid.config;
 
 public interface ConstantConfig {
   boolean FAKE = true;
-  String defaultLocaleCode="vi";
+  String defaultLocaleCode= "vi";
   boolean DEBUG= true;
-  boolean RELEASE = true;
+  boolean RELEASE = false;
 }

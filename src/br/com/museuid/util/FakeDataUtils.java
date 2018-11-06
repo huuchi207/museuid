@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
@@ -11,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.museuid.app.App;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.EmployeeListDTO;
 import br.com.museuid.dto.EmployeeDTO;
@@ -58,16 +60,12 @@ public class FakeDataUtils {
     }
 
   public static JsonReader readFile(String fileDir){
-      if (ConstantConfig.RELEASE){
-          fileDir = "./data/json_fake/"+ fileDir;
-      }else {
-          fileDir = "src/br/com/museuid/json_fake/"+fileDir;
-      }
     JsonReader reader = null;
     try {
-//      reader = new JsonReader(new FileReader(fileDir);
-      reader = new JsonReader(new InputStreamReader(new FileInputStream(fileDir), StandardCharsets.UTF_8));
-    } catch (FileNotFoundException e) {
+      reader = new JsonReader(new InputStreamReader(
+          App.class.getClass().getResourceAsStream("/br/com/museuid/json_fake/"+
+              fileDir), "UTF-8"));
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return reader;

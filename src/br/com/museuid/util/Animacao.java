@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.util.Duration;
 
 /**
- * Utilitario com animações predefinidas
+ * Utility with predefined animations
  */
 public class Animacao {
 
@@ -14,7 +14,7 @@ public class Animacao {
     private Animacao() {
     }
 
-    //create animação fade
+    //Create animation fade
     public static void fade(Node no) {
         fade = new FadeTransition(Duration.seconds(1), no);
         fade.setFromValue(0);
@@ -24,7 +24,7 @@ public class Animacao {
         fade.play();
     }
 
-    //create animação fade definindo opacidade de origem, destino e duração da animação
+    // create fade animation by setting opacity of origin, destination, and duration of the animation
     public static void fade(Node no, double inicio, double fim, int tempo) {
         fade = new FadeTransition(Duration.seconds(tempo), no);
         fade.setFromValue(inicio);
@@ -34,7 +34,7 @@ public class Animacao {
         fade.play();
     }
 
-    //create animação fade definindo opacidade de origem, destino e duração da animação
+    // create fade animation by setting opacity of origin, destination, and duration of the animation
     public static void stopfade() {
         fade.stop();
     }

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.Combo;
+import br.com.museuid.util.ComboUtils;
 import br.com.museuid.util.Grupo;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NoticeUtils;
@@ -69,29 +69,6 @@ public class StatisticController extends AnchorPane {
         combo("Date Cataloging", "Search", "Dimensions", "N ° Parties", "Location", "Designation", "Estratigrafia", "Collection");
     }
 
-    @FXML
-    void visitas(ActionEvent event) {
-        config("Visit Report", 2);
-        combo("Visitas");
-    }
-
-    @FXML
-    void emprestimo(ActionEvent event) {
-        config("Loan Report", 3);
-        combo("Empréstimo");
-    }
-
-    @FXML
-    void validacao(ActionEvent event) {
-        config("Relatório Validação", 4);
-        combo("Validação");
-    }
-
-    @FXML
-    void movimentacao(ActionEvent event) {
-        config("Relatório Movimentação", 5);
-        combo("Movimentação");
-    }
 
     @FXML
     void relatorio(ActionEvent event) {
@@ -108,17 +85,16 @@ public class StatisticController extends AnchorPane {
 
     @FXML
     void initialize() {
-        Grupo.notEmpty(menu);
+//        Grupo.notEmpty(menu);
 
         data.setValue(LocalDate.now());
         periodo();
         desabilitarPeriodo();
 
-        movimentacao(null);
     }
 
     /**
-     * Bloquear seleção de periodo para relatorios que não são periodicos
+     * Block period selection for reports that are not periodic
      */
     private void desabilitarPeriodo() {
         cbTipoRelatorio.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -135,7 +111,7 @@ public class StatisticController extends AnchorPane {
     }
 
     /**
-     * Configurações de tela, titulos e exibição de telas e menus
+     * Screen settings, titles, and display of screens and menus
      */
     private void config(String tituloTela, int grupoMenu) {
         lbTitulo.setText(tituloTela);
@@ -144,14 +120,14 @@ public class StatisticController extends AnchorPane {
     }
 
     /**
-     * Preencher combobox principal com itens de acordo com o tipo de relatorio
+     * Fill main combobox with items according to the type of report
      */
     private void combo(String... itens) {
-        Combo.popular(cbTipoRelatorio, itens);
+        ComboUtils.popular(cbTipoRelatorio, itens);
     }
 
     /**
-     * Adionar escutador ao grupo de menus periodo para saber qual periodo esta ativo
+     * Add escutador to the period group group to know which period is active
      */
     private void periodo() {
         menuPeriodo.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {

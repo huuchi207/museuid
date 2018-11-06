@@ -6,7 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * Criar links para ações que abrem uma pagina no navegador
+ * Create links to actions that open a page in the browser
  */
 public class Link {
 
@@ -14,9 +14,9 @@ public class Link {
     }
 
     /**
-     * Auxilia exibição de endereços web no desktop padrão
+     * Helps display web addresses on standard desktop
      */
-    public static void endereco(String link) {
+    public static void address(String link) {
         try {
             Desktop.getDesktop().browse(new URI(link));
         } catch (URISyntaxException | IOException ex) {

@@ -187,7 +187,7 @@ public class ReportUtils {
                     boxConteudo(box, GraficoPie.criar(titulo, map));
                     break;
                 case 2:
-                    boxConteudo(box, GraficoLine.criar(titulo, eixo, map));
+//                    boxConteudo(box, LineChartUtils.create(titulo, eixo, map));
                     break;
                 case 3:
                     boxConteudo(box, BarChartUtils.create(titulo, eixo, map));
@@ -214,7 +214,7 @@ public class ReportUtils {
      */
     private static void boxConteudo(AnchorPane box, Node conteudo) {
         box.getChildren().clear();
-        Resize.margin(conteudo, 0);
+        ResizeUtils.margin(conteudo, 0);
         box.getChildren().add(conteudo);
     }
 }

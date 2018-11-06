@@ -4,7 +4,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
 /**
- * Criar algumas mascaras para campos de texto
+ * Criar algumas mascaras para campos de text
  */
 public class Mascara {
 
@@ -12,7 +12,7 @@ public class Mascara {
     }
 
     /**
-     * Digitar apenas numeros no campo de texto passado
+     * Digitar apenas numeros no campo de text passado
      */
     public static void numerico(TextField campo) {
         campo.lengthProperty().addListener((ObservableValue<? extends Number> ov, Number t, Number t1) -> {
@@ -27,7 +27,7 @@ public class Mascara {
     }
 
     /**
-     * Digitar apenas numeros e decimais com ponto(.) no campo de texto passado
+     * Digitar apenas numeros e decimais com ponto(.) no campo de text passado
      */
     public static void decimal(TextField campo) {
         campo.lengthProperty().addListener((ObservableValue<? extends Number> obs, Number old, Number novo) -> {
@@ -42,7 +42,7 @@ public class Mascara {
     }
 
     /**
-     * Digitar apenas letras no campo de texto passado
+     * Digitar apenas letras no campo de text passado
      */
     public static void alfabeto(TextField campo) {
         campo.lengthProperty().addListener((ObservableValue<? extends Number> obs, Number old, Number novo) -> {
@@ -57,7 +57,7 @@ public class Mascara {
     }
 
     /**
-     * Limitar o quantidade de caractres do campo de texto
+     * Limitar o quantidade de caractres do campo de text
      */
     public static void max(TextField campo, int maxLength) {
         campo.textProperty().addListener((final ObservableValue<? extends String> obs, final String old, final String novo) -> {

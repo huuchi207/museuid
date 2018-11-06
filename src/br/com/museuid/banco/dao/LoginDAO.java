@@ -2,7 +2,7 @@ package br.com.museuid.banco.dao;
 
 import br.com.museuid.model.TipoUsuario;
 import br.com.museuid.model.Usuario;
-import br.com.museuid.util.Criptografia;
+import br.com.museuid.util.CryptographyUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.TimeUtils;
 
@@ -48,7 +48,7 @@ public class LoginDAO extends DAO {
      */
     public boolean autenticarSenha(String nome, String senha) {
 
-        String chave = Criptografia.converter(senha);
+        String chave = CryptographyUtils.converter(senha);
 
         try {
             String sql = "SELECT login, senha FROM tb_usuario WHERE login=? AND senha=? ";

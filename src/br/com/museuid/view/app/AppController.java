@@ -112,7 +112,7 @@ public class AppController {
         if (actionEvent.getSource() == currentScreen){
             return;
         }
-        Model.getEmployeeManagementScreen(boxContainer);
+        NavigationUtils.getEmployeeManagementScreen(boxContainer);
         setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
     }
 
@@ -120,7 +120,7 @@ public class AppController {
         if (actionEvent.getSource() == currentScreen){
             return;
         }
-        Model.getCreateOrderScreen(boxContainer);
+        NavigationUtils.getCreateOrderScreen(boxContainer);
         setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
     }
 

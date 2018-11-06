@@ -7,9 +7,9 @@ import javafx.scene.layout.AnchorPane;
  * Redimensionamento dos componentes de acordo com seu parente
  * permitindo dimensionar o tamanho de distancia entreo o nó e seu parent
  */
-public class Resize {
+public class ResizeUtils {
 
-    private Resize() {
+    private ResizeUtils() {
     }
 
     /**

@@ -5,9 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Criptografar texto atraves de MD5
+ * Criptografar text atraves de MD5
  */
-public class Criptografia {
+public class CryptographyUtils {
 
     /**
      * Converter string em hash MD5 para criptografia da senha do usuario na base de dados
