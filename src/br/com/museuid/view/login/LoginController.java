@@ -28,7 +28,7 @@ public class LoginController {
     private TextField tfUser;
 
     @FXML
-    void logar(ActionEvent event) {
+    void login(ActionEvent event) {
 
         String login = tfUser.getText();
         String password = pfPass.getText();
@@ -66,7 +66,7 @@ public class LoginController {
     void initialize() {
         pfPass.setOnKeyReleased((KeyEvent key) -> {
             if (key.getCode() == KeyCode.ENTER) {
-                logar(null);
+                login(null);
             }
         });
     }

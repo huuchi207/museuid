@@ -17,17 +17,17 @@
                     <children>
                         <AnchorPane layoutY="17.0" prefHeight="223.0" prefWidth="389.0" styleClass="box-login" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
                             <children>
-                                <TextField fx:id="tfUser" layoutX="68.0" layoutY="65.0" prefHeight="40.0" prefWidth="336.0" promptText="Nome Usuário" styleClass="nome" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+                                <TextField fx:id="tfUser" layoutX="68.0" layoutY="65.0" prefHeight="40.0" prefWidth="336.0" styleClass="nome" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                 </TextField>
-                                <PasswordField fx:id="pfPass" layoutX="68.0" layoutY="120.0" prefHeight="40.0" prefWidth="333.0" promptText="Senha" styleClass="senha" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0">
+                                <PasswordField fx:id="pfPass" layoutX="68.0" layoutY="120.0" prefHeight="40.0" prefWidth="333.0" styleClass="senha" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                 </PasswordField>
-                                <Button layoutX="17.0" layoutY="235.0" mnemonicParsing="false" onAction="#logar" prefHeight="20.0" styleClass="bt-logar" text="%txt_log_in" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                                <Button layoutX="17.0" layoutY="235.0" mnemonicParsing="false" onAction="#login" prefHeight="20.0" styleClass="bt-logar" text="%txt_log_in" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
@@ -37,7 +37,7 @@
                         <StackPane layoutY="-3.0" prefHeight="40.0" prefWidth="248.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <ImageView fitHeight="61.0" fitWidth="271.0" pickOnBounds="true" preserveRatio="true" styleClass="login-img" />
-                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="85.0" styleClass="login-txt" text="Login" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="85.0" styleClass="login-txt" text="%txt_log_in" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
