@@ -22,9 +22,9 @@ public class AreaChartUtils {
     /**
      * Create area chart and enter data from series, dates and values from the map informed
      */
-    public static AreaChart create(Map<String, List<BaseChartItem>> map, String titulo) {
+    public static AreaChart create(Map<String, List<BaseChartItem>> map, String title) {
 
-        config(titulo);
+        config(title);
 
         axisX = new CategoryAxis();
         axisY = new NumberAxis();

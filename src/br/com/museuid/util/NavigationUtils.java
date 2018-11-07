@@ -1,8 +1,12 @@
 package br.com.museuid.util;
 
+import br.com.museuid.view.change_password.ChangePasswordController;
 import br.com.museuid.view.employee_management.EmployeeManagementControler;
 
 import br.com.museuid.view.create_order_screen.CreateOrderScreenControler;
+import br.com.museuid.view.order_created.MyOrderCreatedController;
+import br.com.museuid.view.statistic.StatisticController;
+import br.com.museuid.view.update_user_info.UpdateUserInfoController;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -15,6 +19,10 @@ public class NavigationUtils {
     //new code
     private static EmployeeManagementControler employeeManagement;
     private static CreateOrderScreenControler createOrderScreenControler;
+    private static UpdateUserInfoController updateUserInfoController;
+    private static MyOrderCreatedController myOrderCreatedController;
+    private static StatisticController statisticController;
+    private static ChangePasswordController changePasswordController;
     private NavigationUtils() {
     }
 
@@ -45,6 +53,26 @@ public class NavigationUtils {
     public static void getCreateOrderScreen(AnchorPane box){
         createOrderScreenControler = new CreateOrderScreenControler();
         config(box, createOrderScreenControler);
+    }
+
+    public static void getUpdateUserInfoScreen(AnchorPane box){
+        updateUserInfoController = new UpdateUserInfoController();
+        config(box, updateUserInfoController);
+    }
+
+    public static void getMyOrderCreatedScreen(AnchorPane box){
+        myOrderCreatedController = new MyOrderCreatedController();
+        config(box, myOrderCreatedController);
+    }
+
+    public static void getStatisticScreen(AnchorPane box){
+        statisticController = new StatisticController();
+        config(box, statisticController);
+    }
+
+    public static void getChangePasswordScreen(AnchorPane box){
+        changePasswordController = new ChangePasswordController();
+        config(box, changePasswordController);
     }
     public static void config(AnchorPane box, StackPane conteudo) {
         box.getChildren().clear();

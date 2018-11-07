@@ -3,6 +3,9 @@ package br.com.museuid.model.data;
 import br.com.museuid.dto.Product;
 
 public class ProductInOrder extends Product {
+    private int count;
+    private String countString;
+    private String moreRequirement;
     public ProductInOrder(String id, String productName, String description, int price, String status) {
         super(id, productName, description, price, status);
     }
@@ -12,8 +15,7 @@ public class ProductInOrder extends Product {
         this.count = count;
         this.countString = String.valueOf(count);
     }
-    private int count;
-    private String countString;
+
     public int getCount() {
         return count;
     }
@@ -29,5 +31,13 @@ public class ProductInOrder extends Product {
 
     public void setCountString(String countString) {
         this.countString = countString;
+    }
+
+    public String getMoreRequirement() {
+        return moreRequirement;
+    }
+
+    public void setMoreRequirement(String moreRequirement) {
+        this.moreRequirement = moreRequirement;
     }
 }

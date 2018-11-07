@@ -76,6 +76,8 @@ public class EmployeeManagementControler extends AnchorPane {
     private TextField txtName;
     @FXML
     private AnchorPane apEdit;
+    @FXML
+    private Button btResetPassword;
     private ResourceBundle bundle;
 
     public EmployeeManagementControler() {
@@ -97,13 +99,14 @@ public class EmployeeManagementControler extends AnchorPane {
     void tbAdd(ActionEvent event) {
         config(bundle.getString("txt_create_employee"), bundle.getString("txt_required_fields"), 0);
         NavigationUtils.setVisibility(true, apAdd, btSave);
+        NavigationUtils.setVisibility(false, btResetPassword);
         resetField();
     }
 
     @FXML
     void tbEdit(ActionEvent event) {
         config(bundle.getString("txt_edit_employee_info"), "", 1);
-        NavigationUtils.setVisibility(true, apEdit, btEdit, txtSearch);
+        NavigationUtils.setVisibility(true, apEdit, btEdit, txtSearch, btResetPassword);
         updateTable();
     }
 
@@ -111,6 +114,7 @@ public class EmployeeManagementControler extends AnchorPane {
     void tbExclude(ActionEvent event) {
         config(bundle.getString("txt_employee_deleted"), "", 2);
         NavigationUtils.setVisibility(true, apEdit, btExclude, txtSearch);
+        NavigationUtils.setVisibility(false, btResetPassword);
         updateTable();
     }
 
@@ -196,7 +200,6 @@ public class EmployeeManagementControler extends AnchorPane {
             DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Loại trừ " + selectedEmployee.getUserName() + " ?");
 
             if (responseMessage == DialogUtils.ResponseMessage.YES) {
-//        ControleDAO.getBanco().getEstratigrafiaDAO().excluir(selectedEmployee.getId());
                 //TODO: call api delete user
                 if (ConstantConfig.FAKE) {
                     Messenger.info(bundle.getString("txt_delete_successfully"));
@@ -317,5 +320,16 @@ public class EmployeeManagementControler extends AnchorPane {
         FieldViewUtils.resetField(txtPhoneNumber, txtAddress);
     }
 
+    public void resetPassword(){
+        DialogUtils.ResponseMessage responseMessage = DialogUtils.mensageConfirmer(bundle.getString("txt_notice"),
+            bundle.getString("txt_are_you_sure_want_to_reset_password_of_this_employee"));
+        if (responseMessage == DialogUtils.ResponseMessage.YES) {
+            //TODO: call api reset password
+            if (ConstantConfig.FAKE) {
+                Messenger.info(bundle.getString("txt_reset_password_successfully"));
+                return;
+            }
 
+        }
+    }
 }

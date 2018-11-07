@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 <fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="br.com.museuid.view.order_created.MyOrderCreated"
+    fx:controller="br.com.museuid.view.order_created.MyOrderCreatedController"
   >
     <children>
         <HBox prefHeight="60.0" prefWidth="1207.0" styleClass="box-topo" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

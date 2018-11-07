@@ -30,6 +30,10 @@ public class AppController {
     public ToggleButton btOrderSection;
     public ToggleButton btOrderCreated;
     public Label lbUser;
+    public ToggleButton btUserInfoSection;
+    public VBox boxUserInfo;
+    public ToggleButton btUpdateUserInfo;
+    public ToggleButton btChangePassword;
 
     @FXML
     private AnchorPane boxContainer;
@@ -83,7 +87,7 @@ public class AppController {
     public void submenus(ToggleButton menu, VBox box, ToggleButton... submenus) {
 //        if (box.getChildren().isEmpty()) {
 //            box.getChildren().addAll(submenus);
-//            Animacao.fade(box);
+//            AnimationUtils.fade(box);
 //            estilo(menu, "menu-grupo");
 //        } else {
 //            desativarSubmenus(box);
@@ -128,6 +132,7 @@ public class AppController {
         if (actionEvent.getSource() == currentScreen){
             return;
         }
+//        NavigationUtils.getMyOrderCreatedScreen(boxContainer);
         setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
     }
 
@@ -135,6 +140,7 @@ public class AppController {
         if (actionEvent.getSource() == currentScreen){
             return;
         }
+        NavigationUtils.getMyOrderCreatedScreen(boxContainer);
         setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
     }
 
@@ -142,6 +148,7 @@ public class AppController {
         if (actionEvent.getSource() == currentScreen){
             return;
         }
+        NavigationUtils.getStatisticScreen(boxContainer);
         setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
     }
 
@@ -170,5 +177,34 @@ public class AppController {
 
     public void hideProgressDialog(){
         progressIndicator.setVisible(false);
+    }
+
+    public void openUpdateUserInfoScreen(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == currentScreen){
+            return;
+        }
+        NavigationUtils.getUpdateUserInfoScreen(boxContainer);
+        setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    }
+
+    public void openChangePasswordScreen(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == currentScreen){
+            return;
+        }
+        NavigationUtils.getChangePasswordScreen(boxContainer);
+        setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    }
+    public void updateUserNameTextView(String userName){
+        lbUser.setText(BundleUtils.getResourceBundle().getString("txt_hello"+ ", "+ userName));
+    }
+
+    @FXML
+    void minimize(ActionEvent event) {
+        App.palco.setIconified(true);
+    }
+
+    @FXML
+    void close(ActionEvent event) {
+        App.palco.close();
     }
 }

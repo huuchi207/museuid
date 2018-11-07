@@ -60,6 +60,8 @@
                             prefWidth="250.0" text="%txt_price" />
                         <TableColumn fx:id="colCountInOrder" maxWidth="900.0" minWidth="150.0"
                             prefWidth="250.0" text="%txt_count" />
+                        <TableColumn fx:id="colMoreRequirement" maxWidth="900.0" minWidth="150.0"
+                            prefWidth="250.0" text="%txt_more_requirement" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

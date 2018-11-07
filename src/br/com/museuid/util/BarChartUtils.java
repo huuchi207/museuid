@@ -1,6 +1,7 @@
 package br.com.museuid.util;
 
 import br.com.museuid.model.Relatorio;
+import br.com.museuid.model.data.BaseChartItem;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
@@ -31,7 +32,7 @@ public class BarChartUtils {
     /**
      * Create bar graph and insert data of the series, dates and values from the map informed
      */
-    public static BarChart create(String title, String axis, Map<String, List<Relatorio>> mapa) {
+    public static BarChart create(String title, String axis, Map<String, List<BaseChartItem>> mapa) {
 
         axisX = new CategoryAxis();
         axisY = new NumberAxis();
@@ -42,9 +43,9 @@ public class BarChartUtils {
             XYChart.Series<String, Number> serie = new XYChart.Series<>();
             serie.setName(key);
 
-            List<Relatorio> relatorios = mapa.get(key);
-            for (Relatorio relatorio : relatorios) {
-                XYChart.Data<String, Number> dado = new XYChart.Data<>(relatorio.getFormatar(), relatorio.getTotal());
+            List<BaseChartItem> dataset = mapa.get(key);
+            for (BaseChartItem data : dataset) {
+                XYChart.Data<String, Number> dado = new XYChart.Data<>(data.getTitle(), data.getValue());
 
                 dado.nodeProperty().addListener((ObservableValue<? extends Node> obs, Node old, Node novo) -> {
                     if (novo != null) {

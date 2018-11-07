@@ -28,7 +28,7 @@ public class NoticeUtils {
 
         nota.getChildren().add(close(box, nota));
         nota.getStyleClass().add("box-nota");
-        Animacao.fade(nota, 0.5, 1, 1);
+        AnimationUtils.fade(nota, 0.5, 1, 1);
         ++qtNotas;
 
         if (qtNotas >= 11) {

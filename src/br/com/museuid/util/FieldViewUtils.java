@@ -2,6 +2,7 @@ package br.com.museuid.util;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -31,6 +32,33 @@ public class FieldViewUtils {
         return vazio;
     }
 
+    public static boolean noEmpty(TextArea... field) {
+
+        boolean vazio = false;
+
+        for (TextArea campo : field) {
+            if (campo.getText().trim().isEmpty()) {
+                erro(campo, BundleUtils.getResourceBundle().getString("txt_check_empty_txt"));
+                vazio = true;
+            }
+        }
+
+        return vazio;
+    }
+
+    public static boolean noEmpty(PasswordField... field) {
+
+        boolean vazio = false;
+
+        for (PasswordField campo : field) {
+            if (campo.getText().trim().isEmpty()) {
+                erro(campo, BundleUtils.getResourceBundle().getString("txt_check_empty_txt"));
+                vazio = true;
+            }
+        }
+
+        return vazio;
+    }
     /**
      * Limpar textos dos campos informados
      */

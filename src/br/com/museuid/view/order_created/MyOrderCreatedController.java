@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-public class MyOrderCreated extends AnchorPane {
+public class MyOrderCreatedController extends AnchorPane {
 
     public Label lbTitle;
     public AnchorPane apOrderCreatedTable;
@@ -25,7 +25,7 @@ public class MyOrderCreated extends AnchorPane {
     public Button btCancelOrder;
     private ResourceBundle bundle;
 
-    public MyOrderCreated() {
+    public MyOrderCreatedController() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("my_order_created.fxml"));
 

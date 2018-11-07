@@ -7,11 +7,11 @@ import javafx.util.Duration;
 /**
  * Utility with predefined animations
  */
-public class Animacao {
+public class AnimationUtils {
 
     private static FadeTransition fade;
 
-    private Animacao() {
+    private AnimationUtils() {
     }
 
     //Create animation fade

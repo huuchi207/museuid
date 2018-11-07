@@ -184,13 +184,13 @@ public class ReportUtils {
         if (!map.isEmpty()) {
             switch (periodo) {
                 case 1:
-                    boxConteudo(box, GraficoPie.criar(titulo, map));
+//                    boxConteudo(box, GraficoPie.criar(titulo, map));
                     break;
                 case 2:
 //                    boxConteudo(box, LineChartUtils.create(titulo, eixo, map));
                     break;
                 case 3:
-                    boxConteudo(box, BarChartUtils.create(titulo, eixo, map));
+//                    boxConteudo(box, BarChartUtils.create(titulo, eixo, map));
                     break;
             }
         } else {

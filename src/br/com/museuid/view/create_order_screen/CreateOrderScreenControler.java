@@ -53,6 +53,7 @@ public class CreateOrderScreenControler extends AnchorPane {
     public TableColumn colPriceInOrder;
     public TableColumn<ProductInOrder, String> colCountInOrder;
     public TableColumn colStatus;
+    public TableColumn<ProductInOrder, String> colMoreRequirement;
 
     //bottom button
     public Button btEditOrder;
@@ -111,6 +112,7 @@ public class CreateOrderScreenControler extends AnchorPane {
         colDescriptionInOrder.setCellValueFactory(new PropertyValueFactory<>("description"));
         colPriceInOrder.setCellValueFactory(new PropertyValueFactory<>("price"));
         colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("countString"));
+        colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("moreRequirement"));
 
         tbProductInOrder.setEditable(true);
 //        colCountInOrder.setMinWidth(200);
@@ -138,6 +140,9 @@ public class CreateOrderScreenControler extends AnchorPane {
 
             updateProductInOrderScreenData();
         });
+
+        colMoreRequirement.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
+
     }
 
     /**

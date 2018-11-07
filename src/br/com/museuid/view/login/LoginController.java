@@ -37,19 +37,19 @@ public class LoginController {
           Login.palco.close();
           return;
         }
-        if (ControleDAO.getBanco().getLoginDAO().autenticarUsername(login)) {
-            if (ControleDAO.getBanco().getLoginDAO().autenticarSenha(login, password)) {
-                usuarioLogado = ControleDAO.getBanco().getLoginDAO().usuarioLogado(login);
-                new App().start(new Stage());
-                Login.palco.close();
-            } else {
-                lbErrorLogin.setText(BundleUtils.getResourceBundle().getString("txt_invalid_password"));
-                FieldViewUtils.erroLogin(pfPass);
-            }
-        } else {
-            lbErrorLogin.setText(BundleUtils.getResourceBundle().getString("txt_not_existed_user"));
-            FieldViewUtils.erroLogin(tfUser);
-        }
+//        if (ControleDAO.getBanco().getLoginDAO().autenticarUsername(login)) {
+//            if (ControleDAO.getBanco().getLoginDAO().autenticarSenha(login, password)) {
+//                usuarioLogado = ControleDAO.getBanco().getLoginDAO().usuarioLogado(login);
+//                new App().start(new Stage());
+//                Login.palco.close();
+//            } else {
+//                lbErrorLogin.setText(BundleUtils.getResourceBundle().getString("txt_invalid_password"));
+//                FieldViewUtils.erroLogin(pfPass);
+//            }
+//        } else {
+//            lbErrorLogin.setText(BundleUtils.getResourceBundle().getString("txt_not_existed_user"));
+//            FieldViewUtils.erroLogin(tfUser);
+//        }
     }
 
     @FXML
