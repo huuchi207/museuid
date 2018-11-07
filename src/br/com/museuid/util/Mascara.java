@@ -4,7 +4,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
 /**
- * Criar algumas mascaras para campos de text
+ * Create some masks for text fields
  */
 public class Mascara {
 
@@ -12,7 +12,7 @@ public class Mascara {
     }
 
     /**
-     * Digitar apenas numeros no campo de text passado
+     * Enter only numbers in the last text field
      */
     public static void numerico(TextField campo) {
         campo.lengthProperty().addListener((ObservableValue<? extends Number> ov, Number t, Number t1) -> {
@@ -27,7 +27,7 @@ public class Mascara {
     }
 
     /**
-     * Digitar apenas numeros e decimais com ponto(.) no campo de text passado
+     * Enter only numbers and decimals with a period (.) In the last text field
      */
     public static void decimal(TextField campo) {
         campo.lengthProperty().addListener((ObservableValue<? extends Number> obs, Number old, Number novo) -> {
@@ -42,7 +42,7 @@ public class Mascara {
     }
 
     /**
-     * Digitar apenas letras no campo de text passado
+     * Enter only letters in the last text field
      */
     public static void alfabeto(TextField campo) {
         campo.lengthProperty().addListener((ObservableValue<? extends Number> obs, Number old, Number novo) -> {

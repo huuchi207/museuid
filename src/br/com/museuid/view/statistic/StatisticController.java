@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.ComboUtils;
-import br.com.museuid.util.Grupo;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NoticeUtils;
 import br.com.museuid.util.ReportUtils;
@@ -52,7 +51,7 @@ public class StatisticController extends AnchorPane {
 
     public StatisticController() {
         try {
-            FXMLLoader fxml = new FXMLLoader(getClass().getResource("../view/statistic.fxml"));
+            FXMLLoader fxml = new FXMLLoader(getClass().getResource("statistic.fxml"));
             fxml.setRoot(this);
             fxml.setController(this);
             fxml.load();

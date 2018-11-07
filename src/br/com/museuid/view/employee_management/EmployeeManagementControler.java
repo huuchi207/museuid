@@ -4,15 +4,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.museuid.config.ConstantConfig;
-import br.com.museuid.dto.sample.Item;
 import br.com.museuid.dto.EmployeeDTO;
-import br.com.museuid.service.remote.sample.SampleCallback;
+import br.com.museuid.dto.sample.Item;
 import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.service.remote.sample.SampleCallback;
 import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FakeDataUtils;
-import br.com.museuid.util.Grupo;
+import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.NoticeUtils;
@@ -28,7 +27,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,7 +36,7 @@ import javafx.scene.layout.GridPane;
 public class EmployeeManagementControler extends AnchorPane {
 
     public TableColumn colUserName;
-    public TextArea txtAddress;
+    public TextField txtAddress;
     private List<EmployeeDTO> employeeList;
     private String selectedEmployeeId = "0";
 
@@ -55,7 +53,7 @@ public class EmployeeManagementControler extends AnchorPane {
     @FXML
     private Button btSave;
     @FXML
-    private TextArea txtPhoneNumber;
+    private TextField txtPhoneNumber;
     @FXML
     private ToggleGroup menu;
     @FXML
@@ -83,13 +81,11 @@ public class EmployeeManagementControler extends AnchorPane {
     public EmployeeManagementControler() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("employee_management.fxml"));
-
             fxml.setRoot(this);
             fxml.setController(this);
             bundle = BundleUtils.getResourceBundle();
             fxml.setResources(bundle);
             fxml.load();
-
         } catch (Exception ex) {
             Messenger.erro(bundle.getString("txt_loading_screen_error") + ex);
         }
@@ -124,7 +120,7 @@ public class EmployeeManagementControler extends AnchorPane {
         boolean isValid = FieldViewUtils.noEmpty(txtUserName, txtName);
 
         String userName = txtUserName.getText();
-        String name = txtName.getText().replaceAll(" ", "").trim();
+        String name = txtName.getText().trim();
         String phoneNumber = txtPhoneNumber.getText();
         String address = txtAddress.getText();
         if (isValid) {
