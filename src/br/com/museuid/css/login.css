@@ -46,8 +46,8 @@
 }
 
 .login-txt {
-    -fx-text-fill: #d8d8d8;
-    -fx-font-size: 16px;
+    -fx-text-fill: #bed452;
+    -fx-font-size: 20px;
 }
 
 .box-login {
@@ -131,4 +131,20 @@
 
 .link-geopark {
     -fx-graphic: url("../img/icon/geopark-mini.png");
+}
+.no-border-bt{
+    -fx-padding: 5;
+    -fx-border-style: none;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill:#10cbe4;
+}
+.no-border-bt:hover{
+    -fx-padding: 5;
+    -fx-border-style: none;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: #167ee4;
 }
