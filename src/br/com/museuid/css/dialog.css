@@ -159,3 +159,9 @@
     -fx-alignment: top-left;
     -fx-padding: 5px;
 }
+
+.progress-dialogs-msg {
+    -fx-text-fill: rgba(255, 255, 255, 0.67);
+    -fx-font-size: 14px;
+    -fx-font-family: "Open Sans Semibold", sans-serif;
+}

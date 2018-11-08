@@ -27,7 +27,7 @@ public class DialogUtils {
 
     private static final Screen screen = Screen.getPrimary();
     private static final Rectangle2D windows = screen.getVisualBounds();
-    static Dialog dialog;
+    static Dialog stageDialog;
     private static ResponseMessage responseMessage = ResponseMessage.CANCEL;
 
     private DialogUtils() {
@@ -70,10 +70,10 @@ public class DialogUtils {
         lbTitle.getStyleClass().add("titulo-dialogs");
 
         Label lbMsg = new Label(msg);
-        lbMsg.getStyleClass().add("mensage-dialogs");
+        lbMsg.getStyleClass().add("mensagem-dialogs");
 
         box.getChildren().addAll(lbTitle, lbMsg);
-        box.getStyleClass().add("caixa-mensage");
+        box.getStyleClass().add("caixa-mensagem");
 
         return box;
     }
@@ -87,7 +87,7 @@ public class DialogUtils {
 
         Button ok = new Button(BundleUtils.getResourceBundle().getString("txt_ok"));
         ok.setOnAction((ActionEvent e) -> {
-            dialog.close();
+            stageDialog.close();
         });
 
         ok.getStyleClass().add("bt-ok");
@@ -112,14 +112,14 @@ public class DialogUtils {
 
         Button yes = new Button(BundleUtils.getResourceBundle().getString("txt_ok"));
         yes.setOnAction((ActionEvent e) -> {
-            dialog.close();
+            stageDialog.close();
             responseMessage = ResponseMessage.YES;
         });
         yes.getStyleClass().add("bt-sim");
 
         Button no = new Button(BundleUtils.getResourceBundle().getString("txt_cancel"));
         no.setOnAction((ActionEvent e) -> {
-            dialog.close();
+            stageDialog.close();
             responseMessage = ResponseMessage.NO;
         });
         no.getStyleClass().add("bt-nao");
@@ -156,12 +156,13 @@ public class DialogUtils {
      * Main message box and added the main screen
      */
     public static void boxDialog(AnchorPane pane) {
+        closeDialog();
         Scene scene = new Scene(pane);
         scene.getStylesheets().add("br/com/museuid/css/dialog.css");
         scene.setFill(Color.TRANSPARENT);
 
-        dialog = new Dialog(new Stage(), scene);
-        dialog.showDialog();
+        stageDialog = new Dialog(new Stage(), scene);
+        stageDialog.showDialog();
     }
 
     public enum ResponseMessage {
@@ -169,7 +170,7 @@ public class DialogUtils {
     }
 
     /**
-     * Creates and formats the main stage that will display the dialog message
+     * Creates and formats the main stage that will display the stageDialog message
      */
     static class Dialog extends Stage {
         public Dialog(Stage stage, Scene scene) {
@@ -191,8 +192,8 @@ public class DialogUtils {
 
 
     public static void closeDialog(){
-        if (dialog != null && dialog.isShowing()){
-            dialog.close();
+        if (stageDialog != null && stageDialog.isShowing()){
+            stageDialog.close();
         }
     }
 

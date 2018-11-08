@@ -10,7 +10,7 @@
         <Label fx:id="lbTitle" alignment="BOTTOM_LEFT" layoutX="10.0"
           maxWidth="1.7976931348623157E308" styleClass="titulo" text="Título"
           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0"
-          AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS"></Label>
+          AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS"/>
         <TextField fx:id="txtSearch" prefHeight="50.0" prefWidth="417.0" promptText="%txt_search"
           styleClass="search-txt-field" />
         <ToggleButton mnemonicParsing="false" onAction="#tbAdd" text="">
@@ -41,8 +41,8 @@
     <GridPane fx:id="apAdd" hgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
       AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
       <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints />
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="994.0" minWidth="631.0" prefWidth="631.0" />
+        <ColumnConstraints maxWidth="536.0" minWidth="173.0" prefWidth="536.0" />
       </columnConstraints>
       <rowConstraints>
         <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />

@@ -2,8 +2,10 @@ package br.com.museuid.view.order_created;
 
 import java.util.ResourceBundle;
 
+import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -53,4 +55,12 @@ public class MyOrderCreatedController extends AnchorPane {
     }
     //TODO: call
     void updateOrderCreatedTableData(){}
+
+    @FXML
+    private void cancelOrder(ActionEvent event) {
+        if (ConstantConfig.FAKE){
+            Messenger.info(BundleUtils.getResourceBundle().getString("txt_operation_successful"));
+            return;
+        }
+    }
 }

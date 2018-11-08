@@ -126,15 +126,12 @@ public class EmployeeManagementControler extends AnchorPane {
         if (isValid) {
             NoticeUtils.alert(bundle.getString("txt_please_enter_info"));
         }
-//    else if (ControleDAO.getBanco().getEstratigrafiaDAO().isEstratigrafia(formacao, selectedEmployeeId)) {
-//      NoticeUtils.alert("Formação já cadastrada!");
-//    }
+
         else {
             EmployeeDTO employee = new EmployeeDTO(selectedEmployeeId, userName, name, phoneNumber, address);
 
             if (selectedEmployeeId.equals("0")) {
                 //TODO: insert user
-//        ControleDAO.getBanco().getEstratigrafiaDAO().inserir(Estratigrafia);
                 if (ConstantConfig.FAKE) {
                     employeeList.add(employee);
                     updateTable();
@@ -142,7 +139,6 @@ public class EmployeeManagementControler extends AnchorPane {
                 }
             } else {
                 //TODO: edit user
-//        ControleDAO.getBanco().getEstratigrafiaDAO().editar(Estratigrafia);
                 if (ConstantConfig.FAKE) {
                     employeeList.remove(tbUser.getSelectionModel().getSelectedItem());
                     employeeList.add(employee);
