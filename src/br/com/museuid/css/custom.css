@@ -1152,3 +1152,12 @@
     -fx-font-size: 20px;
     -fx-font-family: "Open Sans";
 }
+
+
+.lbl-white {
+    -fx-text-fill: #ffffff;
+}
+.lbl-black {
+    -fx-text-fill: black;
+}
+

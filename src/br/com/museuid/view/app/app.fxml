@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?><?import javafx.scene.control.Button?><?import javafx.scene.control.Label?><?import javafx.scene.control.ProgressIndicator?><?import javafx.scene.control.ScrollPane?><?import javafx.scene.control.ToggleButton?><?import javafx.scene.control.ToggleGroup?><?import javafx.scene.Group?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.BorderPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.StackPane?><?import javafx.scene.layout.VBox?>
+<?import java.lang.String?><?import javafx.scene.control.Button?><?import javafx.scene.control.ProgressIndicator?><?import javafx.scene.control.ScrollPane?><?import javafx.scene.control.ToggleButton?><?import javafx.scene.control.ToggleGroup?><?import javafx.scene.Group?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.BorderPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.StackPane?><?import javafx.scene.layout.VBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
   stylesheets="@../../css/app.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
   xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.museuid.view.app.AppController">
@@ -64,54 +64,6 @@
                                     <ToggleGroup fx:id="groupOrder" />
                                   </toggleGroup>
                                 </ToggleButton>
-                                <ToggleButton fx:id="btMyHandlingOrder" alignment="CENTER_LEFT"
-                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
-                                  mnemonicParsing="false" onAction="#openMyHandlingOrderScreen"
-                                  styleClass="submenus" text="%txt_my_handling_order" />
-                              </children>
-                            </VBox>
-                            <!--USER INFO SECTION-->
-                            <ToggleButton fx:id="btUserInfoSection" alignment="CENTER_LEFT"
-                              layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308"
-                              mnemonicParsing="false"
-                              text="%txt_user_info">
-                              <styleClass>
-                                <String fx:value="menus" />
-                              </styleClass>
-                            </ToggleButton>
-                            <VBox fx:id="boxUserInfo" layoutX="10.0" layoutY="55.0"
-                              styleClass="box-submenus">
-                              <children>
-                                <ToggleButton fx:id="btUpdateUserInfo" alignment="CENTER_LEFT"
-                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
-                                  mnemonicParsing="false" onAction="#openUpdateUserInfoScreen"
-                                  styleClass="submenus" text="%txt_update_user_info" />
-                                <ToggleButton fx:id="btChangePassword" alignment="CENTER_LEFT" layoutX="10.0"
-                                  layoutY="10.0" maxWidth="1.7976931348623157E308"
-                                  mnemonicParsing="false" onAction="#openChangePasswordScreen"
-                                  styleClass="submenus" text="%txt_change_password" />
-                              </children>
-                            </VBox>
-                            <!--APP MANAGEMENT SECTION-->
-                            <ToggleButton fx:id="btAppManagementSection" alignment="CENTER_LEFT"
-                              layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308"
-                              mnemonicParsing="false"
-                              text="%txt_app_management">
-                              <styleClass>
-                                <String fx:value="menus" />
-                              </styleClass>
-                            </ToggleButton>
-                            <VBox fx:id="boxEmployee" layoutX="10.0" layoutY="55.0"
-                              styleClass="box-submenus">
-                              <children>
-                                <ToggleButton fx:id="btEmployeeManagement" alignment="CENTER_LEFT"
-                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
-                                  mnemonicParsing="false" onAction="#openEmployeeManagement"
-                                  styleClass="submenus" text="%txt_employee_management" />
-                                <ToggleButton fx:id="btStatistic" alignment="CENTER_LEFT" layoutX="10.0"
-                                  layoutY="10.0" maxWidth="1.7976931348623157E308"
-                                  mnemonicParsing="false" onAction="#openStatistic"
-                                  styleClass="submenus" text="%txt_statistic" />
                               </children>
                             </VBox>
                           </children>
@@ -124,11 +76,11 @@
                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                   AnchorPane.rightAnchor="0.0">
                   <children>
-                    <Label fx:id="lbUser" maxWidth="150.0" prefWidth="150.0" styleClass="lb-user"
-                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
-                      AnchorPane.topAnchor="0.0" />
+                    <!--<Label fx:id="lbUser" maxWidth="150.0" prefWidth="150.0" styleClass="lb-user"-->
+                      <!--AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"-->
+                      <!--AnchorPane.topAnchor="0.0" />-->
                     <Button layoutX="160.5" layoutY="4.0" mnemonicParsing="false" onAction="#menuSair"
-                      styleClass="menu-sair" text="%txt_exit" />
+                      styleClass="menu-sair" text="%txt_hello_customer" />
                   </children>
                 </AnchorPane>
               </children>

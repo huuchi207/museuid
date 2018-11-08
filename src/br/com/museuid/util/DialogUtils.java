@@ -5,7 +5,12 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -186,5 +191,25 @@ public class DialogUtils {
         if (dialog != null && dialog.isShowing()){
             dialog.close();
         }
+    }
+
+    public static void showProgressDialog(){
+        closeDialog();
+        VBox boxCentral = new VBox();
+        boxCentral.getChildren().add(new ProgressIndicator());
+        Label lb = new Label(BundleUtils.getResourceBundle().getString("txt_progressing"));
+        lb.getStyleClass().add("progress-dialogs-msg");
+        boxCentral.getChildren().add(lb);
+        boxCentral.getStyleClass().add("box-msg");
+        ResizeUtils.margin(boxCentral, 0);
+
+        AnchorPane apProgress = new AnchorPane(boxCentral);
+        apProgress.setStyle("-fx-background-color: rgba(0, 0, 0, 0.0);");
+        ResizeUtils.margin(apProgress, 0);
+
+        boxDialog(apProgress);
+    }
+    public static Dialog getDialog(){
+        return dialog;
     }
 }
