@@ -67,10 +67,10 @@ public class DialogUtils {
         lbTitle.getStyleClass().add("titulo-dialogs");
 
         Label lbMsg = new Label(msg);
-        lbMsg.getStyleClass().add("mensage-dialogs");
+        lbMsg.getStyleClass().add("mensagem-dialogs");
 
         box.getChildren().addAll(lbTitle, lbMsg);
-        box.getStyleClass().add("caixa-mensage");
+        box.getStyleClass().add("caixa-mensagem");
 
         return box;
     }
