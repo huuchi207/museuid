@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import org.controlsfx.control.GridView?><?import java.lang.String?><?import java.net.URL?><?import javafx.geometry.Insets?><?import javafx.scene.control.Button?><?import javafx.scene.control.Label?><?import javafx.scene.control.TableColumn?><?import javafx.scene.control.TableView?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.StackPane?>
+<?import java.lang.String?><?import java.net.URL?><?import javafx.geometry.Insets?><?import javafx.scene.control.Button?><?import javafx.scene.control.Label?><?import javafx.scene.control.TableColumn?><?import javafx.scene.control.TableView?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.StackPane?>
 <fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
   <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
     <!--<Group>-->
-      <GridView fx:id="gridViewDevice" />
+    <AnchorPane fx:id="apOrderInQueue"/>
     <!--</Group>-->
     <AnchorPane fx:id="apOrderInfo" visible="false">
       <TableView fx:id="tbOrderInfo" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">

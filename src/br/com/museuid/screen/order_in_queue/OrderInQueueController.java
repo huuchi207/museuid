@@ -14,13 +14,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 public class OrderInQueueController extends AnchorPane {
-    //    @FXML
-//    private AnchorPane apGridDevice;
+        @FXML
+    private AnchorPane apOrderInQueue;
     @FXML
     private AnchorPane apOrderInfo;
     @FXML
@@ -39,8 +41,7 @@ public class OrderInQueueController extends AnchorPane {
     private TableColumn colMoreRequirement;
     @FXML
     private Button btDoneOrder, btCancelOrder;
-    @FXML
-    private GridView gridViewDevice;
+
     private ResourceBundle bundle;
 
 
@@ -62,11 +63,10 @@ public class OrderInQueueController extends AnchorPane {
     @FXML
     public void initialize() {
         initTable();
-        initDeviceView();
+        createListDeviceView();
     }
 
-    private void initDeviceView() {
-        final ObservableList<ItemGridView> list = FXCollections.observableArrayList();
+    private void createListDeviceView() {
         ItemGridCellFactory itemGridCellFactory = new ItemGridCellFactory();
         itemGridCellFactory.setOnTouch(new ItemGridCellFactory.OnTouch() {
             @Override
@@ -74,17 +74,29 @@ public class OrderInQueueController extends AnchorPane {
                 Messenger.info(item.getDeviceName());
             }
         });
-        gridViewDevice.setCellFactory(itemGridCellFactory);
-        gridViewDevice.cellWidthProperty().set(100);
-        gridViewDevice.cellHeightProperty().set(100);
-        for (int i = 0; i < 50; i++) {
-            ItemGridView itemGridView = new ItemGridView();
-            itemGridView.setDeviceName("Máy " + (i + 1));
+        VBox vBox = new VBox();
+        AnchorPane.setLeftAnchor(vBox, 0.0);
+        AnchorPane.setRightAnchor(vBox, 0.0);
+        AnchorPane.setTopAnchor(vBox, 0.0);
+        AnchorPane.setBottomAnchor(vBox, 0.0);
+        for (int j = 0; j < 3; j++){
+            GridView gridView = new GridView();
+            final ObservableList<ItemGridView> list = FXCollections.observableArrayList();
+            gridView.setCellFactory(itemGridCellFactory);
+            gridView.cellWidthProperty().set(100);
+            gridView.cellHeightProperty().set(100);
+            for (int i = 0; i < 50; i++) {
+                ItemGridView itemGridView = new ItemGridView();
+                itemGridView.setDeviceName("Máy " + (i + 1));
 
 //            itemGridView.setNewOrder();
-            list.add(itemGridView);
+                list.add(itemGridView);
+            }
+            gridView.setItems(list);
+            vBox.getChildren().add(new Label("Section "+ j));
+            vBox.getChildren().add(gridView);
         }
-        gridViewDevice.setItems(list);
+        apOrderInQueue.getChildren().add(vBox);
     }
 
     void initTable() {
