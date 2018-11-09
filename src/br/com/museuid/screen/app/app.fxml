@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?><?import javafx.scene.control.Button?><?import javafx.scene.control.Label?><?import javafx.scene.control.ProgressIndicator?><?import javafx.scene.control.ScrollPane?><?import javafx.scene.control.ToggleButton?><?import javafx.scene.Group?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.BorderPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.StackPane?><?import javafx.scene.layout.VBox?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  stylesheets="@../../css/app.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
+  xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.museuid.screen.app.AppController">
+  <children>
+    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane>
+        <HBox styleClass="box-janela" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <children>
+            <Button mnemonicParsing="false" onAction="#minimize" styleClass="minimizar" text="Minimizar" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#close" styleClass="close" text="Fechar" />
+          </children>
+        </HBox>
+      </AnchorPane>
+      <AnchorPane VBox.vgrow="ALWAYS">
+        <BorderPane layoutX="-25.0" layoutY="99.0" prefHeight="800.0" prefWidth="1280.0"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+          <left>
+            <AnchorPane styleClass="box" BorderPane.alignment="CENTER">
+              <children>
+                <HBox alignment="BASELINE_LEFT" prefHeight="70.0" spacing="5.0" styleClass="box-logo"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                    <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="11.0" layoutY="9.0"
+                      pickOnBounds="true" preserveRatio="true"
+                      styleClass="logo" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  </children>
+                </HBox>
+                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="60.0"
+                  pannable="true" prefViewportHeight="710.0" prefViewportWidth="220.0"
+                  styleClass="scroll" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                  <content>
+                    <VBox spacing="5.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+                      <children>
+                        <VBox layoutY="35.0" styleClass="box-menus" AnchorPane.bottomAnchor="300.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="41.0">
+                          <children>
+                            <!--ORDER SECTION-->
+                            <ToggleButton fx:id="btOrderSection" alignment="CENTER_LEFT" layoutX="10.0"
+                              layoutY="20.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                              text="%txt_order">
+                              <styleClass>
+                                <String fx:value="menus" />
+                              </styleClass>
+                            </ToggleButton>
+                            <VBox fx:id="boxOrderSection" layoutX="10.0" layoutY="55.0"
+                              styleClass="box-submenus">
+                              <children>
+                                <!--<ToggleButton fx:id="btCreateOrder" alignment="CENTER_LEFT"-->
+                                  <!--layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"-->
+                                  <!--mnemonicParsing="false" onAction="#openCreateOrderScreen"-->
+                                  <!--styleClass="submenus" text="%txt_create_order" />-->
+                                <!--<ToggleButton fx:id="btOrderCreated" alignment="CENTER_LEFT"-->
+                                  <!--layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"-->
+                                  <!--mnemonicParsing="false" onAction="#openOrderCreatedScreen"-->
+                                  <!--styleClass="submenus" text="%txt_order_created">-->
+                                  <!--<toggleGroup>-->
+                                    <!--<ToggleGroup fx:id="groupOrder" />-->
+                                  <!--</toggleGroup>-->
+                                <!--</ToggleButton>-->
+                                <!--<ToggleButton fx:id="btMyHandlingOrder" alignment="CENTER_LEFT"-->
+                                  <!--layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"-->
+                                  <!--mnemonicParsing="false" onAction="#openMyHandlingOrderScreen"-->
+                                  <!--styleClass="submenus" text="%txt_my_handling_order" />-->
+                                <ToggleButton fx:id="btOrderInQueue" alignment="CENTER_LEFT"
+                                layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" onAction="#openOrderInQueueScreen"
+                                styleClass="submenus" text="%txt_order_in_queue" />
+                              </children>
+                            </VBox>
+                            <!--USER INFO SECTION-->
+                            <ToggleButton fx:id="btUserInfoSection" alignment="CENTER_LEFT"
+                              layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308"
+                              mnemonicParsing="false"
+                              text="%txt_user_info">
+                              <styleClass>
+                                <String fx:value="menus" />
+                              </styleClass>
+                            </ToggleButton>
+                            <VBox fx:id="boxUserInfo" layoutX="10.0" layoutY="55.0"
+                              styleClass="box-submenus">
+                              <children>
+                                <ToggleButton fx:id="btUpdateUserInfo" alignment="CENTER_LEFT"
+                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openUpdateUserInfoScreen"
+                                  styleClass="submenus" text="%txt_update_user_info" />
+                                <ToggleButton fx:id="btChangePassword" alignment="CENTER_LEFT" layoutX="10.0"
+                                  layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openChangePasswordScreen"
+                                  styleClass="submenus" text="%txt_change_password" />
+                              </children>
+                            </VBox>
+                            <!--APP MANAGEMENT SECTION-->
+                            <ToggleButton fx:id="btAppManagementSection" alignment="CENTER_LEFT"
+                              layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308"
+                              mnemonicParsing="false"
+                              text="%txt_app_management">
+                              <styleClass>
+                                <String fx:value="menus" />
+                              </styleClass>
+                            </ToggleButton>
+                            <VBox fx:id="boxEmployee" layoutX="10.0" layoutY="55.0"
+                              styleClass="box-submenus">
+                              <children>
+                                <ToggleButton fx:id="btEmployeeManagement" alignment="CENTER_LEFT"
+                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openEmployeeManagement"
+                                  styleClass="submenus" text="%txt_employee_management" />
+                                <ToggleButton fx:id="btStatistic" alignment="CENTER_LEFT" layoutX="10.0"
+                                  layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openStatistic"
+                                  styleClass="submenus" text="%txt_statistic" />
+                              </children>
+                            </VBox>
+                          </children>
+                        </VBox>
+                      </children>
+                    </VBox>
+                  </content>
+                </ScrollPane>
+                <AnchorPane maxHeight="30.0" minHeight="30.0" prefHeight="30.0" styleClass="box-user"
+                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0">
+                  <children>
+                    <Label fx:id="lbUser" maxWidth="150.0" prefWidth="150.0" styleClass="lb-user"
+                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
+                      AnchorPane.topAnchor="0.0" />
+                    <Button layoutX="160.5" layoutY="4.0" mnemonicParsing="false" onAction="#menuSair"
+                      styleClass="menu-sair" text="%txt_exit" />
+                  </children>
+                </AnchorPane>
+              </children>
+            </AnchorPane>
+          </left>
+          <center>
+            <StackPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <AnchorPane fx:id="boxContainer" />
+              <Group StackPane.alignment="CENTER">
+                <ProgressIndicator progress="-1.0f" fx:id="progressIndicator" />
+              </Group>
+            </StackPane>
+
+            <!--<children>-->
+            <!--<AnchorPane fx:id="boxContainer" layoutX="10.0" layoutY="10.0"-->
+            <!--AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0"-->
+            <!--AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />-->
+            <!--<AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="30.0" styleClass="box-footer"-->
+            <!--AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"-->
+            <!--AnchorPane.rightAnchor="0.0">-->
+            <!--<children>-->
+            <!--<Label fx:id="lbMensagem" layoutX="30.0" layoutY="2.0" styleClass="box-mensagens"-->
+            <!--text="Version 1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"-->
+            <!--AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="0.0" />-->
+            <!--</children>-->
+            <!--</AnchorPane>-->
+            <!--</children>-->
+          </center>
+        </BorderPane>
+        <VBox fx:id="boxNotas" alignment="TOP_RIGHT" fillWidth="false" layoutX="1044.0" layoutY="596.0"
+          spacing="10.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="15.0" />
+      </AnchorPane>
+    </VBox>
+  </children>
+</AnchorPane>

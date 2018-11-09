@@ -1,6 +1,6 @@
 package br.com.museuid.util;
 
-import br.com.museuid.view.app.AppController;
+import br.com.museuid.screen.app.AppController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

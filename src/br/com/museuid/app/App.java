@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -29,7 +28,7 @@ public class App extends Application {
     public void start(final Stage stage) {
         try {
             palco = stage;
-            FXMLLoader fxml = new FXMLLoader(App.class.getResource("/br/com/museuid/view/app/app.fxml"));
+            FXMLLoader fxml = new FXMLLoader(App.class.getResource("/br/com/museuid/screen/app/app.fxml"));
             fxml.setResources(BundleUtils.getResourceBundle());
             page = fxml.load();
             cena = new Scene(page);

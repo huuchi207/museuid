@@ -1,7 +1,5 @@
 package br.com.museuid.model.data;
 
-import org.apache.commons.lang3.EnumUtils;
-
 import java.util.List;
 
 import br.com.museuid.util.BundleUtils;
@@ -10,7 +8,8 @@ public class Order {
     private List<ProductInOrder> productInOrders;
     private String status;
     private String orderStatusName;
-
+    private String computerName;
+    private String orderId;
     public List<ProductInOrder> getProductInOrders() {
         return productInOrders;
     }

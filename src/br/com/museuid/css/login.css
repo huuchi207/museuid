@@ -146,5 +146,6 @@
     -fx-border-width: 0;
     -fx-border-insets: 0;
     -fx-background-color: transparent;
+    -fx-cursor: hand;
     -fx-text-fill: #167ee4;
 }

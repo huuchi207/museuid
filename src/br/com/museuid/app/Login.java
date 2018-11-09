@@ -31,7 +31,7 @@ public class Login extends Application {
         try {
             palco = stage;
 
-            FXMLLoader fxml = new FXMLLoader(App.class.getResource("/br/com/museuid/view/login/login.fxml"));
+            FXMLLoader fxml = new FXMLLoader(App.class.getResource("/br/com/museuid/screen/login/login.fxml"));
             fxml.setResources(BundleUtils.getResourceBundle());
             page = fxml.load();
 
