@@ -1,6 +1,7 @@
 {
-  "error":"",
-  "content": {
+  "isError": false,
+  "message": "Success",
+  "result": {
     "employeeList": [
       {
         "id": 2123,

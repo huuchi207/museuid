@@ -1,21 +1,28 @@
 package br.com.museuid.view.initialize;
 
+import java.util.Optional;
+
 import br.com.museuid.app.App;
 import br.com.museuid.app.Initialize;
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.dto.DeviceInfo;
+import br.com.museuid.service.remote.BaseCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
+import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.FieldViewUtils;
-import br.com.museuid.util.NetworkUtils;
-import javafx.animation.PauseTransition;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.StaticVarUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class InitializeController {
     private static InitializeController instance;
@@ -30,35 +37,85 @@ public class InitializeController {
     public static InitializeController getInstance() {
         return instance;
     }
+
     private String macAddress;
+
     @FXML
     void initialize() {
-         instance = this;
+        instance = this;
 
-         macAddress = NetworkUtils.getAddress("mac");
-         //TODO: call api check macAddress existed in server or not, if not, show register form
-         if (ConstantConfig.FAKE){
-             PauseTransition pause = new PauseTransition(Duration.seconds(5));
-             pause.setOnFinished(new EventHandler<ActionEvent>() {
-                 @Override
-                 public void handle(ActionEvent event) {
-                     vBoxRegisterDevice.setVisible(true);
-                     vboxProgress.setVisible(false);
-                 }});
+        macAddress = StaticVarUtils.getMacAddress();
+        ServiceBuilder.getApiService().checkDevice(macAddress).enqueue(new BaseCallback<DeviceInfo>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                if ("Can not find information.".equalsIgnoreCase(errorMessage)){
+                    openFormRegisterDevice();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(BundleUtils.getResourceBundle().getString("txt_error"));
+                    alert.setHeaderText(null);
+                    alert.setContentText("Xảy ra lỗi. Vui lòng thử lại sau!");
 
-             pause.play();
+                    Optional<ButtonType> r = alert.showAndWait();
+                    if (r.get() == ButtonType.OK){
+                        Initialize.palco.close();
+                    }
+                }
+            }
 
-         }
+            @Override
+            public void onSuccess(DeviceInfo data) {
+                startMain();
+            }
+        });
+        if (ConstantConfig.FAKE) {
+//            PauseTransition pause = new PauseTransition(Duration.seconds(5));
+//            pause.setOnFinished(new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+//                   openFormRegisterDevice();
+//                }
+//            });
+//            pause.play();
+        }
     }
+
     @FXML
-    private void signIn(ActionEvent event){
-        if (FieldViewUtils.noEmpty(tfDeviceLocation, tfDeviceName)){
+    private void signIn(ActionEvent event) {
+        if (FieldViewUtils.noEmpty(tfDeviceLocation, tfDeviceName)) {
             return;
         }
-        //TODO: call api register device, then go to main
-        if (ConstantConfig.FAKE){
-            new App().start(new Stage());
-            Initialize.palco.close();
+        showProgressView();
+        if (ConstantConfig.FAKE) {
+            startMain();
         }
+        String deviceName = tfDeviceName.getText().trim();
+        String deviceLocation = tfDeviceLocation.getText().trim();
+        ServiceBuilder.getApiService().addDevice(new AddDeviceRequest(macAddress,deviceName, deviceLocation)).
+            enqueue(new BaseCallback<DeviceInfo>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                Messenger.erro(errorMessage);
+                FieldViewUtils.resetField(tfDeviceName, tfDeviceLocation);
+            }
+
+            @Override
+            public void onSuccess(DeviceInfo data) {
+                startMain();
+            }
+        });
+    }
+    void openFormRegisterDevice(){
+        vBoxRegisterDevice.setVisible(true);
+        vboxProgress.setVisible(false);
+    }
+
+    void showProgressView(){
+        vboxProgress.setVisible(true);
+        vBoxRegisterDevice.setVisible(false);
+    }
+    void startMain(){
+        new App().start(new Stage());
+        Initialize.palco.close();
     }
 }
