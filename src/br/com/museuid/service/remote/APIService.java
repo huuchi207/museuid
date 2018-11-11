@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.dto.Product;
+import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.sample.Item;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
@@ -22,7 +23,7 @@ public interface APIService {
     Call<ResponseDTO<DeviceInfo>> addDevice(@Body AddDeviceRequest addDeviceRequest);
 
     @GET("auto-client")
-    Call<ResponseDTO<DeviceInfo>> checkDevice(@Query("macaddress") String macAddress);
+    Call<ResponseDTO<SessionDeviceInfo>> checkDevice(@Query("macaddress") String macAddress);
 
     @GET("clients")
     Call<ResponseDTO<String>> getClients();

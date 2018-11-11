@@ -137,7 +137,6 @@ public class CreateOrderScreenControler extends AnchorPane {
             }
 
             productInOrder.setCount(newCount);
-
             updateProductInOrderScreenData();
         });
 
@@ -187,21 +186,23 @@ public class CreateOrderScreenControler extends AnchorPane {
         if (ConstantConfig.FAKE){
             updateProductList(FakeDataUtils.getFakeProductList());
             updateProductTable();
-        }
-        AppController.getInstance().showProgressDialog();
-        ServiceBuilder.getApiService().getProductList().enqueue(new BaseCallback<List<Product>>() {
-            @Override
-            public void onError(String errorCode, String errorMessage) {
-                AppController.getInstance().hideProgressDialog();
-                Messenger.erro(errorMessage);
-            }
+        }else {
+            AppController.getInstance().showProgressDialog();
+            ServiceBuilder.getApiService().getProductList().enqueue(new BaseCallback<List<Product>>() {
+                @Override
+                public void onError(String errorCode, String errorMessage) {
+                    AppController.getInstance().hideProgressDialog();
+                    Messenger.erro(errorMessage);
+                }
 
-            @Override
-            public void onSuccess(List<Product> data) {
-                updateProductList(data);
-                updateProductTable();
-            }
-        });
+                @Override
+                public void onSuccess(List<Product> data) {
+                    AppController.getInstance().hideProgressDialog();
+                    updateProductList(data);
+                    updateProductTable();
+                }
+            });
+        }
     }
 
     @FXML

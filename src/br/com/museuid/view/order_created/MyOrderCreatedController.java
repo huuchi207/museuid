@@ -57,7 +57,7 @@ public class MyOrderCreatedController extends AnchorPane {
                 public void call(Object... objects) {
 
                 }
-            }).on("guest", new Emitter.Listener() {
+            }).on("New queue", new Emitter.Listener() {
                 @Override
                 public void call(Object... objects) {
 
