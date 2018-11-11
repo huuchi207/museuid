@@ -31,9 +31,10 @@
             <children>
                 <StackPane AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                     <children>
-
-                        <Button id="" fx:id="btCancelOrder" contentDisplay="TOP" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="40.0"
-                          prefWidth="200.0" style="" text="%txt_cancel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button id="" fx:id="btCancelOrder" contentDisplay="TOP" mnemonicParsing="false"
+                          onAction="#cancelOrder" prefHeight="40.0"
+                          prefWidth="200.0" style="" text="%txt_cancel" AnchorPane.bottomAnchor="0.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <styleClass>
                                 <String fx:value="menus-acoes" />
                                 <String fx:value="acao-excluir" />

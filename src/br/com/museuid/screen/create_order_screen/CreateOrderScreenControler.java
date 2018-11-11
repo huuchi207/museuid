@@ -8,11 +8,13 @@ import java.util.ResourceBundle;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.Product;
 import br.com.museuid.model.data.ProductInOrder;
+import br.com.museuid.service.remote.BaseCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.view.app.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -38,14 +40,14 @@ public class CreateOrderScreenControler extends AnchorPane {
     //product list
     public AnchorPane apProductList;
     public TableView<Product> tbProduct;
-    public TableColumn colId;
+//    public TableColumn colId;
     public TableColumn colProductName;
     public TableColumn colDescription;
     public TableColumn colPrice;
     //order
     public AnchorPane apEditOrderList;
     public TableView<ProductInOrder> tbProductInOrder;
-    public TableColumn colIdInOrder;
+//    public TableColumn colIdInOrder;
     public TableColumn colProductNameInOrder;
     public TableColumn colDescriptionInOrder;
     public TableColumn colPriceInOrder;
@@ -98,14 +100,14 @@ public class CreateOrderScreenControler extends AnchorPane {
         tbProduct.getSelectionModel().setSelectionMode(
             SelectionMode.MULTIPLE
         );
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+//        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
 
-        colIdInOrder.setCellValueFactory(new PropertyValueFactory<>("id"));
+//        colIdInOrder.setCellValueFactory(new PropertyValueFactory<>("id"));
         colProductNameInOrder.setCellValueFactory(new PropertyValueFactory<>("productName"));
         colDescriptionInOrder.setCellValueFactory(new PropertyValueFactory<>("description"));
         colPriceInOrder.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -147,8 +149,7 @@ public class CreateOrderScreenControler extends AnchorPane {
      * Mapear dados objetos para inserção dos dados na updateTable
      */
     private void updateProductTable() {
-        productObservableList = FXCollections.observableArrayList(productList);
-
+        productObservableList = FXCollections.observableArrayList(productList);initTable();
         tbProduct.setItems(productObservableList);
     }
 
@@ -184,24 +185,23 @@ public class CreateOrderScreenControler extends AnchorPane {
     //TODO: call get product list api
     private void getProductList(){
         if (ConstantConfig.FAKE){
-
-            new Thread(new Runnable() {
-                public void run()
-                {
-                    try
-                    {
-                        Thread.sleep(10000);
-                       DialogUtils.closeDialog();
-                    }
-                    catch ( Throwable th )
-                    {
-
-                    }
-                }
-            }).start();
-            productList = FakeDataUtils.getFakeProductList();
+            updateProductList(FakeDataUtils.getFakeProductList());
             updateProductTable();
         }
+        AppController.getInstance().showProgressDialog();
+        ServiceBuilder.getApiService().getProductList().enqueue(new BaseCallback<List<Product>>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                AppController.getInstance().hideProgressDialog();
+                Messenger.erro(errorMessage);
+            }
+
+            @Override
+            public void onSuccess(List<Product> data) {
+                updateProductList(data);
+                updateProductTable();
+            }
+        });
     }
 
     @FXML
@@ -269,11 +269,17 @@ public class CreateOrderScreenControler extends AnchorPane {
         ListIterator<ProductInOrder> iterator = orderObservableList.listIterator();
         while (iterator.hasNext()) {
             ProductInOrder item = iterator.next();
-            totalPrice+= item.getPrice() * item.getCount();
+            totalPrice+= Integer.valueOf(item.getPrice()) * item.getCount();
         }
         //update list
         iterator.forEachRemaining(productInOrders::add);
         //update text
         lbLegend.setText(bundle.getString("txt_total_price")+ ": " + totalPrice +" "+ bundle.getString("txt_vnd"));
+    }
+    private void updateProductList(List<Product> products){
+        for (Product product : products){
+            product.updateStatus();
+        }
+        productList = products;
     }
 }

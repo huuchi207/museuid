@@ -1,0 +1,3 @@
+before build jar:
+- switch constant config: FAKE = false, RELEASE = true
+-

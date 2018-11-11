@@ -1,5 +1,7 @@
 package br.com.museuid.screen.order_created;
 
+
+import java.net.URISyntaxException;
 import java.util.ResourceBundle;
 
 import br.com.museuid.config.ConstantConfig;
@@ -45,6 +47,29 @@ public class MyOrderCreatedController extends AnchorPane {
     @FXML
     public void initialize() {
         initTable();
+        //TODO:get order created data
+        try {
+            Socket socket = IO.socket("http://localhost:3000");
+            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+                @Override
+                public void call(Object... objects) {
+
+                }
+            }).on("guest", new Emitter.Listener() {
+                @Override
+                public void call(Object... objects) {
+
+                }
+            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+
+                @Override
+                public void call(Object... args) {}
+
+            });
+            socket.connect();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     void initTable() {

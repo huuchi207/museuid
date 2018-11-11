@@ -4,18 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.museuid.app.App;
-import br.com.museuid.config.ConstantConfig;
-import br.com.museuid.dto.EmployeeListDTO;
 import br.com.museuid.dto.EmployeeDTO;
+import br.com.museuid.dto.EmployeeListDTO;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.ProductListDTO;
 import br.com.museuid.service.remote.ResponseDTO;
@@ -29,7 +24,7 @@ public class FakeDataUtils {
             .fromJson(reader, new TypeToken<ResponseDTO<EmployeeListDTO>>() {
             }.getType());
         if (responseDTO!= null){
-          EmployeeListDTO employeeDTO =responseDTO.getContent();
+          EmployeeListDTO employeeDTO =responseDTO.getResult();
           return employeeDTO.getEmployeeList();
         }
       }
@@ -48,7 +43,7 @@ public class FakeDataUtils {
                     .fromJson(reader, new TypeToken<ResponseDTO<ProductListDTO>>() {
                     }.getType());
                 if (responseDTO!= null){
-                    ProductListDTO productListDTO =responseDTO.getContent();
+                    ProductListDTO productListDTO =responseDTO.getResult();
                     return productListDTO.getProducts();
                 }
             }
