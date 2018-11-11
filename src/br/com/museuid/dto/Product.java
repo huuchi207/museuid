@@ -24,7 +24,12 @@ public class Product {
         this.price = price;
         this.inStock = inStock;
     }
-
+    public Product(String productName, String description, String price, Integer inStock) {
+        this.productName = productName;
+        this.description = description;
+        this.price = price;
+        this.inStock = inStock;
+    }
     public String getId() {
         return id;
     }

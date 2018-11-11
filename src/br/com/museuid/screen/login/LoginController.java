@@ -5,9 +5,12 @@ import java.util.List;
 import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.sample.Item;
 import br.com.museuid.model.Usuario;
+import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.service.remote.requestbody.LoginRequest;
 import br.com.museuid.service.remote.sample.SampleCallback;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.DialogUtils;
@@ -49,19 +52,21 @@ public class LoginController {
           Login.palco.close();
           return;
         }
-//        if (ControleDAO.getBanco().getLoginDAO().autenticarUsername(login)) {
-//            if (ControleDAO.getBanco().getLoginDAO().autenticarSenha(login, password)) {
-//                usuarioLogado = ControleDAO.getBanco().getLoginDAO().usuarioLogado(login);
-//                new App().start(new Stage());
-//                Login.palco.close();
-//            } else {
-//                lbErrorLogin.setText(BundleUtils.getResourceBundle().getString("txt_invalid_password"));
-//                FieldViewUtils.erroLogin(pfPass);
-//            }
-//        } else {
-//            lbErrorLogin.setText(BundleUtils.getResourceBundle().getString("txt_not_existed_user"));
-//            FieldViewUtils.erroLogin(tfUser);
-//        }
+        showProgressDialog();
+        ServiceBuilder.getApiService().login(new LoginRequest(login, password)).enqueue(new BaseCallback<SessionDeviceInfo>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                hideProgressDialog();
+                Messenger.erro(errorMessage);
+            }
+
+            @Override
+            public void onSuccess(SessionDeviceInfo data) {
+                new App().start(new Stage());
+                Login.palco.close();
+                //TODO: save user dto to static var
+            }
+        });
     }
 
     @FXML
