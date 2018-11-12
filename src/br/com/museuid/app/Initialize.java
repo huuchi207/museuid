@@ -35,7 +35,7 @@ public class Initialize extends Application {
     public void start(Stage stage) throws Exception {
         try {
             palco = stage;
-            FXMLLoader fxml = new FXMLLoader(App.class.getResource("/br/com/museuid/view/initialize/initialize.fxml"));
+            FXMLLoader fxml = new FXMLLoader(App.class.getResource("/br/com/museuid/screen/initialize/initialize.fxml"));
             fxml.setResources(BundleUtils.getResourceBundle());
             page = fxml.load();
             cena = new Scene(page);

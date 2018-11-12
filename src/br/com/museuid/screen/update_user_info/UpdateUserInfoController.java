@@ -1,4 +1,4 @@
-package br.com.museuid.view.update_user_info;
+package br.com.museuid.screen.update_user_info;
 
 import java.util.ResourceBundle;
 
@@ -8,12 +8,8 @@ import br.com.museuid.util.Messenger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 public class UpdateUserInfoController extends AnchorPane {
@@ -53,6 +49,6 @@ public class UpdateUserInfoController extends AnchorPane {
     }
 
     private void getUserInfo(){
-        //TODO: call api get info and set to userDTO in userUtil, then update view in navigation
+        //TODO: call api get info and set to userDTO in userUtil, then update screen in navigation
     }
 }

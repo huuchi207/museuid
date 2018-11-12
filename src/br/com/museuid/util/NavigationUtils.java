@@ -1,11 +1,11 @@
 package br.com.museuid.util;
 
-import br.com.museuid.view.change_password.ChangePasswordController;
-import br.com.museuid.view.create_order_screen.CreateOrderScreenControler;
-import br.com.museuid.view.employee_management.EmployeeManagementControler;
-import br.com.museuid.view.order_created.MyOrderCreatedController;
-import br.com.museuid.view.statistic.StatisticController;
-import br.com.museuid.view.update_user_info.UpdateUserInfoController;
+import br.com.museuid.screen.change_password.ChangePasswordController;
+import br.com.museuid.screen.create_order_screen.CreateOrderScreenControler;
+import br.com.museuid.screen.employee_management.EmployeeManagementControler;
+import br.com.museuid.screen.order_created.MyOrderCreatedController;
+import br.com.museuid.screen.statistic.StatisticController;
+import br.com.museuid.screen.update_user_info.UpdateUserInfoController;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;

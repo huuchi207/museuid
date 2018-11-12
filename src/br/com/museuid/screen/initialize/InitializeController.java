@@ -1,4 +1,4 @@
-package br.com.museuid.view.initialize;
+package br.com.museuid.screen.initialize;
 
 import java.util.Optional;
 

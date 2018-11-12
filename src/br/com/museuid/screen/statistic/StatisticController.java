@@ -1,4 +1,4 @@
-package br.com.museuid.view.statistic;
+package br.com.museuid.screen.statistic;
 
 import java.io.IOException;
 import java.time.LocalDate;

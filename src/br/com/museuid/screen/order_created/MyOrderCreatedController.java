@@ -1,4 +1,4 @@
-package br.com.museuid.view.order_created;
+package br.com.museuid.screen.order_created;
 
 
 import com.google.gson.Gson;

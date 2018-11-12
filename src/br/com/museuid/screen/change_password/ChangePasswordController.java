@@ -1,4 +1,4 @@
-package br.com.museuid.view.change_password;
+package br.com.museuid.screen.change_password;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,8 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class ChangePasswordController extends AnchorPane {
@@ -57,6 +55,6 @@ public class ChangePasswordController extends AnchorPane {
     }
 
     private void getUserInfo(){
-        //TODO: call api get info and set to userDTO in userUtil, then update view in navigation
+        //TODO: call api get info and set to userDTO in userUtil, then update screen in navigation
     }
 }

@@ -1,12 +1,9 @@
-package br.com.museuid.view.login;
+package br.com.museuid.screen.login;
 
+import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
-import br.com.museuid.banco.controle.ControleDAO;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.model.Usuario;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.FieldViewUtils;
-import br.com.museuid.app.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

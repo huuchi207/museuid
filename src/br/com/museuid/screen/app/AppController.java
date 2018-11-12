@@ -1,4 +1,4 @@
-package br.com.museuid.view.app;
+package br.com.museuid.screen.app;
 
 import java.util.List;
 

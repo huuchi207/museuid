@@ -1,4 +1,4 @@
-package br.com.museuid.view.employee_management;
+package br.com.museuid.screen.employee_management;
 
 import java.util.List;
 import java.util.ResourceBundle;
@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.EmployeeDTO;
 import br.com.museuid.dto.sample.Item;
+import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.sample.SampleCallback;
 import br.com.museuid.util.BundleUtils;
@@ -15,7 +16,6 @@ import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.NoticeUtils;
-import br.com.museuid.view.app.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

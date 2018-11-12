@@ -1,4 +1,4 @@
-package br.com.museuid.view.create_order_screen;
+package br.com.museuid.screen.create_order_screen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.Product;
 import br.com.museuid.model.data.ProductInOrder;
+import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
@@ -16,7 +17,6 @@ import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.StaticVarUtils;
-import br.com.museuid.view.app.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
