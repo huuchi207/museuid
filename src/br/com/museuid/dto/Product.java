@@ -71,7 +71,7 @@ public class Product {
     }
 
     public ProductInOrder convertToProductInOrder(){
-        return new ProductInOrder(id, productName, description, price, inStock, 0);
+        return new ProductInOrder(id, productName, description, price, inStock, 1);
     }
 
     public void updateStatus(){

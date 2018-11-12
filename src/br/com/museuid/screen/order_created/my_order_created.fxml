@@ -12,14 +12,14 @@
             </children>
         </HBox>
 
-        <AnchorPane fx:id="apOrderCreatedTable" visible="false" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+        <AnchorPane fx:id="apOrderCreatedTable" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
             <children>
                 <TableView fx:id="tbOrderCreated" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
                     <columns>
-                        <TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />
-                        <TableColumn fx:id="colOrderName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_nick_name" />
-                        <TableColumn fx:id="colOrderDescription" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_full_name" />
-                        <TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="%txt_phone_number" />
+                        <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />-->
+                        <TableColumn fx:id="colOrderName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_order_name" />
+                        <TableColumn fx:id="colOrderDescription" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_order_description" />
+                        <TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="%txt_status" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

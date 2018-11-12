@@ -6,6 +6,7 @@ import br.com.museuid.app.App;
 import br.com.museuid.app.Initialize;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.DeviceInfo;
+import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
@@ -45,7 +46,7 @@ public class InitializeController {
         instance = this;
 
         macAddress = StaticVarUtils.getMacAddress();
-        ServiceBuilder.getApiService().checkDevice(macAddress).enqueue(new BaseCallback<DeviceInfo>() {
+        ServiceBuilder.getApiService().checkDevice(macAddress).enqueue(new BaseCallback<SessionDeviceInfo>() {
             @Override
             public void onError(String errorCode, String errorMessage) {
                 if ("Can not find information.".equalsIgnoreCase(errorMessage)){
@@ -64,8 +65,9 @@ public class InitializeController {
             }
 
             @Override
-            public void onSuccess(DeviceInfo data) {
+            public void onSuccess(SessionDeviceInfo data) {
                 startMain();
+                StaticVarUtils.setSessionDeviceInfo(data);
             }
         });
         if (ConstantConfig.FAKE) {

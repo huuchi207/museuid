@@ -8,6 +8,7 @@ import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.sample.Item;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
 import br.com.museuid.service.remote.requestbody.LoginRequest;
+import br.com.museuid.service.remote.requestbody.PutQueueRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -26,7 +27,7 @@ public interface APIService {
     Call<ResponseDTO<DeviceInfo>> addDevice(@Body AddDeviceRequest addDeviceRequest);
 
     @GET("auto-client")
-    Call<ResponseDTO<DeviceInfo>> checkDevice(@Query("macaddress") String macAddress);
+    Call<ResponseDTO<SessionDeviceInfo>> checkDevice(@Query("macaddress") String macAddress);
 
     @GET("clients")
     Call<ResponseDTO<String>> getClients();
@@ -45,4 +46,7 @@ public interface APIService {
 
     @DELETE("product")
     Call<ResponseDTO<Object>> deleteProduct(@Body String productId);
+
+    @PUT("queue")
+    Call<ResponseDTO<Object>> putOrder(@Body PutQueueRequest putQueueRequest);
 }
