@@ -79,8 +79,8 @@
                     <!--<Label fx:id="lbUser" maxWidth="150.0" prefWidth="150.0" styleClass="lb-user"-->
                       <!--AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"-->
                       <!--AnchorPane.topAnchor="0.0" />-->
-                    <Button layoutX="160.5" layoutY="4.0" mnemonicParsing="false"
-                      styleClass="menu-sair" text="%txt_hello_customer" />
+                    <!--<Button layoutX="160.5" layoutY="4.0" mnemonicParsing="false" onAction="#menuSair"-->
+                      <!--styleClass="menu-sair" text="%txt_hello_customer" />-->
                   </children>
                 </AnchorPane>
               </children>

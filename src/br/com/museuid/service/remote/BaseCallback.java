@@ -1,7 +1,6 @@
 package br.com.museuid.service.remote;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 import br.com.museuid.util.BundleUtils;
 import javafx.application.Platform;
@@ -24,7 +23,6 @@ public abstract class BaseCallback<T> implements Callback<ResponseDTO<T>> {
               mBody = null;
               String responseCode = SERVER_ERROR;
               String message = getServerMsg();
-              JsonElement jsonResponse;
 
               if (!response.isSuccessful()) {
                   onError(responseCode, message);
@@ -32,12 +30,17 @@ public abstract class BaseCallback<T> implements Callback<ResponseDTO<T>> {
               }
 
 
-              if (response.body() == null) {
+              if (response.body() == null ) {
                   onError(responseCode, message);
                   return;
+              } else {
+                  if (response.body().getError()){
+                      onError(responseCode, response.body().getMessage());
+                      return;
+                  }
               }
 
-              mBody = response.body().getContent();
+              mBody = response.body().getResult();
               if (mBody == null) {
                   try {
                       onError(SERVER_ERROR, getServerMsg());

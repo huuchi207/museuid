@@ -40,6 +40,8 @@ public class AppController {
         return instance;
     }
 
+
+
     @FXML
     void initialize() {
         instance = this;

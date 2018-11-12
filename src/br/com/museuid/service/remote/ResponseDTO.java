@@ -3,36 +3,36 @@ package br.com.museuid.service.remote;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseDTO<T> {
-  @SerializedName("errorCode")
-  private String errorCode;
+  @SerializedName("isError")
+  private Boolean error;
 
-  @SerializedName("errorMessage")
-  private String errorMessage;
+  @SerializedName("message")
+  private String message;
 
-  @SerializedName("content")
-  private T content;
+  @SerializedName("result")
+  private T result;
 
-  public String getErrorCode() {
-    return errorCode;
-  }
+    public Boolean getError() {
+        return error;
+    }
 
-  public void setErrorCode(String errorCode) {
-    this.errorCode = errorCode;
-  }
+    public void setError(Boolean error) {
+        this.error = error;
+    }
 
-  public String getErrorMessage() {
-    return errorMessage;
-  }
+    public String getMessage() {
+        return message;
+    }
 
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-  public T getContent() {
-    return content;
-  }
+    public T getResult() {
+        return result;
+    }
 
-  public void setContent(T content) {
-    this.content = content;
-  }
+    public void setResult(T result) {
+        this.result = result;
+    }
 }

@@ -6,12 +6,10 @@ public class ProductInOrder extends Product {
     private int count;
     private String countString;
     private String moreRequirement;
-    public ProductInOrder(String id, String productName, String description, int price, String status) {
-        super(id, productName, description, price, status);
-    }
 
-    public ProductInOrder(String id, String productName, String description, int price, String status, int count) {
-        super(id, productName, description, price, status);
+    public ProductInOrder(String id, String productName, String description, String price, Integer inStock,
+                           int count) {
+        super(id, productName, description, price, inStock);
         this.count = count;
         this.countString = String.valueOf(count);
     }
