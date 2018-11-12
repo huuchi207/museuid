@@ -1,9 +1,8 @@
 package br.com.museuid.util;
 
 import br.com.museuid.view.change_password.ChangePasswordController;
-import br.com.museuid.view.employee_management.EmployeeManagementControler;
-
 import br.com.museuid.view.create_order_screen.CreateOrderScreenControler;
+import br.com.museuid.view.employee_management.EmployeeManagementControler;
 import br.com.museuid.view.order_created.MyOrderCreatedController;
 import br.com.museuid.view.statistic.StatisticController;
 import br.com.museuid.view.update_user_info.UpdateUserInfoController;
@@ -61,7 +60,7 @@ public class NavigationUtils {
     }
 
     public static void getMyOrderCreatedScreen(AnchorPane box){
-        myOrderCreatedController = new MyOrderCreatedController();
+        myOrderCreatedController = myOrderCreatedController!= null ? myOrderCreatedController : new MyOrderCreatedController();
         config(box, myOrderCreatedController);
     }
 

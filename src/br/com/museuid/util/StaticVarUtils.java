@@ -20,6 +20,9 @@ public class StaticVarUtils {
     public static void setSessionDeviceInfo(SessionDeviceInfo deviceInfo){
         sessionDeviceInfo = deviceInfo;
     }
+    public static SessionDeviceInfo getSessionDeviceInfo(){
+        return  sessionDeviceInfo;
+    }
     public static void clearSession(){
         sessionDeviceInfo = null;
     }

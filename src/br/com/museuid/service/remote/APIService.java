@@ -7,6 +7,7 @@ import br.com.museuid.dto.Product;
 import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.sample.Item;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
+import br.com.museuid.service.remote.requestbody.PutQueueRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -30,4 +31,7 @@ public interface APIService {
 
     @GET("products")
     Call<ResponseDTO<List<Product>>> getProductList();
+
+    @PUT("queue")
+    Call<ResponseDTO<Object>> putOrder(@Body PutQueueRequest putQueueRequest);
 }

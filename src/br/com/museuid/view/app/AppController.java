@@ -3,6 +3,7 @@ package br.com.museuid.view.app;
 import java.util.List;
 
 import br.com.museuid.app.App;
+import br.com.museuid.app.Initialize;
 import br.com.museuid.util.NavigationUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class AppController {
     private static AppController instance;
@@ -110,6 +112,15 @@ public class AppController {
 
     @FXML
     void close(ActionEvent event) {
+        App.palco.close();
+    }
+
+    public void startInitialize(){
+        try {
+            new Initialize().start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         App.palco.close();
     }
 }
