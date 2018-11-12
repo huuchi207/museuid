@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
 import br.com.museuid.config.ConstantConfig;
-import br.com.museuid.dto.SessionDeviceInfo;
+import br.com.museuid.dto.SessionUserInfo;
 import br.com.museuid.dto.sample.Item;
 import br.com.museuid.model.Usuario;
 import br.com.museuid.service.remote.BaseCallback;
@@ -16,6 +16,7 @@ import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
+import br.com.museuid.util.StaticVarUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -53,7 +54,8 @@ public class LoginController {
           return;
         }
         showProgressDialog();
-        ServiceBuilder.getApiService().login(new LoginRequest(login, password)).enqueue(new BaseCallback<SessionDeviceInfo>() {
+        ServiceBuilder.getApiService().login(new LoginRequest(login, password)).
+            enqueue(new BaseCallback<SessionUserInfo>() {
             @Override
             public void onError(String errorCode, String errorMessage) {
                 hideProgressDialog();
@@ -61,10 +63,10 @@ public class LoginController {
             }
 
             @Override
-            public void onSuccess(SessionDeviceInfo data) {
+            public void onSuccess(SessionUserInfo data) {
+                StaticVarUtils.setSessionUserInfo(data);
                 new App().start(new Stage());
                 Login.palco.close();
-                //TODO: save user dto to static var
             }
         });
     }

@@ -6,6 +6,8 @@ import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.util.StaticVarUtils;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -66,7 +68,7 @@ public class AppController {
         //TODO: change to default selected submenu
         openOrderInQueueScreen(new ActionEvent(btOrderInQueue, null));
         //TODO: show user data
-        lbUser.setText("Chào Chí!");
+        lbUser.setText(StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
     }
 
     /**
@@ -170,7 +172,8 @@ public class AppController {
 
     @FXML
     void close(ActionEvent event) {
-        App.palco.close();
+        Platform.exit();
+        System.exit(0);
     }
 
     public void openOrderInQueueScreen(ActionEvent event) {
@@ -179,5 +182,10 @@ public class AppController {
         }
         NavigationUtils.getOrderInQueueScreen(boxContainer);
         setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
+    }
+
+    public void startLogin(){
+        new Login().start(new Stage());
+        App.palco.close();
     }
 }

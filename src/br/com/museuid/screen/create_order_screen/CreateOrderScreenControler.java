@@ -17,7 +17,6 @@ import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.StaticVarUtils;
-import br.com.museuid.view.app.AppController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -315,7 +314,7 @@ public class CreateOrderScreenControler extends AnchorPane {
 
     private PutQueueRequest createPutOrderRequest(){
         if (StaticVarUtils.getSessionDeviceInfo() == null || StaticVarUtils.getSessionDeviceInfo().getInfo() == null){
-            AppController.getInstance().startInitialize();
+//            AppController.getInstance().startInitialize();
         }
         ObservableList<ProductInOrder> orderObservableList = tbProductInOrder.getItems();
 

@@ -2,12 +2,12 @@ package customview.sectiongridview;
 
 import java.util.List;
 
-import br.com.museuid.model.data.Order;
+import br.com.museuid.model.data.OrderDetail;
 
 public class ItemGridView {
     private String deviceName;
     private String macAddress;
-    private List<Order> newOrder;
+    private List<OrderDetail> newOrder;
 
     public String getDeviceName() {
         return deviceName;
@@ -25,11 +25,11 @@ public class ItemGridView {
         this.macAddress = macAddress;
     }
 
-    public List<Order> getNewOrder() {
+    public List<OrderDetail> getNewOrder() {
         return newOrder;
     }
 
-    public void setNewOrder(List<Order> newOrder) {
+    public void setNewOrder(List<OrderDetail> newOrder) {
         this.newOrder = newOrder;
     }
 }
