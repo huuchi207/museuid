@@ -17,6 +17,7 @@ import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.StaticVarUtils;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -78,7 +79,8 @@ public class LoginController {
 
     @FXML
     void close(ActionEvent event) {
-        Login.palco.close();
+        Platform.exit();
+        System.exit(0);
     }
 
     @FXML

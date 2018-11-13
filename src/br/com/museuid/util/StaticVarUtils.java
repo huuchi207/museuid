@@ -2,21 +2,13 @@ package br.com.museuid.util;
 
 import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.SessionUserInfo;
-import br.com.museuid.dto.UserDTO;
 import br.com.museuid.screen.app.AppController;
 
 public class StaticVarUtils {
-    private static UserDTO currentUser;
     private static SessionDeviceInfo sessionDeviceInfo;
     private static SessionUserInfo sessionUserInfo;
     private static String macAddress = NetworkUtils.getAddress("mac");
 
-    public static void setCurrentUser(UserDTO user){
-        currentUser = user;
-    }
-    public static void clearUser(){
-        currentUser = null;
-    }
     public static String getMacAddress(){
         return macAddress;
     }

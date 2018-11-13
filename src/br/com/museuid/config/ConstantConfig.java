@@ -4,5 +4,4 @@ public interface ConstantConfig {
   boolean FAKE = false;
   String defaultLocaleCode= "vi";
   boolean DEBUG= true;
-  boolean RELEASE = false;
 }

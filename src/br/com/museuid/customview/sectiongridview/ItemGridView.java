@@ -1,4 +1,4 @@
-package customview.sectiongridview;
+package br.com.museuid.customview.sectiongridview;
 
 import java.util.List;
 

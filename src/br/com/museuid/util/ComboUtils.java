@@ -1,10 +1,10 @@
 package br.com.museuid.util;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
-
-import java.util.List;
 
 /**
  * Auxiliary class in the combobox population
@@ -47,6 +47,6 @@ public class ComboUtils {
      */
     private static void clean(ComboBox<Object> combo) {
         combo.getItems().clear();
-        combo.setPromptText("- Records not found -");
+        combo.setPromptText(BundleUtils.getResourceBundle().getString("txt_no_data"));
     }
 }

@@ -4,10 +4,10 @@ import org.controlsfx.control.GridView;
 
 import java.util.ResourceBundle;
 
+import br.com.museuid.customview.sectiongridview.ItemGridCellFactory;
+import br.com.museuid.customview.sectiongridview.ItemGridView;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
-import customview.sectiongridview.ItemGridCellFactory;
-import customview.sectiongridview.ItemGridView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

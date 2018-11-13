@@ -1,4 +1,4 @@
-package customview.sectiongridview;
+package br.com.museuid.customview.sectiongridview;
 
 import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;

@@ -4,9 +4,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ResourceBundle;
 
+import br.com.museuid.screen.app.AppController;
+import br.com.museuid.service.remote.BaseCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.service.remote.requestbody.ChangePasswordRequest;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
+import br.com.museuid.util.StaticVarUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -52,9 +57,21 @@ public class ChangePasswordController extends AnchorPane {
             Messenger.erro(bundle.getString("txt_new_password_mismatch"));
             return;
         }
+        AppController.getInstance().showProgressDialog();
+        ServiceBuilder.getApiService().changePassword(new ChangePasswordRequest(StaticVarUtils.getSessionUserInfo().getInfo().getId(),
+            pfOldPassword.getText(), pfNewPassword.getText())).enqueue(new BaseCallback<Object>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                AppController.getInstance().hideProgressDialog();
+                Messenger.erro(errorMessage);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                AppController.getInstance().hideProgressDialog();
+                Messenger.info(bundle.getString("txt_operation_successful"));
+            }
+        });
     }
 
-    private void getUserInfo(){
-        //TODO: call api get info and set to userDTO in userUtil, then update screen in navigation
-    }
 }

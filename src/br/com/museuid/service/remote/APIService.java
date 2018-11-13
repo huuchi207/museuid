@@ -6,8 +6,10 @@ import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.SessionUserInfo;
+import br.com.museuid.dto.UserDTO;
 import br.com.museuid.dto.sample.Item;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
+import br.com.museuid.service.remote.requestbody.ChangePasswordRequest;
 import br.com.museuid.service.remote.requestbody.LoginRequest;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
@@ -50,4 +52,28 @@ public interface APIService {
 
     @PUT("queue")
     Call<ResponseDTO<Object>> putOrder(@Body PutQueueRequest putQueueRequest);
+
+    @GET("logout")
+    Call<ResponseDTO<Object>> logOut();
+
+    @GET("user")
+    Call<ResponseDTO<UserDTO>> getCurrentUserInfo(@Query("userid") String userId);
+
+    @POST("user")
+    Call<ResponseDTO<UserDTO>> changeUserInfo(@Body UserDTO userDTO);
+
+    @POST("change-password")
+    Call<ResponseDTO<Object>> changePassword(@Body ChangePasswordRequest request);
+
+    @GET("users")
+    Call<ResponseDTO<List<UserDTO>>> getListUser();
+
+    @DELETE("user")
+    Call<ResponseDTO<Object>> deleteUser(@Body String userId);
+
+    @PUT("user")
+    Call<ResponseDTO<UserDTO>> addUser(@Body UserDTO userDTO);
+
+    @POST("reset-password")
+    Call<ResponseDTO<Object>> resetPasswordForCustomer(@Body String userid);
 }

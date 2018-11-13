@@ -23,7 +23,7 @@ public class FieldViewUtils {
         boolean vazio = false;
 
         for (TextField campo : field) {
-            if (campo.getText().trim().isEmpty()) {
+            if (campo.getText() == null || campo.getText().trim().isEmpty()) {
                 erro(campo, BundleUtils.getResourceBundle().getString("txt_check_empty_txt"));
                 vazio = true;
             }
@@ -37,7 +37,7 @@ public class FieldViewUtils {
         boolean vazio = false;
 
         for (TextArea campo : field) {
-            if (campo.getText().trim().isEmpty()) {
+            if (campo.getText() == null || campo.getText().trim().isEmpty()) {
                 erro(campo, BundleUtils.getResourceBundle().getString("txt_check_empty_txt"));
                 vazio = true;
             }
@@ -51,7 +51,7 @@ public class FieldViewUtils {
         boolean vazio = false;
 
         for (PasswordField campo : field) {
-            if (campo.getText().trim().isEmpty()) {
+            if (campo.getText() == null || campo.getText().trim().isEmpty()) {
                 erro(campo, BundleUtils.getResourceBundle().getString("txt_check_empty_txt"));
                 vazio = true;
             }

@@ -111,7 +111,11 @@
                                 <ToggleButton fx:id="btEmployeeManagement" alignment="CENTER_LEFT"
                                   layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
                                   mnemonicParsing="false" onAction="#openEmployeeManagement"
-                                  styleClass="submenus" text="%txt_employee_management" />
+                                  styleClass="submenus" text="%txt_user_management" />
+                                <ToggleButton fx:id="btProductManagement" alignment="CENTER_LEFT"
+                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openProductManagement"
+                                  styleClass="submenus" text="%txt_product_management" />
                                 <ToggleButton fx:id="btStatistic" alignment="CENTER_LEFT" layoutX="10.0"
                                   layoutY="10.0" maxWidth="1.7976931348623157E308"
                                   mnemonicParsing="false" onAction="#openStatistic"
@@ -131,7 +135,7 @@
                     <Label fx:id="lbUser" maxWidth="150.0" prefWidth="150.0" styleClass="lb-user"
                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
                       AnchorPane.topAnchor="0.0" />
-                    <Button layoutX="160.5" layoutY="4.0" mnemonicParsing="false" onAction="#menuSair"
+                    <Button layoutX="160.5" layoutY="4.0" mnemonicParsing="false" onAction="#logOut"
                       styleClass="menu-sair" text="%txt_exit" />
                   </children>
                 </AnchorPane>

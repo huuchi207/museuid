@@ -34,7 +34,7 @@ public abstract class BaseCallback<T> implements Callback<ResponseDTO<T>> {
                   onError(responseCode, message);
                   return;
               } else {
-                  if (response.body().getError()){
+                  if (response.body().getError() == null || response.body().getError()){
                       onError(responseCode, response.body().getMessage());
                       return;
                   }

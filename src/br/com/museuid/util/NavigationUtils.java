@@ -2,11 +2,12 @@ package br.com.museuid.util;
 
 import br.com.museuid.screen.change_password.ChangePasswordController;
 import br.com.museuid.screen.create_order_screen.CreateOrderScreenControler;
-import br.com.museuid.screen.employee_management.EmployeeManagementControler;
 import br.com.museuid.screen.order_created.MyOrderCreatedController;
 import br.com.museuid.screen.order_in_queue.OrderInQueueController;
+import br.com.museuid.screen.product_management.ProductManagementControler;
 import br.com.museuid.screen.statistic.StatisticController;
 import br.com.museuid.screen.update_user_info.UpdateUserInfoController;
+import br.com.museuid.screen.user_management.UserManagementControler;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -17,13 +18,14 @@ import javafx.scene.layout.StackPane;
  */
 public class NavigationUtils {
     //new code
-    private static EmployeeManagementControler employeeManagement;
+    private static UserManagementControler employeeManagement;
     private static CreateOrderScreenControler createOrderScreenControler;
     private static UpdateUserInfoController updateUserInfoController;
     private static MyOrderCreatedController myOrderCreatedController;
     private static StatisticController statisticController;
     private static ChangePasswordController changePasswordController;
     private static OrderInQueueController orderInQueueController;
+    private static ProductManagementControler productManagementControler;
     private NavigationUtils() {
     }
 
@@ -47,7 +49,7 @@ public class NavigationUtils {
     }
 
     public static void getEmployeeManagementScreen(AnchorPane box) {
-        employeeManagement = new EmployeeManagementControler();
+        employeeManagement = new UserManagementControler();
         config(box, employeeManagement);
     }
 
@@ -80,6 +82,12 @@ public class NavigationUtils {
         orderInQueueController = new OrderInQueueController();
         config(box, orderInQueueController);
     }
+
+    public static void getProductManagementScreen(AnchorPane box){
+        productManagementControler = new ProductManagementControler();
+        config(box, productManagementControler);
+    }
+
     public static void config(AnchorPane box, StackPane conteudo) {
         box.getChildren().clear();
         box.getChildren().add(conteudo);

@@ -4,7 +4,10 @@ import java.util.List;
 
 import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
+import br.com.museuid.service.remote.BaseCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.StaticVarUtils;
 import javafx.application.Platform;
@@ -55,9 +58,21 @@ public class AppController {
     }
 
     @FXML
-    void menuSair(ActionEvent event) {
-        App.palco.close();
-        new Login().start(new Stage());
+    void logOut(ActionEvent event) {
+        showProgressDialog();
+        ServiceBuilder.getApiService().logOut().enqueue(new BaseCallback<Object>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                hideProgressDialog();
+                Messenger.erro(errorMessage);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                App.palco.close();
+                new Login().start(new Stage());
+            }
+        });
     }
 
     @FXML
@@ -187,5 +202,13 @@ public class AppController {
     public void startLogin(){
         new Login().start(new Stage());
         App.palco.close();
+    }
+
+    public void openProductManagement(ActionEvent event) {
+        if (event.getSource() == currentScreen){
+            return;
+        }
+        NavigationUtils.getProductManagementScreen(boxContainer);
+        setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
     }
 }

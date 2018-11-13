@@ -17,8 +17,10 @@ public class Product {
     @SerializedName("instock")
     private Integer inStock;
     private String status;
+    private String productid;
     public Product(String id, String productName, String description, String price, Integer inStock) {
         this.id = id;
+        this.productid = id;
         this.productName = productName;
         this.description = description;
         this.price = price;
@@ -86,5 +88,13 @@ public class Product {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getProductid() {
+        return productid;
+    }
+
+    public void setProductid(String productid) {
+        this.productid = productid;
     }
 }
