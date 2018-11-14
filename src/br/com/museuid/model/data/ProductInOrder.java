@@ -7,7 +7,7 @@ public class ProductInOrder extends Product {
     private String countString;
     private String moreRequirement;
 
-    public ProductInOrder(String id, String productName, String description, String price, Integer inStock,
+    public ProductInOrder(String id, String productName, String description, Integer price, Integer inStock,
                            int count) {
         super(id, productName, description, price, inStock);
         this.count = count;

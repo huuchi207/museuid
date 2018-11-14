@@ -75,7 +75,7 @@ public class UpdateUserInfoController extends AnchorPane {
             UserDTO userDTO = StaticVarUtils.getSessionUserInfo().getInfo().copy();
             userDTO.setName(name);
             userDTO.setAddress(address);
-            userDTO.setPhoneNumber(phoneNumber);
+            userDTO.setPhone(phoneNumber);
             userDTO.setEmail(mail);
             userDTO.setPassword(password);
             userDTO.setUserid(userDTO.getId());
@@ -120,6 +120,6 @@ public class UpdateUserInfoController extends AnchorPane {
         txtUserName.setText(data.getUsername());
         txtAddress.setText(data.getAddress());
         txtEmail.setText(data.getEmail());
-        txtPhoneNumber.setText(data.getPhoneNumber());
+        txtPhoneNumber.setText(data.getPhone());
     }
 }

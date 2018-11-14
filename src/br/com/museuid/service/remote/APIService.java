@@ -48,7 +48,7 @@ public interface APIService {
     Call<ResponseDTO<Product>> updateProduct(@Body Product product);
 
     @DELETE("product")
-    Call<ResponseDTO<Object>> deleteProduct(@Body String productId);
+    Call<ResponseDTO<Object>> deleteProduct(@Query("productid") String productId);
 
     @PUT("queue")
     Call<ResponseDTO<Object>> putOrder(@Body PutQueueRequest putQueueRequest);
@@ -69,11 +69,11 @@ public interface APIService {
     Call<ResponseDTO<List<UserDTO>>> getListUser();
 
     @DELETE("user")
-    Call<ResponseDTO<Object>> deleteUser(@Body String userId);
+    Call<ResponseDTO<Object>> deleteUser(@Query("userid") String userId);
 
     @PUT("user")
     Call<ResponseDTO<UserDTO>> addUser(@Body UserDTO userDTO);
 
     @POST("reset-password")
-    Call<ResponseDTO<Object>> resetPasswordForCustomer(@Body String userid);
+    Call<ResponseDTO<Object>> resetPasswordForCustomer(@Body UserDTO userDTO);
 }

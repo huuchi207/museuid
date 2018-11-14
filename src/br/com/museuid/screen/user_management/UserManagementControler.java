@@ -42,6 +42,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 public class UserManagementControler extends AnchorPane {
@@ -100,7 +101,8 @@ public class UserManagementControler extends AnchorPane {
     private TableColumn colUserRole;
     @FXML
     private ComboBox<UserDTO.UserRole> cbUserRole;
-
+    @FXML
+    private HBox boxEdit;
     public UserManagementControler() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("user_management.fxml"));
@@ -119,7 +121,7 @@ public class UserManagementControler extends AnchorPane {
         txtUserName.setDisable(false);
         config(bundle.getString("txt_create_user"), bundle.getString("txt_required_fields"), 0);
         NavigationUtils.setVisibility(true, apAdd, btSave);
-        NavigationUtils.setVisibility(false, btResetPassword);
+        NavigationUtils.setVisibility(false, apEdit, boxEdit, txtSearch);
         resetField();
     }
 
@@ -128,17 +130,11 @@ public class UserManagementControler extends AnchorPane {
         tbUser.getSelectionModel().clearSelection();
 
         config(bundle.getString("txt_edit_user_info"), "", 1);
-        NavigationUtils.setVisibility(true, apEdit, btEdit, txtSearch, btResetPassword);
+        NavigationUtils.setVisibility(true, apEdit, txtSearch, boxEdit);
+        NavigationUtils.setVisibility(false, apAdd, btSave);
         updateTable();
     }
 
-    @FXML
-    void tbExclude(ActionEvent event) {
-        config(bundle.getString("txt_user_deleted"), "", 2);
-        NavigationUtils.setVisibility(true, apEdit, btExclude, txtSearch);
-        NavigationUtils.setVisibility(false, btResetPassword);
-        updateTable();
-    }
 
     @FXML
     void save(ActionEvent event) {
@@ -190,7 +186,7 @@ public class UserManagementControler extends AnchorPane {
                     UserDTO userDTO = tbUser.getSelectionModel().getSelectedItem().copy();
                     userDTO.setUsername(userName);
                     userDTO.setName(name);
-                    userDTO.setPhoneNumber(phoneNumber);
+                    userDTO.setPhone(phoneNumber);
                     userDTO.setAddress(address);
                     userDTO.setEmail(email);
                     userDTO.setRole(role);
@@ -228,7 +224,7 @@ public class UserManagementControler extends AnchorPane {
 
             txtUserName.setText(selectedUser.getUsername());
             txtName.setText(selectedUser.getName());
-            txtPhoneNumber.setText(selectedUser.getPhoneNumber());
+            txtPhoneNumber.setText(selectedUser.getPhone());
             txtAddress.setText(selectedUser.getAddress());
             txtEmail.setText(selectedUser.getEmail());
             cbUserRole.setValue(UserDTO.UserRole.valueOf(selectedUser.getRole()));
@@ -279,8 +275,6 @@ public class UserManagementControler extends AnchorPane {
                         }
                     });
                 }
-                getListUser();
-                updateTable();
             }
 
             tbUser.getSelectionModel().clearSelection();
@@ -323,7 +317,7 @@ public class UserManagementControler extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitle.setText(tituloTela);
-        NavigationUtils.setVisibility(false, btExclude, btSave, btEdit, apAdd, apEdit, txtSearch);
+//        NavigationUtils.setVisibility(false, btExclude, btSave, btEdit, apAdd, apEdit, txtSearch);
 
         legenda.setText(msg);
 
@@ -442,7 +436,7 @@ public class UserManagementControler extends AnchorPane {
                 return;
             } else {
                 AppController.getInstance().showProgressDialog();
-                ServiceBuilder.getApiService().resetPasswordForCustomer(selected.getId()).enqueue(new BaseCallback<Object>() {
+                ServiceBuilder.getApiService().resetPasswordForCustomer(selected).enqueue(new BaseCallback<Object>() {
                     @Override
                     public void onError(String errorCode, String errorMessage) {
                         AppController.getInstance().hideProgressDialog();

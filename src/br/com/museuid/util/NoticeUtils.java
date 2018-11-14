@@ -61,7 +61,7 @@ public class NoticeUtils {
     private static Label label(String texto, String tipo) {
 
         Label mensagem = new Label(texto);
-        mensagem.getStyleClass().add("nota-text");
+        mensagem.getStyleClass().add("nota-texto");
         HBox.setHgrow(mensagem, Priority.ALWAYS);
         mensagem.setMaxWidth(Double.MAX_VALUE);
         icone(tipo, mensagem);

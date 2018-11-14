@@ -322,14 +322,14 @@ public class CreateOrderScreenControler extends AnchorPane {
         ListIterator<ProductInOrder> iterator = orderObservableList.listIterator();
         while (iterator.hasNext()) {
             ProductInOrder productInOrder = iterator.next();
-            int priceOfProduct = Integer.valueOf(productInOrder.getPrice()) * productInOrder.getCount();
+            int priceOfProduct = productInOrder.getPrice() * productInOrder.getCount();
             items.add(new PutQueueRequest.Item(productInOrder.getProductName(),
                 productInOrder.getId(),
                 productInOrder.getCount(),
                 productInOrder.getPrice(),
-                priceOfProduct+"",
+                priceOfProduct,
                 productInOrder.getMoreRequirement(),
-                priceOfProduct+""));
+                priceOfProduct));
             totalPrice+= priceOfProduct;
         }
 

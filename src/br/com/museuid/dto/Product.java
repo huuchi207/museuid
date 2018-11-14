@@ -13,12 +13,12 @@ public class Product {
     @SerializedName("description")
     private String description;
     @SerializedName("price")
-    private String price;
+    private Integer price;
     @SerializedName("instock")
     private Integer inStock;
     private String status;
     private String productid;
-    public Product(String id, String productName, String description, String price, Integer inStock) {
+    public Product(String id, String productName, String description, Integer price, Integer inStock) {
         this.id = id;
         this.productid = id;
         this.productName = productName;
@@ -26,7 +26,7 @@ public class Product {
         this.price = price;
         this.inStock = inStock;
     }
-    public Product(String productName, String description, String price, Integer inStock) {
+    public Product(String productName, String description, Integer price, Integer inStock) {
         this.productName = productName;
         this.description = description;
         this.price = price;
@@ -56,11 +56,11 @@ public class Product {
         this.description = description;
     }
 
-    public String getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 

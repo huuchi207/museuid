@@ -36,18 +36,18 @@ public class UserDTO {
     @SerializedName("address")
     private String address;
 
-    @SerializedName("phoneNumber")
-    private String phoneNumber;
+    @SerializedName("phone")
+    private String phone;
     @SerializedName("userid")
     @Expose
     private String userid;
     private String roleText;
     public UserDTO() {
     }
-    public UserDTO(String userName, String name, String phoneNumber,String  address,String email, String role){
+    public UserDTO(String userName, String name, String phone, String  address, String email, String role){
         this.username = userName;
         this.name = name;
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
         this.address = address;
         this.email =email;
         this.role = role;
@@ -58,6 +58,8 @@ public class UserDTO {
 
     public void setRole(String role) {
         this.role = role;
+        if (role!= null)
+            setRoleText(UserRole.valueOf(role).name());
     }
 
     public String getId() {
@@ -116,12 +118,12 @@ public class UserDTO {
         this.address = address;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getUserid() {

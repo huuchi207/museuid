@@ -107,18 +107,18 @@ public class PutQueueRequest {
         private Integer quantity;
         @SerializedName("price")
         @Expose
-        private String price;
+        private Integer price;
         @SerializedName("inittotal")
         @Expose
-        private String inittotal;
+        private Integer inittotal;
         @SerializedName("note")
         @Expose
         private String note;
         @SerializedName("total")
         @Expose
-        private String total;
+        private Integer total;
 
-        public Item(String itemname, String itemid, Integer quantity, String price, String inittotal, String note, String total) {
+        public Item(String itemname, String itemid, Integer quantity, Integer price, Integer inittotal, String note, Integer total) {
             this.itemname = itemname;
             this.itemid = itemid;
             this.quantity = quantity;
@@ -152,19 +152,19 @@ public class PutQueueRequest {
             this.quantity = quantity;
         }
 
-        public String getPrice() {
+        public Integer getPrice() {
             return price;
         }
 
-        public void setPrice(String price) {
+        public void setPrice(Integer price) {
             this.price = price;
         }
 
-        public String getInittotal() {
+        public Integer getInittotal() {
             return inittotal;
         }
 
-        public void setInittotal(String inittotal) {
+        public void setInittotal(Integer inittotal) {
             this.inittotal = inittotal;
         }
 
@@ -176,11 +176,11 @@ public class PutQueueRequest {
             this.note = note;
         }
 
-        public String getTotal() {
+        public Integer getTotal() {
             return total;
         }
 
-        public void setTotal(String total) {
+        public void setTotal(Integer total) {
             this.total = total;
         }
 

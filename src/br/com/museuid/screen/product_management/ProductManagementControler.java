@@ -31,6 +31,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 public class ProductManagementControler extends AnchorPane {
 
@@ -73,7 +74,8 @@ public class ProductManagementControler extends AnchorPane {
     private TextField txtPrice;
     @FXML
     private AnchorPane apEdit;
-
+    @FXML
+    private HBox boxEdit;
     private ResourceBundle bundle;
 
     public ProductManagementControler() {
@@ -93,24 +95,19 @@ public class ProductManagementControler extends AnchorPane {
     void tbAdd(ActionEvent event) {
         config(bundle.getString("txt_create_product"), bundle.getString("txt_required_fields"), 0);
         NavigationUtils.setVisibility(true, apAdd, btSave);
-        NavigationUtils.setVisibility(false);
+        NavigationUtils.setVisibility(false, boxEdit, apEdit, txtSearch);
         resetField();
     }
 
     @FXML
     void tbEdit(ActionEvent event) {
         config(bundle.getString("txt.edit.product.info"), "", 1);
-        NavigationUtils.setVisibility(true, apEdit, btEdit, txtSearch);
+        NavigationUtils.setVisibility(true, apEdit, boxEdit, txtSearch);
+        NavigationUtils.setVisibility(false, btSave, apAdd);
         updateTable();
     }
 
-    @FXML
-    void tbExclude(ActionEvent event) {
-        config(bundle.getString("txt_product_deleted"), "", 2);
-        NavigationUtils.setVisibility(true, apEdit, btExclude, txtSearch);
-        NavigationUtils.setVisibility(false);
-        updateTable();
-    }
+
 
     @FXML
     void save(ActionEvent event) {
@@ -124,7 +121,6 @@ public class ProductManagementControler extends AnchorPane {
             NoticeUtils.alert(bundle.getString("txt_please_enter_info"));
             return;
         }
-        AppController.getInstance().showProgressDialog();
         int priceNumber, inStockNumber;
         try {
             priceNumber = Integer.valueOf(price);
@@ -133,9 +129,9 @@ public class ProductManagementControler extends AnchorPane {
             Messenger.erro("Giá và số lượng hàng trong kho phải là số!");
             return;
         }
-
+        AppController.getInstance().showProgressDialog();
         if (selectedProductId.equals("0")) {
-            Product product = new Product(productName, description, price, inStockNumber);
+            Product product = new Product(productName, description, priceNumber, inStockNumber);
             //TODO: insert product
             if (ConstantConfig.FAKE) {
                 productList.add(product);
@@ -160,7 +156,7 @@ public class ProductManagementControler extends AnchorPane {
             }
         } else {
             //TODO: edit product
-            Product product = new Product(selectedProductId, productName, description, price, inStockNumber);
+            Product product = new Product(selectedProductId, productName, description, priceNumber, inStockNumber);
             if (ConstantConfig.FAKE) {
                 productList.remove(tbProduct.getSelectionModel().getSelectedItem());
                 productList.add(product);
@@ -200,7 +196,7 @@ public class ProductManagementControler extends AnchorPane {
             tbAdd(null);
 
             txtProductName.setText(selectedProduct.getProductName());
-            txtPrice.setText(selectedProduct.getPrice());
+            txtPrice.setText(selectedProduct.getPrice()+"");
             txtInStock.setText(selectedProduct.getInStock()+"");
             txtDescription.setText(selectedProduct.getDescription());
 
@@ -246,7 +242,7 @@ public class ProductManagementControler extends AnchorPane {
                         @Override
                         public void onSuccess(Object data) {
                             AppController.getInstance().hideProgressDialog();
-                            Messenger.erro(bundle.getString("txt_operation_successful"));
+                            Messenger.info(bundle.getString("txt_operation_successful"));
                             getProductList();
                             tbProduct.getSelectionModel().clearSelection();
                         }
@@ -277,7 +273,7 @@ public class ProductManagementControler extends AnchorPane {
      */
     private void config(String tituloTela, String msg, int grupoMenu) {
         lbTitle.setText(tituloTela);
-        NavigationUtils.setVisibility(false, btExclude, btSave, btEdit, apAdd, apEdit, txtSearch);
+//        NavigationUtils.setVisibility(false, btExclude, btSave, btEdit, apAdd, apEdit, txtSearch);
 
         legenda.setText(msg);
         tbProduct.getSelectionModel().clearSelection();

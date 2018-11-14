@@ -29,13 +29,13 @@
             <String fx:value="menu-editar" />
           </styleClass>
         </ToggleButton>
-        <ToggleButton layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" onAction="#tbExclude"
-          text="" toggleGroup="$menu">
-          <styleClass>
-            <String fx:value="menus-tela" />
-            <String fx:value="menu-excluir" />
-          </styleClass>
-        </ToggleButton>
+        <!--<ToggleButton layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" onAction="#tbExclude"-->
+          <!--text="" toggleGroup="$menu">-->
+          <!--<styleClass>-->
+            <!--<String fx:value="menus-tela" />-->
+            <!--<String fx:value="menu-excluir" />-->
+          <!--</styleClass>-->
+        <!--</ToggleButton>-->
       </children>
     </HBox>
     <GridPane fx:id="apAdd" hgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
@@ -110,45 +110,53 @@
       AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
       <children>
         <HBox AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
-          <StackPane>
-            <Button id="" fx:id="btResetPassword" mnemonicParsing="false" onAction="#resetPassword"
-              prefHeight="40.0" prefWidth="200.0" style="" text="%txt_reset_password">
-              <styleClass>
-                <String fx:value="menus-acoes" />
-                <!--<String fx:value="acao-editar" />-->
-                <String fx:value="menu-blue" />
-              </styleClass>
-              <StackPane.margin>
-                <Insets right="30.0" />
-              </StackPane.margin>
-            </Button>
-          </StackPane>
           <StackPane AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
             <children>
-              <Button fx:id="btSave" contentDisplay="TOP" mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="200.0" style=""
-                text="%txt_save" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <Button fx:id="btSave" contentDisplay="TOP" mnemonicParsing="false" onAction="#save"
+                prefHeight="40.0" prefWidth="200.0" style="" text="%txt_save"
+                StackPane.alignment="TOP_RIGHT">
                 <styleClass>
                   <String fx:value="menus-acoes" />
                   <String fx:value="acao-salvar" />
                   <String fx:value="menu-green" />
                 </styleClass>
               </Button>
-              <Button id="" fx:id="btEdit" contentDisplay="TOP" mnemonicParsing="false" onAction="#edit" prefHeight="40.0" prefWidth="200.0" style=""
-                text="%txt_edit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <styleClass>
-                  <String fx:value="menus-acoes" />
-                  <String fx:value="acao-editar" />
-                  <String fx:value="menu-orange" />
-                </styleClass>
-              </Button>
-              <Button id="" fx:id="btExclude" contentDisplay="TOP" mnemonicParsing="false" onAction="#exclude" prefHeight="40.0"
-                prefWidth="200.0" style="" text="%txt_delete" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <styleClass>
-                  <String fx:value="menus-acoes" />
-                  <String fx:value="acao-excluir" />
-                  <String fx:value="menu-red" />
-                </styleClass>
-              </Button>
+              <HBox fx:id="boxEdit"  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Button id="" fx:id="btResetPassword" mnemonicParsing="false" onAction="#resetPassword"
+                  prefHeight="40.0" prefWidth="200.0" style="" text="%txt_reset_password">
+                  <styleClass>
+                    <String fx:value="menus-acoes" />
+                    <!--<String fx:value="acao-editar" />-->
+                    <String fx:value="menu-blue" />
+                  </styleClass>
+                  <HBox.margin>
+                    <Insets right="30.0" />
+                  </HBox.margin>
+                </Button>
+                <Button id="" fx:id="btEdit" contentDisplay="TOP" mnemonicParsing="false"
+                  onAction="#edit" prefHeight="40.0" prefWidth="200.0" text="%txt_edit">
+                  <styleClass>
+                    <String fx:value="menus-acoes" />
+                    <String fx:value="acao-editar" />
+                    <String fx:value="menu-orange" />
+                  </styleClass>
+                  <HBox.margin>
+                    <Insets right="30.0" />
+                  </HBox.margin>
+                </Button>
+                <Button id="" fx:id="btExclude" contentDisplay="TOP" mnemonicParsing="false"
+                  onAction="#exclude" prefHeight="40.0" prefWidth="200.0" text="%txt_delete">
+                  <styleClass>
+                    <String fx:value="menus-acoes" />
+                    <String fx:value="acao-excluir" />
+                    <String fx:value="menu-red" />
+                  </styleClass>
+                </Button>
+                <HBox.margin>
+                  <Insets right="300.0" />
+                </HBox.margin>
+              </HBox>
             </children>
           </StackPane>
         </HBox>

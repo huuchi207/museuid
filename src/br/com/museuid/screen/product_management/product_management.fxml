@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?><?import java.net.URL?><?import javafx.scene.control.Button?><?import javafx.scene.control.Label?><?import javafx.scene.control.TableColumn?><?import javafx.scene.control.TableView?><?import javafx.scene.control.TextField?><?import javafx.scene.control.ToggleButton?><?import javafx.scene.control.ToggleGroup?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.ColumnConstraints?><?import javafx.scene.layout.GridPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.RowConstraints?><?import javafx.scene.layout.StackPane?>
+<?import java.lang.String?><?import java.net.URL?><?import javafx.geometry.Insets?><?import javafx.scene.control.Button?><?import javafx.scene.control.Label?><?import javafx.scene.control.TableColumn?><?import javafx.scene.control.TableView?><?import javafx.scene.control.TextField?><?import javafx.scene.control.ToggleButton?><?import javafx.scene.control.ToggleGroup?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.ColumnConstraints?><?import javafx.scene.layout.GridPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.RowConstraints?><?import javafx.scene.layout.StackPane?>
 <fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea"
-  xmlns:fx="http://javafx.com/fxml/1"
->
+  xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <HBox prefHeight="60.0" prefWidth="1207.0" styleClass="box-topo" AnchorPane.leftAnchor="0.0"
       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -11,7 +10,7 @@
         <Label fx:id="lbTitle" alignment="BOTTOM_LEFT" layoutX="10.0"
           maxWidth="1.7976931348623157E308" styleClass="titulo" text="Título"
           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0"
-          AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS"/>
+          AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
         <TextField fx:id="txtSearch" prefHeight="50.0" prefWidth="417.0" promptText="%txt_search"
           styleClass="search-txt-field" />
         <ToggleButton mnemonicParsing="false" onAction="#tbAdd" text="">
@@ -30,28 +29,26 @@
             <String fx:value="menu-editar" />
           </styleClass>
         </ToggleButton>
-        <ToggleButton layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" onAction="#tbExclude"
-          text="" toggleGroup="$menu">
-          <styleClass>
-            <String fx:value="menus-tela" />
-            <String fx:value="menu-excluir" />
-          </styleClass>
-        </ToggleButton>
+        <!--<ToggleButton layoutX="1150.0" layoutY="27.0" mnemonicParsing="false" onAction="#tbExclude"-->
+        <!--text="" toggleGroup="$menu">-->
+        <!--<styleClass>-->
+        <!--<String fx:value="menus-tela" />-->
+        <!--<String fx:value="menu-excluir" />-->
+        <!--</styleClass>-->
+        <!--</ToggleButton>-->
       </children>
     </HBox>
     <GridPane fx:id="apAdd" hgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
       AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
       <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" maxWidth="994.0" minWidth="631.0" prefWidth="631.0" />
-        <ColumnConstraints maxWidth="536.0" minWidth="173.0" prefWidth="536.0" />
+        <ColumnConstraints percentWidth="50" />
+        <ColumnConstraints percentWidth="50" />
       </columnConstraints>
       <rowConstraints>
-        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />
         <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
-        <RowConstraints maxHeight="35.0" minHeight="20.0" prefHeight="35.0" />
-        <RowConstraints minHeight="10.0" prefHeight="35.0" />
-        <!--<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" />-->
-        <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
+        <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
+        <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
+        <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
       </rowConstraints>
       <children>
         <Label styleClass="lb-info-requerido" text="%txt_product_name" GridPane.columnIndex="0"
@@ -66,12 +63,12 @@
 
         <Label styleClass="lb-info-requerido" text="%txt_in_stock" GridPane.columnIndex="0"
           GridPane.rowIndex="2" />
-        <TextField fx:id="txtInStock" GridPane.columnIndex="0"
+        <TextField fx:id="txtInStock" styleClass="campo" GridPane.columnIndex="0"
           GridPane.rowIndex="3" />
 
         <Label styleClass="lb-info" text="%txt_description" GridPane.columnIndex="1"
           GridPane.rowIndex="2" />
-        <TextField fx:id="txtDescription" GridPane.columnIndex="1"
+        <TextField fx:id="txtDescription" styleClass="campo" GridPane.columnIndex="1"
           GridPane.rowIndex="3" />
       </children>
     </GridPane>
@@ -101,32 +98,43 @@
       AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
       <children>
         <HBox AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
-          <StackPane AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+          <StackPane AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="5.0">
             <children>
-              <Button fx:id="btSave" contentDisplay="TOP" mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="200.0" style=""
-                text="%txt_save" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <Button fx:id="btSave" contentDisplay="TOP" mnemonicParsing="false" onAction="#save"
+                prefHeight="40.0" prefWidth="200.0" style="" text="%txt_save"
+                StackPane.alignment="TOP_RIGHT">
                 <styleClass>
                   <String fx:value="menus-acoes" />
                   <String fx:value="acao-salvar" />
                   <String fx:value="menu-green" />
                 </styleClass>
               </Button>
-              <Button id="" fx:id="btEdit" contentDisplay="TOP" mnemonicParsing="false" onAction="#edit" prefHeight="40.0" prefWidth="200.0" style=""
-                text="%txt_edit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <styleClass>
-                  <String fx:value="menus-acoes" />
-                  <String fx:value="acao-editar" />
-                  <String fx:value="menu-orange" />
-                </styleClass>
-              </Button>
-              <Button id="" fx:id="btExclude" contentDisplay="TOP" mnemonicParsing="false" onAction="#exclude" prefHeight="40.0"
-                prefWidth="200.0" style="" text="%txt_delete" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <styleClass>
-                  <String fx:value="menus-acoes" />
-                  <String fx:value="acao-excluir" />
-                  <String fx:value="menu-red" />
-                </styleClass>
-              </Button>
+              <HBox fx:id="boxEdit"  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Button id="" fx:id="btEdit" contentDisplay="TOP" mnemonicParsing="false"
+                  onAction="#edit" prefHeight="40.0" prefWidth="200.0" text="%txt_edit">
+                  <styleClass>
+                    <String fx:value="menus-acoes" />
+                    <String fx:value="acao-editar" />
+                    <String fx:value="menu-orange" />
+                  </styleClass>
+                  <HBox.margin>
+                    <Insets right="30.0" />
+                  </HBox.margin>
+                </Button>
+                <Button id="" fx:id="btExclude" contentDisplay="TOP" mnemonicParsing="false"
+                  onAction="#exclude" prefHeight="40.0" prefWidth="200.0" text="%txt_delete">
+                  <styleClass>
+                    <String fx:value="menus-acoes" />
+                    <String fx:value="acao-excluir" />
+                    <String fx:value="menu-red" />
+                  </styleClass>
+                </Button>
+                <HBox.margin>
+                  <Insets right="300.0" />
+                </HBox.margin>
+              </HBox>
             </children>
           </StackPane>
         </HBox>
