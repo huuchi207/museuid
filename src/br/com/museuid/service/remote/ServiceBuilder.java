@@ -82,4 +82,8 @@ public class ServiceBuilder {
 //    }
     return headers;
   }
+
+    public static String getBASEURL() {
+        return BASEURL;
+    }
 }

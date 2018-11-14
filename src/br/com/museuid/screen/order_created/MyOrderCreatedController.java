@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.model.data.OrderDetail;
+import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
 import io.socket.client.IO;
@@ -65,7 +65,7 @@ public class MyOrderCreatedController extends AnchorPane {
         //TODO:add more event to listen
         Gson gson =new Gson();
         try {
-            Socket socket = IO.socket("http://localhost:3000");
+            Socket socket = IO.socket(ServiceBuilder.getBASEURL());
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                 @Override
                 public void call(Object... objects) {

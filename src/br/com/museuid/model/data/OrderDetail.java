@@ -20,6 +20,17 @@ public class OrderDetail extends PutQueueRequest {
     private String orderName;
     private String statusText;
 
+    public String getQueueid() {
+        return queueid;
+    }
+
+    public void setQueueid(String queueid) {
+        this.queueid = queueid;
+    }
+
+    @SerializedName("queueid")
+    private String queueid;
+
     public OrderDetail() {
         super();
     }
@@ -58,6 +69,7 @@ public class OrderDetail extends PutQueueRequest {
 
     public void setId(String id) {
         this.id = id;
+        this.queueid = id;
     }
 
     public String getStatus() {

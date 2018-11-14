@@ -24,6 +24,9 @@ public class PutQueueRequest {
     @SerializedName("comment")
     @Expose
     protected String comment;
+    @SerializedName("location")
+    @Expose
+    protected String location;
 
     public PutQueueRequest() {
     }
@@ -97,6 +100,13 @@ public class PutQueueRequest {
             '}';
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public static class Item {
         @SerializedName("itemname")
