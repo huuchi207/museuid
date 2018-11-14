@@ -8,6 +8,7 @@ import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.SessionUserInfo;
 import br.com.museuid.dto.UserDTO;
 import br.com.museuid.dto.sample.Item;
+import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
 import br.com.museuid.service.remote.requestbody.ChangePasswordRequest;
 import br.com.museuid.service.remote.requestbody.LoginRequest;
@@ -76,4 +77,16 @@ public interface APIService {
 
     @POST("reset-password")
     Call<ResponseDTO<Object>> resetPasswordForCustomer(@Body UserDTO userDTO);
+
+    @POST("client")
+    Call<ResponseDTO<Object>> updateDeviceInfo(@Body DeviceInfo product);
+
+    @DELETE("client")
+    Call<ResponseDTO<Object>> deleteDevice(@Query("clientid") String clientId);
+
+    @GET("clients")
+    Call<ResponseDTO<List<DeviceInfo>>> getListDevice();
+
+    @POST("queue")
+    Call<ResponseDTO<Object>> updateQueue(@Body OrderDetail orderDetail);
 }

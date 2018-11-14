@@ -4,12 +4,12 @@
 <fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
   <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
     <!--<Group>-->
-    <AnchorPane fx:id="apOrderInQueue"/>
+    <AnchorPane fx:id="apOrderInQueue" visible="false"/>
     <!--</Group>-->
     <AnchorPane fx:id="apOrderInfo" visible="false">
       <TableView fx:id="tbOrderInfo" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
         <columns>
-          <TableColumn fx:id="colIdInOrder" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />
+          <!--<TableColumn fx:id="colIdInOrder" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />-->
           <TableColumn fx:id="colProductNameInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_product_name" />
           <TableColumn fx:id="colDescriptionInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_description" />
           <TableColumn fx:id="colPriceInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="%txt_price" />

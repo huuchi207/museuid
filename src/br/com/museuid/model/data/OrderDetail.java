@@ -20,6 +20,10 @@ public class OrderDetail extends PutQueueRequest {
     private String orderName;
     private String statusText;
 
+    public OrderDetail() {
+        super();
+    }
+
     public OrderDetail(String sumup, List<Item> items, String customername, String customerid, String sessionid, String comment) {
         super(sumup, items, customername, customerid, sessionid, comment);
     }

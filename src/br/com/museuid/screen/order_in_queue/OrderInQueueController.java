@@ -63,7 +63,7 @@ public class OrderInQueueController extends AnchorPane {
     @FXML
     public void initialize() {
         initTable();
-        createListDeviceView();
+//        createListDeviceView();
     }
 
     private void createListDeviceView() {
@@ -116,5 +116,15 @@ public class OrderInQueueController extends AnchorPane {
     @FXML
     private void cancelOrder(ActionEvent event) {
         //TODO: update state of order
+    }
+    @FXML
+    private void handleOrder(ActionEvent event){
+
+    }
+    private void orderQueue(){
+
+    }
+    private void goToOrderDetail(){
+
     }
 }

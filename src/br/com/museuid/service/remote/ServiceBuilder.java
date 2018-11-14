@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import br.com.museuid.Constants;
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.util.StaticVarUtils;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -70,7 +71,8 @@ public class ServiceBuilder {
 //      userToken ="";
 //    }
 //    headers.put(Constants.USER_AGENT, System.getProperty(Constants.HTTP_AGENT));
-//    headers.put(Constants.USER_TOKEN, !Configs.FAKE ? userToken : "CgQ9LDpb0swcnFoeRE/+SBvrPfyTkfZeMPMIKiq45uNeG06TDmhSFX3vCGFjZB/n");
+
+    headers.put(Constants.USER_TOKEN, !ConstantConfig.FAKE ? StaticVarUtils.getToken() : "");
     headers.put(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON);
 
 //    if(isLogin){

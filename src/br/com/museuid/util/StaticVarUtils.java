@@ -8,7 +8,7 @@ public class StaticVarUtils {
     private static SessionDeviceInfo sessionDeviceInfo;
     private static SessionUserInfo sessionUserInfo;
     private static String macAddress = NetworkUtils.getAddress("mac");
-
+    private static String token;
     public static String getMacAddress(){
         return macAddress;
     }
@@ -24,6 +24,7 @@ public class StaticVarUtils {
 
     public static void setSessionUserInfo(SessionUserInfo userInfo){
         sessionUserInfo = userInfo;
+        token = sessionUserInfo.getToken();
     }
     public static SessionUserInfo getSessionUserInfo(){
         if (sessionUserInfo == null){
@@ -33,5 +34,13 @@ public class StaticVarUtils {
     }
     public static void clearSessionUserInfo(){
         sessionUserInfo = null;
+    }
+
+    public static String getToken() {
+        return token;
+    }
+
+    public static void setToken(String token) {
+        StaticVarUtils.token = token;
     }
 }

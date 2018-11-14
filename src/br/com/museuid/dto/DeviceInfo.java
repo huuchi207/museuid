@@ -20,6 +20,23 @@ public class DeviceInfo {
     @SerializedName("update")
     @Expose
     private String update;
+    private String clientid;
+    public DeviceInfo() {
+    }
+
+    public DeviceInfo(String id, String name, String location, String macaddress) {
+        this.id = id;
+        this.name = name;
+        this.location = location;
+        this.macaddress = macaddress;
+        this.clientid = id;
+    }
+
+    public DeviceInfo(String name, String location, String macaddress) {
+        this.name = name;
+        this.location = location;
+        this.macaddress = macaddress;
+    }
 
     public String getId() {
         return id;
@@ -61,4 +78,11 @@ public class DeviceInfo {
         this.update = update;
     }
 
+    public String getClientid() {
+        return clientid;
+    }
+
+    public void setClientid(String clientid) {
+        this.clientid = clientid;
+    }
 }

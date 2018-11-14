@@ -211,4 +211,12 @@ public class AppController {
         NavigationUtils.getProductManagementScreen(boxContainer);
         setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
     }
+
+    public void openDeviceManagement(ActionEvent event) {
+        if (event.getSource() == currentScreen){
+            return;
+        }
+        NavigationUtils.getDeviceManagementScreen(boxContainer);
+        setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
+    }
 }

@@ -7,6 +7,11 @@ public class SessionUserInfo {
     @SerializedName("sessionId")
     @Expose
     private String sessionId;
+
+    @SerializedName("token")
+    @Expose
+    private String token;
+
     @SerializedName("info")
     @Expose
     private UserDTO info;
@@ -25,5 +30,13 @@ public class SessionUserInfo {
 
     public void setInfo(UserDTO info) {
         this.info = info;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

@@ -116,6 +116,10 @@
                                   layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
                                   mnemonicParsing="false" onAction="#openProductManagement"
                                   styleClass="submenus" text="%txt_product_management" />
+                                <ToggleButton fx:id="btDeviceManagement" alignment="CENTER_LEFT"
+                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openDeviceManagement"
+                                  styleClass="submenus" text="%txt_device_management" />
                                 <ToggleButton fx:id="btStatistic" alignment="CENTER_LEFT" layoutX="10.0"
                                   layoutY="10.0" maxWidth="1.7976931348623157E308"
                                   mnemonicParsing="false" onAction="#openStatistic"

@@ -25,6 +25,9 @@ public class PutQueueRequest {
     @Expose
     protected String comment;
 
+    public PutQueueRequest() {
+    }
+
     public PutQueueRequest(String sumup, List<Item> items, String customername, String customerid, String sessionid, String comment) {
         this.sumup = sumup;
         this.items = items;

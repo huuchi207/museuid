@@ -2,6 +2,7 @@ package br.com.museuid.util;
 
 import br.com.museuid.screen.change_password.ChangePasswordController;
 import br.com.museuid.screen.create_order_screen.CreateOrderScreenControler;
+import br.com.museuid.screen.device_management.DeviceManagementControler;
 import br.com.museuid.screen.order_created.MyOrderCreatedController;
 import br.com.museuid.screen.order_in_queue.OrderInQueueController;
 import br.com.museuid.screen.product_management.ProductManagementControler;
@@ -26,6 +27,7 @@ public class NavigationUtils {
     private static ChangePasswordController changePasswordController;
     private static OrderInQueueController orderInQueueController;
     private static ProductManagementControler productManagementControler;
+    private static DeviceManagementControler deviceManagementControler;
     private NavigationUtils() {
     }
 
@@ -88,6 +90,10 @@ public class NavigationUtils {
         config(box, productManagementControler);
     }
 
+    public static void getDeviceManagementScreen(AnchorPane box){
+        deviceManagementControler = new DeviceManagementControler();
+        config(box, deviceManagementControler);
+    }
     public static void config(AnchorPane box, StackPane conteudo) {
         box.getChildren().clear();
         box.getChildren().add(conteudo);
