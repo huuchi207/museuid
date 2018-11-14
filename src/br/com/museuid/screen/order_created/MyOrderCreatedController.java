@@ -12,6 +12,9 @@ import java.util.ResourceBundle;
 
 import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.model.data.OrderDetail;
+import br.com.museuid.screen.app.AppController;
+import br.com.museuid.service.remote.BaseCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
 import io.socket.client.IO;
@@ -122,9 +125,22 @@ public class MyOrderCreatedController extends AnchorPane {
         }
         if (selected.getStatus().equalsIgnoreCase(OrderDetail.OrderStatus.NEW.name())){
             //TODO: call api cancel order
-            Messenger.info(bundle.getString("txt_operation_successful"));
+            AppController.getInstance().showProgressDialog();
+            ServiceBuilder.getApiService().cancelOrder(selected.getId()).enqueue(new BaseCallback<Object>() {
+                @Override
+                public void onError(String errorCode, String errorMessage) {
+                    AppController.getInstance().hideProgressDialog();
+                    Messenger.erro(errorMessage);
+                }
+
+                @Override
+                public void onSuccess(Object data) {
+                    AppController.getInstance().hideProgressDialog();
+                    Messenger.info(bundle.getString("txt_operation_successful"));
+                }
+            });
         }else {
-            Messenger.info(bundle.getString("txt_please_choose_target"));
+            Messenger.erro(bundle.getString("txt_can_only_cancel_unhandle_order"));
         }
     }
 }

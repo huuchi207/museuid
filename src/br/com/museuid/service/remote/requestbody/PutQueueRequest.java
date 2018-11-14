@@ -8,7 +8,7 @@ import java.util.List;
 public class PutQueueRequest {
     @SerializedName("sumup")
     @Expose
-    protected String sumup;
+    protected Integer sumup;
     @SerializedName("items")
     @Expose
     protected List<Item> items = null;
@@ -25,7 +25,7 @@ public class PutQueueRequest {
     @Expose
     protected String comment;
 
-    public PutQueueRequest(String sumup, List<Item> items, String customername, String customerid, String sessionid, String comment) {
+    public PutQueueRequest(Integer sumup, List<Item> items, String customername, String customerid, String sessionid, String comment) {
         this.sumup = sumup;
         this.items = items;
         this.customername = customername;
@@ -34,11 +34,11 @@ public class PutQueueRequest {
         this.comment = comment;
     }
 
-    public String getSumup() {
+    public Integer getSumup() {
         return sumup;
     }
 
-    public void setSumup(String sumup) {
+    public void setSumup(Integer sumup) {
         this.sumup = sumup;
     }
 
@@ -107,18 +107,18 @@ public class PutQueueRequest {
         private Integer quantity;
         @SerializedName("price")
         @Expose
-        private String price;
+        private Integer price;
         @SerializedName("inittotal")
         @Expose
-        private String inittotal;
+        private Integer inittotal;
         @SerializedName("note")
         @Expose
         private String note;
         @SerializedName("total")
         @Expose
-        private String total;
+        private Integer total;
 
-        public Item(String itemname, String itemid, Integer quantity, String price, String inittotal, String note, String total) {
+        public Item(String itemname, String itemid, Integer quantity, Integer price, Integer inittotal, String note, Integer total) {
             this.itemname = itemname;
             this.itemid = itemid;
             this.quantity = quantity;
@@ -152,19 +152,19 @@ public class PutQueueRequest {
             this.quantity = quantity;
         }
 
-        public String getPrice() {
+        public Integer getPrice() {
             return price;
         }
 
-        public void setPrice(String price) {
+        public void setPrice(Integer price) {
             this.price = price;
         }
 
-        public String getInittotal() {
+        public Integer getInittotal() {
             return inittotal;
         }
 
-        public void setInittotal(String inittotal) {
+        public void setInittotal(Integer inittotal) {
             this.inittotal = inittotal;
         }
 
@@ -176,11 +176,11 @@ public class PutQueueRequest {
             this.note = note;
         }
 
-        public String getTotal() {
+        public Integer getTotal() {
             return total;
         }
 
-        public void setTotal(String total) {
+        public void setTotal(Integer total) {
             this.total = total;
         }
 

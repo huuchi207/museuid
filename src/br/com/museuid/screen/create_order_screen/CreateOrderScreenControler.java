@@ -254,11 +254,10 @@ public class CreateOrderScreenControler extends AnchorPane {
                 public void onSuccess(Object data) {
                     AppController.getInstance().hideProgressDialog();
                     Messenger.info(bundle.getString("txt_operation_successful"));
+                    goToProductList(event);
                 }
             });
         }
-
-        goToProductList(event);
     }
 
     @FXML
@@ -327,13 +326,13 @@ public class CreateOrderScreenControler extends AnchorPane {
                 productInOrder.getId(),
                 productInOrder.getCount(),
                 productInOrder.getPrice(),
-                priceOfProduct+"",
+                priceOfProduct,
                 productInOrder.getMoreRequirement(),
-                priceOfProduct+""));
+                priceOfProduct));
             totalPrice+= priceOfProduct;
         }
 
-        PutQueueRequest putQueueRequest= new PutQueueRequest(totalPrice +"", items,
+        PutQueueRequest putQueueRequest= new PutQueueRequest(totalPrice , items,
             StaticVarUtils.getSessionDeviceInfo().getInfo().getName(),
             StaticVarUtils.getSessionDeviceInfo().getInfo().getId(),
             StaticVarUtils.getSessionDeviceInfo().getSessionid(),

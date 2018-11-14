@@ -11,6 +11,7 @@ import br.com.museuid.service.remote.requestbody.PutQueueRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -34,4 +35,7 @@ public interface APIService {
 
     @PUT("queue")
     Call<ResponseDTO<Object>> putOrder(@Body PutQueueRequest putQueueRequest);
+
+    @DELETE("queue")
+    Call<ResponseDTO<Object>> cancelOrder(@Query("queueid") String queue);
 }
