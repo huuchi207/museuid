@@ -224,6 +224,13 @@ public class CreateOrderScreenControler extends AnchorPane {
         if (productInOrders.isEmpty()){
             Messenger.info(bundle.getString("txt_please_choose_product"));
             return;
+        } else {
+            for (ProductInOrder productInOrder : productInOrders){
+                if (productInOrder.getInStock() == null || productInOrder.getInStock() == 0){
+                    Messenger.erro("Sản phẩm "+ productInOrder.getProductName() +" hiện đang hết hàng. Vui lòng chọn sản phẩm khác!");
+                    return;
+                }
+            }
         }
         updateProductInOrderTable();
         updateProductInOrderScreenData();
@@ -270,7 +277,7 @@ public class CreateOrderScreenControler extends AnchorPane {
         NavigationUtils.setVisibility(true, btEditOrder, apProductList,txtSearch);
         NavigationUtils.setVisibility(false, btBackToList, btCreateOrder, apEditOrderList);
     }
-    List<ProductInOrder> createProductInOrderListFromSelectedProductList(){
+    private List<ProductInOrder> createProductInOrderListFromSelectedProductList(){
         if (productList == null || productList.isEmpty()){
             return new ArrayList<>();
         }
