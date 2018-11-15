@@ -1,5 +1,6 @@
 package br.com.museuid.screen.product_management;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -37,7 +38,7 @@ public class ProductManagementControler extends AnchorPane {
 
     public TableColumn colProductName;
     public TextField txtDescription;
-    private List<Product> productList;
+    private List<Product> productList= new ArrayList<>();
     private String selectedProductId = "0";
 
     @FXML
@@ -151,6 +152,7 @@ public class ProductManagementControler extends AnchorPane {
                         getProductList();
                         AppController.getInstance().hideProgressDialog();
                         Messenger.info(BundleUtils.getResourceBundle().getString("txt_operation_successful"));
+                        tbAdd(null);
                     }
                 });
             }
@@ -175,12 +177,11 @@ public class ProductManagementControler extends AnchorPane {
                         getProductList();
                         AppController.getInstance().hideProgressDialog();
                         Messenger.info(BundleUtils.getResourceBundle().getString("txt_operation_successful"));
+                        tbAdd(null);
                     }
                 });
             }
         }
-
-        tbAdd(null);
     }
 
     @FXML

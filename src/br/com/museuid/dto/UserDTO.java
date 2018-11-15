@@ -30,8 +30,8 @@ public class UserDTO {
     @Expose
     private String update;
 
-    @SerializedName("name")
-    private String name;
+    @SerializedName("fullname")
+    private String fullname;
 
     @SerializedName("address")
     private String address;
@@ -46,7 +46,7 @@ public class UserDTO {
     }
     public UserDTO(String userName, String name, String phone, String  address, String email, String role){
         this.username = userName;
-        this.name = name;
+        this.fullname = name;
         this.phone = phone;
         this.address = address;
         this.email =email;
@@ -102,12 +102,12 @@ public class UserDTO {
         this.update = update;
     }
 
-    public String getName() {
-        return name;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getAddress() {

@@ -73,7 +73,7 @@ public class UpdateUserInfoController extends AnchorPane {
             String mail = txtEmail.getText();
 
             UserDTO userDTO = StaticVarUtils.getSessionUserInfo().getInfo().copy();
-            userDTO.setName(name);
+            userDTO.setFullname(name);
             userDTO.setAddress(address);
             userDTO.setPhone(phoneNumber);
             userDTO.setEmail(mail);
@@ -116,7 +116,7 @@ public class UpdateUserInfoController extends AnchorPane {
         });
     }
     private void updateViews(UserDTO data){
-        txtName.setText(data.getName());
+        txtName.setText(data.getFullname());
         txtUserName.setText(data.getUsername());
         txtAddress.setText(data.getAddress());
         txtEmail.setText(data.getEmail());

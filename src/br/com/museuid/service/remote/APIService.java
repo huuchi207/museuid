@@ -76,7 +76,7 @@ public interface APIService {
     Call<ResponseDTO<UserDTO>> addUser(@Body UserDTO userDTO);
 
     @POST("reset-password")
-    Call<ResponseDTO<Object>> resetPasswordForCustomer(@Body UserDTO userDTO);
+    Call<ResponseDTO<UserDTO>> resetPasswordForCustomer(@Body UserDTO userDTO);
 
     @POST("client")
     Call<ResponseDTO<Object>> updateDeviceInfo(@Body DeviceInfo product);

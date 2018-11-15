@@ -1,7 +1,5 @@
 package br.com.museuid.screen.user_management;
 
-import com.google.gson.JsonObject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -169,6 +167,7 @@ public class UserManagementControler extends AnchorPane {
                         @Override
                         public void onSuccess(UserDTO data) {
                             AppController.getInstance().hideProgressDialog();
+                            Messenger.info(bundle.getString("txt_operation_successful"));
                             tbAdd(null);
                             getListUser();
                         }
@@ -185,7 +184,7 @@ public class UserManagementControler extends AnchorPane {
                     AppController.getInstance().showProgressDialog();
                     UserDTO userDTO = tbUser.getSelectionModel().getSelectedItem().copy();
                     userDTO.setUsername(userName);
-                    userDTO.setName(name);
+                    userDTO.setFullname(name);
                     userDTO.setPhone(phoneNumber);
                     userDTO.setAddress(address);
                     userDTO.setEmail(email);
@@ -223,7 +222,7 @@ public class UserManagementControler extends AnchorPane {
             txtUserName.setDisable(true);
 
             txtUserName.setText(selectedUser.getUsername());
-            txtName.setText(selectedUser.getName());
+            txtName.setText(selectedUser.getFullname());
             txtPhoneNumber.setText(selectedUser.getPhone());
             txtAddress.setText(selectedUser.getAddress());
             txtEmail.setText(selectedUser.getEmail());
@@ -379,9 +378,9 @@ public class UserManagementControler extends AnchorPane {
         ObservableList data = FXCollections.observableArrayList(listUser);
 
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("fullname"));
         colUserName.setCellValueFactory(new PropertyValueFactory<>("username"));
-        colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phone"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         colUserRole.setCellValueFactory(new PropertyValueFactory<>("roleText"));
 
@@ -398,7 +397,7 @@ public class UserManagementControler extends AnchorPane {
 
             if (valor == null || valor.isEmpty()) {
                 return true;
-            } else if (user.getName().toLowerCase().contains(valor.toLowerCase())) {
+            } else if (user.getFullname().toLowerCase().contains(valor.toLowerCase())) {
                 return true;
             }
 
@@ -435,8 +434,10 @@ public class UserManagementControler extends AnchorPane {
                 Messenger.info(bundle.getString("txt_reset_password_successfully"));
                 return;
             } else {
+                UserDTO userDTO = new UserDTO();
+                userDTO.setUserid(selected.getId());
                 AppController.getInstance().showProgressDialog();
-                ServiceBuilder.getApiService().resetPasswordForCustomer(selected).enqueue(new BaseCallback<Object>() {
+                ServiceBuilder.getApiService().resetPasswordForCustomer(userDTO).enqueue(new BaseCallback<UserDTO>() {
                     @Override
                     public void onError(String errorCode, String errorMessage) {
                         AppController.getInstance().hideProgressDialog();
@@ -444,13 +445,9 @@ public class UserManagementControler extends AnchorPane {
                     }
 
                     @Override
-                    public void onSuccess(Object data) {
+                    public void onSuccess(UserDTO data) {
                         AppController.getInstance().hideProgressDialog();
-                        JsonObject object= (JsonObject) data;
-                        if (object.has("password")){
-                            String pass = object.get("password").getAsString();
-                            Messenger.info("Mật khẩu được reset về "+ pass);
-                        }
+                        Messenger.info("Mật khẩu được reset về 12345678");
                     }
                 });
             }
