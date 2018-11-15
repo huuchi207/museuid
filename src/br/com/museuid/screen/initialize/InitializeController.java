@@ -66,8 +66,8 @@ public class InitializeController {
 
             @Override
             public void onSuccess(SessionDeviceInfo data) {
-                startMain();
                 StaticVarUtils.setSessionDeviceInfo(data);
+                startMain();
             }
         });
         if (ConstantConfig.FAKE) {

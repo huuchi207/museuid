@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import br.com.museuid.Constants;
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.util.StaticVarUtils;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -26,7 +27,7 @@ public class ServiceBuilder {
   }
 
   public static Retrofit getRetrofit(String baseUrl) {
-    if (retrofit==null) {
+
       HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
       if (ConstantConfig.DEBUG) {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -43,7 +44,7 @@ public class ServiceBuilder {
               Request original = chain.request();
               Request.Builder builder = original.newBuilder();
               for (Map.Entry<String, String> header: getHeader().entrySet()){
-                builder.header(header.getKey(), header.getValue() == null ? "" : header.getValue());
+                builder.addHeader(header.getKey(), header.getValue() == null ? "" : header.getValue());
               }
               Request request = builder
                   .method(original.method(), original.body())
@@ -57,7 +58,7 @@ public class ServiceBuilder {
           .client(client)
           .addConverterFactory(GsonConverterFactory.create())
           .build();
-    }
+
     return retrofit;
   }
   public static HashMap<String, String> getHeader(){
@@ -70,7 +71,7 @@ public class ServiceBuilder {
 //      userToken ="";
 //    }
 //    headers.put(Constants.USER_AGENT, System.getProperty(Constants.HTTP_AGENT));
-//    headers.put(Constants.USER_TOKEN, !Configs.FAKE ? userToken : "CgQ9LDpb0swcnFoeRE/+SBvrPfyTkfZeMPMIKiq45uNeG06TDmhSFX3vCGFjZB/n");
+    headers.put(Constants.USER_TOKEN, StaticVarUtils.getToken());
     headers.put(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON);
 
 //    if(isLogin){
@@ -80,4 +81,8 @@ public class ServiceBuilder {
 //    }
     return headers;
   }
+
+    public static String getBASEURL() {
+        return BASEURL;
+    }
 }
