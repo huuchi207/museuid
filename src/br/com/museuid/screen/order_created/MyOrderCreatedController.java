@@ -16,6 +16,7 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.Messenger;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -46,6 +47,7 @@ public class MyOrderCreatedController extends AnchorPane {
     private ResourceBundle bundle;
     private List<OrderDetail> listOrder = new ArrayList<>();
     private ObservableList<OrderDetail> observableList = FXCollections.observableList(listOrder);
+
     public MyOrderCreatedController() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("my_order_created.fxml"));
@@ -65,7 +67,7 @@ public class MyOrderCreatedController extends AnchorPane {
     public void initialize() {
         initTable();
         //TODO:add more event to listen
-        Gson gson =new Gson();
+        Gson gson = new Gson();
         try {
             Socket socket = IO.socket("http://localhost:3000");
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
@@ -81,8 +83,8 @@ public class MyOrderCreatedController extends AnchorPane {
             }).on("New queue", new Emitter.Listener() {
                 @Override
                 public void call(Object... objects) {
-                    for (Object object : objects){
-                        JSONObject jsonObject = (JSONObject)object;
+                    for (Object object : objects) {
+                        JSONObject jsonObject = (JSONObject) object;
                         OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
                         order.updateFields();
                         observableList.add(order);
@@ -109,7 +111,7 @@ public class MyOrderCreatedController extends AnchorPane {
 
     void initTable() {
 //        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colOrderDescription.setCellValueFactory( new PropertyValueFactory<>("orderDescription"));
+        colOrderDescription.setCellValueFactory(new PropertyValueFactory<>("orderDescription"));
         colOrderDescription.setCellFactory(tv -> new MutipleLineTableCell());
         colOrderName.setCellValueFactory(new PropertyValueFactory<>("orderName"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("statusText"));
@@ -117,29 +119,34 @@ public class MyOrderCreatedController extends AnchorPane {
     }
 
     @FXML
-    public void cancelOrder(ActionEvent action){
+    public void cancelOrder(ActionEvent action) {
         OrderDetail selected = tbOrderCreated.getSelectionModel().getSelectedItem();
-        if (selected == null){
+        if (selected == null) {
             Messenger.info(bundle.getString("txt_please_choose_target"));
             return;
         }
-        if (selected.getStatus().equalsIgnoreCase(OrderDetail.OrderStatus.NEW.name())){
-            //TODO: call api cancel order
-            AppController.getInstance().showProgressDialog();
-            ServiceBuilder.getApiService().cancelOrder(selected.getId()).enqueue(new BaseCallback<Object>() {
-                @Override
-                public void onError(String errorCode, String errorMessage) {
-                    AppController.getInstance().hideProgressDialog();
-                    Messenger.erro(errorMessage);
-                }
 
-                @Override
-                public void onSuccess(Object data) {
-                    AppController.getInstance().hideProgressDialog();
-                    Messenger.info(bundle.getString("txt_operation_successful"));
-                }
-            });
-        }else {
+        if (selected.getStatus().equalsIgnoreCase(OrderDetail.OrderStatus.NEW.name())) {
+            //TODO: call api cancel order
+            DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Bạn có chắc chắn muốn hủy đơn hàng này?");
+
+            if (responseMessage == DialogUtils.ResponseMessage.YES) {
+                AppController.getInstance().showProgressDialog();
+                ServiceBuilder.getApiService().cancelOrder(selected.getId()).enqueue(new BaseCallback<Object>() {
+                    @Override
+                    public void onError(String errorCode, String errorMessage) {
+                        AppController.getInstance().hideProgressDialog();
+                        Messenger.erro(errorMessage);
+                    }
+
+                    @Override
+                    public void onSuccess(Object data) {
+                        AppController.getInstance().hideProgressDialog();
+                        Messenger.info(bundle.getString("txt_operation_successful"));
+                    }
+                });
+            }
+        } else {
             Messenger.erro(bundle.getString("txt_can_only_cancel_unhandle_order"));
         }
     }

@@ -337,6 +337,7 @@ public class CreateOrderScreenControler extends AnchorPane {
             StaticVarUtils.getSessionDeviceInfo().getInfo().getId(),
             StaticVarUtils.getSessionDeviceInfo().getSessionid(),
             null);
+        putQueueRequest.setLocation(StaticVarUtils.getSessionDeviceInfo().getInfo().getLocation());
         return putQueueRequest;
     }
 }

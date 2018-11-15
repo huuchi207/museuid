@@ -23,7 +23,15 @@ public abstract class BaseCallback<T> implements Callback<ResponseDTO<T>> {
               mBody = null;
               String responseCode = SERVER_ERROR;
               String message = getServerMsg();
-
+//              if (response.code() == 401){
+//                  try {
+//                      new Initialize().start(new Stage());
+//                      App.palco.close();
+//                  } catch (Exception e) {
+//                      e.printStackTrace();
+//                  }
+//
+//              }
               if (!response.isSuccessful()) {
                   onError(responseCode, message);
                   return;
