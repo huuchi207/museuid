@@ -133,7 +133,6 @@ public class ProductManagementControler extends AnchorPane {
         AppController.getInstance().showProgressDialog();
         if (selectedProductId.equals("0")) {
             Product product = new Product(productName, description, priceNumber, inStockNumber);
-            //TODO: insert product
             if (ConstantConfig.FAKE) {
                 productList.add(product);
                 updateTable();
@@ -157,7 +156,6 @@ public class ProductManagementControler extends AnchorPane {
                 });
             }
         } else {
-            //TODO: edit product
             Product product = new Product(selectedProductId, productName, description, priceNumber, inStockNumber);
             if (ConstantConfig.FAKE) {
                 productList.remove(tbProduct.getSelectionModel().getSelectedItem());
@@ -224,7 +222,6 @@ public class ProductManagementControler extends AnchorPane {
             DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Loại trừ " + selectedProduct.getProductName() + " ?");
 
             if (responseMessage == DialogUtils.ResponseMessage.YES) {
-                //TODO: call api delete user
                 if (ConstantConfig.FAKE) {
                     Messenger.info(bundle.getString("txt_delete_successfully"));
                     productList.remove(selectedProduct);
@@ -287,8 +284,6 @@ public class ProductManagementControler extends AnchorPane {
      * Sincronizar dados com banco de dados
      */
     private void getProductList() {
-//    productList = ControleDAO.getBanco().getEstratigrafiaDAO().listar();
-        //TODO: call list user api and set interval
         if (ConstantConfig.FAKE) {
             if (productList == null) {
                 productList = FakeDataUtils.getFakeProductList();
