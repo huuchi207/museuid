@@ -1,7 +1,9 @@
 package br.com.museuid.util;
 
+import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.SessionUserInfo;
+import br.com.museuid.dto.UserDTO;
 import br.com.museuid.screen.app.AppController;
 
 public class StaticVarUtils {
@@ -27,7 +29,13 @@ public class StaticVarUtils {
         token = sessionUserInfo.getToken();
     }
     public static SessionUserInfo getSessionUserInfo(){
-        if (sessionUserInfo == null){
+        if(ConstantConfig.FAKE){
+            SessionUserInfo sessionUserInfo = new SessionUserInfo();
+            UserDTO userDTO = new UserDTO();
+            sessionUserInfo.setInfo(userDTO);
+            return sessionUserInfo;
+        }
+        if (sessionUserInfo == null ){
             AppController.getInstance().startLogin();
         }
         return  sessionUserInfo;

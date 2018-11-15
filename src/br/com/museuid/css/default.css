@@ -102,7 +102,7 @@
 .combo-box > *.list-cell {
     -fx-background-color: transparent;
     -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
-    -fx-text-fill: #838383;
+    -fx-text-fill: #808080;
     -fx-background-insets: 0;
 }
 

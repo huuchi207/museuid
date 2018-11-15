@@ -39,7 +39,7 @@
                       <children>
                         <VBox layoutY="35.0" styleClass="box-menus" AnchorPane.bottomAnchor="300.0"
                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                          AnchorPane.topAnchor="41.0">
+                          AnchorPane.topAnchor="41.0" fx:id="boxMenu">
                           <children>
                             <!--ORDER SECTION-->
                             <ToggleButton fx:id="btOrderSection" alignment="CENTER_LEFT" layoutX="10.0"
@@ -74,6 +74,42 @@
                                 styleClass="submenus" text="%txt_order_in_queue" />
                               </children>
                             </VBox>
+
+                            <!--APP MANAGEMENT SECTION-->
+                            <ToggleButton fx:id="btAppManagementSection" alignment="CENTER_LEFT"
+                              layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308"
+                              mnemonicParsing="false"
+                              text="%txt_app_management">
+                              <styleClass>
+                                <String fx:value="menus" />
+                              </styleClass>
+                            </ToggleButton>
+                            <VBox fx:id="boxManagement" layoutX="10.0" layoutY="55.0"
+                              styleClass="box-submenus">
+                              <children>
+                                <ToggleButton fx:id="btEmployeeManagement" alignment="CENTER_LEFT"
+                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openEmployeeManagement"
+                                  styleClass="submenus" text="%txt_user_management" />
+                                <ToggleButton fx:id="btProductManagement" alignment="CENTER_LEFT"
+                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openProductManagement"
+                                  styleClass="submenus" text="%txt_product_management" />
+                                <ToggleButton fx:id="btDeviceManagement" alignment="CENTER_LEFT"
+                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openDeviceManagement"
+                                  styleClass="submenus" text="%txt_device_management" />
+                                <ToggleButton fx:id="btStatistic" alignment="CENTER_LEFT" layoutX="10.0"
+                                  layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openStatistic"
+                                  styleClass="submenus" text="%txt_statistic" />
+                                <ToggleButton fx:id="btStockImporting" alignment="CENTER_LEFT" layoutX="10.0"
+                                  layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openStockImporting"
+                                  styleClass="submenus" text="%txt_import_to_stock" />
+                              </children>
+                            </VBox>
+
                             <!--USER INFO SECTION-->
                             <ToggleButton fx:id="btUserInfoSection" alignment="CENTER_LEFT"
                               layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308"
@@ -96,36 +132,7 @@
                                   styleClass="submenus" text="%txt_change_password" />
                               </children>
                             </VBox>
-                            <!--APP MANAGEMENT SECTION-->
-                            <ToggleButton fx:id="btAppManagementSection" alignment="CENTER_LEFT"
-                              layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308"
-                              mnemonicParsing="false"
-                              text="%txt_app_management">
-                              <styleClass>
-                                <String fx:value="menus" />
-                              </styleClass>
-                            </ToggleButton>
-                            <VBox fx:id="boxEmployee" layoutX="10.0" layoutY="55.0"
-                              styleClass="box-submenus">
-                              <children>
-                                <ToggleButton fx:id="btEmployeeManagement" alignment="CENTER_LEFT"
-                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
-                                  mnemonicParsing="false" onAction="#openEmployeeManagement"
-                                  styleClass="submenus" text="%txt_user_management" />
-                                <ToggleButton fx:id="btProductManagement" alignment="CENTER_LEFT"
-                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
-                                  mnemonicParsing="false" onAction="#openProductManagement"
-                                  styleClass="submenus" text="%txt_product_management" />
-                                <ToggleButton fx:id="btDeviceManagement" alignment="CENTER_LEFT"
-                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
-                                  mnemonicParsing="false" onAction="#openDeviceManagement"
-                                  styleClass="submenus" text="%txt_device_management" />
-                                <ToggleButton fx:id="btStatistic" alignment="CENTER_LEFT" layoutX="10.0"
-                                  layoutY="10.0" maxWidth="1.7976931348623157E308"
-                                  mnemonicParsing="false" onAction="#openStatistic"
-                                  styleClass="submenus" text="%txt_statistic" />
-                              </children>
-                            </VBox>
+
                           </children>
                         </VBox>
                       </children>

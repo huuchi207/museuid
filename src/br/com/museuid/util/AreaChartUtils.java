@@ -1,14 +1,13 @@
 package br.com.museuid.util;
 
-import br.com.museuid.model.Relatorio;
+import java.util.List;
+import java.util.Map;
+
 import br.com.museuid.model.data.BaseChartItem;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Criar gr�ficos de area
@@ -36,7 +35,7 @@ public class AreaChartUtils {
 
             List<BaseChartItem> dataset = map.get(key);
             for (BaseChartItem data : dataset) {
-                serie.getData().add(new XYChart.Data<>(data.getTitle(), data.getValue()));
+                serie.getData().add(new XYChart.Data<>(data.getDate(), data.getValue()));
             }
 
             chart.getData().add(serie);

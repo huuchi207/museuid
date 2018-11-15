@@ -1,0 +1,136 @@
+{
+  "isError": false,
+  "message": "Success",
+  "result":{
+    "chartName": "Chart",
+    "unit": "MM",
+    "columns": [
+      {
+        "title": "Sáng",
+        "color": "#26a39d",
+        "styleId": null,
+        "singleColumn": [
+          {
+            "date": "01/01/2018",
+            "value": 67.580909091,
+            "viewValue": "67.58"
+          },
+          {
+            "date": "02/01/2018",
+            "value": 54.425454545,
+            "viewValue": "54.43"
+          },
+          {
+            "date": "03/01/2018",
+            "value": 48.977272727,
+            "viewValue": "48.98"
+          },
+          {
+            "date": "04/01/2018",
+            "value": 67.849545455,
+            "viewValue": "67.85"
+          },
+          {
+            "date": "05/01/2018",
+            "value": 66.290454545,
+            "viewValue": "66.29"
+          },
+          {
+            "date": "06/01/2018",
+            "value": 94.794545455,
+            "viewValue": "94.79"
+          },
+          {
+            "date": "07/01/2018",
+            "value": 50.676818182,
+            "viewValue": "50.68"
+          }
+        ]
+      },
+      {
+        "title": "Chiều",
+        "color": "#FEC006",
+        "styleId": null,
+        "singleColumn": [
+          {
+            "date": "01/01/2018",
+            "value": 46.335454545,
+            "viewValue": "46.34"
+          },
+          {
+            "date": "02/01/2018",
+            "value": 72.999090909,
+            "viewValue": "73"
+          },
+          {
+            "date": "03/01/2018",
+            "value": 30.644545455,
+            "viewValue": "30.64"
+          },
+          {
+            "date": "04/01/2018",
+            "value": 51.994090909,
+            "viewValue": "51.99"
+          },
+          {
+            "date": "05/01/2018",
+            "value": 42.667272727,
+            "viewValue": "42.67"
+          },
+          {
+            "date": "06/01/2018",
+            "value": 94.903181818,
+            "viewValue": "94.9"
+          },
+          {
+            "date": "07/01/2018",
+            "value": 0,
+            "viewValue": "0"
+          }
+        ]
+      },
+      {
+        "title": "Tối",
+        "color": "#F95557",
+        "styleId": null,
+        "singleColumn": [
+          {
+            "date": "01/01/2018",
+            "value": 67.073181818,
+            "viewValue": "67.07"
+          },
+          {
+            "date": "02/01/2018",
+            "value": 55.426818182,
+            "viewValue": "55.43"
+          },
+          {
+            "date": "03/01/2018",
+            "value": 63.715454545,
+            "viewValue": "63.72"
+          },
+          {
+            "date": "04/01/2018",
+            "value": 45.98,
+            "viewValue": "45.98"
+          },
+          {
+            "date": "05/01/2018",
+            "value": 39.980909091,
+            "viewValue": "39.98"
+          },
+          {
+            "date": "06/01/2018",
+            "value": 87.359545455,
+            "viewValue": "87.36"
+          },
+          {
+            "date": "07/01/2018",
+            "value": 38.299545455,
+            "viewValue": "38"
+          }
+        ]
+      }
+    ]
+  }
+}

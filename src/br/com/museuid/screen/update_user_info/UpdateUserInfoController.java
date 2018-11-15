@@ -12,9 +12,12 @@ import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.StaticVarUtils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -32,7 +35,8 @@ public class UpdateUserInfoController extends AnchorPane {
     @FXML
     public Button btSave;
     private ResourceBundle bundle;
-
+    @FXML
+    private ComboBox<String> cbUserRole;
     public UpdateUserInfoController() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("update_user_info.fxml"));
@@ -121,5 +125,11 @@ public class UpdateUserInfoController extends AnchorPane {
         txtAddress.setText(data.getAddress());
         txtEmail.setText(data.getEmail());
         txtPhoneNumber.setText(data.getPhone());
+        ObservableList<String> options =
+            FXCollections.observableArrayList(
+                UserDTO.UserRole.valueOf(data.getRole()).toString()
+            );
+        cbUserRole.setItems(options);
+        cbUserRole.setValue(UserDTO.UserRole.valueOf(data.getRole()).toString());
     }
 }

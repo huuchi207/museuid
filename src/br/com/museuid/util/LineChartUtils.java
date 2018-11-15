@@ -1,6 +1,8 @@
 package br.com.museuid.util;
 
-import br.com.museuid.model.Relatorio;
+import java.util.List;
+import java.util.Map;
+
 import br.com.museuid.model.data.BaseChartItem;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -9,9 +11,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Create line graph
@@ -39,7 +38,7 @@ public class LineChartUtils {
 
             List<BaseChartItem> dataset = map.get(key);
             for (BaseChartItem item : dataset) {
-                XYChart.Data data = new XYChart.Data(item.getTitle(), item.getValue());
+                XYChart.Data data = new XYChart.Data(item.getDate(), item.getValue());
                 data.setNode(info((double) item.getValue()));
                 serie.getData().add(data);
             }

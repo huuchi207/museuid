@@ -1,22 +1,29 @@
 package br.com.museuid.model.data;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class BaseChartItem {
-    String title;
-    Number value;
+    @SerializedName("date")
+    @Expose
+    private String date;
+    @SerializedName("value")
+    @Expose
+    private Double value;
 
-    public String getTitle() {
-        return title;
+    public String getDate() {
+        return date;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public Number getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Number value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 }

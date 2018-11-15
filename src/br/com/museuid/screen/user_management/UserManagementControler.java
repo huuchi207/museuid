@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.com.museuid.Constants;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.CustomListCellComboBox;
 import br.com.museuid.dto.UserDTO;
@@ -167,7 +168,7 @@ public class UserManagementControler extends AnchorPane {
                         @Override
                         public void onSuccess(UserDTO data) {
                             AppController.getInstance().hideProgressDialog();
-                            Messenger.info(bundle.getString("txt_operation_successful"));
+                            Messenger.info("Người dùng "+ data.getUsername()+ " vừa được tạo với mật khẩu là: "+ Constants.DEFAULT_PASSWORD);
                             tbAdd(null);
                             getListUser();
                         }
@@ -447,7 +448,7 @@ public class UserManagementControler extends AnchorPane {
                     @Override
                     public void onSuccess(UserDTO data) {
                         AppController.getInstance().hideProgressDialog();
-                        Messenger.info("Mật khẩu được reset về 12345678");
+                        Messenger.info("Mật khẩu được reset về "+ Constants.DEFAULT_PASSWORD);
                     }
                 });
             }

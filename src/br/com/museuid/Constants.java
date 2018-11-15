@@ -7,4 +7,5 @@ public interface Constants {
   String USER_TOKEN = "authorization";
   String CONTENT_TYPE = "Content-Type";
   String APPLICATION_JSON = "application/json";
+  String DEFAULT_PASSWORD = "12345678";
 }

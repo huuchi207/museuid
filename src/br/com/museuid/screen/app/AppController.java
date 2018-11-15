@@ -1,9 +1,15 @@
 package br.com.museuid.screen.app;
 
+import org.apache.commons.lang3.EnumUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
+import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.dto.UserDTO;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
@@ -26,7 +32,7 @@ public class AppController {
     private static AppController instance;
     @FXML
     public ToggleButton btEmployeeManagement;
-    public VBox boxEmployee;
+    public VBox boxManagement;
     public ToggleButton btAppManagementSection;
     public ToggleGroup gAppManagementSection;
     public VBox boxOrderSection;
@@ -41,18 +47,23 @@ public class AppController {
     public ToggleButton btUpdateUserInfo;
     public ToggleButton btChangePassword;
     public ToggleButton btOrderInQueue;
+    public ToggleButton btProductManagement;
+    public ToggleButton btDeviceManagement;
+    public ToggleButton btStatistic;
+    public ToggleButton btStockImporting;
+    public VBox boxMenu;
 
     @FXML
     private AnchorPane boxContainer;
     @FXML
     private VBox boxNotas;
-    private VBox[] listMenu;
     private ToggleButton currentScreen;
     @FXML
     private ProgressIndicator progressIndicator;
-    /**
-     * Obter instancia do controler
-     */
+
+    private List<Node> userListBoxMenu;
+    private List<Node> userListFeatureView;
+
     public static AppController getInstance() {
         return instance;
     }
@@ -78,12 +89,69 @@ public class AppController {
     @FXML
     void initialize() {
         instance = this;
-        //TODO: add more vbox list submenu
-        listMenu = new VBox[]{boxOrderSection, boxEmployee, boxUserInfo};
-        //TODO: change to default selected submenu
-        openOrderInQueueScreen(new ActionEvent(btOrderInQueue, null));
-        //TODO: show user data
-        lbUser.setText(StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
+
+        if (!EnumUtils.isValidEnum(UserDTO.UserRole.class, StaticVarUtils.getSessionUserInfo().getInfo().getRole()) && !ConstantConfig.FAKE){
+            startLogin();
+        }
+        UserDTO.UserRole role;
+        if (ConstantConfig.FAKE){
+            role = UserDTO.UserRole.ADMIN;
+        } else{
+            role = UserDTO.UserRole.valueOf(StaticVarUtils.getSessionUserInfo().getInfo().getRole());
+        }
+        switch (role){
+            case ADMIN:
+                userListBoxMenu = new ArrayList<Node>(
+                    Arrays.asList(btOrderSection, boxOrderSection, btAppManagementSection, boxManagement, btUserInfoSection, boxUserInfo));
+                userListFeatureView = new ArrayList<Node>(
+                Arrays.asList(btOrderInQueue, btEmployeeManagement, btProductManagement, btDeviceManagement, btStatistic, btStockImporting,
+                btUpdateUserInfo, btChangePassword));
+                openOrderInQueueScreen(new ActionEvent(btOrderInQueue, null));
+                break;
+            case MANAGER:
+                userListBoxMenu = new ArrayList<Node>(
+                    Arrays.asList(btAppManagementSection, boxManagement, btUserInfoSection,  boxUserInfo));
+                userListFeatureView = new ArrayList<Node>(
+                    Arrays.asList(btStatistic, btUpdateUserInfo, btChangePassword));
+                openStatistic(new ActionEvent(btStatistic, null));
+                break;
+            case STOCKER:
+                userListBoxMenu = new ArrayList<Node>(
+                    Arrays.asList(btAppManagementSection, boxManagement, btUserInfoSection, boxUserInfo));
+                userListFeatureView = new ArrayList<Node>(
+                    Arrays.asList(btStockImporting, btUpdateUserInfo, btChangePassword));
+                openStockImporting(new ActionEvent(btStockImporting, null));
+                break;
+            case EMPLOYEE:
+                userListBoxMenu = new ArrayList<Node>(
+                    Arrays.asList(btOrderSection, boxOrderSection, btUserInfoSection, boxUserInfo));
+                userListFeatureView = new ArrayList<Node>(
+                    Arrays.asList(btOrderInQueue, btUpdateUserInfo, btChangePassword));
+                openOrderInQueueScreen(new ActionEvent(btOrderInQueue, null));
+                break;
+        }
+        //remove views
+        List<Node> removingParentViews= new ArrayList<>();
+        List<Node> removingChildViews= new ArrayList<>();
+        for (Node child: boxMenu.getChildren()){
+            if (userListBoxMenu.contains(child)){
+                //check children of this child
+                removingChildViews.clear();
+                if (child instanceof VBox){
+                    for (Node childOfChild: ((VBox) child).getChildren()){
+                        if (!userListFeatureView.contains(childOfChild)){
+                            removingChildViews.add(childOfChild);
+                        }
+                    }
+                    ((VBox) child).getChildren().removeAll(removingChildViews);
+                }
+            } else {
+                removingParentViews.add(child);
+            }
+        }
+        boxMenu.getChildren().removeAll(removingParentViews);
+        if (!ConstantConfig.FAKE)
+            lbUser.setText("Xin chào, "+ StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
     }
 
     /**
@@ -136,15 +204,17 @@ public class AppController {
 
     public void setCurrentSubMenuAndStyleThenHideProgressIndicator(ToggleButton currentSelectedSubMenu) {
         currentScreen = currentSelectedSubMenu;
-        for (VBox boxMenu :listMenu){
-            List<Node> children = boxMenu.getChildren();
-            if (children!=null && !children.isEmpty()){
-                for (Node child : children){
-                    if (child instanceof ToggleButton){
-                        if (child!= currentSelectedSubMenu){
-                            ((ToggleButton) child).setSelected(false);
-                        } else {
-                            ((ToggleButton) child).setSelected(true);
+        for (Node boxMenu : userListBoxMenu){
+            if (boxMenu instanceof VBox){
+                List<Node> children = ((VBox) boxMenu).getChildren();
+                if (children!=null && !children.isEmpty()){
+                    for (Node child : children){
+                        if (child instanceof ToggleButton){
+                            if (child!= currentSelectedSubMenu){
+                                ((ToggleButton) child).setSelected(false);
+                            } else {
+                                ((ToggleButton) child).setSelected(true);
+                            }
                         }
                     }
                 }
@@ -218,5 +288,9 @@ public class AppController {
         }
         NavigationUtils.getDeviceManagementScreen(boxContainer);
         setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
+    }
+
+    public void openStockImporting(ActionEvent event) {
+
     }
 }

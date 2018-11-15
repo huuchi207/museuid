@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.museuid.app.App;
+import br.com.museuid.dto.ChartData;
 import br.com.museuid.dto.EmployeeDTO;
 import br.com.museuid.dto.EmployeeListDTO;
 import br.com.museuid.dto.Product;
@@ -54,6 +55,22 @@ public class FakeDataUtils {
         return new ArrayList<>();
     }
 
+    public static ChartData getFakeGroupBarChart(){
+        try{
+            JsonReader reader = readFile("groupbarchart.json");
+            if (reader != null){
+                ResponseDTO<ChartData> responseDTO = new Gson()
+                    .fromJson(reader, new TypeToken<ResponseDTO<ChartData>>() {
+                    }.getType());
+                if (responseDTO!= null){
+                    return responseDTO.getResult();
+                }
+            }
+        }catch (Exception e){
+            Messenger.erro(e.getMessage());
+        }
+        return null;
+    }
   public static JsonReader readFile(String fileDir){
     JsonReader reader = null;
     try {
