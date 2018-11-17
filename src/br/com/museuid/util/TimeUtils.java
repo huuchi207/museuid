@@ -4,22 +4,28 @@ import br.com.museuid.config.ConstantConfig;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import java.sql.Timestamp;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
 /**
  * Handling, formatting and clacing dates,
- *  mainly assisting in converting dates from the new java api from LocalDate to Timestamp for insertion into the database
+ * mainly assisting in converting dates from the new java api from LocalDate to Timestamp for insertion into the database
  *
  * @author Angelica
  */
 public class TimeUtils {
+    private static String TIME_FULL_FORMAT = "dd/MM/yyyy hh:mm:ss";
+    private static String DATE_FORMAT = "dd/MM/yyyy";
+    private static String DEFAULT_DATE_FORMAT = "MM/dd/yyyy";
 
     private TimeUtils() {
     }
@@ -161,5 +167,45 @@ public class TimeUtils {
 
         calendarario.setDayCellFactory(dayCellFactory);
         calendarario.setValue(data.plusDays(1));
+    }
+
+    public static String convertDateTimeToStartTimeFormat(LocalDate localDate) {
+        String r =  toString(localDate, DEFAULT_DATE_FORMAT);
+        r+= " 00:00:00";
+        return r;
+    }
+    public static String convertDateTimeToEndTimeFormat(LocalDate localDate) {
+        String r =  toString(localDate, DEFAULT_DATE_FORMAT);
+        r+= " 23:59:00";
+        return r;
+    }
+
+    public static void reformatDatePickerValue(DatePicker datePicker) {
+        datePicker.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    try {
+                        return DateTimeFormatter.ofPattern(DATE_FORMAT).format(date);
+                    } catch (DateTimeException dte) {
+                    }
+                    return "";
+                }
+                return "";
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    try {
+                        return LocalDate.parse(string, DateTimeFormatter.ofPattern(DATE_FORMAT));
+                    } catch (DateTimeParseException dtpe) {
+                       Messenger.erro(dtpe.getMessage());
+                    }
+                }
+                return null;
+            }
+
+        });
     }
 }

@@ -146,6 +146,7 @@ public class DeviceManagementControler extends AnchorPane {
                         getDeviceList();
                         AppController.getInstance().hideProgressDialog();
                         Messenger.info(BundleUtils.getResourceBundle().getString("txt_operation_successful"));
+                        tbAdd(null);
                     }
                 });
             }
@@ -170,12 +171,12 @@ public class DeviceManagementControler extends AnchorPane {
                         getDeviceList();
                         AppController.getInstance().hideProgressDialog();
                         Messenger.info(BundleUtils.getResourceBundle().getString("txt_operation_successful"));
+                        tbAdd(null);
                     }
                 });
             }
         }
 
-        tbAdd(null);
     }
 
     @FXML

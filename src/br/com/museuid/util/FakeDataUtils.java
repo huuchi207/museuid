@@ -10,8 +10,10 @@ import java.util.List;
 
 import br.com.museuid.app.App;
 import br.com.museuid.dto.ChartData;
+import br.com.museuid.dto.Column;
 import br.com.museuid.dto.EmployeeDTO;
 import br.com.museuid.dto.EmployeeListDTO;
+import br.com.museuid.dto.GroupColumn;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.ProductListDTO;
 import br.com.museuid.service.remote.ResponseDTO;
@@ -63,7 +65,13 @@ public class FakeDataUtils {
                     .fromJson(reader, new TypeToken<ResponseDTO<ChartData>>() {
                     }.getType());
                 if (responseDTO!= null){
-                    return responseDTO.getResult();
+                    ChartData chartData = responseDTO.getResult();
+                    for (GroupColumn groupColumn : chartData.getGroupColumns()){
+                        for (Column column : groupColumn.getColumns()){
+                            column.setValue(1000000+ (Math.random() * ((1000 - 1) + 1)));
+                        }
+                    }
+                    return chartData;
                 }
             }
         }catch (Exception e){

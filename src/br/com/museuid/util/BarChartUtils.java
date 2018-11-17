@@ -1,8 +1,22 @@
 package br.com.museuid.util;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.block.BlockBorder;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+import java.awt.Color;
 import java.util.List;
 import java.util.Map;
 
+import br.com.museuid.dto.ChartData;
+import br.com.museuid.dto.Column;
+import br.com.museuid.dto.GroupColumn;
 import br.com.museuid.model.data.BaseChartItem;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -12,6 +26,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.Chart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.text.Text;
@@ -93,5 +108,37 @@ public class BarChartUtils {
         axisX.setLabel(axisXlabel);
         axisY.setLabel(axisYlabel);
         graphic.setLegendVisible(false);
+    }
+
+    public static JFreeChart createJFreeChart(ChartData chartData){
+        JFreeChart chart = ChartFactory.createBarChart(
+            null, null  /* x-axis label*/,
+            null/* y-axis label */, convertChartDataToCategoryDataset(chartData),
+            PlotOrientation.VERTICAL, true, true,false );
+//        chart.addSubtitle(new TextTitle("Time to generate 1000 charts in SVG "
+//            + "format (lower bars = better performance)"));
+        chart.setBackgroundPaint(Color.white);
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+
+        org.jfree.chart.axis.NumberAxis rangeAxis = (org.jfree.chart.axis.NumberAxis) plot.getRangeAxis();
+        rangeAxis.setStandardTickUnits(org.jfree.chart.axis.NumberAxis.createIntegerTickUnits());
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setDrawBarOutline(false);
+        chart.getLegend().setFrame(BlockBorder.NONE);
+        return chart;
+    }
+
+    public static CategoryDataset convertChartDataToCategoryDataset(ChartData chartData){
+        DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
+        if (chartData == null || chartData.getGroupColumns() == null)
+            return categoryDataset;
+        for (GroupColumn groupColumn: chartData.getGroupColumns()){
+            if (groupColumn.getColumns() == null)
+                continue;
+            for (Column column: groupColumn.getColumns()){
+                categoryDataset.addValue(column.getValue(), groupColumn.getTitle(), column.getDate());
+            }
+        }
+        return categoryDataset;
     }
 }

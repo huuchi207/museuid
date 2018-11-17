@@ -2,11 +2,13 @@ package br.com.museuid.screen.user_management;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import br.com.museuid.Constants;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.CustomListCellComboBox;
+import br.com.museuid.customview.PasswordDialog;
 import br.com.museuid.dto.UserDTO;
 import br.com.museuid.dto.sample.Item;
 import br.com.museuid.screen.app.AppController;
@@ -102,6 +104,7 @@ public class UserManagementControler extends AnchorPane {
     private ComboBox<UserDTO.UserRole> cbUserRole;
     @FXML
     private HBox boxEdit;
+
     public UserManagementControler() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("user_management.fxml"));
@@ -148,10 +151,14 @@ public class UserManagementControler extends AnchorPane {
         String role = cbUserRole.getValue().name();
         if (isValid) {
             NoticeUtils.alert(bundle.getString("txt_please_enter_info"));
-        } else {
+            return;
+        }
+        PasswordDialog pd = new PasswordDialog();
+        Optional<String> result = pd.showAndWait();
+        result.ifPresent(password -> {
             if (selectedUserId.equals("0")) {
-                //TODO: insert user
                 UserDTO userDTO = new UserDTO(userName, name, phoneNumber, address, email, role);
+                userDTO.setPassword(password);
                 if (ConstantConfig.FAKE) {
                     listUser.add(userDTO);
                     updateTable();
@@ -168,14 +175,13 @@ public class UserManagementControler extends AnchorPane {
                         @Override
                         public void onSuccess(UserDTO data) {
                             AppController.getInstance().hideProgressDialog();
-                            Messenger.info("Người dùng "+ data.getUsername()+ " vừa được tạo với mật khẩu là: "+ Constants.DEFAULT_PASSWORD);
+                            Messenger.info("Người dùng " + data.getUsername() + " vừa được tạo với mật khẩu là: " + Constants.DEFAULT_PASSWORD);
                             tbAdd(null);
                             getListUser();
                         }
                     });
                 }
             } else {
-                //TODO: edit user
                 if (ConstantConfig.FAKE) {
 //                    listUser.remove(tbUser.getSelectionModel().getSelectedItem());
 //                    listUser.add(u);
@@ -184,12 +190,14 @@ public class UserManagementControler extends AnchorPane {
                 } else {
                     AppController.getInstance().showProgressDialog();
                     UserDTO userDTO = tbUser.getSelectionModel().getSelectedItem().copy();
+                    userDTO.setUserid(userDTO.getId());
                     userDTO.setUsername(userName);
                     userDTO.setFullname(name);
                     userDTO.setPhone(phoneNumber);
                     userDTO.setAddress(address);
                     userDTO.setEmail(email);
                     userDTO.setRole(role);
+                    userDTO.setPassword(password);
                     ServiceBuilder.getApiService().changeUserInfo(userDTO).enqueue(new BaseCallback<UserDTO>() {
                         @Override
                         public void onError(String errorCode, String errorMessage) {
@@ -205,8 +213,9 @@ public class UserManagementControler extends AnchorPane {
                         }
                     });
                 }
+
             }
-        }
+        });
     }
 
     @FXML
@@ -252,7 +261,6 @@ public class UserManagementControler extends AnchorPane {
             DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Xóa " + selectedUser.getUsername() + " ?");
 
             if (responseMessage == DialogUtils.ResponseMessage.YES) {
-                //TODO: call api delete user
                 if (ConstantConfig.FAKE) {
                     Messenger.info(bundle.getString("txt_delete_successfully"));
                     listUser.remove(selectedUser);
@@ -360,8 +368,8 @@ public class UserManagementControler extends AnchorPane {
                 @Override
                 public void onSuccess(List<UserDTO> data) {
                     AppController.getInstance().hideProgressDialog();
-                    if (data!= null && !data.isEmpty()){
-                        for (UserDTO userDTO : data){
+                    if (data != null && !data.isEmpty()) {
+                        for (UserDTO userDTO : data) {
                             userDTO.setRoleText(UserDTO.UserRole.valueOf(userDTO.getRole()).toString());
                         }
                     }
@@ -423,7 +431,7 @@ public class UserManagementControler extends AnchorPane {
 
     public void resetPassword() {
         UserDTO selected = tbUser.getSelectionModel().getSelectedItem();
-        if (selected == null){
+        if (selected == null) {
             Messenger.erro(BundleUtils.getResourceBundle().getString("txt_please_choose_target"));
             return;
         }
@@ -448,7 +456,7 @@ public class UserManagementControler extends AnchorPane {
                     @Override
                     public void onSuccess(UserDTO data) {
                         AppController.getInstance().hideProgressDialog();
-                        Messenger.info("Mật khẩu được reset về "+ Constants.DEFAULT_PASSWORD);
+                        Messenger.info("Mật khẩu được reset về " + Constants.DEFAULT_PASSWORD);
                     }
                 });
             }

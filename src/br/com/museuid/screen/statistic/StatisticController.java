@@ -1,5 +1,9 @@
 package br.com.museuid.screen.statistic;
 
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.fx.ChartViewer;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -11,14 +15,17 @@ import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.ChartData;
 import br.com.museuid.dto.GroupColumn;
 import br.com.museuid.model.data.BaseChartItem;
+import br.com.museuid.screen.app.AppController;
+import br.com.museuid.service.remote.BaseCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.service.remote.requestbody.StatisticRequest;
 import br.com.museuid.util.BarChartUtils;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.ComboUtils;
 import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.NoticeUtils;
-import br.com.museuid.util.ReportUtils;
 import br.com.museuid.util.ResizeUtils;
+import br.com.museuid.util.TimeUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -37,8 +44,10 @@ import javafx.scene.layout.HBox;
 public class StatisticController extends AnchorPane {
 
     public HBox boxPeriod;
-    private int periodo = 0;
-    private int relatorio;
+    private int period = 0;
+    private static final int DAY = 0;
+    private static final int MONTH = 1;
+    private static final int YEAR = 2;
 
     @FXML
     private AnchorPane boxGraphic;
@@ -49,7 +58,10 @@ public class StatisticController extends AnchorPane {
     @FXML
     private Label lbPrincipal;
     @FXML
-    private DatePicker datePicker;
+    private DatePicker datePickerStart;
+
+    @FXML
+    private DatePicker datePickerEnd;
     @FXML
     private ToggleGroup menuPeriod;
     @FXML
@@ -57,10 +69,13 @@ public class StatisticController extends AnchorPane {
     @FXML
     private ToggleGroup menu;
     @FXML
-    private HBox boxLegenda;
+    private AnchorPane boxLegenda;
     @FXML
     private ComboBox<String> cbReportType;
     private ResourceBundle bundle;
+    private JFreeChart freeChart;
+    private ChartViewer chartViewer;
+
     public StatisticController() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("statistic.fxml"));
@@ -71,71 +86,41 @@ public class StatisticController extends AnchorPane {
             fxml.load();
 
         } catch (IOException ex) {
-            Messenger.erro(BundleUtils.getResourceBundle().getString("txt_loading_screen_error")+" \n" + ex);
+            Messenger.erro(BundleUtils.getResourceBundle().getString("txt_loading_screen_error") + " \n" + ex);
             ex.printStackTrace();
         }
     }
 
     @FXML
-    void catalogacao(ActionEvent event) {
-        config("Catalog Report", 1);
-        combo("Date Cataloging", "Search", "Dimensions", "N ° Parties", "Location", "Designation", "Estratigrafia", "Collection");
-    }
-
-
-    @FXML
-    void relatorio(ActionEvent event) {
-        if (datePicker == null) {
-            NoticeUtils.alert("Data not informed!");
-        } else if (cbReportType.getItems().isEmpty()) {
-            NoticeUtils.alert("Type report not informed!");
-        } else if (periodo == 0) {
-            NoticeUtils.alert("Select the period for report generation!");
-        } else {
-            ReportUtils.create(boxGraphic, cbReportType.getValue(), periodo, datePicker.getValue());
-        }
-    }
-
-    @FXML
     void initialize() {
-//        Grupo.notEmpty(menu);
 
-        datePicker.setValue(LocalDate.now());
-        periodo();
-        desabilitarPeriodo();
-        if (ConstantConfig.FAKE){
+        datePickerStart.setValue(LocalDate.now());
+        datePickerEnd.setValue(LocalDate.now());
+        TimeUtils.reformatDatePickerValue(datePickerStart);
+        TimeUtils.reformatDatePickerValue(datePickerEnd);
+        setupPeriod();
+
+        freeChart = BarChartUtils.createJFreeChart(null);
+        chartViewer = new ChartViewer(freeChart);
+        addChart(boxGraphic, chartViewer);
+        if (ConstantConfig.FAKE) {
             ChartData chartData = FakeDataUtils.getFakeGroupBarChart();
             Map<String, List<? extends BaseChartItem>> mapData = new HashMap<>();
-            for (GroupColumn groupColumn: chartData.getGroupColumns()){
+            for (GroupColumn groupColumn : chartData.getGroupColumns()) {
                 mapData.put(groupColumn.getTitle(), groupColumn.getColumns());
             }
-            addChart(boxGraphic, BarChartUtils.create(chartData.getChartName(), "", chartData.getUnit(), mapData));
+//            addChart(boxGraphic, BarChartUtils.create(chartData.getChartName(), "", chartData.getUnit(), mapData));
+//            ChartViewer chartViewer = new ChartViewer(BarChartUtils.createJFreeChart(chartData))
+
         }
     }
 
-    /**
-     * Block period selection for reports that are not periodic
-     */
-    private void desabilitarPeriodo() {
-        cbReportType.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue obs, String old, String novo) {
-//                Platform.runLater(() -> {
-//                    datePicker.setDisable(!"Date Cataloging".equals(novo) && relatorio == 1);
-//                    boxPeriodo.setDisable(!"Date Cataloging".equals(novo) && relatorio == 1);
-//                    periodo = !"Date Cataloging".equals(novo) && relatorio == 1 ? 1 : menuPeriod.getToggles().indexOf(menuPeriod.getSelectedToggle()) + 1;
-//                });
-            }
-        });
-
-    }
 
     /**
      * Screen settings, titles, and display of screens and menus
      */
     private void config(String tituloTela, int grupoMenu) {
         lbTitulo.setText(tituloTela);
-        relatorio = grupoMenu;
         menu.selectToggle(menu.getToggles().get(grupoMenu - 1));
     }
 
@@ -149,10 +134,10 @@ public class StatisticController extends AnchorPane {
     /**
      * Add escutador to the period group group to know which period is active
      */
-    private void periodo() {
+    private void setupPeriod() {
         menuPeriod.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> obs, Toggle old, Toggle novo) {
-                periodo = novo != null ? menuPeriod.getToggles().indexOf(menuPeriod.getSelectedToggle()) + 1 : 0;
+                period = novo != null ? menuPeriod.getToggles().indexOf(menuPeriod.getSelectedToggle()) : 0;
             }
         });
     }
@@ -161,5 +146,93 @@ public class StatisticController extends AnchorPane {
         box.getChildren().clear();
         ResizeUtils.margin(chart, 0);
         box.getChildren().add(chart);
+    }
+
+    @FXML
+    void doStatistic(ActionEvent event) {
+        if (ConstantConfig.FAKE) {
+
+        } else {
+            AppController.getInstance().showProgressDialog();
+            StatisticRequest statisticRequest = new StatisticRequest(
+                TimeUtils.convertDateTimeToStartTimeFormat(datePickerStart.getValue()),
+                TimeUtils.convertDateTimeToEndTimeFormat(datePickerEnd.getValue()));
+            switch (period) {
+                case DAY:
+                    ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(
+                        new BaseCallback<ChartData>() {
+                            @Override
+                            public void onError(String errorCode, String errorMessage) {
+                                AppController.getInstance().hideProgressDialog();
+                                Messenger.erro(errorMessage);
+                            }
+
+                            @Override
+                            public void onSuccess(ChartData data) {
+                                AppController.getInstance().hideProgressDialog();
+                                updateChartData(data);
+                            }
+                        }
+                    );
+                    break;
+                case MONTH:
+                    ServiceBuilder.getApiService().getMonthStatistic(statisticRequest).enqueue(
+                        new BaseCallback<ChartData>() {
+                            @Override
+                            public void onError(String errorCode, String errorMessage) {
+                                AppController.getInstance().hideProgressDialog();
+                                Messenger.erro(errorMessage);
+                            }
+
+                            @Override
+                            public void onSuccess(ChartData data) {
+                                AppController.getInstance().hideProgressDialog();
+                                updateChartData(data);
+                            }
+                        }
+                    );
+                    break;
+                case YEAR:
+                    ServiceBuilder.getApiService().getYearStatistic(statisticRequest).enqueue(
+                        new BaseCallback<ChartData>() {
+                            @Override
+                            public void onError(String errorCode, String errorMessage) {
+                                AppController.getInstance().hideProgressDialog();
+                                Messenger.erro(errorMessage);
+                            }
+
+                            @Override
+                            public void onSuccess(ChartData data) {
+                                AppController.getInstance().hideProgressDialog();
+                                updateChartData(data);
+                            }
+                        }
+                    );
+                    break;
+                    default:
+                        ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(
+                            new BaseCallback<ChartData>() {
+                                @Override
+                                public void onError(String errorCode, String errorMessage) {
+                                    AppController.getInstance().hideProgressDialog();
+                                    Messenger.erro(errorMessage);
+                                }
+
+                                @Override
+                                public void onSuccess(ChartData data) {
+                                    AppController.getInstance().hideProgressDialog();
+                                    updateChartData(data);
+                                }
+                            }
+                        );
+            }
+        }
+    }
+
+    private void updateChartData(ChartData chartData){
+        freeChart.getCategoryPlot().setDataset(BarChartUtils.convertChartDataToCategoryDataset(chartData));
+        freeChart.setTitle(chartData.getChartName());
+//        freeChart.getCategoryPlot().
+        freeChart.fireChartChanged();
     }
 }

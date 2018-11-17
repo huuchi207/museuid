@@ -2,6 +2,7 @@ package br.com.museuid.service.remote;
 
 import java.util.List;
 
+import br.com.museuid.dto.ChartData;
 import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.SessionDeviceInfo;
@@ -13,6 +14,7 @@ import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
 import br.com.museuid.service.remote.requestbody.ChangePasswordRequest;
 import br.com.museuid.service.remote.requestbody.LoginRequest;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
+import br.com.museuid.service.remote.requestbody.StatisticRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -89,4 +91,13 @@ public interface APIService {
 
     @POST("queue")
     Call<ResponseDTO<Object>> updateQueue(@Body OrderDetail orderDetail);
+
+    @POST("days-period")
+    Call<ResponseDTO<ChartData>> getDayStatistic(@Body StatisticRequest statisticRequest);
+
+    @POST("months-period")
+    Call<ResponseDTO<ChartData>> getMonthStatistic(@Body StatisticRequest statisticRequest);
+
+    @POST("years-period")
+    Call<ResponseDTO<ChartData>> getYearStatistic(@Body StatisticRequest statisticRequest);
 }
