@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import java.lang.*?>
-<?import java.net.URL?>
-<fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import java.lang.*?><?import java.net.URL?>
+<fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea"
+  xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <HBox prefHeight="60.0" prefWidth="1207.0" styleClass="box-topo" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <HBox prefHeight="60.0" prefWidth="1207.0" styleClass="box-topo" AnchorPane.leftAnchor="0.0"
+      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <Label fx:id="lbTitle" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo" text="%txt_statistic" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
-        </Label>
+        <Label fx:id="lbTitle" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo"
+          text="%txt_statistic" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS"></Label>
 
       </children>
     </HBox>
-    <GridPane hgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+    <GridPane hgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
+      AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
       <columnConstraints>
         <ColumnConstraints percentWidth="35" />
-        <ColumnConstraints  percentWidth="35"  />
-        <ColumnConstraints  percentWidth="30"/>
+        <ColumnConstraints percentWidth="35" />
+        <ColumnConstraints percentWidth="30" />
 
       </columnConstraints>
       <rowConstraints>
@@ -37,16 +38,20 @@
         <HBox fx:id="boxPeriod" minWidth="-Infinity" prefHeight="35.0" styleClass="periodo"
           GridPane.columnIndex="0" GridPane.rowIndex="1">
           <children>
-            <ToggleButton layoutX="10.0" layoutY="13.0" mnemonicParsing="false" selected="true" styleClass="bt-left" text="%txt_day">
+            <ToggleButton layoutX="10.0" layoutY="13.0" mnemonicParsing="false" selected="true"
+              styleClass="bt-left" text="%txt_day">
               <toggleGroup>
                 <ToggleGroup fx:id="menuPeriod" />
               </toggleGroup>
             </ToggleButton>
-            <ToggleButton layoutX="685.0" layoutY="45.0" mnemonicParsing="false" styleClass="bt-center" text="%txt_month" toggleGroup="$menuPeriod" />
-            <ToggleButton mnemonicParsing="false" styleClass="bt-right" text="%txt_year" toggleGroup="$menuPeriod" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ToggleButton layoutX="685.0" layoutY="45.0" mnemonicParsing="false"
+              styleClass="bt-center" text="%txt_month" toggleGroup="$menuPeriod" />
+            <ToggleButton mnemonicParsing="false" styleClass="bt-right" text="%txt_year"
+              toggleGroup="$menuPeriod" GridPane.columnIndex="2" GridPane.rowIndex="1" />
           </children>
         </HBox>
-        <Label prefHeight="17.0" text="%txt_start_time" GridPane.columnIndex="1" GridPane.rowIndex="0" >
+        <Label prefHeight="17.0" text="%txt_start_time" GridPane.columnIndex="1"
+          GridPane.rowIndex="0">
           <styleClass>
             <String fx:value="titulo-campos" />
             <String fx:value="lb-info-requerido" />
@@ -55,7 +60,8 @@
         <DatePicker fx:id="datePickerStart" prefHeight="35.0" prefWidth="144.0"
           GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label prefHeight="17.0" text="%txt_end_time" GridPane.columnIndex="2" GridPane.rowIndex="0" >
+        <Label prefHeight="17.0" text="%txt_end_time" GridPane.columnIndex="2"
+          GridPane.rowIndex="0">
           <styleClass>
             <String fx:value="titulo-campos" />
             <String fx:value="lb-info-requerido" />
@@ -65,13 +71,16 @@
           GridPane.columnIndex="2" GridPane.rowIndex="1" />
       </children>
     </GridPane>
-    <AnchorPane prefHeight="50.0" styleClass="box-menus-subtela" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+    <AnchorPane prefHeight="50.0" styleClass="box-menus-subtela" AnchorPane.bottomAnchor="5.0"
+      AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
       <children>
-        <Label styleClass="lb-info-requerido" text="%txt_required_fields" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0" />
+        <Label styleClass="lb-info-requerido" text="%txt_required_fields"
+          AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0" />
         <AnchorPane fx:id="boxLegenda" layoutY="5.0" styleClass="box-legenda"
-          AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" >
-          <Button AnchorPane.rightAnchor="10" onAction="#doStatistic"
-            AnchorPane.bottomAnchor="10" layoutX="685.0" layoutY="45.0" mnemonicParsing="false" styleClass="bt-center" text="%txt_view_statistic" />
+          AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+          <Button AnchorPane.rightAnchor="10" onAction="#doStatistic" AnchorPane.bottomAnchor="10"
+            layoutX="685.0" layoutY="45.0" mnemonicParsing="false" styleClass="bt-center"
+            text="%txt_view_statistic" />
         </AnchorPane>
       </children>
     </AnchorPane>
