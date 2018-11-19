@@ -1,20 +1,17 @@
 package br.com.museuid.service.remote;
 
-import java.util.List;
-
 import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.sample.Item;
+import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.PUT;
-import retrofit2.http.Query;
+import retrofit2.http.*;
+
+import java.util.List;
 
 public interface APIService {
     //Sample
@@ -38,4 +35,10 @@ public interface APIService {
 
     @DELETE("queue")
     Call<ResponseDTO<Object>> cancelOrder(@Query("queueid") String queue);
+
+    @GET("queues")
+    Call<ResponseDTO<List<OrderDetail>>> getMyOrderList();
+
+    @POST("queue")
+    Call<ResponseDTO<Object>> updateOrder(@Body OrderDetail orderDetail);
 }

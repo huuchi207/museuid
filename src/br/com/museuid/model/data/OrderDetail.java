@@ -1,13 +1,11 @@
 package br.com.museuid.model.data;
 
+import br.com.museuid.service.remote.requestbody.PutQueueRequest;
+import br.com.museuid.util.BundleUtils;
 import com.google.gson.annotations.SerializedName;
-
 import org.apache.commons.lang3.EnumUtils;
 
 import java.util.List;
-
-import br.com.museuid.service.remote.requestbody.PutQueueRequest;
-import br.com.museuid.util.BundleUtils;
 
 public class OrderDetail extends PutQueueRequest {
     @SerializedName("_id")
@@ -19,6 +17,7 @@ public class OrderDetail extends PutQueueRequest {
     private String orderDescription;
     private String orderName;
     private String statusText;
+    private String queueid;
 
     public OrderDetail(Integer sumup, List<Item> items, String customername, String customerid, String sessionid, String comment) {
         super(sumup, items, customername, customerid, sessionid, comment);
@@ -90,6 +89,15 @@ public class OrderDetail extends PutQueueRequest {
             statusText = OrderStatus.valueOf(status).toString();
         }
     }
+
+    public String getQueueid() {
+        return queueid;
+    }
+
+    public void setQueueid(String queueid) {
+        this.queueid = queueid;
+    }
+
     public enum OrderStatus{
         NEW {
             public String toString(){

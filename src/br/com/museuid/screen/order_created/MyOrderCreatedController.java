@@ -1,15 +1,6 @@
 package br.com.museuid.screen.order_created;
 
 
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
-
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.screen.app.AppController;
@@ -18,6 +9,8 @@ import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.Messenger;
+import br.com.museuid.util.StaticVarUtils;
+import com.google.gson.Gson;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -33,6 +26,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class MyOrderCreatedController extends AnchorPane {
 
@@ -66,47 +65,8 @@ public class MyOrderCreatedController extends AnchorPane {
     @FXML
     public void initialize() {
         initTable();
-        //TODO:add more event to listen
-        Gson gson = new Gson();
-        try {
-            Socket socket = IO.socket("http://localhost:3000");
-            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-                @Override
-                public void call(Object... objects) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-//                            Messenger.info("Connect succesfully");
-                        }
-                    });
-                }
-            }).on("New queue", new Emitter.Listener() {
-                @Override
-                public void call(Object... objects) {
-                    for (Object object : objects) {
-                        JSONObject jsonObject = (JSONObject) object;
-                        OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
-                        order.updateFields();
-                        observableList.add(order);
-                    }
-                }
-            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+       getListOrder();
 
-                @Override
-                public void call(Object... args) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-//                            Messenger.info("Disconnected");
-                        }
-                    });
-                }
-
-            });
-            socket.connect();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
     }
 
     void initTable() {
@@ -131,8 +91,10 @@ public class MyOrderCreatedController extends AnchorPane {
             DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Bạn có chắc chắn muốn hủy đơn hàng này?");
 
             if (responseMessage == DialogUtils.ResponseMessage.YES) {
+                selected.setStatus(OrderDetail.OrderStatus.CANCELED.name());
+                selected.setQueueid(selected.getId());
                 AppController.getInstance().showProgressDialog();
-                ServiceBuilder.getApiService().cancelOrder(selected.getId()).enqueue(new BaseCallback<Object>() {
+                ServiceBuilder.getApiService().updateOrder(selected).enqueue(new BaseCallback<Object>() {
                     @Override
                     public void onError(String errorCode, String errorMessage) {
                         AppController.getInstance().hideProgressDialog();
@@ -148,6 +110,73 @@ public class MyOrderCreatedController extends AnchorPane {
             }
         } else {
             Messenger.erro(bundle.getString("txt_can_only_cancel_unhandle_order"));
+        }
+    }
+
+    private void getListOrder(){
+        AppController.getInstance().showProgressDialog();
+        ServiceBuilder.getApiService().getMyOrderList().enqueue(new BaseCallback<List<OrderDetail>>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                AppController.getInstance().hideProgressDialog();
+                Messenger.erro(errorMessage);
+            }
+
+            @Override
+            public void onSuccess(List<OrderDetail> data) {
+                AppController.getInstance().hideProgressDialog();
+                if (data != null){
+                    for (OrderDetail orderDetail: data){
+                        orderDetail.updateFields();
+                    }
+                    observableList.addAll(data);
+                }
+
+                listenOnChange();
+            }
+        });
+    }
+    private void listenOnChange(){
+        Gson gson = new Gson();
+        try {
+            Socket socket = IO.socket(ServiceBuilder.getBASEURL());
+            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+                @Override
+                public void call(Object... objects) {
+
+                }
+            }).on(StaticVarUtils.getSessionDeviceInfo().getSessionid(), new Emitter.Listener() {
+                @Override
+                public void call(Object... objects) {
+                    for (Object object : objects) {
+                        JSONObject jsonObject = (JSONObject) object;
+                        OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
+                        for (OrderDetail orderDetail : observableList){
+                            if (orderDetail.getId().equals(order.getId())){
+                                order = orderDetail;
+                                order.updateFields();
+                                observableList.add(order);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+
+                @Override
+                public void call(Object... args) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+//                            Messenger.info("Disconnected");
+                        }
+                    });
+                }
+
+            });
+            socket.connect();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
     }
 }

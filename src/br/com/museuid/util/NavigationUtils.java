@@ -60,7 +60,7 @@ public class NavigationUtils {
     }
 
     public static void getMyOrderCreatedScreen(AnchorPane box){
-        myOrderCreatedController = myOrderCreatedController!= null ? myOrderCreatedController : new MyOrderCreatedController();
+        myOrderCreatedController = new MyOrderCreatedController();
         config(box, myOrderCreatedController);
     }
 
