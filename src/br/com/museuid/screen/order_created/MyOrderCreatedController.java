@@ -151,10 +151,11 @@ public class MyOrderCreatedController extends AnchorPane {
                     for (Object object : objects) {
                         JSONObject jsonObject = (JSONObject) object;
                         OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
-                        for (OrderDetail orderDetail : observableList){
+                        for (int i = 0; i < observableList.size(); i++){
+                            OrderDetail orderDetail = observableList.get(i);
                             if (orderDetail.getId().equals(order.getId())){
-                                order = orderDetail;
                                 order.updateFields();
+                                observableList.set(i, order);
                                 tbOrderCreated.refresh();
                                 break;
                             }
