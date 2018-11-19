@@ -94,42 +94,36 @@ public class OrderInQueueController extends AnchorPane {
         initTable();
 //        createListDeviceView();
         orderQueue();
-        Gson gson =new Gson();
-        try {
-            Socket socket = IO.socket(ServiceBuilder.getBASEURL());
-            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-                @Override
-                public void call(Object... objects) {
-                    socket.emit("room", "employee");
-                }
-            }).on("New order", new Emitter.Listener() {
-                @Override
-                public void call(Object... objects) {
-                    for (Object object : objects){
-                        JSONObject jsonObject = (JSONObject)object;
-                        OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
-                        order.updateFields();
 
-                        orderDetailObservableList.add(order);
+        getNewOrderList();
+
+    }
+
+    private void getNewOrderList() {
+        AppController.getInstance().showProgressDialog();
+        ServiceBuilder.getApiService().getOrderByStatus(OrderDetail.OrderStatus.NEW.name())
+                .enqueue(new BaseCallback<List<OrderDetail>>() {
+                    @Override
+                    public void onError(String errorCode, String errorMessage) {
+                        AppController.getInstance().hideProgressDialog();
+                        Messenger.erro(errorMessage);
                     }
-                }
-            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
 
-                @Override
-                public void call(Object... args) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-//                            Messenger.info("Disconnected");
+                    @Override
+                    public void onSuccess(List<OrderDetail> data) {
+                        AppController.getInstance().hideProgressDialog();
+                        if (data != null){
+                            orderDetailObservableList.clear();
+                            for (OrderDetail orderDetail : data){
+                                orderDetail.updateFields();
+                                orderDetailObservableList.addAll(data);
+                            }
+                            tbOrderInQueue.refresh();
                         }
-                    });
-                }
-
-            });
-            socket.connect();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+                        //then listen on changes
+                        listenOnChange();
+                    }
+                });
     }
 
     private void createListDeviceView() {
@@ -176,7 +170,7 @@ public class OrderInQueueController extends AnchorPane {
         tbOrderInfo.setItems(observableListProductInOrder);
 
         //table list order
-        colTime.setCellValueFactory(new PropertyValueFactory<>("update"));
+        colTime.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
         colDevice.setCellValueFactory(new PropertyValueFactory<>("customername"));
         colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
         colOrderName.setCellValueFactory(new PropertyValueFactory<>("orderName"));
@@ -274,5 +268,44 @@ public class OrderInQueueController extends AnchorPane {
         lbTotalPrice.setText("Tổng giá trị: "+ selected.getSumup());
         observableListProductInOrder = FXCollections.observableList(selected.getItems());
         tbOrderInfo.setItems(observableListProductInOrder);
+    }
+
+    private void listenOnChange(){
+        Gson gson =new Gson();
+        try {
+            Socket socket = IO.socket(ServiceBuilder.getBASEURL());
+            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+                @Override
+                public void call(Object... objects) {
+                    socket.emit("room", "employee");
+                }
+            }).on("New order", new Emitter.Listener() {
+                @Override
+                public void call(Object... objects) {
+                    for (Object object : objects){
+                        JSONObject jsonObject = (JSONObject)object;
+                        OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
+                        order.updateFields();
+
+                        orderDetailObservableList.add(order);
+                    }
+                }
+            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+
+                @Override
+                public void call(Object... args) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+//                            Messenger.info("Disconnected");
+                        }
+                    });
+                }
+
+            });
+            socket.connect();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }

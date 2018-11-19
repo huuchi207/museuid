@@ -2,6 +2,7 @@ package br.com.museuid.model.data;
 
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.TimeUtils;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.EnumUtils;
 
@@ -14,6 +15,8 @@ public class OrderDetail extends PutQueueRequest {
     private String status;
     @SerializedName("update")
     private String update;
+    @SerializedName("createdAt")
+    private String createdAt;
     private String orderDescription;
     private String orderName;
     private String statusText;
@@ -103,7 +106,17 @@ public class OrderDetail extends PutQueueRequest {
         if (EnumUtils.isValidEnum(OrderStatus.class, status)){
             statusText = OrderStatus.valueOf(status).toString();
         }
+        this.createdAt = TimeUtils.convertToLocalFormat(createdAt);
     }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public enum OrderStatus{
         NEW {
             public String toString(){

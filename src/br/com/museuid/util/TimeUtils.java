@@ -7,6 +7,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,7 +15,9 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Handling, formatting and clacing dates,
@@ -207,5 +210,17 @@ public class TimeUtils {
             }
 
         });
+    }
+    public static String convertToLocalFormat(String dateStr) {
+        try {
+            TimeZone utc = TimeZone.getTimeZone("UTC");
+            SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat destFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+            sourceFormat.setTimeZone(utc);
+            Date convertedDate = sourceFormat.parse(dateStr);
+            return destFormat.format(convertedDate);
+        } catch (Exception e){
+            return "";
+        }
     }
 }

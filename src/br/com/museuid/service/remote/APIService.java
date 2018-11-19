@@ -1,28 +1,14 @@
 package br.com.museuid.service.remote;
 
-import java.util.List;
-
-import br.com.museuid.dto.ChartData;
-import br.com.museuid.dto.DeviceInfo;
-import br.com.museuid.dto.Product;
-import br.com.museuid.dto.SessionDeviceInfo;
-import br.com.museuid.dto.SessionUserInfo;
-import br.com.museuid.dto.UserDTO;
+import br.com.museuid.dto.*;
 import br.com.museuid.dto.sample.Item;
 import br.com.museuid.model.data.OrderDetail;
-import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
-import br.com.museuid.service.remote.requestbody.ChangePasswordRequest;
-import br.com.museuid.service.remote.requestbody.LoginRequest;
-import br.com.museuid.service.remote.requestbody.PutQueueRequest;
-import br.com.museuid.service.remote.requestbody.StatisticRequest;
+import br.com.museuid.service.remote.requestbody.*;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Query;
+import retrofit2.http.*;
+
+import java.util.List;
 
 public interface APIService {
     //Sample
@@ -100,4 +86,7 @@ public interface APIService {
 
     @POST("years-period")
     Call<ResponseDTO<ChartData>> getYearStatistic(@Body StatisticRequest statisticRequest);
+
+    @GET("queues")
+    Call<ResponseDTO<List<OrderDetail>>> getOrderByStatus(@Query("filter") String statusFilter);
 }
