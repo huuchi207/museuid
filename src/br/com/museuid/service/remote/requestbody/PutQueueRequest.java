@@ -8,7 +8,7 @@ import java.util.List;
 public class PutQueueRequest {
     @SerializedName("sumup")
     @Expose
-    protected String sumup;
+    protected Integer sumup;
     @SerializedName("items")
     @Expose
     protected List<Item> items = null;
@@ -31,7 +31,7 @@ public class PutQueueRequest {
     public PutQueueRequest() {
     }
 
-    public PutQueueRequest(String sumup, List<Item> items, String customername, String customerid, String sessionid, String comment) {
+    public PutQueueRequest(Integer sumup, List<Item> items, String customername, String customerid, String sessionid, String comment) {
         this.sumup = sumup;
         this.items = items;
         this.customername = customername;
@@ -40,11 +40,11 @@ public class PutQueueRequest {
         this.comment = comment;
     }
 
-    public String getSumup() {
+    public Integer getSumup() {
         return sumup;
     }
 
-    public void setSumup(String sumup) {
+    public void setSumup(Integer sumup) {
         this.sumup = sumup;
     }
 

@@ -1,13 +1,11 @@
 package br.com.museuid.model.data;
 
+import br.com.museuid.service.remote.requestbody.PutQueueRequest;
+import br.com.museuid.util.BundleUtils;
 import com.google.gson.annotations.SerializedName;
-
 import org.apache.commons.lang3.EnumUtils;
 
 import java.util.List;
-
-import br.com.museuid.service.remote.requestbody.PutQueueRequest;
-import br.com.museuid.util.BundleUtils;
 
 public class OrderDetail extends PutQueueRequest {
     @SerializedName("_id")
@@ -35,7 +33,7 @@ public class OrderDetail extends PutQueueRequest {
         super();
     }
 
-    public OrderDetail(String sumup, List<Item> items, String customername, String customerid, String sessionid, String comment) {
+    public OrderDetail(Integer sumup, List<Item> items, String customername, String customerid, String sessionid, String comment) {
         super(sumup, items, customername, customerid, sessionid, comment);
     }
 

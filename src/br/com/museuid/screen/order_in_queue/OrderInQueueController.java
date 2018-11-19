@@ -207,6 +207,7 @@ public class OrderInQueueController extends AnchorPane {
             public void onSuccess(Object data) {
                 AppController.getInstance().hideProgressDialog();
                 Messenger.info(bundle.getString("txt_operation_successful"));
+                selecteOrder = null;
                 orderQueue();
             }
         });
@@ -233,6 +234,7 @@ public class OrderInQueueController extends AnchorPane {
             public void onSuccess(Object data) {
                 AppController.getInstance().hideProgressDialog();
                 Messenger.info(bundle.getString("txt_operation_successful"));
+                selecteOrder = null;
                 orderQueue();
             }
         });
@@ -246,6 +248,7 @@ public class OrderInQueueController extends AnchorPane {
         AppController.getInstance().showProgressDialog();
         OrderDetail selected = tbOrderInQueue.getSelectionModel().getSelectedItem();
         selected.setStatus(OrderDetail.OrderStatus.PROGRESSING.name());
+        selected.setQueueid(selected.getId());
         ServiceBuilder.getApiService().updateQueue(selected).enqueue(new BaseCallback<Object>() {
             @Override
             public void onError(String errorCode, String errorMessage) {
