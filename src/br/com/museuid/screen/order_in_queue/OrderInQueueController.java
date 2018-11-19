@@ -1,15 +1,6 @@
 package br.com.museuid.screen.order_in_queue;
 
-import com.google.gson.Gson;
-
-import org.controlsfx.control.GridView;
-import org.json.JSONObject;
-
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
+import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.customview.sectiongridview.ItemGridCellFactory;
 import br.com.museuid.customview.sectiongridview.ItemGridView;
 import br.com.museuid.model.data.OrderDetail;
@@ -21,6 +12,7 @@ import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.NoticeUtils;
+import com.google.gson.Gson;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -37,6 +29,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.GridView;
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class OrderInQueueController extends AnchorPane {
     public AnchorPane apOrderInQueueTable;
@@ -74,7 +73,7 @@ public class OrderInQueueController extends AnchorPane {
     private ObservableList<OrderDetail> orderDetailObservableList = FXCollections.observableList(listOrder);
     private List<PutQueueRequest.Item> listProductInOrder = new ArrayList<>();
     private ObservableList<PutQueueRequest.Item> observableListProductInOrder = FXCollections.observableList(listProductInOrder);
-
+    private OrderDetail selecteOrder;
     public OrderInQueueController() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("order_in_queue.fxml"));
@@ -101,23 +100,16 @@ public class OrderInQueueController extends AnchorPane {
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                 @Override
                 public void call(Object... objects) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-//                            Messenger.info("Connect succesfully");
-                        }
-                    });
+                    socket.emit("room", "employee");
                 }
-            }).on("New queue", new Emitter.Listener() {
+            }).on("New order", new Emitter.Listener() {
                 @Override
                 public void call(Object... objects) {
                     for (Object object : objects){
                         JSONObject jsonObject = (JSONObject)object;
                         OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
                         order.updateFields();
-                        //TODO: will be removed
-                        order.setLocation("Tầng 1");
-                        order.setUpdate("14/11/2018 14h00");
+
                         orderDetailObservableList.add(order);
                     }
                 }
@@ -189,6 +181,7 @@ public class OrderInQueueController extends AnchorPane {
         colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
         colOrderName.setCellValueFactory(new PropertyValueFactory<>("orderName"));
         colOrderDescription.setCellValueFactory(new PropertyValueFactory<>("orderDescription"));
+        colOrderDescription.setCellFactory(tv -> new MutipleLineTableCell());
 
         tbOrderInQueue.setItems(orderDetailObservableList);
     }
@@ -196,11 +189,53 @@ public class OrderInQueueController extends AnchorPane {
     @FXML
     private void doneOrder(ActionEvent event) {
         //TODO: update state of order
+        if (selecteOrder == null || !selecteOrder.getStatus().equalsIgnoreCase(OrderDetail.OrderStatus.PROGRESSING.name())){
+            Messenger.erro("Có lỗi xảy ra!");
+            orderQueue();
+            return;
+        }
+        selecteOrder.setStatus(OrderDetail.OrderStatus.DONE.name());
+        AppController.getInstance().showProgressDialog();
+        ServiceBuilder.getApiService().updateQueue(selecteOrder).enqueue(new BaseCallback<Object>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                AppController.getInstance().hideProgressDialog();
+                Messenger.erro(errorMessage);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                AppController.getInstance().hideProgressDialog();
+                Messenger.info(bundle.getString("txt_operation_successful"));
+                orderQueue();
+            }
+        });
     }
 
     @FXML
     private void cancelOrder(ActionEvent event) {
         //TODO: update state of order
+        if (selecteOrder == null || !selecteOrder.getStatus().equalsIgnoreCase(OrderDetail.OrderStatus.PROGRESSING.name())){
+            Messenger.erro("Có lỗi xảy ra!");
+            orderQueue();
+            return;
+        }
+        selecteOrder.setStatus(OrderDetail.OrderStatus.CANCELED.name());
+        AppController.getInstance().showProgressDialog();
+        ServiceBuilder.getApiService().updateQueue(selecteOrder).enqueue(new BaseCallback<Object>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                AppController.getInstance().hideProgressDialog();
+                Messenger.erro(errorMessage);
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                AppController.getInstance().hideProgressDialog();
+                Messenger.info(bundle.getString("txt_operation_successful"));
+                orderQueue();
+            }
+        });
     }
     @FXML
     private void handleOrder(ActionEvent event){
@@ -210,17 +245,12 @@ public class OrderInQueueController extends AnchorPane {
         }
         AppController.getInstance().showProgressDialog();
         OrderDetail selected = tbOrderInQueue.getSelectionModel().getSelectedItem();
-        OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setQueueid(selected.getId());
-        orderDetail.setSumup(selected.getSumup());
-        orderDetail.setStatus(OrderDetail.OrderStatus.PROGRESSING.name());
-        ServiceBuilder.getApiService().updateQueue(orderDetail).enqueue(new BaseCallback<Object>() {
+        selected.setStatus(OrderDetail.OrderStatus.PROGRESSING.name());
+        ServiceBuilder.getApiService().updateQueue(selected).enqueue(new BaseCallback<Object>() {
             @Override
             public void onError(String errorCode, String errorMessage) {
                 AppController.getInstance().hideProgressDialog();
                 Messenger.erro(errorMessage);
-                //TODO: will be removed
-                goToOrderDetail(selected);
             }
 
             @Override
@@ -235,6 +265,7 @@ public class OrderInQueueController extends AnchorPane {
         NavigationUtils.setVisibility(false, apOrderInfo);
     }
     private void goToOrderDetail(OrderDetail selected){
+        selecteOrder = selected;
         NavigationUtils.setVisibility(false, apOrderInQueueTable);
         NavigationUtils.setVisibility(true, apOrderInfo);
         lbTotalPrice.setText("Tổng giá trị: "+ selected.getSumup());
