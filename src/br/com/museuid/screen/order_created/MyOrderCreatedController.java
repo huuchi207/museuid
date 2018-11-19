@@ -155,7 +155,7 @@ public class MyOrderCreatedController extends AnchorPane {
                             if (orderDetail.getId().equals(order.getId())){
                                 order = orderDetail;
                                 order.updateFields();
-                                observableList.add(order);
+                                tbOrderCreated.refresh();
                                 break;
                             }
                         }
