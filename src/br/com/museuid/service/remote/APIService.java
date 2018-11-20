@@ -88,5 +88,5 @@ public interface APIService {
     Call<ResponseDTO<ChartData>> getYearStatistic(@Body StatisticRequest statisticRequest);
 
     @GET("queues")
-    Call<ResponseDTO<List<OrderDetail>>> getOrderByStatus(@Query("filter") String statusFilter);
+    Call<ResponseDTO<List<OrderDetail>>> getOrderByStatus(@Query("filter") String statusFilter, @Query("handlerid") String handlerid);
 }

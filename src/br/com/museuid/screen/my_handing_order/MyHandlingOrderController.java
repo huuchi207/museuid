@@ -1,20 +1,12 @@
-package br.com.museuid.screen.order_in_queue;
+package br.com.museuid.screen.my_handing_order;
 
-import br.com.museuid.Constants;
 import br.com.museuid.customview.MutipleLineTableCell;
-import br.com.museuid.customview.sectiongridview.ItemGridCellFactory;
-import br.com.museuid.customview.sectiongridview.ItemGridView;
 import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
 import br.com.museuid.util.*;
-import com.google.gson.Gson;
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,18 +18,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import org.controlsfx.control.GridView;
-import org.json.JSONObject;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class OrderInQueueController extends AnchorPane {
+public class MyHandlingOrderController extends AnchorPane {
     public AnchorPane apOrderInQueueTable;
-    public TableView<OrderDetail> tbOrderInQueue;
+    public TableView<OrderDetail> tbOrderList;
     public TableColumn colTime;
     public TableColumn colDevice;
     public TableColumn colLocation;
@@ -72,9 +60,9 @@ public class OrderInQueueController extends AnchorPane {
     private List<PutQueueRequest.Item> listProductInOrder = new ArrayList<>();
     private ObservableList<PutQueueRequest.Item> observableListProductInOrder = FXCollections.observableList(listProductInOrder);
     private OrderDetail selecteOrder;
-    public OrderInQueueController() {
+    public MyHandlingOrderController() {
         try {
-            FXMLLoader fxml = new FXMLLoader(getClass().getResource("order_in_queue.fxml"));
+            FXMLLoader fxml = new FXMLLoader(getClass().getResource("my_handling_order.fxml"));
 
             fxml.setRoot(this);
             fxml.setController(this);
@@ -93,13 +81,14 @@ public class OrderInQueueController extends AnchorPane {
 //        createListDeviceView();
         orderQueue();
 
-        getNewOrderList();
+        getHandlingOrderList();
 
     }
 
-    private void getNewOrderList() {
+    private void getHandlingOrderList() {
         AppController.getInstance().showProgressDialog();
-        ServiceBuilder.getApiService().getOrderByStatus(OrderDetail.OrderStatus.NEW.name(), null)
+        ServiceBuilder.getApiService().getOrderByStatus(OrderDetail.OrderStatus.PROGRESSING.name(),
+                StaticVarUtils.getSessionUserInfo().getInfo().getId())
                 .enqueue(new BaseCallback<List<OrderDetail>>() {
                     @Override
                     public void onError(String errorCode, String errorMessage) {
@@ -116,45 +105,11 @@ public class OrderInQueueController extends AnchorPane {
                                 orderDetail.updateFields();
                                 orderDetailObservableList.addAll(data);
                             }
-                            tbOrderInQueue.refresh();
+                            tbOrderList.refresh();
                         }
-                        //then listen on changes
-                        listenOnChange();
+
                     }
                 });
-    }
-
-    private void createListDeviceView() {
-        ItemGridCellFactory itemGridCellFactory = new ItemGridCellFactory();
-        itemGridCellFactory.setOnTouch(new ItemGridCellFactory.OnTouch() {
-            @Override
-            public void onClick(ItemGridView item) {
-                Messenger.info(item.getDeviceName());
-            }
-        });
-        VBox vBox = new VBox();
-        AnchorPane.setLeftAnchor(vBox, 0.0);
-        AnchorPane.setRightAnchor(vBox, 0.0);
-        AnchorPane.setTopAnchor(vBox, 0.0);
-        AnchorPane.setBottomAnchor(vBox, 0.0);
-        for (int j = 0; j < 3; j++){
-            GridView gridView = new GridView();
-            final ObservableList<ItemGridView> list = FXCollections.observableArrayList();
-            gridView.setCellFactory(itemGridCellFactory);
-            gridView.cellWidthProperty().set(100);
-            gridView.cellHeightProperty().set(100);
-            for (int i = 0; i < 50; i++) {
-                ItemGridView itemGridView = new ItemGridView();
-                itemGridView.setDeviceName("Máy " + (i + 1));
-
-//            itemGridView.setNewOrder();
-                list.add(itemGridView);
-            }
-            gridView.setItems(list);
-            vBox.getChildren().add(new Label("Section "+ j));
-            vBox.getChildren().add(gridView);
-        }
-        apOrderInQueue.getChildren().add(vBox);
     }
 
     void initTable() {
@@ -175,7 +130,7 @@ public class OrderInQueueController extends AnchorPane {
         colOrderDescription.setCellValueFactory(new PropertyValueFactory<>("orderDescription"));
         colOrderDescription.setCellFactory(tv -> new MutipleLineTableCell());
 
-        tbOrderInQueue.setItems(orderDetailObservableList);
+        tbOrderList.setItems(orderDetailObservableList);
     }
 
     @FXML
@@ -186,6 +141,7 @@ public class OrderInQueueController extends AnchorPane {
             return;
         }
         selecteOrder.setStatus(OrderDetail.OrderStatus.DONE.name());
+        selecteOrder.setQueueid(selecteOrder.getId());
         selecteOrder.setHandlerid(StaticVarUtils.getSessionUserInfo().getInfo().getId());
         selecteOrder.setHandlername(StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
         AppController.getInstance().showProgressDialog();
@@ -200,6 +156,7 @@ public class OrderInQueueController extends AnchorPane {
             public void onSuccess(Object data) {
                 AppController.getInstance().hideProgressDialog();
                 Messenger.info(bundle.getString("txt_operation_successful"));
+                removeOrderFromOrderObservableList(selecteOrder);
                 selecteOrder = null;
                 orderQueue();
             }
@@ -208,11 +165,12 @@ public class OrderInQueueController extends AnchorPane {
 
     @FXML
     private void cancelOrder(ActionEvent event) {
-        if (selecteOrder == null){
+        if (selecteOrder == null ){
             Messenger.erro("Có lỗi xảy ra!");
             orderQueue();
             return;
         }
+        selecteOrder.setQueueid(selecteOrder.getId());
         selecteOrder.setStatus(OrderDetail.OrderStatus.CANCELED.name());
         selecteOrder.setHandlerid(StaticVarUtils.getSessionUserInfo().getInfo().getId());
         selecteOrder.setHandlername(StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
@@ -228,6 +186,7 @@ public class OrderInQueueController extends AnchorPane {
             public void onSuccess(Object data) {
                 AppController.getInstance().hideProgressDialog();
                 Messenger.info(bundle.getString("txt_operation_successful"));
+                removeOrderFromOrderObservableList(selecteOrder);
                 selecteOrder = null;
                 orderQueue();
             }
@@ -235,29 +194,12 @@ public class OrderInQueueController extends AnchorPane {
     }
     @FXML
     private void handleOrder(ActionEvent event){
-        if (tbOrderInQueue.getSelectionModel().getSelectedItem() == null){
+        if (tbOrderList.getSelectionModel().getSelectedItem() == null){
             NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
             return;
         }
-        AppController.getInstance().showProgressDialog();
-        OrderDetail selected = tbOrderInQueue.getSelectionModel().getSelectedItem();
-        selected.setStatus(OrderDetail.OrderStatus.PROGRESSING.name());
-        selected.setQueueid(selected.getId());
-        selected.setHandlerid(StaticVarUtils.getSessionUserInfo().getInfo().getId());
-        selected.setHandlername(StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
-        ServiceBuilder.getApiService().updateQueue(selected).enqueue(new BaseCallback<Object>() {
-            @Override
-            public void onError(String errorCode, String errorMessage) {
-                AppController.getInstance().hideProgressDialog();
-                Messenger.erro(errorMessage);
-            }
 
-            @Override
-            public void onSuccess(Object data) {
-                AppController.getInstance().hideProgressDialog();
-                goToOrderDetail(selected);
-            }
-        });
+        goToOrderDetail(tbOrderList.getSelectionModel().getSelectedItem());
     }
     private void orderQueue(){
         NavigationUtils.setVisibility(true, apOrderInQueueTable);
@@ -272,59 +214,13 @@ public class OrderInQueueController extends AnchorPane {
         tbOrderInfo.setItems(observableListProductInOrder);
     }
 
-    private void listenOnChange(){
-        Gson gson =new Gson();
-        try {
-            Socket socket = IO.socket(ServiceBuilder.getBASEURL());
-            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-                @Override
-                public void call(Object... objects) {
-                    socket.emit("room", "employee");
-                }
-            }).on(Constants.NEW_ORDER_EVENT, new Emitter.Listener() {
-                @Override
-                public void call(Object... objects) {
-                    for (Object object : objects){
-                        JSONObject jsonObject = (JSONObject)object;
-                        OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
-                        order.updateFields();
-
-                        orderDetailObservableList.add(order);
-                    }
-                    tbOrderInQueue.refresh();
-                }
-            }).on(Constants.CHANGE_ORDER_EVENT, new Emitter.Listener() {
-                @Override
-                public void call(Object... objects) {
-                    for (Object object : objects){
-                        JSONObject jsonObject = (JSONObject)object;
-                        OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
-                        for (int i = 0; i< orderDetailObservableList.size(); i++){
-                            OrderDetail orderDetail = orderDetailObservableList.get(i);
-                            if (orderDetail.getId().equals(order.getId())){
-                                orderDetailObservableList.remove(i);
-                                break;
-                            }
-                        }
-                    }
-                    tbOrderInQueue.refresh();
-                }
-            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
-
-                @Override
-                public void call(Object... args) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-//                            Messenger.info("Disconnected");
-                        }
-                    });
-                }
-
-            });
-            socket.connect();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+    private void removeOrderFromOrderObservableList(OrderDetail orderDetail){
+        for (int i = 0; i< orderDetailObservableList.size(); i++){
+            if (orderDetail.getId().equals(orderDetailObservableList.get(i).getId())){
+                orderDetailObservableList.remove(i);
+                break;
+            }
         }
+        tbOrderList.refresh();
     }
 }

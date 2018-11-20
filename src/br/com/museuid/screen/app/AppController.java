@@ -1,11 +1,5 @@
 package br.com.museuid.screen.app;
 
-import org.apache.commons.lang3.EnumUtils;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
 import br.com.museuid.config.ConstantConfig;
@@ -27,6 +21,11 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.EnumUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AppController {
     private static AppController instance;
@@ -104,7 +103,7 @@ public class AppController {
                 userListBoxMenu = new ArrayList<Node>(
                     Arrays.asList(btOrderSection, boxOrderSection, btAppManagementSection, boxManagement, btUserInfoSection, boxUserInfo));
                 userListFeatureView = new ArrayList<Node>(
-                Arrays.asList(btOrderInQueue, btEmployeeManagement, btProductManagement, btDeviceManagement, btStatistic, btStockImporting,
+                Arrays.asList(btOrderInQueue, btMyHandlingOrder, btEmployeeManagement, btProductManagement, btDeviceManagement, btStatistic, btStockImporting,
                 btUpdateUserInfo, btChangePassword));
                 openOrderInQueueScreen(new ActionEvent(btOrderInQueue, null));
                 break;
@@ -126,7 +125,7 @@ public class AppController {
                 userListBoxMenu = new ArrayList<Node>(
                     Arrays.asList(btOrderSection, boxOrderSection, btUserInfoSection, boxUserInfo));
                 userListFeatureView = new ArrayList<Node>(
-                    Arrays.asList(btOrderInQueue, btUpdateUserInfo, btChangePassword));
+                    Arrays.asList(btOrderInQueue, btMyHandlingOrder,btUpdateUserInfo, btChangePassword));
                 openOrderInQueueScreen(new ActionEvent(btOrderInQueue, null));
                 break;
         }
@@ -289,7 +288,13 @@ public class AppController {
         NavigationUtils.getDeviceManagementScreen(boxContainer);
         setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
     }
-
+    public void openMyHandingOrderScreen(ActionEvent event) {
+        if (event.getSource() == currentScreen){
+            return;
+        }
+        NavigationUtils.getMyHandlingOrderScreen(boxContainer);
+        setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
+    }
     public void openStockImporting(ActionEvent event) {
 
     }

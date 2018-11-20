@@ -1,8 +1,8 @@
 package br.com.museuid.service.remote;
 
-import com.google.gson.Gson;
-
+import br.com.museuid.screen.app.AppController;
 import br.com.museuid.util.BundleUtils;
+import com.google.gson.Gson;
 import javafx.application.Platform;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +23,14 @@ public abstract class BaseCallback<T> implements Callback<ResponseDTO<T>> {
               mBody = null;
               String responseCode = SERVER_ERROR;
               String message = getServerMsg();
+              if (response.code() == 401){
+                  try {
+                      AppController.getInstance().startLogin();
+                  } catch (Exception e) {
+                      e.printStackTrace();
+                  }
 
+              }
               if (!response.isSuccessful()) {
                   onError(responseCode, message);
                   return;

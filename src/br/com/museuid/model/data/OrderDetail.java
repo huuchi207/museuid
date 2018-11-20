@@ -20,6 +20,24 @@ public class OrderDetail extends PutQueueRequest {
     private String orderDescription;
     private String orderName;
     private String statusText;
+    private String handlerid;
+    private String handlername;
+
+    public String getHandlerid() {
+        return handlerid;
+    }
+
+    public void setHandlerid(String handlerid) {
+        this.handlerid = handlerid;
+    }
+
+    public String getHandlername() {
+        return handlername;
+    }
+
+    public void setHandlername(String handlername) {
+        this.handlername = handlername;
+    }
 
     public String getQueueid() {
         return queueid;
