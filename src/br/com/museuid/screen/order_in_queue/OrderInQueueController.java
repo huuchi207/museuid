@@ -1,5 +1,6 @@
 package br.com.museuid.screen.order_in_queue;
 
+import br.com.museuid.Constants;
 import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.customview.sectiongridview.ItemGridCellFactory;
 import br.com.museuid.customview.sectiongridview.ItemGridView;
@@ -209,7 +210,6 @@ public class OrderInQueueController extends AnchorPane {
 
     @FXML
     private void cancelOrder(ActionEvent event) {
-        //TODO: update state of order
         if (selecteOrder == null || !selecteOrder.getStatus().equalsIgnoreCase(OrderDetail.OrderStatus.PROGRESSING.name())){
             Messenger.erro("Có lỗi xảy ra!");
             orderQueue();
@@ -279,7 +279,7 @@ public class OrderInQueueController extends AnchorPane {
                 public void call(Object... objects) {
                     socket.emit("room", "employee");
                 }
-            }).on("New order", new Emitter.Listener() {
+            }).on(Constants.NEW_ORDER_EVENT, new Emitter.Listener() {
                 @Override
                 public void call(Object... objects) {
                     for (Object object : objects){
@@ -288,6 +288,21 @@ public class OrderInQueueController extends AnchorPane {
                         order.updateFields();
 
                         orderDetailObservableList.add(order);
+                    }
+                }
+            }).on(Constants.CHANGE_ORDER_EVENT, new Emitter.Listener() {
+                @Override
+                public void call(Object... objects) {
+                    for (Object object : objects){
+                        JSONObject jsonObject = (JSONObject)object;
+                        OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
+                        for (int i = 0; i< orderDetailObservableList.size(); i++){
+                            OrderDetail orderDetail = orderDetailObservableList.get(i);
+                            if (orderDetail.getId().equals(order.getId())){
+                                orderDetailObservableList.remove(i);
+                                break;
+                            }
+                        }
                     }
                 }
             }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
