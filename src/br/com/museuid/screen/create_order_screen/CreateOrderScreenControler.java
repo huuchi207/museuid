@@ -32,14 +32,14 @@ public class CreateOrderScreenControler extends AnchorPane {
     //product list
     public AnchorPane apProductList;
     public TableView<Product> tbProduct;
-//    public TableColumn colId;
+    //    public TableColumn colId;
     public TableColumn colProductName;
     public TableColumn colDescription;
     public TableColumn colPrice;
     //order
     public AnchorPane apEditOrderList;
     public TableView<ProductInOrder> tbProductInOrder;
-//    public TableColumn colIdInOrder;
+    //    public TableColumn colIdInOrder;
     public TableColumn colProductNameInOrder;
     public TableColumn colDescriptionInOrder;
     public TableColumn colPriceInOrder;
@@ -90,7 +90,7 @@ public class CreateOrderScreenControler extends AnchorPane {
 
     private void initTable() {
         tbProduct.getSelectionModel().setSelectionMode(
-            SelectionMode.MULTIPLE
+                SelectionMode.MULTIPLE
         );
 //        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
@@ -214,6 +214,13 @@ public class CreateOrderScreenControler extends AnchorPane {
         if (productInOrders.isEmpty()){
             Messenger.info(bundle.getString("txt_please_choose_product"));
             return;
+        } else {
+            for (ProductInOrder productInOrder : productInOrders){
+                if (productInOrder.getInStock() == null || productInOrder.getInStock() == 0){
+                    Messenger.erro("Sản phẩm "+ productInOrder.getProductName() +" hiện đang hết hàng. Vui lòng chọn sản phẩm khác!");
+                    return;
+                }
+            }
         }
         updateProductInOrderTable();
         updateProductInOrderScreenData();
@@ -244,11 +251,10 @@ public class CreateOrderScreenControler extends AnchorPane {
                 public void onSuccess(Object data) {
                     AppController.getInstance().hideProgressDialog();
                     Messenger.info(bundle.getString("txt_operation_successful"));
+                    goToProductList(event);
                 }
             });
         }
-
-        goToProductList(event);
     }
 
     @FXML
@@ -261,7 +267,7 @@ public class CreateOrderScreenControler extends AnchorPane {
         NavigationUtils.setVisibility(true, btEditOrder, apProductList,txtSearch);
         NavigationUtils.setVisibility(false, btBackToList, btCreateOrder, apEditOrderList);
     }
-    List<ProductInOrder> createProductInOrderListFromSelectedProductList(){
+    private List<ProductInOrder> createProductInOrderListFromSelectedProductList(){
         if (productList == null || productList.isEmpty()){
             return new ArrayList<>();
         }
@@ -304,7 +310,7 @@ public class CreateOrderScreenControler extends AnchorPane {
 
     private PutQueueRequest createPutOrderRequest(){
         if (StaticVarUtils.getSessionDeviceInfo() == null || StaticVarUtils.getSessionDeviceInfo().getInfo() == null){
-//            AppController.getInstance().startInitialize();
+            AppController.getInstance().startLogin();
         }
         ObservableList<ProductInOrder> orderObservableList = tbProductInOrder.getItems();
 
@@ -312,22 +318,23 @@ public class CreateOrderScreenControler extends AnchorPane {
         ListIterator<ProductInOrder> iterator = orderObservableList.listIterator();
         while (iterator.hasNext()) {
             ProductInOrder productInOrder = iterator.next();
-            int priceOfProduct = productInOrder.getPrice() * productInOrder.getCount();
+            int priceOfProduct = Integer.valueOf(productInOrder.getPrice()) * productInOrder.getCount();
             items.add(new PutQueueRequest.Item(productInOrder.getProductName(),
-                productInOrder.getId(),
-                productInOrder.getCount(),
-                productInOrder.getPrice(),
-                priceOfProduct,
-                productInOrder.getMoreRequirement(),
-                priceOfProduct));
+                    productInOrder.getId(),
+                    productInOrder.getCount(),
+                    productInOrder.getPrice(),
+                    priceOfProduct,
+                    productInOrder.getMoreRequirement(),
+                    priceOfProduct));
             totalPrice+= priceOfProduct;
         }
 
         PutQueueRequest putQueueRequest= new PutQueueRequest(totalPrice , items,
-            StaticVarUtils.getSessionDeviceInfo().getInfo().getName(),
-            StaticVarUtils.getSessionDeviceInfo().getInfo().getId(),
-            StaticVarUtils.getSessionDeviceInfo().getSessionid(),
-            null);
+                StaticVarUtils.getSessionDeviceInfo().getInfo().getName(),
+                StaticVarUtils.getSessionDeviceInfo().getInfo().getId(),
+                StaticVarUtils.getSessionDeviceInfo().getSessionid(),
+                null);
+        putQueueRequest.setLocation(StaticVarUtils.getSessionDeviceInfo().getInfo().getLocation());
         return putQueueRequest;
     }
 }
