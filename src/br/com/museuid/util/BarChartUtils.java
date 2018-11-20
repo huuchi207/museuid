@@ -1,19 +1,5 @@
 package br.com.museuid.util;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.block.BlockBorder;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.title.TextTitle;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
-
-import java.awt.Color;
-import java.util.List;
-import java.util.Map;
-
 import br.com.museuid.dto.ChartData;
 import br.com.museuid.dto.Column;
 import br.com.museuid.dto.GroupColumn;
@@ -26,10 +12,20 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.Chart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.text.Text;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.block.BlockBorder;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+import java.awt.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Barchart
@@ -128,7 +124,7 @@ public class BarChartUtils {
         return chart;
     }
 
-    public static CategoryDataset convertChartDataToCategoryDataset(ChartData chartData){
+    public static DefaultCategoryDataset convertChartDataToCategoryDataset(ChartData chartData){
         DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
         if (chartData == null || chartData.getGroupColumns() == null)
             return categoryDataset;

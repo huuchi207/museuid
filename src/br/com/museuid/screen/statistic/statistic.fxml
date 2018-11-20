@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?><?import javafx.scene.layout.*?><?import java.lang.*?><?import java.net.URL?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import java.net.URL?>
 <fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea"
-  xmlns:fx="http://javafx.com/fxml/1">
+         xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <HBox prefHeight="60.0" prefWidth="1207.0" styleClass="box-topo" AnchorPane.leftAnchor="0.0"
       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <Label fx:id="lbTitle" layoutX="10.0" maxWidth="1.7976931348623157E308" styleClass="titulo"
           text="%txt_statistic" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS"></Label>
+          AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS"/>
 
       </children>
     </HBox>
@@ -28,7 +31,15 @@
         <RowConstraints vgrow="ALWAYS" />
       </rowConstraints>
       <children>
-        <AnchorPane fx:id="boxGraphic" styleClass="box-grafico" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+        <AnchorPane  styleClass="box-grafico" GridPane.columnSpan="3" GridPane.rowIndex="3"
+        >
+          <AnchorPane fx:id="boxGraphic" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0"
+          AnchorPane.topAnchor="0"/>
+          <ScrollBar fx:id="scrollBar" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
+                     AnchorPane.rightAnchor="0" prefHeight="20" orientation="HORIZONTAL"
+                     />
+        </AnchorPane>
         <Label text="%txt_period" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <styleClass>
             <String fx:value="titulo-campos" />

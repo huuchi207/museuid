@@ -1,16 +1,5 @@
 package br.com.museuid.screen.statistic;
 
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.fx.ChartViewer;
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.ChartData;
 import br.com.museuid.dto.GroupColumn;
@@ -19,27 +8,27 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.StatisticRequest;
-import br.com.museuid.util.BarChartUtils;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.ComboUtils;
-import br.com.museuid.util.FakeDataUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.ResizeUtils;
-import br.com.museuid.util.TimeUtils;
+import br.com.museuid.util.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.fx.ChartViewer;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.category.SlidingCategoryDataset;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public class StatisticController extends AnchorPane {
 
@@ -72,10 +61,12 @@ public class StatisticController extends AnchorPane {
     private AnchorPane boxLegenda;
     @FXML
     private ComboBox<String> cbReportType;
+    @FXML
+    private ScrollBar scrollBar;
     private ResourceBundle bundle;
     private JFreeChart freeChart;
     private ChartViewer chartViewer;
-
+    private SlidingCategoryDataset dataset;
     public StatisticController() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("statistic.fxml"));
@@ -103,6 +94,13 @@ public class StatisticController extends AnchorPane {
         freeChart = BarChartUtils.createJFreeChart(null);
         chartViewer = new ChartViewer(freeChart);
         addChart(boxGraphic, chartViewer);
+        scrollBar.setVisible(false);
+        scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> observable,
+                                Number oldValue, Number newValue) {
+                    dataset.setFirstCategoryIndex(newValue.intValue()*10);
+            }
+        });
         if (ConstantConfig.FAKE) {
             ChartData chartData = FakeDataUtils.getFakeGroupBarChart();
             Map<String, List<? extends BaseChartItem>> mapData = new HashMap<>();
@@ -230,7 +228,18 @@ public class StatisticController extends AnchorPane {
     }
 
     private void updateChartData(ChartData chartData){
-        freeChart.getCategoryPlot().setDataset(BarChartUtils.convertChartDataToCategoryDataset(chartData));
+        DefaultCategoryDataset defaultCategoryDataset = BarChartUtils.convertChartDataToCategoryDataset(chartData);
+        dataset = new SlidingCategoryDataset(defaultCategoryDataset, 0, 10);
+        if (dataset.getColumnCount()<10) {
+            scrollBar.setVisible(false);
+        } else {
+            scrollBar.setVisible(true);
+            scrollBar.setMin(0);
+            scrollBar.setValue(0);
+            scrollBar.setMax((double)defaultCategoryDataset.getColumnCount()/10);
+            scrollBar.setVisibleAmount(1);
+        }
+        freeChart.getCategoryPlot().setDataset(dataset);
         freeChart.setTitle(chartData.getChartName());
 //        freeChart.getCategoryPlot().
         freeChart.fireChartChanged();
