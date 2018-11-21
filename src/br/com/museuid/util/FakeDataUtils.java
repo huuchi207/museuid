@@ -1,5 +1,8 @@
 package br.com.museuid.util;
 
+import br.com.museuid.app.App;
+import br.com.museuid.dto.*;
+import br.com.museuid.service.remote.ResponseDTO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -7,16 +10,6 @@ import com.google.gson.stream.JsonReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import br.com.museuid.app.App;
-import br.com.museuid.dto.ChartData;
-import br.com.museuid.dto.Column;
-import br.com.museuid.dto.EmployeeDTO;
-import br.com.museuid.dto.EmployeeListDTO;
-import br.com.museuid.dto.GroupColumn;
-import br.com.museuid.dto.Product;
-import br.com.museuid.dto.ProductListDTO;
-import br.com.museuid.service.remote.ResponseDTO;
 
 public class FakeDataUtils {
   public static List<EmployeeDTO> getFakeEmployeeList(){
@@ -57,15 +50,15 @@ public class FakeDataUtils {
         return new ArrayList<>();
     }
 
-    public static ChartData getFakeGroupBarChart(){
+    public static PeriodChartData getFakeGroupBarChart(){
         try{
             JsonReader reader = readFile("groupbarchart.json");
             if (reader != null){
-                ResponseDTO<ChartData> responseDTO = new Gson()
+                ResponseDTO<PeriodChartData> responseDTO = new Gson()
                     .fromJson(reader, new TypeToken<ResponseDTO<ChartData>>() {
                     }.getType());
                 if (responseDTO!= null){
-                    ChartData chartData = responseDTO.getResult();
+                    PeriodChartData chartData = responseDTO.getResult();
                     for (GroupColumn groupColumn : chartData.getGroupColumns()){
                         for (Column column : groupColumn.getColumns()){
                             column.setValue(1000000+ (Math.random() * ((1000 - 1) + 1)));

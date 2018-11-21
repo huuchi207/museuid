@@ -3,7 +3,9 @@ package br.com.museuid.dto;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ChartData {
+import java.util.List;
+
+public class PeriodChartData {
     @SerializedName("chartName")
     @Expose
     private String chartName;
@@ -12,7 +14,7 @@ public class ChartData {
     private String unit;
     @SerializedName("groupColumns")
     @Expose
-    private GroupColumn groupColumns = null;
+    private List<GroupColumn> groupColumns = null;
 
     public String getChartName() {
         return chartName;
@@ -30,11 +32,12 @@ public class ChartData {
         this.unit = unit;
     }
 
-    public GroupColumn getGroupColumns() {
+    public List<GroupColumn> getGroupColumns() {
         return groupColumns;
     }
 
-    public void setGroupColumns(GroupColumn groupColumns) {
+    public void setGroupColumns(List<GroupColumn> groupColumns) {
         this.groupColumns = groupColumns;
     }
+
 }

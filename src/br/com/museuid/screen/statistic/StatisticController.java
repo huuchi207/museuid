@@ -3,6 +3,8 @@ package br.com.museuid.screen.statistic;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.ChartData;
 import br.com.museuid.dto.GroupColumn;
+import br.com.museuid.dto.PeriodChartData;
+import br.com.museuid.dto.UserDTO;
 import br.com.museuid.model.data.BaseChartItem;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
@@ -102,7 +104,7 @@ public class StatisticController extends AnchorPane {
             }
         });
         if (ConstantConfig.FAKE) {
-            ChartData chartData = FakeDataUtils.getFakeGroupBarChart();
+            PeriodChartData chartData = FakeDataUtils.getFakeGroupBarChart();
             Map<String, List<? extends BaseChartItem>> mapData = new HashMap<>();
             for (GroupColumn groupColumn : chartData.getGroupColumns()) {
                 mapData.put(groupColumn.getTitle(), groupColumn.getColumns());
@@ -155,80 +157,54 @@ public class StatisticController extends AnchorPane {
             StatisticRequest statisticRequest = new StatisticRequest(
                 TimeUtils.convertDateTimeToStartTimeFormat(datePickerStart.getValue()),
                 TimeUtils.convertDateTimeToEndTimeFormat(datePickerEnd.getValue()));
+            BaseCallback<PeriodChartData> periodChartDataCallback = new BaseCallback<PeriodChartData>() {
+                @Override
+                public void onError(String errorCode, String errorMessage) {
+                    AppController.getInstance().hideProgressDialog();
+                    Messenger.erro(errorMessage);
+                }
+
+                @Override
+                public void onSuccess(PeriodChartData data) {
+                    AppController.getInstance().hideProgressDialog();
+                    updateChartData(BarChartUtils.convertPeriodChartDataToCategoryDataset(data));
+                }
+            };
+
+            BaseCallback<ChartData> chartDataCallback = new BaseCallback<ChartData>() {
+                @Override
+                public void onError(String errorCode, String errorMessage) {
+                    AppController.getInstance().hideProgressDialog();
+                    Messenger.erro(errorMessage);
+                }
+
+                @Override
+                public void onSuccess(ChartData data) {
+                    AppController.getInstance().hideProgressDialog();
+                    updateChartData(BarChartUtils.convertChartDataToCategoryDataset(data));
+                }
+            };
+
             switch (period) {
                 case DAY:
-                    ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(
-                        new BaseCallback<ChartData>() {
-                            @Override
-                            public void onError(String errorCode, String errorMessage) {
-                                AppController.getInstance().hideProgressDialog();
-                                Messenger.erro(errorMessage);
-                            }
+                    if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
+                        ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(chartDataCallback);
+                    } else {
+                        ServiceBuilder.getApiService().getDayStatisticPeriod(statisticRequest).enqueue(periodChartDataCallback);
+                    }
 
-                            @Override
-                            public void onSuccess(ChartData data) {
-                                AppController.getInstance().hideProgressDialog();
-                                updateChartData(data);
-                            }
-                        }
-                    );
                     break;
                 case MONTH:
-                    ServiceBuilder.getApiService().getMonthStatistic(statisticRequest).enqueue(
-                        new BaseCallback<ChartData>() {
-                            @Override
-                            public void onError(String errorCode, String errorMessage) {
-                                AppController.getInstance().hideProgressDialog();
-                                Messenger.erro(errorMessage);
-                            }
-
-                            @Override
-                            public void onSuccess(ChartData data) {
-                                AppController.getInstance().hideProgressDialog();
-                                updateChartData(data);
-                            }
-                        }
-                    );
+                    ServiceBuilder.getApiService().getMonthStatistic(statisticRequest).enqueue(chartDataCallback);
                     break;
                 case YEAR:
-                    ServiceBuilder.getApiService().getYearStatistic(statisticRequest).enqueue(
-                        new BaseCallback<ChartData>() {
-                            @Override
-                            public void onError(String errorCode, String errorMessage) {
-                                AppController.getInstance().hideProgressDialog();
-                                Messenger.erro(errorMessage);
-                            }
-
-                            @Override
-                            public void onSuccess(ChartData data) {
-                                AppController.getInstance().hideProgressDialog();
-                                updateChartData(data);
-                            }
-                        }
-                    );
+                    ServiceBuilder.getApiService().getYearStatistic(statisticRequest).enqueue(chartDataCallback);
                     break;
-                    default:
-                        ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(
-                            new BaseCallback<ChartData>() {
-                                @Override
-                                public void onError(String errorCode, String errorMessage) {
-                                    AppController.getInstance().hideProgressDialog();
-                                    Messenger.erro(errorMessage);
-                                }
-
-                                @Override
-                                public void onSuccess(ChartData data) {
-                                    AppController.getInstance().hideProgressDialog();
-                                    updateChartData(data);
-                                }
-                            }
-                        );
             }
         }
     }
 
-    private void updateChartData(ChartData chartData){
-        DefaultCategoryDataset defaultCategoryDataset = BarChartUtils.convertChartDataToCategoryDataset(chartData);
+    private void updateChartData(DefaultCategoryDataset defaultCategoryDataset){
         dataset = new SlidingCategoryDataset(defaultCategoryDataset, 0, 10);
         if (dataset.getColumnCount()<10) {
             scrollBar.setVisible(false);
@@ -240,7 +216,7 @@ public class StatisticController extends AnchorPane {
             scrollBar.setVisibleAmount(1);
         }
         freeChart.getCategoryPlot().setDataset(dataset);
-        freeChart.setTitle(chartData.getChartName());
+//        freeChart.setTitle(chartData.getChartName());
 //        freeChart.getCategoryPlot().
         freeChart.fireChartChanged();
     }

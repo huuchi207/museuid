@@ -3,6 +3,7 @@ package br.com.museuid.util;
 import br.com.museuid.dto.ChartData;
 import br.com.museuid.dto.Column;
 import br.com.museuid.dto.GroupColumn;
+import br.com.museuid.dto.PeriodChartData;
 import br.com.museuid.model.data.BaseChartItem;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -106,11 +107,11 @@ public class BarChartUtils {
         graphic.setLegendVisible(false);
     }
 
-    public static JFreeChart createJFreeChart(ChartData chartData){
+    public static JFreeChart createJFreeChart(ChartData chartData) {
         JFreeChart chart = ChartFactory.createBarChart(
-            null, null  /* x-axis label*/,
-            null/* y-axis label */, convertChartDataToCategoryDataset(chartData),
-            PlotOrientation.VERTICAL, true, true,false );
+                null, null  /* x-axis label*/,
+                null/* y-axis label */, null,
+                PlotOrientation.VERTICAL, true, true, false);
 //        chart.addSubtitle(new TextTitle("Time to generate 1000 charts in SVG "
 //            + "format (lower bars = better performance)"));
         chart.setBackgroundPaint(Color.white);
@@ -124,7 +125,20 @@ public class BarChartUtils {
         return chart;
     }
 
-    public static DefaultCategoryDataset convertChartDataToCategoryDataset(ChartData chartData){
+    public static DefaultCategoryDataset convertChartDataToCategoryDataset(ChartData chartData) {
+        DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
+        if (chartData == null || chartData.getGroupColumns() == null)
+            return categoryDataset;
+        GroupColumn groupColumn = chartData.getGroupColumns();
+        if (groupColumn.getColumns() == null)
+            return categoryDataset;
+        for (Column column : groupColumn.getColumns()) {
+            categoryDataset.addValue(column.getValue(), groupColumn.getTitle(), column.getDate());
+        }
+        return categoryDataset;
+    }
+
+    public static DefaultCategoryDataset convertPeriodChartDataToCategoryDataset(PeriodChartData chartData){
         DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
         if (chartData == null || chartData.getGroupColumns() == null)
             return categoryDataset;
