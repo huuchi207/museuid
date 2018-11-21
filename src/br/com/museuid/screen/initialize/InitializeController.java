@@ -49,7 +49,7 @@ public class InitializeController {
         ServiceBuilder.getApiService().checkDevice(macAddress).enqueue(new BaseCallback<SessionDeviceInfo>() {
             @Override
             public void onError(String errorCode, String errorMessage) {
-                if ("Can not find information.".equalsIgnoreCase(errorMessage)){
+                if ("Không thể tìm thấy thông tin.".equalsIgnoreCase(errorMessage)){
                     openFormRegisterDevice();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
