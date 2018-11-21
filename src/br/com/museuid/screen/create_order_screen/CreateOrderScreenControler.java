@@ -313,7 +313,7 @@ public class CreateOrderScreenControler extends AnchorPane {
             AppController.getInstance().startLogin();
         }
         ObservableList<ProductInOrder> orderObservableList = tbProductInOrder.getItems();
-
+        int totalPrice = 0;
         List<PutQueueRequest.Item> items = new ArrayList<>();
         ListIterator<ProductInOrder> iterator = orderObservableList.listIterator();
         while (iterator.hasNext()) {
