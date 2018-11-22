@@ -1,15 +1,13 @@
 package br.com.museuid.screen.app;
 
+import br.com.museuid.Constants;
 import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.UserDTO;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.StaticVarUtils;
+import br.com.museuid.util.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,7 +77,7 @@ public class AppController {
 
             @Override
             public void onSuccess(Object data) {
-                App.palco.close();
+                App.getmStage().close();
                 new Login().start(new Stage());
             }
         });
@@ -149,8 +147,7 @@ public class AppController {
             }
         }
         boxMenu.getChildren().removeAll(removingParentViews);
-        if (!ConstantConfig.FAKE)
-            lbUser.setText("Xin chào, "+ StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
+        lbUser.setText("Xin chào, "+ StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
     }
 
     /**
@@ -251,7 +248,7 @@ public class AppController {
 
     @FXML
     void minimize(ActionEvent event) {
-        App.palco.setIconified(true);
+        App.getmStage().setIconified(true);
     }
 
     @FXML
@@ -270,7 +267,7 @@ public class AppController {
 
     public void startLogin(){
         new Login().start(new Stage());
-        App.palco.close();
+        App.getmStage().close();
     }
 
     public void openProductManagement(ActionEvent event) {
@@ -297,5 +294,10 @@ public class AppController {
     }
     public void openStockImporting(ActionEvent event) {
 
+    }
+
+    public void goSite(ActionEvent actionEvent) {
+        //TODO: change link
+        Link.address(Constants.WEB_LINK);
     }
 }

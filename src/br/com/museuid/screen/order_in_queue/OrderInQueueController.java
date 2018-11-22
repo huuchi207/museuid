@@ -1,6 +1,7 @@
 package br.com.museuid.screen.order_in_queue;
 
 import br.com.museuid.Constants;
+import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.customview.sectiongridview.ItemGridCellFactory;
 import br.com.museuid.customview.sectiongridview.ItemGridView;
@@ -98,6 +99,8 @@ public class OrderInQueueController extends AnchorPane {
     }
 
     private void getNewOrderList() {
+        if (ConstantConfig.FAKE)
+            return;
         AppController.getInstance().showProgressDialog();
         ServiceBuilder.getApiService().getOrderByStatus(OrderDetail.OrderStatus.NEW.name(), null)
                 .enqueue(new BaseCallback<List<OrderDetail>>() {

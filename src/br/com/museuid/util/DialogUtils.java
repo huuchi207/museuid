@@ -1,7 +1,5 @@
 package br.com.museuid.util;
 
-import java.util.Optional;
-
 import javafx.event.ActionEvent;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -9,16 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.util.Optional;
 
 /**
  * Criar janelas de dialogos
@@ -170,7 +166,7 @@ public class DialogUtils {
     }
 
     /**
-     * Creates and formats the main stage that will display the stageDialog message
+     * Creates and formats the main mStage that will display the stageDialog message
      */
     static class Dialog extends Stage {
         public Dialog(Stage stage, Scene scene) {

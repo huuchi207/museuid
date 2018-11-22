@@ -1,7 +1,5 @@
 package br.com.museuid.view.initialize;
 
-import java.util.Optional;
-
 import br.com.museuid.app.App;
 import br.com.museuid.app.Initialize;
 import br.com.museuid.config.ConstantConfig;
@@ -16,14 +14,11 @@ import br.com.museuid.util.Messenger;
 import br.com.museuid.util.StaticVarUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class InitializeController {
     private static InitializeController instance;
@@ -59,7 +54,7 @@ public class InitializeController {
 
                     Optional<ButtonType> r = alert.showAndWait();
                     if (r.get() == ButtonType.OK){
-                        Initialize.palco.close();
+                        Initialize.stage.close();
                     }
                 }
             }
@@ -118,6 +113,6 @@ public class InitializeController {
     }
     void startMain(){
         new App().start(new Stage());
-        Initialize.palco.close();
+        Initialize.stage.close();
     }
 }

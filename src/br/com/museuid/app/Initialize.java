@@ -1,7 +1,5 @@
 package br.com.museuid.app;
 
-import java.util.Optional;
-
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
 import javafx.application.Application;
@@ -11,11 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
@@ -23,10 +17,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Pair;
 
+import java.util.Optional;
+
 public class Initialize extends Application {
-    public static Stage palco;
-    private static Scene cena;
-    private static AnchorPane page;
+    public static Stage stage;
+    private static Scene scene;
+    private static AnchorPane rootPane;
 
     private Screen screen = Screen.getPrimary();
     private Rectangle2D windows = screen.getVisualBounds();
@@ -34,11 +30,11 @@ public class Initialize extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {
-            palco = stage;
+            Initialize.stage = stage;
             FXMLLoader fxml = new FXMLLoader(App.class.getResource("/br/com/museuid/view/initialize/initialize.fxml"));
             fxml.setResources(BundleUtils.getResourceBundle());
-            page = fxml.load();
-            cena = new Scene(page);
+            rootPane = fxml.load();
+            scene = new Scene(rootPane);
 
             stage.initStyle(StageStyle.UNDECORATED);
 
@@ -47,9 +43,9 @@ public class Initialize extends Application {
             stage.setWidth(windows.getWidth());
             stage.setHeight(windows.getHeight());
 
-//            stage.getIcons().addAll(new Image(App.class.getResourceAsStream("icon.png")));
+//            mStage.getIcons().addAll(new Image(App.class.getResourceAsStream("icon.png")));
 
-            stage.setScene(cena);
+            stage.setScene(scene);
             stage.show();
 
         } catch (Exception ex) {

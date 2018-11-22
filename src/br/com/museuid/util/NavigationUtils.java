@@ -39,6 +39,7 @@ public class NavigationUtils {
      */
     public static void config(AnchorPane box, AnchorPane conteudo) {
         box.getChildren().clear();
+        conteudo.setPrefSize(box.getWidth(),box.getHeight());
         box.getChildren().add(conteudo);
         ResizeUtils.margin(conteudo, 0);
     }

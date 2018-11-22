@@ -1,7 +1,5 @@
 package br.com.museuid.screen.login;
 
-import java.util.List;
-
 import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
 import br.com.museuid.config.ConstantConfig;
@@ -12,11 +10,7 @@ import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.LoginRequest;
 import br.com.museuid.service.remote.sample.SampleCallback;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.DialogUtils;
-import br.com.museuid.util.FieldViewUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.StaticVarUtils;
+import br.com.museuid.util.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +21,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class LoginController {
 
@@ -51,7 +47,7 @@ public class LoginController {
         String password = pfPass.getText();
         if (ConstantConfig.FAKE){
           new App().start(new Stage());
-          Login.palco.close();
+          Login.getmStage().close();
           return;
         }
         showProgressDialog();
@@ -67,14 +63,14 @@ public class LoginController {
             public void onSuccess(SessionUserInfo data) {
                 StaticVarUtils.setSessionUserInfo(data);
                 new App().start(new Stage());
-                Login.palco.close();
+                Login.getmStage().close();
             }
         });
     }
 
     @FXML
     void minimize(ActionEvent event) {
-        Login.palco.setIconified(true);
+        Login.getmStage().setIconified(true);
     }
 
     @FXML

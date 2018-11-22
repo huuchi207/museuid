@@ -32,6 +32,8 @@ public class StaticVarUtils {
         if(ConstantConfig.FAKE){
             SessionUserInfo sessionUserInfo = new SessionUserInfo();
             UserDTO userDTO = new UserDTO();
+            userDTO.setUserid("89989");
+            userDTO.setUsername("chi");
             sessionUserInfo.setInfo(userDTO);
             return sessionUserInfo;
         }
