@@ -11,7 +11,6 @@ import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.LoginRequest;
 import br.com.museuid.service.remote.sample.SampleCallback;
 import br.com.museuid.util.*;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -66,17 +65,6 @@ public class LoginController {
                 Login.getmStage().close();
             }
         });
-    }
-
-    @FXML
-    void minimize(ActionEvent event) {
-        Login.getmStage().setIconified(true);
-    }
-
-    @FXML
-    void close(ActionEvent event) {
-        Platform.exit();
-        System.exit(0);
     }
 
     @FXML

@@ -8,7 +8,6 @@ import br.com.museuid.dto.UserDTO;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.*;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -246,16 +245,7 @@ public class AppController {
         lbUser.setText(BundleUtils.getResourceBundle().getString("txt_hello"+ ", "+ userName));
     }
 
-    @FXML
-    void minimize(ActionEvent event) {
-        App.getmStage().setIconified(true);
-    }
 
-    @FXML
-    void close(ActionEvent event) {
-        Platform.exit();
-        System.exit(0);
-    }
 
     public void openOrderInQueueScreen(ActionEvent event) {
         if (event.getSource() == currentScreen){
@@ -300,4 +290,5 @@ public class AppController {
         //TODO: change link
         Link.address(Constants.WEB_LINK);
     }
+
 }
