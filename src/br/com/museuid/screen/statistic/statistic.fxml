@@ -49,13 +49,16 @@
         <HBox fx:id="boxPeriod" minWidth="-Infinity" prefHeight="35.0" styleClass="periodo"
           GridPane.columnIndex="0" GridPane.rowIndex="1">
           <children>
-            <ToggleButton layoutX="10.0" layoutY="13.0" mnemonicParsing="false" selected="true"
-              styleClass="bt-left" text="%txt_day">
+            <ToggleButton mnemonicParsing="false" styleClass="bt-left" text="%txt_session"
+            fx:id="tbSession" toggleGroup="$menuPeriod"/>
+
+            <ToggleButton mnemonicParsing="false" selected="true"
+              styleClass="bt-center" text="%txt_day" fx:id="tbDay">
               <toggleGroup>
                 <ToggleGroup fx:id="menuPeriod" />
               </toggleGroup>
             </ToggleButton>
-            <ToggleButton layoutX="685.0" layoutY="45.0" mnemonicParsing="false"
+            <ToggleButton  mnemonicParsing="false"
               styleClass="bt-center" text="%txt_month" toggleGroup="$menuPeriod" />
             <ToggleButton mnemonicParsing="false" styleClass="bt-right" text="%txt_year"
               toggleGroup="$menuPeriod" GridPane.columnIndex="2" GridPane.rowIndex="1" />

@@ -35,10 +35,11 @@ import java.util.ResourceBundle;
 public class StatisticController extends AnchorPane {
 
     public HBox boxPeriod;
-    private int period = 0;
-    private static final int DAY = 0;
-    private static final int MONTH = 1;
-    private static final int YEAR = 2;
+    private int period = 1;
+    private static final int SESSION = 0;
+    private static final int DAY = 1;
+    private static final int MONTH = 2;
+    private static final int YEAR = 3;
 
     @FXML
     private AnchorPane boxGraphic;
@@ -65,6 +66,10 @@ public class StatisticController extends AnchorPane {
     private ComboBox<String> cbReportType;
     @FXML
     private ScrollBar scrollBar;
+    @FXML
+    private ToggleButton tbSession;
+    @FXML
+    private ToggleButton tbDay;
     private ResourceBundle bundle;
     private JFreeChart freeChart;
     private ChartViewer chartViewer;
@@ -113,31 +118,26 @@ public class StatisticController extends AnchorPane {
 //            ChartViewer chartViewer = new ChartViewer(BarChartUtils.createJFreeChart(chartData))
 
         }
+        if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
+            boxPeriod.getChildren().remove(tbSession);
+            tbDay.getStyleClass().remove("bt-center");
+            tbDay.getStyleClass().add("bt-left");
+        } else {
+        }
+
     }
 
 
-    /**
-     * Screen settings, titles, and display of screens and menus
-     */
-    private void config(String tituloTela, int grupoMenu) {
-        lbTitulo.setText(tituloTela);
-        menu.selectToggle(menu.getToggles().get(grupoMenu - 1));
-    }
-
-    /**
-     * Fill main combobox with items according to the type of report
-     */
-    private void combo(String... itens) {
-        ComboUtils.popular(cbReportType, itens);
-    }
-
-    /**
-     * Add escutador to the period group group to know which period is active
-     */
     private void setupPeriod() {
         menuPeriod.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> obs, Toggle old, Toggle novo) {
-                period = novo != null ? menuPeriod.getToggles().indexOf(menuPeriod.getSelectedToggle()) : 0;
+                int newPeriod = novo != null ? menuPeriod.getToggles().indexOf(menuPeriod.getSelectedToggle()) : 1;
+                if (period == newPeriod){
+                    menuPeriod.getSelectedToggle().setSelected(true);
+                } else {
+                    period = newPeriod;
+                }
+
             }
         });
     }
@@ -186,13 +186,11 @@ public class StatisticController extends AnchorPane {
             };
 
             switch (period) {
+                case SESSION:
+                    ServiceBuilder.getApiService().getDayStatisticPeriod(statisticRequest).enqueue(periodChartDataCallback);
+                    break;
                 case DAY:
-                    if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
-                        ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(chartDataCallback);
-                    } else {
-                        ServiceBuilder.getApiService().getDayStatisticPeriod(statisticRequest).enqueue(periodChartDataCallback);
-                    }
-
+                    ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(chartDataCallback);
                     break;
                 case MONTH:
                     ServiceBuilder.getApiService().getMonthStatistic(statisticRequest).enqueue(chartDataCallback);
