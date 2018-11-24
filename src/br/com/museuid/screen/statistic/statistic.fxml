@@ -46,24 +46,35 @@
             <String fx:value="lb-info-requerido" />
           </styleClass>
         </Label>
-        <HBox fx:id="boxPeriod" minWidth="-Infinity" prefHeight="35.0" styleClass="periodo"
-          GridPane.columnIndex="0" GridPane.rowIndex="1">
-          <children>
-            <ToggleButton mnemonicParsing="false" styleClass="bt-left" text="%txt_session"
-            fx:id="tbSession" toggleGroup="$menuPeriod"/>
+        <StackPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+          <HBox fx:id="boxPeriodForManager"   styleClass="periodo"
+            >
+              <ToggleButton mnemonicParsing="false" styleClass="bt-left" text="%txt_session">
+                <toggleGroup>
+                <ToggleGroup fx:id="menuPeriodForManager" />
+                </toggleGroup>
+              </ToggleButton>
+              <ToggleButton mnemonicParsing="false" selected="true"
+                styleClass="bt-center" text="%txt_day"  toggleGroup="$menuPeriodForManager"/>
+              <ToggleButton  mnemonicParsing="false"
+                styleClass="bt-center" text="%txt_month" toggleGroup="$menuPeriodForManager" />
+              <ToggleButton mnemonicParsing="false" styleClass="bt-right" text="%txt_year"
+                toggleGroup="$menuPeriodForManager"/>
+          </HBox>
+          <HBox fx:id="boxPeriod"  styleClass="periodo">
+              <ToggleButton mnemonicParsing="false" selected="true"
+                styleClass="bt-center" text="%txt_day">
+                <toggleGroup>
+                  <ToggleGroup fx:id="menuPeriod" />
+                </toggleGroup>
+              </ToggleButton>
+              <ToggleButton  mnemonicParsing="false"
+                styleClass="bt-center" text="%txt_month" toggleGroup="$menuPeriod" />
+              <ToggleButton mnemonicParsing="false" styleClass="bt-right" text="%txt_year"
+                toggleGroup="$menuPeriod" />
 
-            <ToggleButton mnemonicParsing="false" selected="true"
-              styleClass="bt-center" text="%txt_day" fx:id="tbDay">
-              <toggleGroup>
-                <ToggleGroup fx:id="menuPeriod" />
-              </toggleGroup>
-            </ToggleButton>
-            <ToggleButton  mnemonicParsing="false"
-              styleClass="bt-center" text="%txt_month" toggleGroup="$menuPeriod" />
-            <ToggleButton mnemonicParsing="false" styleClass="bt-right" text="%txt_year"
-              toggleGroup="$menuPeriod" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-          </children>
-        </HBox>
+          </HBox>
+        </StackPane>
         <Label prefHeight="17.0" text="%txt_start_time" GridPane.columnIndex="1"
           GridPane.rowIndex="0">
           <styleClass>

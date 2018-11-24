@@ -33,8 +33,12 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class StatisticController extends AnchorPane {
-
-    public HBox boxPeriod;
+    @FXML
+    private HBox boxPeriod;
+    @FXML
+    private HBox boxPeriodForManager;
+    @FXML
+    private ToggleGroup menuPeriodForManager;
     private int period = 1;
     private static final int SESSION = 0;
     private static final int DAY = 1;
@@ -43,8 +47,7 @@ public class StatisticController extends AnchorPane {
 
     @FXML
     private AnchorPane boxGraphic;
-    @FXML
-    private HBox boxPeriodo;
+
     @FXML
     private Button btRelatorio;
     @FXML
@@ -96,7 +99,6 @@ public class StatisticController extends AnchorPane {
         datePickerEnd.setValue(LocalDate.now());
         TimeUtils.reformatDatePickerValue(datePickerStart);
         TimeUtils.reformatDatePickerValue(datePickerEnd);
-        setupPeriod();
 
         freeChart = BarChartUtils.createJFreeChart(null);
         chartViewer = new ChartViewer(freeChart);
@@ -119,23 +121,26 @@ public class StatisticController extends AnchorPane {
 
         }
         if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
-            boxPeriod.getChildren().remove(tbSession);
-            tbDay.getStyleClass().remove("bt-center");
-            tbDay.getStyleClass().add("bt-left");
+            boxPeriod.setVisible(true);
+            boxPeriodForManager.setVisible(false);
+            setupPeriod(menuPeriod);
         } else {
+            boxPeriod.setVisible(false);
+            boxPeriodForManager.setVisible(true);
+            setupPeriod(menuPeriodForManager);
         }
 
     }
 
 
-    private void setupPeriod() {
-        menuPeriod.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+    private void setupPeriod(ToggleGroup group) {
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> obs, Toggle old, Toggle novo) {
-                int newPeriod = novo != null ? menuPeriod.getToggles().indexOf(menuPeriod.getSelectedToggle()) : 1;
-                if (period == newPeriod){
-                    menuPeriod.getSelectedToggle().setSelected(true);
+                int newPosition = novo != null ? group.getToggles().indexOf(group.getSelectedToggle()) : 0;
+                if (novo == null){
+                    old.setSelected(true);
                 } else {
-                    period = newPeriod;
+                    setPeriod(newPosition);
                 }
 
             }
@@ -217,5 +222,19 @@ public class StatisticController extends AnchorPane {
 //        freeChart.setTitle(chartData.getChartName());
 //        freeChart.getCategoryPlot().
         freeChart.fireChartChanged();
+    }
+    private void setPeriod(int n){
+        if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
+            period = n+1;
+        } else {
+            period = n;
+        }
+    }
+    private int getRealPeriodPosition(){
+        if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
+            return period-1;
+        } else {
+            return period;
+        }
     }
 }
