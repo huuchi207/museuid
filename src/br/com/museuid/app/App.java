@@ -1,6 +1,7 @@
 package br.com.museuid.app;
 
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -8,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * Inicialização da aplicação princial
@@ -17,9 +17,9 @@ import javafx.stage.StageStyle;
  */
 public class App extends Application {
 
-    public static Stage palco;
-    private static Scene cena;
-    private static AnchorPane page;
+    private static Stage mStage;
+    private static Scene mScene;
+    private static AnchorPane rootPane;
 
     private Screen screen = Screen.getPrimary();
     private Rectangle2D windows = screen.getVisualBounds();
@@ -27,22 +27,24 @@ public class App extends Application {
     @Override
     public void start(final Stage stage) {
         try {
-            palco = stage;
+            mStage = stage;
             FXMLLoader fxml = new FXMLLoader(App.class.getResource("/br/com/museuid/screen/app/app.fxml"));
             fxml.setResources(BundleUtils.getResourceBundle());
-            page = fxml.load();
-            cena = new Scene(page);
-
-            stage.initStyle(StageStyle.UNDECORATED);
+            rootPane = fxml.load();
+            mScene = new Scene(rootPane);
 
             stage.setX(windows.getMinX());
             stage.setY(windows.getMinY());
             stage.setWidth(windows.getWidth());
             stage.setHeight(windows.getHeight());
+            stage.setMinWidth(windows.getWidth()-200);
+            stage.setMinHeight(windows.getHeight()-100);
+
 
 //            stage.getIcons().addAll(new Image(App.class.getResourceAsStream("icon.png")));
 
-            stage.setScene(cena);
+            stage.setScene(mScene);
+            ResizeHelper.addResizeListener(stage);
             stage.show();
 
         } catch (Exception ex) {
@@ -52,5 +54,9 @@ public class App extends Application {
 
     public static void main(String[] args) {
         Application.launch(App.class, (java.lang.String[]) null);
+    }
+
+    public static Stage getmStage(){
+        return mStage;
     }
 }

@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -34,6 +35,8 @@ public class InitializeController {
     public TextField tfDeviceName;
     public TextField tfDeviceLocation;
     public Button btRegister;
+    public TextField tfUsername;
+    public PasswordField pfPass;
 
     public static InitializeController getInstance() {
         return instance;
@@ -46,6 +49,63 @@ public class InitializeController {
         instance = this;
 
         macAddress = StaticVarUtils.getMacAddress();
+        callAutoClientAPI();
+        if (ConstantConfig.FAKE) {
+//            PauseTransition pause = new PauseTransition(Duration.seconds(5));
+//            pause.setOnFinished(new EventHandler<ActionEvent>() {
+//                @Override
+//                public void handle(ActionEvent event) {
+//                   openFormRegisterDevice();
+//                }
+//            });
+//            pause.play();
+        }
+    }
+
+    @FXML
+    private void signIn(ActionEvent event) {
+        if (FieldViewUtils.noEmpty(tfDeviceLocation, tfDeviceName,tfUsername, pfPass)) {
+            return;
+        }
+        showProgressView();
+        if (ConstantConfig.FAKE) {
+            startMain();
+        }
+        String deviceName = tfDeviceName.getText().trim();
+        String deviceLocation = tfDeviceLocation.getText().trim();
+        String username = tfUsername.getText().trim();
+        String pass = pfPass.getText();
+        ServiceBuilder.getApiService().addDevice(new
+            AddDeviceRequest(macAddress,deviceName, deviceLocation, username, pass)).
+            enqueue(new BaseCallback<DeviceInfo>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                Messenger.erro(errorMessage);
+                openFormRegisterDevice();
+//                FieldViewUtils.resetField(tfDeviceName, tfDeviceLocation);
+            }
+
+            @Override
+            public void onSuccess(DeviceInfo data) {
+                callAutoClientAPI();
+            }
+        });
+    }
+    void openFormRegisterDevice(){
+        vBoxRegisterDevice.setVisible(true);
+        vboxProgress.setVisible(false);
+    }
+
+    void showProgressView(){
+        vboxProgress.setVisible(true);
+        vBoxRegisterDevice.setVisible(false);
+    }
+    void startMain(){
+        new App().start(new Stage());
+        Initialize.palco.close();
+    }
+
+    void callAutoClientAPI(){
         ServiceBuilder.getApiService().checkDevice(macAddress).enqueue(new BaseCallback<SessionDeviceInfo>() {
             @Override
             public void onError(String errorCode, String errorMessage) {
@@ -70,54 +130,5 @@ public class InitializeController {
                 startMain();
             }
         });
-        if (ConstantConfig.FAKE) {
-//            PauseTransition pause = new PauseTransition(Duration.seconds(5));
-//            pause.setOnFinished(new EventHandler<ActionEvent>() {
-//                @Override
-//                public void handle(ActionEvent event) {
-//                   openFormRegisterDevice();
-//                }
-//            });
-//            pause.play();
-        }
-    }
-
-    @FXML
-    private void signIn(ActionEvent event) {
-        if (FieldViewUtils.noEmpty(tfDeviceLocation, tfDeviceName)) {
-            return;
-        }
-        showProgressView();
-        if (ConstantConfig.FAKE) {
-            startMain();
-        }
-        String deviceName = tfDeviceName.getText().trim();
-        String deviceLocation = tfDeviceLocation.getText().trim();
-        ServiceBuilder.getApiService().addDevice(new AddDeviceRequest(macAddress,deviceName, deviceLocation)).
-            enqueue(new BaseCallback<DeviceInfo>() {
-            @Override
-            public void onError(String errorCode, String errorMessage) {
-                Messenger.erro(errorMessage);
-                FieldViewUtils.resetField(tfDeviceName, tfDeviceLocation);
-            }
-
-            @Override
-            public void onSuccess(DeviceInfo data) {
-                startMain();
-            }
-        });
-    }
-    void openFormRegisterDevice(){
-        vBoxRegisterDevice.setVisible(true);
-        vboxProgress.setVisible(false);
-    }
-
-    void showProgressView(){
-        vboxProgress.setVisible(true);
-        vBoxRegisterDevice.setVisible(false);
-    }
-    void startMain(){
-        new App().start(new Stage());
-        Initialize.palco.close();
     }
 }

@@ -2,9 +2,15 @@ package br.com.museuid.screen.app;
 
 import java.util.List;
 
+import br.com.museuid.Constants;
 import br.com.museuid.app.App;
 import br.com.museuid.app.Initialize;
-import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.app.Login;
+import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.dto.UserDTO;
+import br.com.museuid.service.remote.BaseCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.util.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -107,12 +113,12 @@ public class AppController {
 
     @FXML
     void minimize(ActionEvent event) {
-        App.palco.setIconified(true);
+        App.getmStage().setIconified(true);
     }
 
     @FXML
     void close(ActionEvent event) {
-        App.palco.close();
+        App.getmStage().close();
     }
 
     public void startInitialize(){
@@ -121,6 +127,10 @@ public class AppController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        App.palco.close();
+        App.getmStage().close();
+    }
+
+    public void goSite(ActionEvent event) {
+
     }
 }

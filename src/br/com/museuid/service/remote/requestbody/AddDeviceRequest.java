@@ -1,14 +1,18 @@
 package br.com.museuid.service.remote.requestbody;
 
 public class AddDeviceRequest {
-    String macaddress;
-    String name;
-    String location;
+    private String macaddress;
+    private String name;
+    private String location;
+    private String username;
+    private String password;
 
-    public AddDeviceRequest(String macaddress, String name, String location) {
+    public AddDeviceRequest(String macaddress, String name, String location, String username, String password) {
         this.macaddress = macaddress;
         this.name = name;
         this.location = location;
+        this.username = username;
+        this.password = password;
     }
 
     public String getMacaddress() {
@@ -33,5 +37,21 @@ public class AddDeviceRequest {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

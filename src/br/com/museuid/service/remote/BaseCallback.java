@@ -2,8 +2,11 @@ package br.com.museuid.service.remote;
 
 import com.google.gson.Gson;
 
+import br.com.museuid.app.App;
+import br.com.museuid.app.Initialize;
 import br.com.museuid.util.BundleUtils;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,15 +26,15 @@ public abstract class BaseCallback<T> implements Callback<ResponseDTO<T>> {
               mBody = null;
               String responseCode = SERVER_ERROR;
               String message = getServerMsg();
-//              if (response.code() == 401){
-//                  try {
-//                      new Initialize().start(new Stage());
-//                      App.palco.close();
-//                  } catch (Exception e) {
-//                      e.printStackTrace();
-//                  }
-//
-//              }
+              if (response.code() == 401){
+                  try {
+                      new Initialize().start(new Stage());
+                      App.getmStage().close();
+                  } catch (Exception e) {
+                      e.printStackTrace();
+                  }
+
+              }
               if (!response.isSuccessful()) {
                   onError(responseCode, message);
                   return;

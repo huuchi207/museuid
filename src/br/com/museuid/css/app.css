@@ -177,12 +177,12 @@
 }
 
 .submenus:hover {
-    -fx-text-fill: #cde073;
+    -fx-text-fill: red;
     -fx-graphic: url("../img/icon/submenu-inativo.png");
 }
 
 .submenus:selected {
-    -fx-text-fill: #cde073;
+    -fx-text-fill: red;
     -fx-graphic: url("../img/icon/submenu-inativo.png");
 }
 
@@ -240,7 +240,7 @@
 .link:hover,
 .link:focused {
     -fx-padding: 0px;
-    -fx-text-fill: #c5db5a;
+    -fx-text-fill: red;
     -fx-border-width: 0px;
     -fx-underline: false;
 }
@@ -271,8 +271,8 @@
 }
 
 .scroll > *.scroll-bar > *.thumb {
-    -fx-background-color: #cde073;
-    -fx-border-color: #cde073;
+    -fx-background-color: red;
+    -fx-border-color: red;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
     -fx-border-insets: 0;

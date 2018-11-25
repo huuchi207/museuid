@@ -46,8 +46,8 @@
 }
 
 .login-txt {
-    -fx-text-fill: #d8d8d8;
-    -fx-font-size: 16px;
+    -fx-text-fill: red;
+    -fx-font-size: 20px;
 }
 
 .box-login {
@@ -85,8 +85,8 @@
 
 .bt-logar {
     -fx-text-fill: #fff;
-    -fx-background-color: #cbde70;
-    -fx-border-color: #bed452;
+    -fx-background-color: red;
+    -fx-border-color: red;
     -fx-border-insets: 0;
     -fx-background-insets: 0;
     -fx-border-radius: 0;
@@ -97,7 +97,7 @@
 
 .bt-logar:hover,
 .bt-logar:selected {
-    -fx-background-color: #d0e278;
+    -fx-background-color: red;
 }
 
 .error {
@@ -119,7 +119,7 @@
 .link:hover,
 .link:focused {
     -fx-padding: 0px;
-    -fx-text-fill: #c5db5a;
+    -fx-text-fill: red;
     -fx-border-width: 0px;
     -fx-underline: false;
     -fx-alignment: bottom-center;
