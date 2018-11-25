@@ -37,12 +37,14 @@ public class Login extends Application {
 
             mScene = new Scene(rootPane);
 
-            stage.setX(windows.getMinX());
-            stage.setY(windows.getMinY());
-            stage.setWidth(windows.getWidth());
-            stage.setHeight(windows.getHeight());
-            stage.setMinWidth(windows.getWidth()-200);
-            stage.setMinHeight(windows.getHeight()-100);
+//            stage.setX(windows.getMinX());
+//            stage.setY(windows.getMinY());
+//            stage.setWidth(619);
+//            stage.setHeight(445);
+            stage.resizableProperty().setValue(Boolean.FALSE);
+//            stage.setMinWidth(windows.getWidth()-200);
+//            stage.setMinHeight(windows.getHeight()-100);
+            stage.centerOnScreen();
 
 
 

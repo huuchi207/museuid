@@ -589,8 +589,8 @@
 }
 
 .table-view *.column-drag-header {
-    -fx-background-color: #96c440;
-    -fx-border-color: #96c440;
+    -fx-background-color: red;
+    -fx-border-color: red;
     -fx-opacity: 0.6px;
 }
 

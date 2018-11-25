@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartViewer;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.category.SlidingCategoryDataset;
 
@@ -100,7 +101,7 @@ public class StatisticController extends AnchorPane {
         TimeUtils.reformatDatePickerValue(datePickerStart);
         TimeUtils.reformatDatePickerValue(datePickerEnd);
 
-        freeChart = BarChartUtils.createJFreeChart(null);
+        freeChart = BarChartUtils.createJFreeBarChart(null);
         chartViewer = new ChartViewer(freeChart);
         addChart(boxGraphic, chartViewer);
         scrollBar.setVisible(false);
@@ -117,7 +118,7 @@ public class StatisticController extends AnchorPane {
                 mapData.put(groupColumn.getTitle(), groupColumn.getColumns());
             }
 //            addChart(boxGraphic, BarChartUtils.create(chartData.getChartName(), "", chartData.getUnit(), mapData));
-//            ChartViewer chartViewer = new ChartViewer(BarChartUtils.createJFreeChart(chartData))
+//            ChartViewer chartViewer = new ChartViewer(BarChartUtils.createJFreeBarChart(chartData))
 
         }
         if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
@@ -173,6 +174,8 @@ public class StatisticController extends AnchorPane {
                 public void onSuccess(PeriodChartData data) {
                     AppController.getInstance().hideProgressDialog();
                     updateChartData(BarChartUtils.convertPeriodChartDataToCategoryDataset(data));
+                    BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
+                    renderer.setItemMargin(0);
                 }
             };
 
@@ -187,6 +190,8 @@ public class StatisticController extends AnchorPane {
                 public void onSuccess(ChartData data) {
                     AppController.getInstance().hideProgressDialog();
                     updateChartData(BarChartUtils.convertChartDataToCategoryDataset(data));
+                    BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
+                    renderer.setItemMargin(0.8);
                 }
             };
 

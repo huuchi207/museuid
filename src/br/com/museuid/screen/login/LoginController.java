@@ -36,12 +36,16 @@ public class LoginController {
     private Label lbErrorLogin;
     @FXML
     private TextField tfUser;
-
+    private boolean isLoginPressed = false;
     @FXML
     void login(ActionEvent event) {
         if (FieldViewUtils.noEmpty(tfUser, pfPass)){
             return;
         }
+        if (isLoginPressed){
+            return;
+        }
+        isLoginPressed = true;
         String login = tfUser.getText();
         String password = pfPass.getText();
         if (ConstantConfig.FAKE){
@@ -56,6 +60,7 @@ public class LoginController {
             public void onError(String errorCode, String errorMessage) {
                 hideProgressDialog();
                 Messenger.erro(errorMessage);
+                isLoginPressed = false;
             }
 
             @Override
@@ -63,6 +68,7 @@ public class LoginController {
                 StaticVarUtils.setSessionUserInfo(data);
                 new App().start(new Stage());
                 Login.getmStage().close();
+                isLoginPressed = false;
             }
         });
     }

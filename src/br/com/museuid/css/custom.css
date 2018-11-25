@@ -91,7 +91,7 @@
 }
 
 .titulo {
-    -fx-text-fill: #bed452;
+    -fx-text-fill: red;
     -fx-font-size: 20px;
     -fx-font-family: "Open Sans";
     -fx-alignment: bottom-left;
@@ -713,7 +713,7 @@
 
 /* ....... Dashboard App  .....*/
 .box-subtitulos {
-    -fx-border-color: #C4DA5A;
+    -fx-border-color: red;
     -fx-border-width: 0 0 1 0;
     -fx-padding: 0 0 2 0;
     -fx-border-style: segments(3, 3, 3);
@@ -817,7 +817,7 @@
 }
 
 .menus-acompanhamento:hover, .menus-acompanhamento:selected {
-    -fx-text-fill: #C4DA5A;
+    -fx-text-fill: red;
     -fx-border-width: 0 0 1 0;
     -fx-border-color: transparent;
     -fx-background-color: transparent;
@@ -918,7 +918,7 @@
 /*..... Box Acompanhamento .....*/
 
 .box-titulos-acompanhamento {
-    -fx-border-color: #C4DA5A;
+    -fx-border-color: red;
     -fx-border-width: 0 0 1 0;
     -fx-padding: 2 5 2 0;
     -fx-border-style: segments(3, 3, 3);

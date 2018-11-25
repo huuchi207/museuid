@@ -3,7 +3,7 @@
 }
 
 .background {
-    -fx-background-image: url("../img/background.png");
+    -fx-background-image: url("../img/background.jpg");
     -fx-background-size: 100% 100%;
     -fx-background-color: transparent;
     -fx-background-position: top;
@@ -46,14 +46,14 @@
 }
 
 .login-txt {
-    -fx-text-fill: #bed452;
+    -fx-text-fill: red;
     -fx-font-size: 20px;
 }
 
 .box-login {
-    -fx-background-color: rgba(255, 255, 255, 1);
-    -fx-border-color: #d8d8d8;
-    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.69), 5, 0.1, 2, 2);
+    /*-fx-background-color: rgba(255, 255, 255, 1);*/
+    /*-fx-border-color: #d8d8d8;*/
+    /*-fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.69), 5, 0.1, 2, 2);*/
 }
 
 .nome,
@@ -85,8 +85,8 @@
 
 .bt-logar {
     -fx-text-fill: #fff;
-    -fx-background-color: #cbde70;
-    -fx-border-color: #bed452;
+    -fx-background-color: red;
+    -fx-border-color: red;
     -fx-border-insets: 0;
     -fx-background-insets: 0;
     -fx-border-radius: 0;
@@ -97,7 +97,7 @@
 
 .bt-logar:hover,
 .bt-logar:selected {
-    -fx-background-color: #d0e278;
+    -fx-background-color: red;
 }
 
 .error {
@@ -119,7 +119,7 @@
 .link:hover,
 .link:focused {
     -fx-padding: 0px;
-    -fx-text-fill: #c5db5a;
+    -fx-text-fill: red;
     -fx-border-width: 0px;
     -fx-underline: false;
     -fx-alignment: bottom-center;

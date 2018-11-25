@@ -107,7 +107,7 @@ public class BarChartUtils {
         graphic.setLegendVisible(false);
     }
 
-    public static JFreeChart createJFreeChart(ChartData chartData) {
+    public static JFreeChart createJFreeBarChart(ChartData chartData) {
         JFreeChart chart = ChartFactory.createBarChart(
                 null, null  /* x-axis label*/,
                 null/* y-axis label */, null,
@@ -121,6 +121,7 @@ public class BarChartUtils {
         rangeAxis.setStandardTickUnits(org.jfree.chart.axis.NumberAxis.createIntegerTickUnits());
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
+        renderer.setMaximumBarWidth(0.35);
         chart.getLegend().setFrame(BlockBorder.NONE);
         return chart;
     }
