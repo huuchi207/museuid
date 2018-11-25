@@ -16,11 +16,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MyHandlingOrderController extends AnchorPane {
@@ -170,6 +172,8 @@ public class MyHandlingOrderController extends AnchorPane {
             orderQueue();
             return;
         }
+        Optional<String> r = DialogUtils.showTextInputDialog("Dialog", "Nhập lý do hủy đơn hàng(nếu có)");
+        r.ifPresent(str -> selecteOrder.setComment(str));
         selecteOrder.setQueueid(selecteOrder.getId());
         selecteOrder.setStatus(OrderDetail.OrderStatus.CANCELED.name());
         selecteOrder.setHandlerid(StaticVarUtils.getSessionUserInfo().getInfo().getId());

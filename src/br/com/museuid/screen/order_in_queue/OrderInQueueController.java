@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class OrderInQueueController extends AnchorPane {
@@ -117,7 +118,7 @@ public class OrderInQueueController extends AnchorPane {
                             orderDetailObservableList.clear();
                             for (OrderDetail orderDetail : data){
                                 orderDetail.updateFields();
-                                orderDetailObservableList.addAll(data);
+                                orderDetailObservableList.add(orderDetail);
                             }
                             tbOrderInQueue.refresh();
                         }
@@ -216,6 +217,8 @@ public class OrderInQueueController extends AnchorPane {
             orderQueue();
             return;
         }
+        Optional<String> r = DialogUtils.showTextInputDialog("Dialog", "Nhập lý do hủy đơn hàng(nếu có)");
+        r.ifPresent(str -> selecteOrder.setComment(str));
         selecteOrder.setStatus(OrderDetail.OrderStatus.CANCELED.name());
         selecteOrder.setHandlerid(StaticVarUtils.getSessionUserInfo().getInfo().getId());
         selecteOrder.setHandlername(StaticVarUtils.getSessionUserInfo().getInfo().getUsername());

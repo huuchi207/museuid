@@ -221,4 +221,14 @@ public class DialogUtils {
 
         boxDialog(apProgress);
     }
+    public static Optional<String> showTextInputDialog(String title, String subTitle){
+        TextInputDialog dialog = new TextInputDialog(null);
+        dialog.setTitle(title);
+        dialog.setHeaderText(subTitle);
+//// Traditional way to get the response value.
+        return dialog.showAndWait();
+//        if (result.isPresent()){
+//            System.out.println("Your name: " + result.get());
+//        }
+    }
 }
