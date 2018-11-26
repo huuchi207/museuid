@@ -4,9 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class SessionUserInfo {
-    @SerializedName("sessionId")
+    @SerializedName("sessionid")
     @Expose
-    private String sessionId;
+    private String sessionid;
 
     @SerializedName("token")
     @Expose
@@ -16,12 +16,12 @@ public class SessionUserInfo {
     @Expose
     private UserDTO info;
 
-    public String getSessionId() {
-        return sessionId;
+    public String getSessionid() {
+        return sessionid;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setSessionid(String sessionid) {
+        this.sessionid = sessionid;
     }
 
     public UserDTO getInfo() {

@@ -100,7 +100,7 @@ public class AppController {
                 userListBoxMenu = new ArrayList<Node>(
                     Arrays.asList(btOrderSection, boxOrderSection, btAppManagementSection, boxManagement, btUserInfoSection, boxUserInfo));
                 userListFeatureView = new ArrayList<Node>(
-                Arrays.asList(btOrderInQueue, btMyHandlingOrder, btEmployeeManagement, btProductManagement, btDeviceManagement, btStatistic, btStockImporting,
+                Arrays.asList(btCreateOrder, btOrderInQueue, btMyHandlingOrder, btEmployeeManagement, btProductManagement, btDeviceManagement, btStatistic, btStockImporting,
                 btUpdateUserInfo, btChangePassword));
                 openOrderInQueueScreen(new ActionEvent(btOrderInQueue, null));
                 break;
@@ -122,7 +122,7 @@ public class AppController {
                 userListBoxMenu = new ArrayList<Node>(
                     Arrays.asList(btOrderSection, boxOrderSection, btUserInfoSection, boxUserInfo));
                 userListFeatureView = new ArrayList<Node>(
-                    Arrays.asList(btOrderInQueue, btMyHandlingOrder,btUpdateUserInfo, btChangePassword));
+                    Arrays.asList(btCreateOrder, btOrderInQueue, btMyHandlingOrder,btUpdateUserInfo, btChangePassword));
                 openOrderInQueueScreen(new ActionEvent(btOrderInQueue, null));
                 break;
         }

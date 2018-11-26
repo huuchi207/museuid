@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import br.com.museuid.customview.AutocompletionlTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -8,127 +9,141 @@
 <fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea"
          xmlns:fx="http://javafx.com/fxml/1"
 >
-    <children>
-        <HBox prefHeight="60.0" prefWidth="1207.0" styleClass="box-topo" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Label fx:id="lbTitle" alignment="BOTTOM_LEFT" layoutX="10.0"
-                       maxWidth="1.7976931348623157E308" styleClass="titulo"
-                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0"
-                       HBox.hgrow="ALWAYS" text="App"/>
-                <TextField fx:id="txtSearch" prefHeight="50.0" prefWidth="417.0"
-                           promptText="%txt_search" styleClass="search-txt-field"  />
-            </children>
-        </HBox>
+    <stylesheets>
+        <URL value="@../../css/default.css"/>
+        <URL value="@../../css/custom.css"/>
+    </stylesheets>
+    <HBox prefHeight="60.0" prefWidth="1207.0" styleClass="box-topo" AnchorPane.leftAnchor="15.0"
+          AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
+        <Label fx:id="lbTitle" alignment="BOTTOM_LEFT" layoutX="10.0"
+               maxWidth="1.7976931348623157E308" styleClass="titulo"
+               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0"
+               HBox.hgrow="ALWAYS" text="App"/>
+        <TextField fx:id="txtSearch" prefHeight="50.0" prefWidth="417.0"
+                   promptText="%txt_search" styleClass="search-txt-field"/>
+    </HBox>
+    <AnchorPane fx:id="apProductList" visible="true"  AnchorPane.bottomAnchor="60.0"
+                AnchorPane.leftAnchor="15.0"
+                AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+        <TableView fx:id="tbProduct" tableMenuButtonVisible="true" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0">
+            <columns>
+                <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"-->
+                <!--text="Id" />-->
+                <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0"
+                             prefWidth="150.0" text="%txt_product_name"/>
+                <TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0"
+                             prefWidth="150.0" text="%txt_description"/>
+                <TableColumn fx:id="colPrice" maxWidth="900.0" minWidth="150.0"
+                             prefWidth="250.0" text="%txt_price"/>
+                <TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0"
+                             prefWidth="250.0" text="%txt_status"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </AnchorPane>
+    <GridPane fx:id="gridEditOrderList" AnchorPane.bottomAnchor="60.0"
+              AnchorPane.leftAnchor="15.0"
+              AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" visible="false">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="50" />
+        <ColumnConstraints percentWidth="50" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
+        <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
+        <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
+        <RowConstraints />
 
-        <AnchorPane fx:id="apProductList" visible="false" AnchorPane.bottomAnchor="60.0"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-            <children>
-                <TableView fx:id="tbProduct" tableMenuButtonVisible="true"
-                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0"
-                           AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
-                    <columns>
-                        <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"-->
-                        <!--text="Id" />-->
-                        <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0"
-                                     prefWidth="150.0" text="%txt_product_name" />
-                        <TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0"
-                                     prefWidth="150.0" text="%txt_description" />
-                        <TableColumn fx:id="colPrice" maxWidth="900.0" minWidth="150.0"
-                                     prefWidth="250.0" text="%txt_price" />
-                        <TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0"
-                                     prefWidth="250.0" text="%txt_status" />
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
-                </TableView>
-            </children>
-        </AnchorPane>
-        <AnchorPane fx:id="apEditOrderList" visible="false" AnchorPane.bottomAnchor="60.0"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-            <children>
+    </rowConstraints>
+        <Label styleClass="lb-info" text="%txt_choose_device" GridPane.columnIndex="0"
+                             GridPane.rowIndex="0" />
+        <AutocompletionlTextField fx:id="txtChooseDevice" styleClass="campo" GridPane.columnIndex="0"
+                   GridPane.rowIndex="1"  >
+            <GridPane.margin>
+                <Insets top="10.0" bottom="10" />
+            </GridPane.margin>
+        </AutocompletionlTextField>
+        <Label styleClass="lb-info" text="%txt_order_detail" GridPane.columnIndex="0"
+               GridPane.rowIndex="2" />
+        <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="3" >
+            <AnchorPane fx:id="apEditOrderList"  AnchorPane.bottomAnchor="0.0"
+                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <TableView fx:id="tbProductInOrder" tableMenuButtonVisible="true"
-                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0"
-                           AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
+                           AnchorPane.bottomAnchor="0.0"  AnchorPane.topAnchor="10.0">
                     <columns>
                         <!--<TableColumn fx:id="colIdInOrder" maxWidth="50.0" minWidth="50.0"-->
                         <!--prefWidth="50.0" text="Id" />-->
                         <TableColumn fx:id="colProductNameInOrder" maxWidth="900.0" minWidth="150.0"
-                                     prefWidth="150.0" text="%txt_product_name" />
+                                     prefWidth="150.0" text="%txt_product_name"/>
                         <TableColumn fx:id="colDescriptionInOrder" maxWidth="900.0" minWidth="150.0"
-                                     prefWidth="150.0" text="%txt_description" />
+                                     prefWidth="150.0" text="%txt_description"/>
                         <TableColumn fx:id="colPriceInOrder" maxWidth="900.0" minWidth="150.0"
-                                     prefWidth="250.0" text="%txt_price" />
+                                     prefWidth="250.0" text="%txt_price"/>
                         <TableColumn fx:id="colCountInOrder" maxWidth="900.0" minWidth="150.0"
-                                     prefWidth="250.0" text="%txt_count" />
+                                     prefWidth="250.0" text="%txt_count"/>
                         <TableColumn fx:id="colMoreRequirement" maxWidth="900.0" minWidth="150.0"
-                                     prefWidth="250.0" text="%txt_more_requirement" />
+                                     prefWidth="250.0" text="%txt_more_requirement"/>
                     </columns>
                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                     </columnResizePolicy>
                 </TableView>
-            </children>
+            </AnchorPane>
         </AnchorPane>
-        <AnchorPane prefHeight="50.0" styleClass="box-menus-subtela" AnchorPane.bottomAnchor="5.0"
-                    AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-            <children>
-                <HBox AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0"
-                      AnchorPane.topAnchor="5.0">
-                    <StackPane>
-                        <children>
-                            <Button id="" fx:id="btBackToList" mnemonicParsing="false"
-                                    onAction="#goToProductList" prefHeight="40.0" prefWidth="200.0" style=""
-                                    text="%txt_back_to_product_list">
-                                <styleClass>
-                                    <String fx:value="menus-acoes" />
-                                    <!--<String fx:value="acao-editar" />-->
-                                    <String fx:value="menu-blue" />
-                                </styleClass>
-                                <StackPane.margin>
-                                    <Insets right="30.0" />
-                                </StackPane.margin>
-                            </Button>
-                        </children>
-                    </StackPane>
+    </GridPane>
+    <AnchorPane prefHeight="50.0" styleClass="box-menus-subtela" AnchorPane.bottomAnchor="5.0"
+                AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+        <Label fx:id="lbLegend" layoutX="36.0" layoutY="17.0" styleClass="lb-info-requerido"
+               text="%txt_hold_ctrl_to_choose_items" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0"
+               AnchorPane.topAnchor="5.0"/>
+        <HBox AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="5.0">
+            <StackPane>
+                <Button id="" fx:id="btBackToList" mnemonicParsing="false"
+                        onAction="#goToProductList" prefHeight="40.0" prefWidth="200.0" style=""
+                        text="%txt_back_to_product_list">
+                    <styleClass>
+                        <String fx:value="menus-acoes"/>
+                        <!--<String fx:value="acao-editar" />-->
+                        <String fx:value="menu-blue"/>
+                    </styleClass>
+                    <StackPane.margin>
+                        <Insets right="30.0"/>
+                    </StackPane.margin>
+                </Button>
+            </StackPane>
 
-                    <StackPane>
-                        <children>
-                            <Button fx:id="btEditOrder" contentDisplay="TOP" mnemonicParsing="false"
-                                    onAction="#editOrder" prefHeight="40.0" prefWidth="200.0" style=""
-                                    text="%txt_take_to_order" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                    AnchorPane.topAnchor="0.0">
-                                <styleClass>
-                                    <String fx:value="menus-acoes" />
-                                    <String fx:value="acao-salvar" />
-                                    <String fx:value="menu-green" />
-                                </styleClass>
-                            </Button>
-                            <Button id="" fx:id="btCreateOrder" contentDisplay="TOP"
-                                    mnemonicParsing="false" onAction="#createOrder" prefHeight="40.0"
-                                    prefWidth="200.0" style="" text="%txt_create_order"
-                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <styleClass>
-                                    <String fx:value="menus-acoes" />
-                                    <String fx:value="acao-editar" />
-                                    <String fx:value="menu-orange" />
-                                </styleClass>
-                            </Button>
+            <StackPane>
+                <Button fx:id="btEditOrder" contentDisplay="TOP" mnemonicParsing="false"
+                        onAction="#editOrder" prefHeight="40.0" prefWidth="200.0" style=""
+                        text="%txt_take_to_order" AnchorPane.bottomAnchor="0.0"
+                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                        AnchorPane.topAnchor="0.0">
+                    <styleClass>
+                        <String fx:value="menus-acoes"/>
+                        <String fx:value="acao-salvar"/>
+                        <String fx:value="menu-green"/>
+                    </styleClass>
+                </Button>
+                <Button id="" fx:id="btCreateOrder" contentDisplay="TOP"
+                        mnemonicParsing="false" onAction="#createOrder" prefHeight="40.0"
+                        prefWidth="200.0" style="" text="%txt_create_order"
+                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <styleClass>
+                        <String fx:value="menus-acoes"/>
+                        <String fx:value="acao-editar"/>
+                        <String fx:value="menu-orange"/>
+                    </styleClass>
+                </Button>
 
-                        </children>
-                    </StackPane>
-                </HBox>
+            </StackPane>
+        </HBox>
 
-            </children>
-            <Label fx:id="lbLegend" layoutX="36.0" layoutY="17.0" styleClass="lb-info-requerido" text="%txt_hold_ctrl_to_choose_items" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0" />
-        </AnchorPane>
-    </children>
-    <stylesheets>
-        <URL value="@../../css/default.css" />
-        <URL value="@../../css/custom.css" />
-    </stylesheets>
+    </AnchorPane>
 </fx:root>

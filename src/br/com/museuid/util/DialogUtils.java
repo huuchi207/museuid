@@ -102,18 +102,18 @@ public class DialogUtils {
     /**
      * Allows the user to return a responseMessage of the message according to the type of the message as: OK, YES, NO and CANCEL
      */
-    public static ResponseMessage mensageConfirmer(String titulo, String mensagem) {
+    public static ResponseMessage mensageConfirmer(String titulo, String mensagem, String positive, String negative) {
         HBox box = new HBox();
         box.getStyleClass().add("box-acao-dialog");
 
-        Button yes = new Button(BundleUtils.getResourceBundle().getString("txt_ok"));
+        Button yes = new Button(positive);
         yes.setOnAction((ActionEvent e) -> {
             stageDialog.close();
             responseMessage = ResponseMessage.YES;
         });
         yes.getStyleClass().add("bt-sim");
 
-        Button no = new Button(BundleUtils.getResourceBundle().getString("txt_cancel"));
+        Button no = new Button(negative);
         no.setOnAction((ActionEvent e) -> {
             stageDialog.close();
             responseMessage = ResponseMessage.NO;
@@ -124,6 +124,10 @@ public class DialogUtils {
         box(icon("CONFIRMAR"), text(titulo, mensagem), box);
 
         return responseMessage;
+    }
+    public static ResponseMessage mensageConfirmer(String titulo, String mensage) {
+        return mensageConfirmer(titulo, mensage, BundleUtils.getResourceBundle().getString("txt_ok"),
+                BundleUtils.getResourceBundle().getString("txt_cancel"));
     }
 
     /**

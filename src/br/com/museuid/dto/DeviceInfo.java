@@ -2,8 +2,9 @@ package br.com.museuid.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.StringUtils;
 
-public class DeviceInfo {
+public class DeviceInfo implements Comparable<DeviceInfo>{
 
     @SerializedName("_id")
     @Expose
@@ -21,6 +22,7 @@ public class DeviceInfo {
     @Expose
     private String update;
     private String clientid;
+    private String displayName;
     public DeviceInfo() {
     }
 
@@ -84,5 +86,26 @@ public class DeviceInfo {
 
     public void setClientid(String clientid) {
         this.clientid = clientid;
+    }
+
+    public void buildDisplayName(){
+        StringBuilder s = new StringBuilder(this.name);
+        if (!StringUtils.isEmpty(this.location)){
+            s.append(" - ");
+            s.append(this.location);
+        }
+        this.displayName = s.toString();
+    }
+
+    @Override
+    public String toString() {//for auto complete text
+        return displayName;
+    }
+
+    @Override
+    public int compareTo(DeviceInfo o) {
+        if (this.displayName == null || o.displayName == null)
+            return 0;
+        return this.displayName.compareTo(o.displayName);
     }
 }

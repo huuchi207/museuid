@@ -1,6 +1,8 @@
 package br.com.museuid.screen.create_order_screen;
 
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.customview.AutocompletionlTextField;
+import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.dto.Product;
 import br.com.museuid.model.data.ProductInOrder;
 import br.com.museuid.screen.app.AppController;
@@ -19,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +49,8 @@ public class CreateOrderScreenControler extends AnchorPane {
     public TableColumn<ProductInOrder, String> colCountInOrder;
     public TableColumn colStatus;
     public TableColumn<ProductInOrder, String> colMoreRequirement;
-
+    public GridPane gridEditOrderList;
+    public AutocompletionlTextField<DeviceInfo> txtChooseDevice;
     //bottom button
     public Button btEditOrder;
     public Button btCreateOrder;
@@ -62,6 +66,7 @@ public class CreateOrderScreenControler extends AnchorPane {
     private ObservableList<Product> productObservableList;
     private ObservableList<ProductInOrder> productInOrderObservableList;
     private int totalPrice;
+    private ObservableList<DeviceInfo> deviceInfoObservableList = FXCollections.observableList(new ArrayList<>());
     public CreateOrderScreenControler() {
         try {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("create_order_screen.fxml"));
@@ -224,9 +229,11 @@ public class CreateOrderScreenControler extends AnchorPane {
         }
         updateProductInOrderTable();
         updateProductInOrderScreenData();
+        getDeviceList();
+        FieldViewUtils.resetField(txtChooseDevice);
         lbTitle.setText(bundle.getString("txt_edit_order"));
         NavigationUtils.setVisibility(false, btEditOrder, apProductList, txtSearch);
-        NavigationUtils.setVisibility(true, btBackToList, btCreateOrder, apEditOrderList);
+        NavigationUtils.setVisibility(true, btBackToList, btCreateOrder, gridEditOrderList);
 
     }
 
@@ -236,24 +243,38 @@ public class CreateOrderScreenControler extends AnchorPane {
             Messenger.info(bundle.getString("txt_please_choose_number_of_product_correctly"));
             return;
         }
+        if (txtChooseDevice.getSelectedItem() == null){
+            Messenger.info("Vui lòng chọn máy!");
+            return;
+        }
         if (ConstantConfig.FAKE){
             Messenger.info(bundle.getString("msg_create_order_successfully") +"\""+ bundle.getString("txt_order_created") +"\"");
         } else{
+            PutQueueRequest queueRequest = createPutOrderRequest();
+            DialogUtils.ResponseMessage responseMessage =
+                    DialogUtils.mensageConfirmer("Xác nhận","Bạn có muốn xử lý đơn hàng luôn?", "Có", "Không, đưa vào hàng đợi");
             AppController.getInstance().showProgressDialog();
-            ServiceBuilder.getApiService().putOrder(createPutOrderRequest()).enqueue(new BaseCallback<Object>() {
-                @Override
-                public void onError(String errorCode, String errorMessage) {
-                    AppController.getInstance().hideProgressDialog();
-                    Messenger.erro(errorMessage);
-                }
+            if (responseMessage == DialogUtils.ResponseMessage.YES) {
+                //TODO
+            } else {
+                AppController.getInstance().showProgressDialog();
+                ServiceBuilder.getApiService().putOrder(queueRequest).enqueue(new BaseCallback<Object>() {
+                    @Override
+                    public void onError(String errorCode, String errorMessage) {
+                        AppController.getInstance().hideProgressDialog();
+                        Messenger.erro(errorMessage);
+                    }
 
-                @Override
-                public void onSuccess(Object data) {
-                    AppController.getInstance().hideProgressDialog();
-                    Messenger.info(bundle.getString("txt_operation_successful"));
-                    goToProductList(event);
-                }
-            });
+                    @Override
+                    public void onSuccess(Object data) {
+                        AppController.getInstance().hideProgressDialog();
+                        Messenger.info(bundle.getString("txt_operation_successful"));
+                        goToProductList(event);
+                    }
+                });
+            }
+
+
         }
     }
 
@@ -265,7 +286,7 @@ public class CreateOrderScreenControler extends AnchorPane {
         tbProduct.getSelectionModel().clearSelection();
 
         NavigationUtils.setVisibility(true, btEditOrder, apProductList,txtSearch);
-        NavigationUtils.setVisibility(false, btBackToList, btCreateOrder, apEditOrderList);
+        NavigationUtils.setVisibility(false, btBackToList, btCreateOrder, gridEditOrderList);
     }
     private List<ProductInOrder> createProductInOrderListFromSelectedProductList(){
         if (productList == null || productList.isEmpty()){
@@ -309,9 +330,6 @@ public class CreateOrderScreenControler extends AnchorPane {
     }
 
     private PutQueueRequest createPutOrderRequest(){
-        if (StaticVarUtils.getSessionDeviceInfo() == null || StaticVarUtils.getSessionDeviceInfo().getInfo() == null){
-            AppController.getInstance().startLogin();
-        }
         ObservableList<ProductInOrder> orderObservableList = tbProductInOrder.getItems();
         int totalPrice = 0;
         List<PutQueueRequest.Item> items = new ArrayList<>();
@@ -328,13 +346,36 @@ public class CreateOrderScreenControler extends AnchorPane {
                     priceOfProduct));
             totalPrice+= priceOfProduct;
         }
-
+        DeviceInfo deviceInfo = txtChooseDevice.getSelectedItem();
         PutQueueRequest putQueueRequest= new PutQueueRequest(totalPrice , items,
-                StaticVarUtils.getSessionDeviceInfo().getInfo().getName(),
-                StaticVarUtils.getSessionDeviceInfo().getInfo().getId(),
-                StaticVarUtils.getSessionDeviceInfo().getSessionid(),
-                null);
-        putQueueRequest.setLocation(StaticVarUtils.getSessionDeviceInfo().getInfo().getLocation());
+                deviceInfo.getName(),
+                deviceInfo.getId(),
+                StaticVarUtils.getSessionUserInfo().getSessionid(),null);
+        putQueueRequest.setLocation(deviceInfo.getLocation());
         return putQueueRequest;
+    }
+
+    private void getDeviceList(){
+        AppController.getInstance().showProgressDialog();
+        ServiceBuilder.getApiService().getListDevice().enqueue(new BaseCallback<List<DeviceInfo>>() {
+            @Override
+            public void onError(String errorCode, String errorMessage) {
+                AppController.getInstance().hideProgressDialog();
+                Messenger.erro(errorMessage);
+            }
+
+            @Override
+            public void onSuccess(List<DeviceInfo> data) {
+                AppController.getInstance().hideProgressDialog();
+                for (DeviceInfo deviceInfo : data){
+                    deviceInfo.buildDisplayName();
+                }
+//                deviceInfoObservableList.clear();
+//                deviceInfoObservableList.addAll(data);
+//
+                txtChooseDevice.getEntries().clear();
+                txtChooseDevice.getEntries().addAll(data);
+            }
+        });
     }
 }

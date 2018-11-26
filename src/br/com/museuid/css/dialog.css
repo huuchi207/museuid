@@ -42,8 +42,8 @@
     -fx-background-radius: 4;
     -fx-font-family: "Open Sans Semibold", sans-serif;
     -fx-text-fill: #fff;
-    -fx-pref-height: 27;
-    -fx-pref-width: 80;
+    -fx-min-height: 27;
+    -fx-min-width: 80;
 }
 
 .bt-ok:hover,
