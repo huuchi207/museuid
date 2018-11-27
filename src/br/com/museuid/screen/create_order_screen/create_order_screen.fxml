@@ -24,7 +24,7 @@
         <TableView fx:id="tbProduct" tableMenuButtonVisible="true" AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="0.0"
                    AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0">
-            <chartPoints>
+            <columns>
                 <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"-->
                 <!--text="Id" />-->
                 <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0"
@@ -35,7 +35,7 @@
                              prefWidth="250.0" text="%txt_price"/>
                 <TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0"
                              prefWidth="250.0" text="%txt_status"/>
-            </chartPoints>
+            </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
@@ -70,7 +70,7 @@
                         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <TableView fx:id="tbProductInOrder" tableMenuButtonVisible="true"
                            AnchorPane.bottomAnchor="0.0"  AnchorPane.topAnchor="10.0">
-                    <chartPoints>
+                    <columns>
                         <!--<TableColumn fx:id="colIdInOrder" maxWidth="50.0" minWidth="50.0"-->
                         <!--prefWidth="50.0" text="Id" />-->
                         <TableColumn fx:id="colProductNameInOrder" maxWidth="900.0" minWidth="150.0"
@@ -83,7 +83,7 @@
                                      prefWidth="250.0" text="%txt_count"/>
                         <TableColumn fx:id="colMoreRequirement" maxWidth="900.0" minWidth="150.0"
                                      prefWidth="250.0" text="%txt_more_requirement"/>
-                    </chartPoints>
+                    </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                     </columnResizePolicy>
