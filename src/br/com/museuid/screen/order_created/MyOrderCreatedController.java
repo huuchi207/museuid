@@ -1,6 +1,10 @@
 package br.com.museuid.screen.order_created;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.util.BundleUtils;
@@ -16,10 +20,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class MyOrderCreatedController extends AnchorPane {
 
@@ -52,8 +52,6 @@ public class MyOrderCreatedController extends AnchorPane {
     @FXML
     public void initialize() {
         initTable();
-        //TODO:add more event to listen
-
     }
 
     void initTable() {
@@ -73,7 +71,6 @@ public class MyOrderCreatedController extends AnchorPane {
             return;
         }
         if (selected.getStatus().equalsIgnoreCase(OrderDetail.OrderStatus.NEW.name())){
-            //TODO: call api cancel order
             Messenger.info(bundle.getString("txt_operation_successful"));
         }else {
             Messenger.info(bundle.getString("txt_please_choose_target"));

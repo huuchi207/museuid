@@ -17,7 +17,6 @@ public class ItemGridCell extends GridCell<ItemGridView> {
 
             @Override
             public void handle(Event event) {
-                // TODO Auto-generated method stub
 //                if (((MouseEvent) event).getClickCount() >= 2) {
 //                    //do something when it's clicked
 //
@@ -28,7 +27,6 @@ public class ItemGridCell extends GridCell<ItemGridView> {
     }
     @Override
     protected void updateItem(ItemGridView item, boolean empty) {
-        // TODO Auto-generated method stub
         super.updateItem(item, empty);
         if (empty || item == null) {
 

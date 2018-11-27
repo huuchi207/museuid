@@ -4,12 +4,12 @@
   "result":{
     "chartName": "Chart",
     "unit": "MM",
-    "groupColumns": [
+    "groupChartPoints": [
       {
         "title": "Sáng",
         "color": "#26a39d",
         "styleId": null,
-        "columns": [
+        "chartPoints": [
           {
             "date": "01/01/2018",
             "value": 1200000,
@@ -156,7 +156,7 @@
         "title": "Chiều",
         "color": "#FEC006",
         "styleId": null,
-        "columns": [
+        "chartPoints": [
           {
             "date": "01/01/2018",
             "value": 1200000,
@@ -303,7 +303,7 @@
         "title": "Tối",
         "color": "#F95557",
         "styleId": null,
-        "columns": [
+        "chartPoints": [
           {
             "date": "01/01/2018",
             "value": 1200000,

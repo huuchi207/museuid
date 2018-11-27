@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import br.com.museuid.model.data.BaseChartItem;
 
-public class Column extends BaseChartItem {
+public class ChartPoint extends BaseChartItem {
 
     @SerializedName("viewValue")
     @Expose

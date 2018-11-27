@@ -1,8 +1,5 @@
 package br.com.museuid.util;
 
-import br.com.museuid.app.App;
-import br.com.museuid.dto.*;
-import br.com.museuid.service.remote.ResponseDTO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -10,6 +7,16 @@ import com.google.gson.stream.JsonReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.museuid.app.App;
+import br.com.museuid.dto.ChartData;
+import br.com.museuid.dto.ChartPoint;
+import br.com.museuid.dto.EmployeeDTO;
+import br.com.museuid.dto.EmployeeListDTO;
+import br.com.museuid.dto.GroupChartPoint;
+import br.com.museuid.dto.Product;
+import br.com.museuid.dto.ProductListDTO;
+import br.com.museuid.service.remote.ResponseDTO;
 
 public class FakeDataUtils {
   public static List<EmployeeDTO> getFakeEmployeeList(){
@@ -50,18 +57,18 @@ public class FakeDataUtils {
         return new ArrayList<>();
     }
 
-    public static PeriodChartData getFakeGroupBarChart(){
+    public static ChartData getFakeGroupBarChart(){
         try{
             JsonReader reader = readFile("groupbarchart.json");
             if (reader != null){
-                ResponseDTO<PeriodChartData> responseDTO = new Gson()
+                ResponseDTO<ChartData> responseDTO = new Gson()
                     .fromJson(reader, new TypeToken<ResponseDTO<ChartData>>() {
                     }.getType());
                 if (responseDTO!= null){
-                    PeriodChartData chartData = responseDTO.getResult();
-                    for (GroupColumn groupColumn : chartData.getGroupColumns()){
-                        for (Column column : groupColumn.getColumns()){
-                            column.setValue(1000000+ (Math.random() * ((1000 - 1) + 1)));
+                    ChartData chartData = responseDTO.getResult();
+                    for (GroupChartPoint groupChartPoint : chartData.getGroupChartPoints()){
+                        for (ChartPoint chartPoint : groupChartPoint.getChartPoints()){
+                            chartPoint.setValue(1000000+ (Math.random() * ((100000 - 1000) + 1)));
                         }
                     }
                     return chartData;

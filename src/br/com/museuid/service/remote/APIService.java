@@ -4,7 +4,6 @@ import java.util.List;
 
 import br.com.museuid.dto.ChartData;
 import br.com.museuid.dto.DeviceInfo;
-import br.com.museuid.dto.PeriodChartData;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.SessionUserInfo;
@@ -93,13 +92,13 @@ public interface APIService {
     Call<ResponseDTO<Object>> updateQueue(@Body OrderDetail orderDetail);
 
     @POST("days-period")
-    Call<ResponseDTO<PeriodChartData>> getDayStatisticPeriod(@Body StatisticRequest statisticRequest);
+    Call<ResponseDTO<ChartData>> getDayStatisticPeriod(@Body StatisticRequest statisticRequest);
 
     @POST("months-period")
-    Call<ResponseDTO<PeriodChartData>> getMonthStatisticPeriod(@Body StatisticRequest statisticRequest);
+    Call<ResponseDTO<ChartData>> getMonthStatisticPeriod(@Body StatisticRequest statisticRequest);
 
     @POST("years-period")
-    Call<ResponseDTO<PeriodChartData>> getYearStatisticPeriod(@Body StatisticRequest statisticRequest);
+    Call<ResponseDTO<ChartData>> getYearStatisticPeriod(@Body StatisticRequest statisticRequest);
 
     @GET("queues")
     Call<ResponseDTO<List<OrderDetail>>> getOrderByStatus(@Query("filter") String statusFilter, @Query("handlerid") String handlerid);

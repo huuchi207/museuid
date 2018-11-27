@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class GroupColumn {
+public class GroupChartPoint {
 
     @SerializedName("title")
     @Expose
@@ -16,9 +16,9 @@ public class GroupColumn {
     @SerializedName("styleId")
     @Expose
     private Object styleId;
-    @SerializedName("columns")
+    @SerializedName("chartPoints")
     @Expose
-    private List<Column> columns = null;
+    private List<ChartPoint> chartPoints = null;
 
     public String getTitle() {
         return title;
@@ -44,12 +44,12 @@ public class GroupColumn {
         this.styleId = styleId;
     }
 
-    public List<Column> getColumns() {
-        return columns;
+    public List<ChartPoint> getChartPoints() {
+        return chartPoints;
     }
 
-    public void setColumns(List<Column> columns) {
-        this.columns = columns;
+    public void setChartPoints(List<ChartPoint> chartPoints) {
+        this.chartPoints = chartPoints;
     }
 
 }

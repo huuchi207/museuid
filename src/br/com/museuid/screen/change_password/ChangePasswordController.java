@@ -1,5 +1,9 @@
 package br.com.museuid.screen.change_password;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ResourceBundle;
+
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
@@ -14,9 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.ResourceBundle;
 
 public class ChangePasswordController extends AnchorPane {
 
@@ -47,7 +48,6 @@ public class ChangePasswordController extends AnchorPane {
         AppController.getInstance().showProgressDialog();
     }
 
-    //TODO: call update
     public void changePassword(){
         if (FieldViewUtils.noEmpty(pfConfirmNewPassword, pfNewPassword, pfOldPassword)){
             return;

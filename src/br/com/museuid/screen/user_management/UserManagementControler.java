@@ -1,6 +1,10 @@
 package br.com.museuid.screen.user_management;
 
-import br.com.museuid.Constants;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.CustomListCellComboBox;
 import br.com.museuid.customview.PasswordDialog;
@@ -10,7 +14,13 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.sample.SampleCallback;
-import br.com.museuid.util.*;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ComboUtils;
+import br.com.museuid.util.DialogUtils;
+import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.util.NoticeUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -20,17 +30,20 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class UserManagementControler extends AnchorPane {
     @FXML
@@ -161,7 +174,7 @@ public class UserManagementControler extends AnchorPane {
                         @Override
                         public void onSuccess(UserDTO data) {
                             AppController.getInstance().hideProgressDialog();
-                            Messenger.info("Người dùng " + data.getUsername() + " vừa được tạo với mật khẩu là: " + Constants.DEFAULT_PASSWORD);
+                            Messenger.info("Người dùng " + data.getUsername() + " vừa được tạo với mật khẩu là: " + data.getPassword());
                             getListUser();
                         }
                     });
@@ -323,7 +336,6 @@ public class UserManagementControler extends AnchorPane {
      * Sincronizar dados com banco de dados
      */
     private void getListUser() {
-        //TODO: call list user api
         if (ConstantConfig.FAKE) {
             if (listUser == null) {
 //                listUser = FakeDataUtils.getFakeEmployeeList();
@@ -423,7 +435,6 @@ public class UserManagementControler extends AnchorPane {
         DialogUtils.ResponseMessage responseMessage = DialogUtils.mensageConfirmer(bundle.getString("txt_notice"),
             bundle.getString("txt_are_you_sure_want_to_reset_password_of_this_user"));
         if (responseMessage == DialogUtils.ResponseMessage.YES) {
-            //TODO: call api reset password
             if (ConstantConfig.FAKE) {
                 Messenger.info(bundle.getString("txt_reset_password_successfully"));
                 return;
@@ -441,7 +452,7 @@ public class UserManagementControler extends AnchorPane {
                     @Override
                     public void onSuccess(UserDTO data) {
                         AppController.getInstance().hideProgressDialog();
-                        Messenger.info("Mật khẩu được reset về " + Constants.DEFAULT_PASSWORD);
+                        Messenger.info("Mật khẩu được reset về " + data.getPassword());
                     }
                 });
             }

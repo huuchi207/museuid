@@ -74,7 +74,7 @@
       <children>
         <TableView fx:id="tbDevice" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
-          <columns>
+          <chartPoints>
             <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />-->
             <TableColumn fx:id="colMacAddress" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
               text="%txt_mac_address" />
@@ -85,7 +85,7 @@
             <!---->
             <!--<TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"-->
               <!--text="%txt_description" />-->
-          </columns>
+          </chartPoints>
           <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
           </columnResizePolicy>

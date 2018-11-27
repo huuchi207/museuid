@@ -7,7 +7,9 @@ import br.com.museuid.screen.my_handing_order.MyHandlingOrderController;
 import br.com.museuid.screen.order_created.MyOrderCreatedController;
 import br.com.museuid.screen.order_in_queue.OrderInQueueController;
 import br.com.museuid.screen.product_management.ProductManagementControler;
-import br.com.museuid.screen.statistic.StatisticController;
+import br.com.museuid.screen.product_statistic.ProductStatisticController;
+import br.com.museuid.screen.statistic.RevenueStatisticController;
+import br.com.museuid.screen.stock_importing.StockImportingControler;
 import br.com.museuid.screen.update_user_info.UpdateUserInfoController;
 import br.com.museuid.screen.user_management.UserManagementControler;
 import javafx.scene.Node;
@@ -24,12 +26,14 @@ public class NavigationUtils {
     private static CreateOrderScreenControler createOrderScreenControler;
     private static UpdateUserInfoController updateUserInfoController;
     private static MyOrderCreatedController myOrderCreatedController;
-    private static StatisticController statisticController;
+    private static RevenueStatisticController revenueStatisticController;
     private static ChangePasswordController changePasswordController;
     private static OrderInQueueController orderInQueueController;
     private static ProductManagementControler productManagementControler;
     private static DeviceManagementControler deviceManagementControler;
     private static MyHandlingOrderController myHandlingOrderController;
+    private static ProductStatisticController productStatisticController;
+    private static StockImportingControler stockImportingControler;
     private NavigationUtils() {
     }
 
@@ -74,8 +78,8 @@ public class NavigationUtils {
     }
 
     public static void getStatisticScreen(AnchorPane box){
-        statisticController = new StatisticController();
-        config(box, statisticController);
+        revenueStatisticController = new RevenueStatisticController();
+        config(box, revenueStatisticController);
     }
 
     public static void getChangePasswordScreen(AnchorPane box){
@@ -102,6 +106,16 @@ public class NavigationUtils {
         myHandlingOrderController = new MyHandlingOrderController();
         config(box, myHandlingOrderController);
     }
+
+    public static void getStockImportingControler(AnchorPane box){
+      stockImportingControler = new StockImportingControler();
+      config(box, stockImportingControler);
+    }
+
+  public static void getProductStatisticController(AnchorPane box){
+    productStatisticController = new ProductStatisticController();
+    config(box, productStatisticController);
+  }
     public static void config(AnchorPane box, StackPane conteudo) {
         box.getChildren().clear();
         box.getChildren().add(conteudo);

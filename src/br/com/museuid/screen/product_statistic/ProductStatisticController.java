@@ -1,25 +1,5 @@
-package br.com.museuid.screen.statistic;
+package br.com.museuid.screen.product_statistic;
 
-import br.com.museuid.config.ConstantConfig;
-import br.com.museuid.dto.ChartData;
-import br.com.museuid.dto.GroupColumn;
-import br.com.museuid.dto.PeriodChartData;
-import br.com.museuid.dto.UserDTO;
-import br.com.museuid.model.data.BaseChartItem;
-import br.com.museuid.screen.app.AppController;
-import br.com.museuid.service.remote.BaseCallback;
-import br.com.museuid.service.remote.ServiceBuilder;
-import br.com.museuid.service.remote.requestbody.StatisticRequest;
-import br.com.museuid.util.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartViewer;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -28,18 +8,43 @@ import org.jfree.data.category.SlidingCategoryDataset;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-public class StatisticController extends AnchorPane {
+import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.dto.ChartData;
+import br.com.museuid.screen.app.AppController;
+import br.com.museuid.service.remote.BaseCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.service.remote.requestbody.StatisticRequest;
+import br.com.museuid.util.BarChartUtils;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.FakeDataUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.ResizeUtils;
+import br.com.museuid.util.TimeUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+
+public class ProductStatisticController extends AnchorPane {
     @FXML
     private HBox boxPeriod;
     @FXML
     private HBox boxPeriodForManager;
-    @FXML
-    private ToggleGroup menuPeriodForManager;
+
     private int period = 1;
     private static final int SESSION = 0;
     private static final int DAY = 1;
@@ -78,9 +83,9 @@ public class StatisticController extends AnchorPane {
     private JFreeChart freeChart;
     private ChartViewer chartViewer;
     private SlidingCategoryDataset dataset;
-    public StatisticController() {
+    public ProductStatisticController() {
         try {
-            FXMLLoader fxml = new FXMLLoader(getClass().getResource("statistic.fxml"));
+            FXMLLoader fxml = new FXMLLoader(getClass().getResource("product_statistic.fxml"));
             fxml.setRoot(this);
             fxml.setController(this);
             bundle = BundleUtils.getResourceBundle();
@@ -101,7 +106,7 @@ public class StatisticController extends AnchorPane {
         TimeUtils.reformatDatePickerValue(datePickerStart);
         TimeUtils.reformatDatePickerValue(datePickerEnd);
 
-        freeChart = BarChartUtils.createJFreeBarChart(null);
+        freeChart = BarChartUtils.createJFreeBarChart();
         chartViewer = new ChartViewer(freeChart);
         addChart(boxGraphic, chartViewer);
         scrollBar.setVisible(false);
@@ -112,24 +117,15 @@ public class StatisticController extends AnchorPane {
             }
         });
         if (ConstantConfig.FAKE) {
-            PeriodChartData chartData = FakeDataUtils.getFakeGroupBarChart();
-            Map<String, List<? extends BaseChartItem>> mapData = new HashMap<>();
-            for (GroupColumn groupColumn : chartData.getGroupColumns()) {
-                mapData.put(groupColumn.getTitle(), groupColumn.getColumns());
-            }
+            ChartData chartData = FakeDataUtils.getFakeGroupBarChart();
+
 //            addChart(boxGraphic, BarChartUtils.create(chartData.getChartName(), "", chartData.getUnit(), mapData));
 //            ChartViewer chartViewer = new ChartViewer(BarChartUtils.createJFreeBarChart(chartData))
 
         }
-        if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
-            boxPeriod.setVisible(true);
-            boxPeriodForManager.setVisible(false);
-            setupPeriod(menuPeriod);
-        } else {
-            boxPeriod.setVisible(false);
-            boxPeriodForManager.setVisible(true);
-            setupPeriod(menuPeriodForManager);
-        }
+
+        setupPeriod(menuPeriod);
+
 
     }
 
@@ -163,21 +159,6 @@ public class StatisticController extends AnchorPane {
             StatisticRequest statisticRequest = new StatisticRequest(
                 TimeUtils.convertDateTimeToStartTimeFormat(datePickerStart.getValue()),
                 TimeUtils.convertDateTimeToEndTimeFormat(datePickerEnd.getValue()));
-            BaseCallback<PeriodChartData> periodChartDataCallback = new BaseCallback<PeriodChartData>() {
-                @Override
-                public void onError(String errorCode, String errorMessage) {
-                    AppController.getInstance().hideProgressDialog();
-                    Messenger.erro(errorMessage);
-                }
-
-                @Override
-                public void onSuccess(PeriodChartData data) {
-                    AppController.getInstance().hideProgressDialog();
-                    updateChartData(BarChartUtils.convertPeriodChartDataToCategoryDataset(data));
-                    BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
-                    renderer.setItemMargin(0);
-                }
-            };
 
             BaseCallback<ChartData> chartDataCallback = new BaseCallback<ChartData>() {
                 @Override
@@ -197,7 +178,7 @@ public class StatisticController extends AnchorPane {
 
             switch (period) {
                 case SESSION:
-                    ServiceBuilder.getApiService().getDayStatisticPeriod(statisticRequest).enqueue(periodChartDataCallback);
+                    ServiceBuilder.getApiService().getDayStatisticPeriod(statisticRequest).enqueue(chartDataCallback);
                     break;
                 case DAY:
                     ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(chartDataCallback);
@@ -229,17 +210,17 @@ public class StatisticController extends AnchorPane {
         freeChart.fireChartChanged();
     }
     private void setPeriod(int n){
-        if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
-            period = n+1;
-        } else {
+//        if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
+//            period = n+1;
+//        } else {
             period = n;
-        }
+//        }
     }
     private int getRealPeriodPosition(){
-        if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
-            return period-1;
-        } else {
+//        if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
+//            return period-1;
+//        } else {
             return period;
-        }
+//        }
     }
 }
