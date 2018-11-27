@@ -181,8 +181,6 @@ public class RevenueStatisticController extends AnchorPane {
         public void onSuccess(ChartData data) {
           AppController.getInstance().hideProgressDialog();
           updateChartData(BarChartUtils.convertChartDataToCategoryDataset(data));
-          BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
-          renderer.setItemMargin(0.8);
         }
       };
 
