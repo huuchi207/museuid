@@ -1,15 +1,27 @@
 package br.com.museuid.screen.create_order_screen;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.ResourceBundle;
+
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.AutocompletionlTextField;
 import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.dto.Product;
+import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.model.data.ProductInOrder;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
-import br.com.museuid.util.*;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.DialogUtils;
+import br.com.museuid.util.FakeDataUtils;
+import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.util.StaticVarUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -17,16 +29,17 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.ResourceBundle;
 
 public class CreateOrderScreenControler extends AnchorPane {
     //header
@@ -250,34 +263,40 @@ public class CreateOrderScreenControler extends AnchorPane {
         if (ConstantConfig.FAKE){
             Messenger.info(bundle.getString("msg_create_order_successfully") +"\""+ bundle.getString("txt_order_created") +"\"");
         } else{
-            PutQueueRequest queueRequest = createPutOrderRequest();
+            OrderDetail queueRequest = createPutOrderRequest();
             DialogUtils.ResponseMessage responseMessage =
                     DialogUtils.mensageConfirmer("Xác nhận","Bạn có muốn xử lý đơn hàng luôn?", "Có", "Không, đưa vào hàng đợi");
             AppController.getInstance().showProgressDialog();
             if (responseMessage == DialogUtils.ResponseMessage.YES) {
-                //TODO
+              queueRequest.setHandlerid(StaticVarUtils.getSessionUserInfo().getInfo().getId());
+              queueRequest.setHandlername(StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
+              queueRequest.setStatus(OrderDetail.OrderStatus.DONE.name());
+              AppController.getInstance().showProgressDialog();
+              putOrder(queueRequest);
             } else {
                 AppController.getInstance().showProgressDialog();
-                ServiceBuilder.getApiService().putOrder(queueRequest).enqueue(new BaseCallback<Object>() {
-                    @Override
-                    public void onError(String errorCode, String errorMessage) {
-                        AppController.getInstance().hideProgressDialog();
-                        Messenger.erro(errorMessage);
-                    }
-
-                    @Override
-                    public void onSuccess(Object data) {
-                        AppController.getInstance().hideProgressDialog();
-                        Messenger.info(bundle.getString("txt_operation_successful"));
-                        goToProductList(event);
-                    }
-                });
+                putOrder(queueRequest);
             }
 
 
         }
     }
+    private void putOrder(OrderDetail orderDetail){
+      ServiceBuilder.getApiService().putOrder(orderDetail).enqueue(new BaseCallback<Object>() {
+        @Override
+        public void onError(String errorCode, String errorMessage) {
+          AppController.getInstance().hideProgressDialog();
+          Messenger.erro(errorMessage);
+        }
 
+        @Override
+        public void onSuccess(Object data) {
+          AppController.getInstance().hideProgressDialog();
+          Messenger.info(bundle.getString("txt_operation_successful"));
+          goToProductList(null);
+        }
+      });
+    }
     @FXML
     void goToProductList(ActionEvent event){
         getProductList();
@@ -329,7 +348,7 @@ public class CreateOrderScreenControler extends AnchorPane {
         productList = products;
     }
 
-    private PutQueueRequest createPutOrderRequest(){
+    private OrderDetail createPutOrderRequest(){
         ObservableList<ProductInOrder> orderObservableList = tbProductInOrder.getItems();
         int totalPrice = 0;
         List<PutQueueRequest.Item> items = new ArrayList<>();
@@ -347,7 +366,7 @@ public class CreateOrderScreenControler extends AnchorPane {
             totalPrice+= priceOfProduct;
         }
         DeviceInfo deviceInfo = txtChooseDevice.getSelectedItem();
-        PutQueueRequest putQueueRequest= new PutQueueRequest(totalPrice , items,
+        OrderDetail putQueueRequest= new OrderDetail(totalPrice , items,
                 deviceInfo.getName(),
                 deviceInfo.getId(),
                 StaticVarUtils.getSessionUserInfo().getSessionid(),null);
