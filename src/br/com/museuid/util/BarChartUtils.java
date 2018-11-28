@@ -143,9 +143,13 @@ public class BarChartUtils {
         ItemLabelPosition position = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER);
         renderer.setDefaultPositiveItemLabelPosition(position);
         // set up gradient paints for series...
-      GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.red,
-        0.0f, 0.0f, new Color(64, 0, 15));
-      renderer.setSeriesPaint(0, gp0);
+        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.red,
+          0.0f, 0.0f, new Color(76, 0, 0));
+        renderer.setSeriesPaint(0, gp0);
+        renderer.setSeriesPaint(1, new GradientPaint(0.0f, 0.0f, Color.yellow,
+          0.0f, 0.0f, new Color(124, 127, 13)));
+        renderer.setSeriesPaint(2, new GradientPaint(0.0f, 0.0f, Color.blue,
+          0.0f, 0.0f, new Color(12, 33, 127)));
         chart.getLegend().setFrame(BlockBorder.NONE);
         return chart;
     }

@@ -1,5 +1,9 @@
 package br.com.museuid.util;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+
 import java.util.List;
 import java.util.Map;
 
@@ -78,5 +82,16 @@ public class LineChartUtils {
         });
 
         return stack;
+    }
+    public static JFreeChart createLineChart(String xAxisLabel, String yAxisLabel, String title){
+      return ChartFactory.createLineChart(
+        title,
+        xAxisLabel, yAxisLabel,
+        null,
+        PlotOrientation.VERTICAL,
+        true,     // include legend
+        true,
+        true
+      );
     }
 }

@@ -2,7 +2,6 @@ package br.com.museuid.screen.product_statistic;
 
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartViewer;
-import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.category.SlidingCategoryDataset;
 
@@ -19,6 +18,7 @@ import br.com.museuid.service.remote.requestbody.StatisticRequest;
 import br.com.museuid.util.BarChartUtils;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.FakeDataUtils;
+import br.com.museuid.util.LineChartUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.ResizeUtils;
 import br.com.museuid.util.TimeUtils;
@@ -45,11 +45,11 @@ public class ProductStatisticController extends AnchorPane {
     @FXML
     private HBox boxPeriodForManager;
 
-    private int period = 1;
-    private static final int SESSION = 0;
-    private static final int DAY = 1;
-    private static final int MONTH = 2;
-    private static final int YEAR = 3;
+    private int period = 0;
+
+    private static final int DAY = 0;
+    private static final int MONTH = 1;
+    private static final int YEAR = 2;
 
     @FXML
     private AnchorPane boxGraphic;
@@ -106,7 +106,7 @@ public class ProductStatisticController extends AnchorPane {
         TimeUtils.reformatDatePickerValue(datePickerStart);
         TimeUtils.reformatDatePickerValue(datePickerEnd);
 
-        freeChart = BarChartUtils.createJFreeBarChart();
+        freeChart = LineChartUtils.createLineChart("Thời gian", "VND", null);
         chartViewer = new ChartViewer(freeChart);
         addChart(boxGraphic, chartViewer);
         scrollBar.setVisible(false);
@@ -121,7 +121,7 @@ public class ProductStatisticController extends AnchorPane {
 
 //            addChart(boxGraphic, BarChartUtils.create(chartData.getChartName(), "", chartData.getUnit(), mapData));
 //            ChartViewer chartViewer = new ChartViewer(BarChartUtils.createJFreeBarChart(chartData))
-
+          updateChartData(BarChartUtils.convertChartDataToCategoryDataset(chartData));
         }
 
         setupPeriod(menuPeriod);
@@ -171,15 +171,10 @@ public class ProductStatisticController extends AnchorPane {
                 public void onSuccess(ChartData data) {
                     AppController.getInstance().hideProgressDialog();
                     updateChartData(BarChartUtils.convertChartDataToCategoryDataset(data));
-                    BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
-                    renderer.setItemMargin(0.8);
                 }
             };
 
             switch (period) {
-                case SESSION:
-                    ServiceBuilder.getApiService().getDayStatisticPeriod(statisticRequest).enqueue(chartDataCallback);
-                    break;
                 case DAY:
                     ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(chartDataCallback);
                     break;

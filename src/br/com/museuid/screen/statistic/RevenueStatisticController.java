@@ -2,7 +2,11 @@ package br.com.museuid.screen.statistic;
 
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartViewer;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.ui.TextAnchor;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.category.SlidingCategoryDataset;
 
@@ -122,6 +126,8 @@ public class RevenueStatisticController extends AnchorPane {
     });
     if (ConstantConfig.FAKE) {
       ChartData chartData = FakeDataUtils.getFakeGroupBarChart();
+      BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
+      renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER, TextAnchor.CENTER, 45));
 
       updateChartData(BarChartUtils.convertChartDataToCategoryDataset(chartData));
 
@@ -182,18 +188,22 @@ public class RevenueStatisticController extends AnchorPane {
           updateChartData(BarChartUtils.convertChartDataToCategoryDataset(data));
         }
       };
-
+      BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
       switch (period) {
         case SESSION:
+          renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER, TextAnchor.CENTER, 45));
           ServiceBuilder.getApiService().getDayStatisticPeriod(statisticRequest).enqueue(chartDataCallback);
           break;
         case DAY:
+          renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
           ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(chartDataCallback);
           break;
         case MONTH:
+          renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
           ServiceBuilder.getApiService().getMonthStatistic(statisticRequest).enqueue(chartDataCallback);
           break;
         case YEAR:
+          renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
           ServiceBuilder.getApiService().getYearStatistic(statisticRequest).enqueue(chartDataCallback);
           break;
       }
