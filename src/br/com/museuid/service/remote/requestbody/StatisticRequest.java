@@ -3,6 +3,7 @@ package br.com.museuid.service.remote.requestbody;
 public class StatisticRequest {
     private String startdate;
     private String enddate;
+    private String category;
 
     public StatisticRequest(String startdate, String enddate) {
         this.startdate = startdate;
@@ -24,4 +25,12 @@ public class StatisticRequest {
     public void setStartdate(String startdate) {
         this.startdate = startdate;
     }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
 }

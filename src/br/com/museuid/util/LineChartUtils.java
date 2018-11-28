@@ -2,8 +2,12 @@ package br.com.museuid.util;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +88,7 @@ public class LineChartUtils {
         return stack;
     }
     public static JFreeChart createLineChart(String xAxisLabel, String yAxisLabel, String title){
-      return ChartFactory.createLineChart(
+      JFreeChart chart = ChartFactory.createLineChart(
         title,
         xAxisLabel, yAxisLabel,
         null,
@@ -93,5 +97,17 @@ public class LineChartUtils {
         true,
         true
       );
+      CategoryPlot plot = (CategoryPlot) chart.getPlot();
+      LineAndShapeRenderer renderer = new LineAndShapeRenderer(){
+        @Override
+        public Shape getItemShape(int row, int column) {
+          return new Ellipse2D.Double( -1.3,-2,3, 3);
+        }
+      };
+
+      renderer.setDrawOutlines(true);
+//      renderer.setDefaultShape();
+      plot.setRenderer(renderer);
+      return chart;
     }
 }

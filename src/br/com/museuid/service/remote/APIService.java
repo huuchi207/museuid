@@ -111,4 +111,10 @@ public interface APIService {
 
     @POST("years")
     Call<ResponseDTO<ChartData>> getYearStatistic(@Body StatisticRequest statisticRequest);
+
+    @POST("line/revenue")
+    Call<ResponseDTO<ChartData>> getProductRevenueStatistic(@Body StatisticRequest statisticRequest);
+
+    @POST("line/sales")
+    Call<ResponseDTO<ChartData>> getProductSalesStatistic(@Body StatisticRequest statisticRequest);
 }
