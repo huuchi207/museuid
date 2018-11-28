@@ -3,7 +3,6 @@ package br.com.museuid.screen.statistic;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartViewer;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.category.SlidingCategoryDataset;
 
@@ -212,11 +211,10 @@ public class RevenueStatisticController extends AnchorPane {
       scrollBar.setMax((double) defaultCategoryDataset.getColumnCount() / 10);
       scrollBar.setVisibleAmount(1);
     }
-    freeChart.getCategoryPlot().setDataset(dataset);
-//        freeChart.setTitle(chartData.getChartName());
-//        freeChart.getCategoryPlot().
+
     CategoryPlot plot = (CategoryPlot) freeChart.getPlot();
-    BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+    plot.setDataset(dataset);
 
     freeChart.fireChartChanged();
   }

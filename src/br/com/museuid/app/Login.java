@@ -2,7 +2,6 @@ package br.com.museuid.app;
 
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.ResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -51,7 +50,7 @@ public class Login extends Application {
             stage.getIcons().addAll(new Image(Login.class.getResourceAsStream("icon.png")));
 
             stage.setScene(mScene);
-            ResizeHelper.addResizeListener(stage);
+//            ResizeHelper.addResizeListener/(stage);
             stage.show();
 
         } catch (Exception ex) {

@@ -28,7 +28,7 @@ public interface APIService {
     @GET("data/2.5/box/city")
     Call<SampleResponseDTO<Item>> getSample(@Query("bbox") String bbox, @Query("appid") String appid);
 
-    @PUT("client")
+    @PUT("client-admin")
     Call<ResponseDTO<DeviceInfo>> addDevice(@Body AddDeviceRequest addDeviceRequest);
 
     @GET("auto-client")

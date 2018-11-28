@@ -96,7 +96,7 @@
     <AnchorPane prefHeight="50.0" styleClass="box-menus-subtela" AnchorPane.bottomAnchor="5.0"
       AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
       <children>
-        <Label styleClass="lb-info-requerido" text="%txt_required_fields"
+        <Label styleClass="lb-info-requerido" text="Chú thích: K - nghìn, M - triệu, B - tỷ"
           AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0" />
         <AnchorPane fx:id="boxLegenda" layoutY="5.0" styleClass="box-legenda"
           AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">

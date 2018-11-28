@@ -63,10 +63,10 @@ public class UpdateUserInfoController extends AnchorPane {
 //            Messenger.erro("Họ và tên không được để trống!");
             return;
         }
-        if (FieldViewUtils.noEmpty(txtEmail) && UserDTO.UserRole.ADMIN.name().equalsIgnoreCase(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
-            Messenger.erro("Email cần thiết để sử dụng tính năng Quên mật khẩu. Vui lòng nhập vào!");
-            return;
-        }
+//        if (FieldViewUtils.noEmpty(txtEmail) && UserDTO.UserRole.ADMIN.name().equalsIgnoreCase(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
+//            Messenger.erro("Email cần thiết để sử dụng tính năng Quên mật khẩu. Vui lòng nhập vào!");
+//            return;
+//        }
         PasswordDialog pd = new PasswordDialog();
         Optional<String> result = pd.showAndWait();
         result.ifPresent(password -> {
