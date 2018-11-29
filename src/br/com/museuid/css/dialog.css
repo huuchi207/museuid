@@ -28,9 +28,9 @@
     -fx-border-width: 2px 2px 2px 2px;
     -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.45), 4, 0, 2, 3);
     -fx-padding: 10;
-    -fx-pref-width: 495;
+    /*-fx-pref-width: 495;*/
     -fx-hgap: 20;
-    -fx-vgap: 15;
+    -fx-vgap: 8;
 }
 
 .bt-ok,

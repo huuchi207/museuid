@@ -1,20 +1,27 @@
 package br.com.museuid.util;
 
+import java.util.Optional;
+
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.util.Optional;
 
 /**
  * Criar janelas de dialogos
@@ -125,6 +132,34 @@ public class DialogUtils {
 
         return responseMessage;
     }
+
+  /**
+   * Allows the user to return a responseMessage of the message according to the type of the message as: OK, YES, NO and CANCEL
+   */
+  public static String textDialog(String titulo, String mensagem) {
+    VBox vBox = new VBox();
+    TextField textField = new TextField();
+    vBox.getChildren().add(textField);
+
+    HBox box = new HBox();
+    box.getStyleClass().add("box-acao-dialog");
+
+    Button yes = new Button("OK");
+    yes.setOnAction((ActionEvent e) -> {
+      stageDialog.close();
+    });
+    yes.getStyleClass().add("bt-sim");
+    box.getChildren().add(yes);
+
+    vBox.getChildren().add(box);
+
+    VBox.setMargin(yes, new Insets(15, 10, 15, 0));
+    VBox.setMargin(textField, new Insets(15, 10, 15, 0));
+    box(icon("INFO"), text(titulo, mensagem), vBox);
+
+    return textField.getText();
+  }
+
     public static ResponseMessage mensageConfirmer(String titulo, String mensage) {
         return mensageConfirmer(titulo, mensage, BundleUtils.getResourceBundle().getString("txt_ok"),
                 BundleUtils.getResourceBundle().getString("txt_cancel"));
@@ -133,7 +168,7 @@ public class DialogUtils {
     /**
      * Main Box that adds and formats the icon, message and action to the message box
      */
-    public static void box(Label icon, VBox mensagem, HBox acoes) {
+    public static void box(Label icon, VBox mensagem, Node acoes) {
         GridPane grid = new GridPane();
         grid.add(icon, 0, 0);
         grid.add(mensagem, 1, 0);
@@ -229,6 +264,7 @@ public class DialogUtils {
         TextInputDialog dialog = new TextInputDialog(null);
         dialog.setTitle(title);
         dialog.setHeaderText(subTitle);
+//        dialog.getDialogPane().lookupButton(ButtonType.OK).(false);
 //// Traditional way to get the response value.
         return dialog.showAndWait();
 //        if (result.isPresent()){

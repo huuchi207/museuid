@@ -33,11 +33,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
@@ -121,49 +119,49 @@ public class CreateOrderScreenControler extends AnchorPane {
         colProductNameInOrder.setCellValueFactory(new PropertyValueFactory<>("productName"));
         colDescriptionInOrder.setCellValueFactory(new PropertyValueFactory<>("description"));
         colPriceInOrder.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("countString"));
-        colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("moreRequirement"));
+        colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("tfNumber"));
+        colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("tfNote"));
 
-        tbProductInOrder.setEditable(true);
-//        colCountInOrder.setMinWidth(200);
-        colCountInOrder.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
-        // Khi edit xong 1 ô ở cột
-        colCountInOrder.setOnEditCommit((TableColumn.CellEditEvent<ProductInOrder, String> event) -> {
-            TablePosition<ProductInOrder, String> pos = event.getTablePosition();
-
-            String newCountString = event.getNewValue();
-            int newCount;
-            try{
-                newCount = Integer.valueOf(newCountString);
-            }catch (NumberFormatException e){
-                newCount = -1;
-            }
-            int row = pos.getRow();
-            ProductInOrder productInOrder = event.getTableView().getItems().get(row);
-            if (newCount <=0){
-                Messenger.erro(bundle.getString("txt_number_must_large_0"));
-                tbProductInOrder.getItems().set(row, productInOrder);
-                return;
-            }
-
-            productInOrder.setCount(newCount);
-            updateProductInOrderScreenData();
-        });
-
-        colMoreRequirement.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
-
-        // Khi edit xong 1 ô ở cột
-        colMoreRequirement.setOnEditCommit((TableColumn.CellEditEvent<ProductInOrder, String> event) -> {
-            TablePosition<ProductInOrder, String> pos = event.getTablePosition();
-
-            String newString = event.getNewValue();
-
-            int row = pos.getRow();
-            ProductInOrder productInOrder = event.getTableView().getItems().get(row);
-
-            productInOrder.setMoreRequirement(newString);
+//        tbProductInOrder.setEditable(true);
+////        colCountInOrder.setMinWidth(200);
+//        colCountInOrder.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
+//        // Khi edit xong 1 ô ở cột
+//        colCountInOrder.setOnEditCommit((TableColumn.CellEditEvent<ProductInOrder, String> event) -> {
+//            TablePosition<ProductInOrder, String> pos = event.getTablePosition();
+//
+//            String newCountString = event.getNewValue();
+//            int newCount;
+//            try{
+//                newCount = Integer.valueOf(newCountString);
+//            }catch (NumberFormatException e){
+//                newCount = -1;
+//            }
+//            int row = pos.getRow();
+//            ProductInOrder productInOrder = event.getTableView().getItems().get(row);
+//            if (newCount <=0){
+//                Messenger.erro(bundle.getString("txt_number_must_large_0"));
+//                tbProductInOrder.getItems().set(row, productInOrder);
+//                return;
+//            }
+//
+//            productInOrder.setCount(newCount);
 //            updateProductInOrderScreenData();
-        });
+//        });
+//
+//        colMoreRequirement.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
+//
+//        // Khi edit xong 1 ô ở cột
+//        colMoreRequirement.setOnEditCommit((TableColumn.CellEditEvent<ProductInOrder, String> event) -> {
+//            TablePosition<ProductInOrder, String> pos = event.getTablePosition();
+//
+//            String newString = event.getNewValue();
+//
+//            int row = pos.getRow();
+//            ProductInOrder productInOrder = event.getTableView().getItems().get(row);
+//
+//            productInOrder.setMoreRequirement(newString);
+////            updateProductInOrderScreenData();
+//        });
     }
 
     /**
@@ -320,7 +318,21 @@ public class CreateOrderScreenControler extends AnchorPane {
             Product item = iterator.next();
             for (Product product: productList){
                 if (product.getId().equals(item.getId())){
-                    selectedProducts.add(product.convertToProductInOrder());
+                  ProductInOrder productInOrder = product.convertToProductInOrder();
+                  productInOrder.setOnContentChange(new ProductInOrder.OnContentChange() {
+                    @Override
+                    public void onNumberChange(Integer oldNumber, Integer newNumber) {
+                      if (newNumber >0){
+                        totalPrice += (newNumber-productInOrder.getCount())*productInOrder.getPrice();
+                        productInOrder.setCount(newNumber);
+                        lbLegend.setText(bundle.getString("txt_total_price") + ": " + totalPrice + " " + bundle.getString("txt_vnd"));
+                      } else {
+                        Messenger.erro("Số lượng hàng phải lớn hơn 0");
+                        productInOrder.getTfNumber().setText(productInOrder.getCount()+"");
+                      }
+                    }}
+                  );
+                  selectedProducts.add(productInOrder);
                 }
             }
         }
@@ -355,13 +367,13 @@ public class CreateOrderScreenControler extends AnchorPane {
         ListIterator<ProductInOrder> iterator = orderObservableList.listIterator();
         while (iterator.hasNext()) {
             ProductInOrder productInOrder = iterator.next();
-            int priceOfProduct = Integer.valueOf(productInOrder.getPrice()) * productInOrder.getCount();
+            int priceOfProduct = productInOrder.getPrice() * productInOrder.getCount();
             items.add(new PutQueueRequest.Item(productInOrder.getProductName(),
                     productInOrder.getId(),
                     productInOrder.getCount(),
                     productInOrder.getPrice(),
                     priceOfProduct,
-                    productInOrder.getMoreRequirement(),
+                    productInOrder.getTfNote().getText().trim(),
                     priceOfProduct));
             totalPrice+= priceOfProduct;
         }
