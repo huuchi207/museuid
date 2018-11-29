@@ -101,9 +101,13 @@
                                   layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
                                   mnemonicParsing="false" onAction="#openStockImporting"
                                   styleClass="submenus" text="%txt_import_to_stock" />
-                                <ToggleButton fx:id="btStockImportingManagement" alignment="CENTER_LEFT"
+                                <ToggleButton fx:id="btStockImportingHistory" alignment="CENTER_LEFT"
                                   layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
                                   mnemonicParsing="false" onAction="#openStockImportingHistory"
+                                  styleClass="submenus" text="%txt_stock_import_history" />
+                                <ToggleButton fx:id="btStockImportingManagement" alignment="CENTER_LEFT"
+                                  layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+                                  mnemonicParsing="false" onAction="#openStockImportingManagement"
                                   styleClass="submenus" text="%txt_stock_import_management" />
                               </children>
                             </VBox>

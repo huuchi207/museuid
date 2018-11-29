@@ -32,7 +32,13 @@ public class Product {
         this.price = price;
         this.inStock = inStock;
     }
-    public String getId() {
+
+  public Product(String productName, String productid) {
+    this.productName = productName;
+    this.productid = productid;
+  }
+
+  public String getId() {
         return id;
     }
 

@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import br.com.museuid.util.TimeUtils;
+
 public class StockImportingRequest {
   @SerializedName("_id")
   @Expose
@@ -21,6 +23,20 @@ public class StockImportingRequest {
   @SerializedName("items")
   @Expose
   private List<Item> items;
+  @SerializedName("requesterid")
+  @Expose
+  private String requesterid;
+  @SerializedName("requestername")
+  @Expose
+  private String requestername;
+  @SerializedName("createdAt")
+  @Expose
+  private String createdAt;
+  @SerializedName("updatedAt")
+  @Expose
+  private String updatedAt;
+
+
 
   public String getName() {
     return name;
@@ -61,32 +77,35 @@ public class StockImportingRequest {
   public void setPendingproductid(String pendingproductid) {
     this.pendingproductid = pendingproductid;
   }
-
+  public void reformatTime(){
+    this.createdAt = TimeUtils.convertToLocalFormat(this.createdAt);
+    this.updatedAt = TimeUtils.convertToLocalFormat(this.updatedAt);
+  }
   public static class Item{
-    private String productid;
-    private String productname;
+    private String itemid;
+    private String itemname;
     private Integer quantity;
 
-    public Item(String productid, String productname, Integer quantity) {
-      this.productid = productid;
-      this.productname = productname;
+    public Item(String itemid, String itemname, Integer quantity) {
+      this.itemid = itemid;
+      this.itemname = itemname;
       this.quantity = quantity;
     }
 
-    public String getProductid() {
-      return productid;
+    public String getItemid() {
+      return itemid;
     }
 
-    public void setProductid(String productid) {
-      this.productid = productid;
+    public void setItemid(String itemid) {
+      this.itemid = itemid;
     }
 
-    public String getProductname() {
-      return productname;
+    public String getItemname() {
+      return itemname;
     }
 
-    public void setProductname(String productname) {
-      this.productname = productname;
+    public void setItemname(String itemname) {
+      this.itemname = itemname;
     }
 
     public Integer getQuantity() {

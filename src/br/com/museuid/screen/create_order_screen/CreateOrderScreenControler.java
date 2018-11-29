@@ -121,47 +121,6 @@ public class CreateOrderScreenControler extends AnchorPane {
         colPriceInOrder.setCellValueFactory(new PropertyValueFactory<>("price"));
         colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("tfNumber"));
         colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("tfNote"));
-
-//        tbProductInOrder.setEditable(true);
-////        colCountInOrder.setMinWidth(200);
-//        colCountInOrder.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
-//        // Khi edit xong 1 ô ở cột
-//        colCountInOrder.setOnEditCommit((TableColumn.CellEditEvent<ProductInOrder, String> event) -> {
-//            TablePosition<ProductInOrder, String> pos = event.getTablePosition();
-//
-//            String newCountString = event.getNewValue();
-//            int newCount;
-//            try{
-//                newCount = Integer.valueOf(newCountString);
-//            }catch (NumberFormatException e){
-//                newCount = -1;
-//            }
-//            int row = pos.getRow();
-//            ProductInOrder productInOrder = event.getTableView().getItems().get(row);
-//            if (newCount <=0){
-//                Messenger.erro(bundle.getString("txt_number_must_large_0"));
-//                tbProductInOrder.getItems().set(row, productInOrder);
-//                return;
-//            }
-//
-//            productInOrder.setCount(newCount);
-//            updateProductInOrderScreenData();
-//        });
-//
-//        colMoreRequirement.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
-//
-//        // Khi edit xong 1 ô ở cột
-//        colMoreRequirement.setOnEditCommit((TableColumn.CellEditEvent<ProductInOrder, String> event) -> {
-//            TablePosition<ProductInOrder, String> pos = event.getTablePosition();
-//
-//            String newString = event.getNewValue();
-//
-//            int row = pos.getRow();
-//            ProductInOrder productInOrder = event.getTableView().getItems().get(row);
-//
-//            productInOrder.setMoreRequirement(newString);
-////            updateProductInOrderScreenData();
-//        });
     }
 
     /**

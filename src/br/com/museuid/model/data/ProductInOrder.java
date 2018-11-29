@@ -27,7 +27,8 @@ public class ProductInOrder extends Product {
       int newNumber;
       try {
         newNumber = Integer.valueOf(newValue);
-        onContentChange.onNumberChange(null, newNumber);
+        if (onContentChange!= null)
+          onContentChange.onNumberChange(null, newNumber);
       } catch (NumberFormatException e) {
 //        Messenger.erro("Yêu cầu là số!");
         tfNumber.setText(oldValue);

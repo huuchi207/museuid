@@ -18,18 +18,19 @@
     </HBox>
     <AnchorPane fx:id="apProductList" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
       AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" visible="false">
-      <TableView fx:id="tbProduct" tableMenuButtonVisible="true" AnchorPane.leftAnchor="0.0"
+      <TableView fx:id="tbStockImportHistory" tableMenuButtonVisible="true" AnchorPane.leftAnchor="0.0"
         AnchorPane.rightAnchor="0.0"
         AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0">
         <columns>
           <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"-->
           <!--text="Id" />-->
-          <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0"
-            prefWidth="150.0" text="%txt_product_name"/>
-          <TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0"
-            prefWidth="150.0" text="%txt_description"/>
-          <TableColumn fx:id="colPrice" maxWidth="900.0" minWidth="150.0"
-            prefWidth="250.0" text="%txt_price"/>
+          <TableColumn fx:id="colImportingName" maxWidth="900.0" minWidth="150.0"
+            prefWidth="150.0" text="%txt_importing_request_name"/>
+          <TableColumn fx:id="colImportingCreatedTime" maxWidth="900.0" minWidth="150.0"
+            prefWidth="150.0" text="%txt_time_created"/>
+          <TableColumn fx:id="colImportingUpdatedTime" maxWidth="900.0" minWidth="150.0"
+            prefWidth="150.0" text="%txt_time_updated"/>
+
           <!--<TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0"-->
             <!--prefWidth="250.0" text="%txt_status"/>-->
         </columns>
@@ -51,7 +52,7 @@
         <RowConstraints />
 
       </rowConstraints>
-      <Label styleClass="lb-info-requerido" text="%txt_importing_request_name" GridPane.columnIndex="0"
+      <Label styleClass="lb-info" text="%txt_importing_request_name" GridPane.columnIndex="0"
         GridPane.rowIndex="0" />
       <TextField fx:id="txtStockImportingName" styleClass="campo" GridPane.columnIndex="0"
         GridPane.rowIndex="1">
@@ -59,7 +60,7 @@
           <Insets top="10.0" bottom="10" />
         </GridPane.margin>
       </TextField>
-      <Label styleClass="lb-info-requerido" text="%txt_stock_import" GridPane.columnIndex="0"
+      <Label styleClass="lb-info" text="%txt_stock_import" GridPane.columnIndex="0"
         GridPane.rowIndex="2" />
       <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="3">
         <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -70,12 +71,8 @@
             <columns>
               <!--<TableColumn fx:id="colIdInOrder" maxWidth="50.0" minWidth="50.0"-->
               <!--prefWidth="50.0" text="Id" />-->
-              <TableColumn fx:id="colProductNameImporting" maxWidth="900.0" minWidth="150.0"
+              <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0"
                 prefWidth="150.0" text="%txt_product_name" />
-              <TableColumn fx:id="colDescriptionImporting" maxWidth="900.0" minWidth="150.0"
-                prefWidth="150.0" text="%txt_description" />
-              <TableColumn fx:id="colPriceImporting" maxWidth="900.0" minWidth="150.0"
-                prefWidth="250.0" text="%txt_price" />
               <TableColumn fx:id="colNumberAdding" maxWidth="900.0" minWidth="150.0"
                 prefWidth="250.0" text="%txt_count" />
             </columns>
@@ -94,7 +91,7 @@
           AnchorPane.topAnchor="5.0">
           <StackPane>
             <Button id="" fx:id="btBackToList" mnemonicParsing="false"
-              onAction="#goToProductList" prefHeight="40.0" prefWidth="200.0" style=""
+              onAction="#goToHistoryList" prefHeight="40.0" prefWidth="200.0" style=""
               text="%txt_back">
               <styleClass>
                 <String fx:value="menus-acoes"/>
@@ -110,7 +107,7 @@
           <StackPane>
             <Button fx:id="btEditImportingSession" contentDisplay="TOP" mnemonicParsing="false"
               onAction="#editImportingSession" prefHeight="40.0" prefWidth="230.0" style=""
-              text="%txt_take_to_importing_session" AnchorPane.bottomAnchor="0.0"
+              text="%txt_edit" AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0">
               <styleClass>
@@ -120,8 +117,8 @@
               </styleClass>
             </Button>
             <Button id="" fx:id="btCreateImportingSession" contentDisplay="TOP"
-              mnemonicParsing="false" onAction="#createImportingSession" prefHeight="40.0"
-              prefWidth="230.0" style="" text="%txt_importing_request"
+              mnemonicParsing="false" onAction="#updateImportingSession" prefHeight="40.0"
+              prefWidth="230.0" style="" text="%txt_update"
               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <styleClass>
@@ -136,7 +133,7 @@
 
         <Label fx:id="lbLegend" layoutX="36.0" layoutY="17.0" styleClass="lb-info-requerido"
           text="%txt_required_fields" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.topAnchor="5.0"  />
+          AnchorPane.topAnchor="5.0" visible="false" />
       </children>
     </AnchorPane>
   </children>

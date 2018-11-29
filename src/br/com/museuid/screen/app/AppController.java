@@ -53,6 +53,7 @@ public class AppController {
   public ToggleButton btProductStatistic;
   public ToggleButton btStockImportingManagement;
   public ToggleButton btStatisticSection;
+  public ToggleButton btStockImportingHistory;
 
   @FXML
   private AnchorPane boxContainer;
@@ -122,7 +123,7 @@ public class AppController {
         userListBoxMenu = new ArrayList<Node>(
           Arrays.asList(btAppManagementSection, boxManagement, btUserInfoSection, boxUserInfo));
         userListFeatureView = new ArrayList<Node>(
-          Arrays.asList(btStockImporting, btUpdateUserInfo, btChangePassword));
+          Arrays.asList(btStockImporting, btStockImportingHistory, btUpdateUserInfo, btChangePassword));
         openStockImporting(new ActionEvent(btStockImporting, null));
         break;
       case EMPLOYEE:
@@ -304,7 +305,7 @@ public class AppController {
     Link.address(Constants.WEB_LINK);
   }
 
-  public void openStockImportingHistory(ActionEvent actionEvent) {
+  public void openStockImportingManagement(ActionEvent actionEvent) {
     if (actionEvent.getSource() == currentScreen) {
       return;
     }
@@ -318,5 +319,14 @@ public class AppController {
     }
     NavigationUtils.getProductStatisticController(boxContainer);
     setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+  }
+
+  public void openStockImportingHistory(ActionEvent event) {
+    if (event.getSource() == currentScreen) {
+      return;
+    }
+    NavigationUtils.getStockImportingHistoryControler(boxContainer);
+    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
+
   }
 }
