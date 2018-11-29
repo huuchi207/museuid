@@ -1,7 +1,5 @@
 package br.com.museuid.screen.app;
 
-import org.apache.commons.lang3.EnumUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +7,6 @@ import java.util.List;
 import br.com.museuid.Constants;
 import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
-import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.UserDTO;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
@@ -94,15 +91,15 @@ public class AppController {
   void initialize() {
     instance = this;
 
-    if (!EnumUtils.isValidEnum(UserDTO.UserRole.class, StaticVarUtils.getSessionUserInfo().getInfo().getRole()) && !ConstantConfig.FAKE) {
-      startLogin();
-    }
+//    if (!EnumUtils.isValidEnum(UserDTO.UserRole.class, StaticVarUtils.getSessionUserInfo().getInfo().getRole()) && !ConstantConfig.FAKE) {
+//      startLogin();
+//    }
     UserDTO.UserRole role;
-    if (ConstantConfig.FAKE) {
-      role = UserDTO.UserRole.ADMIN;
-    } else {
+//    if (ConstantConfig.FAKE) {
+//      role = UserDTO.UserRole.ADMIN;
+//    } else {
       role = UserDTO.UserRole.valueOf(StaticVarUtils.getSessionUserInfo().getInfo().getRole());
-    }
+//    }
     switch (role) {
       case ADMIN:
         userListBoxMenu = new ArrayList<Node>(
@@ -294,8 +291,12 @@ public class AppController {
     setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
   }
 
-  public void openStockImporting(ActionEvent event) {
-
+  public void openStockImporting(ActionEvent actionEvent) {
+    if (actionEvent.getSource() == currentScreen) {
+      return;
+    }
+    NavigationUtils.getStockImportingControler(boxContainer);
+    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
   }
 
   public void goSite(ActionEvent actionEvent) {

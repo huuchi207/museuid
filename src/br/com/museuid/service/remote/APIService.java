@@ -14,6 +14,7 @@ import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
 import br.com.museuid.service.remote.requestbody.ChangePasswordRequest;
 import br.com.museuid.service.remote.requestbody.LoginRequest;
 import br.com.museuid.service.remote.requestbody.StatisticRequest;
+import br.com.museuid.service.remote.requestbody.StockImportingRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -24,97 +25,112 @@ import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface APIService {
-    //Sample
-    @GET("data/2.5/box/city")
-    Call<SampleResponseDTO<Item>> getSample(@Query("bbox") String bbox, @Query("appid") String appid);
+  //Sample
+  @GET("data/2.5/box/city")
+  Call<SampleResponseDTO<Item>> getSample(@Query("bbox") String bbox, @Query("appid") String appid);
 
-    @PUT("client-admin")
-    Call<ResponseDTO<DeviceInfo>> addDevice(@Body AddDeviceRequest addDeviceRequest);
+  @PUT("client-admin")
+  Call<ResponseDTO<DeviceInfo>> addDevice(@Body AddDeviceRequest addDeviceRequest);
 
-    @GET("auto-client")
-    Call<ResponseDTO<SessionDeviceInfo>> checkDevice(@Query("macaddress") String macAddress);
+  @GET("auto-client")
+  Call<ResponseDTO<SessionDeviceInfo>> checkDevice(@Query("macaddress") String macAddress);
 
-    @GET("clients")
-    Call<ResponseDTO<String>> getClients();
+  @GET("clients")
+  Call<ResponseDTO<String>> getClients();
 
-    @GET("products")
-    Call<ResponseDTO<List<Product>>> getProductList();
+  @GET("products")
+  Call<ResponseDTO<List<Product>>> getProductList();
 
-    @POST("login")
-    Call<ResponseDTO<SessionUserInfo>> login(@Body LoginRequest loginRequest);
+  @POST("login")
+  Call<ResponseDTO<SessionUserInfo>> login(@Body LoginRequest loginRequest);
 
-    @PUT("product")
-    Call<ResponseDTO<Product>> addProduct(@Body Product product);
+  @PUT("product")
+  Call<ResponseDTO<Product>> addProduct(@Body Product product);
 
-    @POST("product")
-    Call<ResponseDTO<Product>> updateProduct(@Body Product product);
+  @POST("product")
+  Call<ResponseDTO<Product>> updateProduct(@Body Product product);
 
-    @DELETE("product")
-    Call<ResponseDTO<Object>> deleteProduct(@Query("productid") String productId);
+  @DELETE("product")
+  Call<ResponseDTO<Object>> deleteProduct(@Query("productid") String productId);
 
-    @PUT("queue")
-    Call<ResponseDTO<Object>> putOrder(@Body OrderDetail putQueueRequest);
+  @PUT("queue")
+  Call<ResponseDTO<Object>> putOrder(@Body OrderDetail putQueueRequest);
 
-    @GET("logout")
-    Call<ResponseDTO<Object>> logOut();
+  @GET("logout")
+  Call<ResponseDTO<Object>> logOut();
 
-    @GET("user")
-    Call<ResponseDTO<UserDTO>> getCurrentUserInfo(@Query("userid") String userId);
+  @GET("user")
+  Call<ResponseDTO<UserDTO>> getCurrentUserInfo(@Query("userid") String userId);
 
-    @POST("user")
-    Call<ResponseDTO<UserDTO>> changeUserInfo(@Body UserDTO userDTO);
+  @POST("user")
+  Call<ResponseDTO<UserDTO>> changeUserInfo(@Body UserDTO userDTO);
 
-    @POST("change-password")
-    Call<ResponseDTO<Object>> changePassword(@Body ChangePasswordRequest request);
+  @POST("change-password")
+  Call<ResponseDTO<Object>> changePassword(@Body ChangePasswordRequest request);
 
-    @GET("users")
-    Call<ResponseDTO<List<UserDTO>>> getListUser();
+  @GET("users")
+  Call<ResponseDTO<List<UserDTO>>> getListUser();
 
-    @DELETE("user")
-    Call<ResponseDTO<Object>> deleteUser(@Query("userid") String userId);
+  @DELETE("user")
+  Call<ResponseDTO<Object>> deleteUser(@Query("userid") String userId);
 
-    @PUT("user")
-    Call<ResponseDTO<UserDTO>> addUser(@Body UserDTO userDTO);
+  @PUT("user")
+  Call<ResponseDTO<UserDTO>> addUser(@Body UserDTO userDTO);
 
-    @POST("reset-password")
-    Call<ResponseDTO<UserDTO>> resetPasswordForCustomer(@Body UserDTO userDTO);
+  @POST("reset-password")
+  Call<ResponseDTO<UserDTO>> resetPasswordForCustomer(@Body UserDTO userDTO);
 
-    @POST("client")
-    Call<ResponseDTO<Object>> updateDeviceInfo(@Body DeviceInfo product);
+  @POST("client")
+  Call<ResponseDTO<Object>> updateDeviceInfo(@Body DeviceInfo product);
 
-    @DELETE("client")
-    Call<ResponseDTO<Object>> deleteDevice(@Query("clientid") String clientId);
+  @DELETE("client")
+  Call<ResponseDTO<Object>> deleteDevice(@Query("clientid") String clientId);
 
-    @GET("clients")
-    Call<ResponseDTO<List<DeviceInfo>>> getListDevice();
+  @GET("clients")
+  Call<ResponseDTO<List<DeviceInfo>>> getListDevice();
 
-    @POST("queue")
-    Call<ResponseDTO<Object>> updateQueue(@Body OrderDetail orderDetail);
+  @POST("queue")
+  Call<ResponseDTO<Object>> updateQueue(@Body OrderDetail orderDetail);
 
-    @POST("days-period")
-    Call<ResponseDTO<ChartData>> getDayStatisticPeriod(@Body StatisticRequest statisticRequest);
+  @POST("days-period")
+  Call<ResponseDTO<ChartData>> getDayStatisticPeriod(@Body StatisticRequest statisticRequest);
 
-    @POST("months-period")
-    Call<ResponseDTO<ChartData>> getMonthStatisticPeriod(@Body StatisticRequest statisticRequest);
+  @POST("months-period")
+  Call<ResponseDTO<ChartData>> getMonthStatisticPeriod(@Body StatisticRequest statisticRequest);
 
-    @POST("years-period")
-    Call<ResponseDTO<ChartData>> getYearStatisticPeriod(@Body StatisticRequest statisticRequest);
+  @POST("years-period")
+  Call<ResponseDTO<ChartData>> getYearStatisticPeriod(@Body StatisticRequest statisticRequest);
 
-    @GET("queues")
-    Call<ResponseDTO<List<OrderDetail>>> getOrderByStatus(@Query("filter") String statusFilter, @Query("handlerid") String handlerid);
+  @GET("queues")
+  Call<ResponseDTO<List<OrderDetail>>> getOrderByStatus(@Query("filter") String statusFilter, @Query("handlerid") String handlerid);
 
-    @POST("days")
-    Call<ResponseDTO<ChartData>> getDayStatistic(@Body StatisticRequest statisticRequest);
+  @POST("days")
+  Call<ResponseDTO<ChartData>> getDayStatistic(@Body StatisticRequest statisticRequest);
 
-    @POST("months")
-    Call<ResponseDTO<ChartData>> getMonthStatistic(@Body StatisticRequest statisticRequest);
+  @POST("months")
+  Call<ResponseDTO<ChartData>> getMonthStatistic(@Body StatisticRequest statisticRequest);
 
-    @POST("years")
-    Call<ResponseDTO<ChartData>> getYearStatistic(@Body StatisticRequest statisticRequest);
+  @POST("years")
+  Call<ResponseDTO<ChartData>> getYearStatistic(@Body StatisticRequest statisticRequest);
 
-    @POST("line/revenue")
-    Call<ResponseDTO<ChartData>> getProductRevenueStatistic(@Body StatisticRequest statisticRequest);
+  @POST("line/revenue")
+  Call<ResponseDTO<ChartData>> getProductRevenueStatistic(@Body StatisticRequest statisticRequest);
 
-    @POST("line/sales")
-    Call<ResponseDTO<ChartData>> getProductSalesStatistic(@Body StatisticRequest statisticRequest);
+  @POST("line/sales")
+  Call<ResponseDTO<ChartData>> getProductSalesStatistic(@Body StatisticRequest statisticRequest);
+
+  @POST("request")
+  Call<ResponseDTO<Object>> updateImportingStockRequest(@Body StockImportingRequest stockImportingRequest);
+
+  @PUT("request")
+  Call<ResponseDTO<Object>> createImportingStockRequest(@Body StockImportingRequest stockImportingRequest);
+
+  @DELETE("request")
+  Call<ResponseDTO<Object>> deleteImportingStockRequest(@Query("pendingproductid") String pendingproductid);
+
+  @GET("requests")
+  Call<ResponseDTO<List<StockImportingRequest>>> getImportingStockRequestList();
+
+  @POST("request/decision")
+  Call<ResponseDTO<Object>> handleImportingRequest();
 }

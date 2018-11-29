@@ -6,12 +6,17 @@ import java.util.ResourceBundle;
 
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.Product;
+import br.com.museuid.model.data.ProductImporting;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.service.remote.requestbody.StockImportingRequest;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.FakeDataUtils;
+import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
+import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.util.NoticeUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -21,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -36,14 +42,22 @@ public class StockImportingControler extends AnchorPane {
   public TextField txtDescription;
   public GridPane gridStockImport;
   public TextField txtStockImportingName;
-  public TableView tbProductImporting;
+  public TableView<ProductImporting> tbProductImporting;
+  public AnchorPane apProductList;
+  public Button btBackToList;
+  public Button btEditImportingSession;
+  public Button btCreateImportingSession;
+  public TableColumn colProductNameImporting;
+  public TableColumn colDescriptionImporting;
+  public TableColumn colPriceImporting;
+  public TableColumn colNumberAdding;
   private List<Product> productList = new ArrayList<>();
   private String selectedProductId = "0";
 
   @FXML
   private GridPane apAdd;
   @FXML
-  private Label legenda;
+  private Label lbLegend;
   @FXML
   private Button btExclude;
   @FXML
@@ -78,6 +92,7 @@ public class StockImportingControler extends AnchorPane {
   private HBox boxEdit;
   private ResourceBundle bundle;
   private ObservableList<Product> productObservableList = FXCollections.observableList(new ArrayList<>());
+  private ObservableList<ProductImporting> productImportingObservableList = FXCollections.observableList(new ArrayList<>());
   public StockImportingControler() {
     try {
       FXMLLoader fxml = new FXMLLoader(getClass().getResource("stock_importing.fxml"));
@@ -97,9 +112,7 @@ public class StockImportingControler extends AnchorPane {
   @FXML
   public void initialize() {
     initTable();
-//        Grupo.notEmpty(menu);
-    getProductList();
-
+    goToProductList(null);
     txtSearch.textProperty().addListener((obs, old, novo) -> {
       filter(novo, FXCollections.observableArrayList(productList));
     });
@@ -124,28 +137,47 @@ public class StockImportingControler extends AnchorPane {
         public void onSuccess(List<Product> data) {
           AppController.getInstance().hideProgressDialog();
           productList = data;
-          updateTable(data);
+          updateProductTable(data);
         }
 
       });
     }
   }
-  private void updateTable(List<Product> data) {
+  private void updateProductTable(List<Product> data) {
     productObservableList.clear();
     productObservableList.addAll(data);
-
   }
+
+  private void updateImportingProductTable(ObservableList<Product> selected){
+    productImportingObservableList.clear();
+    for (Product product : selected){
+      ProductImporting productImporting = new ProductImporting(product.getId(), product.getProductName(), product.getDescription(), product.getPrice(), product.getInStock());
+      productImportingObservableList.add(productImporting);
+    }
+    tbProductImporting.refresh();
+  }
+
   private void initTable() {
+    tbProduct.getSelectionModel().setSelectionMode(
+      SelectionMode.MULTIPLE
+    );
     colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-    colInStock.setCellValueFactory(new PropertyValueFactory<>("inStock"));
+//    colInStock.setCellValueFactory(new PropertyValueFactory<>("inStock"));
     colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-    tbProductImporting.setItems(productObservableList);
+    tbProduct.setItems(productObservableList);
+
+    colProductNameImporting.setCellValueFactory(new PropertyValueFactory<>("productName"));
+    colDescriptionImporting.setCellValueFactory(new PropertyValueFactory<>("description"));
+    colPriceImporting.setCellValueFactory(new PropertyValueFactory<>("price"));
+    colNumberAdding.setCellValueFactory(new PropertyValueFactory<ProductImporting,String>("tfNumberToImport"));
+
+    tbProductImporting.setItems(productImportingObservableList);
   }
 
   /**
-   * FieldViewUtils de pesquisar para filtrar dados na updateTable
+   * FieldViewUtils de pesquisar para filtrar dados na updateProductTable
    */
   private void filter(String valor, ObservableList<Product> products) {
 
@@ -170,5 +202,68 @@ public class StockImportingControler extends AnchorPane {
   void importStock(ActionEvent event){
 
   }
+  @FXML
+  void goToProductList(ActionEvent event){
+    getProductList();
+    lbTitle.setText(bundle.getString("txt_product_list"));
+    lbLegend.setText(bundle.getString("txt_hold_ctrl_to_choose_items"));
+    NavigationUtils.setVisibility(true, apProductList, txtSearch, btEditImportingSession);
+    NavigationUtils.setVisibility(false, gridStockImport, btBackToList, btCreateImportingSession);
+  }
 
+  @FXML
+  void editImportingSession(ActionEvent event){
+    ObservableList<Product> selectedItems = tbProduct.getSelectionModel().getSelectedItems();
+    if (selectedItems == null || selectedItems.isEmpty()){
+      NoticeUtils.alert("Vui lòng chọn sản phẩm!");
+      return;
+    }
+    updateImportingProductTable(selectedItems);
+
+    lbTitle.setText(bundle.getString("txt_import_stock_info"));
+    lbLegend.setText("");
+    FieldViewUtils.resetField(txtStockImportingName);
+    NavigationUtils.setVisibility(false, apProductList, txtSearch, btEditImportingSession);
+    NavigationUtils.setVisibility(true, gridStockImport, btBackToList, btCreateImportingSession);
+  }
+
+  @FXML
+  void createImportingSession(ActionEvent event){
+    ObservableList<ProductImporting> data = tbProductImporting.getItems();
+    StockImportingRequest stockImportingRequest = new StockImportingRequest();
+    stockImportingRequest.setName(txtStockImportingName.getText().trim());
+    List<StockImportingRequest.Item> items = new ArrayList<>();
+    for (ProductImporting productImporting : data){
+      String quantityText = productImporting.getTfNumberToImport().getText().trim();
+      int quantity = 0;
+      try {
+        quantity = Integer.valueOf(quantityText);
+      } catch (NumberFormatException e){
+        Messenger.erro("Vui lòng kiểm tra lại số lượng hàng nhập vào!");
+        return;
+      }
+      if (quantity <=0){
+        Messenger.erro("Số lượng hàng nhập vào phải lớn hơn 0!");
+        return;
+      }
+      items.add(new StockImportingRequest.Item(productImporting.getId(), productImporting.getProductName(), quantity));
+    }
+    stockImportingRequest.setItems(items);
+    AppController.getInstance().showProgressDialog();
+    ServiceBuilder.getApiService().createImportingStockRequest(stockImportingRequest).enqueue(new BaseCallback<Object>() {
+      @Override
+      public void onError(String errorCode, String errorMessage) {
+        AppController.getInstance().hideProgressDialog();
+        Messenger.erro(errorMessage);
+      }
+
+      @Override
+      public void onSuccess(Object data) {
+        AppController.getInstance().hideProgressDialog();
+        Messenger.info(bundle.getString("txt_operation_successful"));
+        goToProductList(null);
+      }
+    });
+
+  }
 }

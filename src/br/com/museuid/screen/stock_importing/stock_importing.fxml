@@ -16,75 +16,127 @@
           styleClass="search-txt-field" />
       </children>
     </HBox>
-      <GridPane fx:id="gridStockImport" AnchorPane.bottomAnchor="60.0"
-          AnchorPane.leftAnchor="15.0"
-          AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" visible="false">
-          <columnConstraints>
-              <ColumnConstraints percentWidth="50" />
-              <ColumnConstraints percentWidth="50" />
-          </columnConstraints>
-          <rowConstraints>
-              <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
-              <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
-              <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
-              <RowConstraints />
+    <AnchorPane fx:id="apProductList" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
+      AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" visible="false">
+      <TableView fx:id="tbProduct" tableMenuButtonVisible="true" AnchorPane.leftAnchor="0.0"
+        AnchorPane.rightAnchor="0.0"
+        AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0">
+        <columns>
+          <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"-->
+          <!--text="Id" />-->
+          <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0"
+            prefWidth="150.0" text="%txt_product_name"/>
+          <TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0"
+            prefWidth="150.0" text="%txt_description"/>
+          <TableColumn fx:id="colPrice" maxWidth="900.0" minWidth="150.0"
+            prefWidth="250.0" text="%txt_price"/>
+          <!--<TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0"-->
+            <!--prefWidth="250.0" text="%txt_status"/>-->
+        </columns>
+        <columnResizePolicy>
+          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+      </TableView>
+    </AnchorPane>
+    <GridPane fx:id="gridStockImport" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
+      AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" visible="false">
+      <columnConstraints>
+        <ColumnConstraints percentWidth="50" />
+        <ColumnConstraints percentWidth="50" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
+        <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
+        <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
+        <RowConstraints />
 
-          </rowConstraints>
-          <Label styleClass="lb-info" text="%txt_choose_device" GridPane.columnIndex="0"
-              GridPane.rowIndex="0" />
-          <TextField fx:id="txtStockImportingName" styleClass="campo" GridPane.columnIndex="0"
-              GridPane.rowIndex="1"  >
-              <GridPane.margin>
-                  <Insets top="10.0" bottom="10" />
-              </GridPane.margin>
-          </TextField>
-          <Label styleClass="lb-info" text="%txt_stock_import" GridPane.columnIndex="0"
-              GridPane.rowIndex="2" />
-          <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="3" >
-              <AnchorPane  AnchorPane.bottomAnchor="0.0"
-                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                  <TableView fx:id="tbProductImporting" tableMenuButtonVisible="true"
-                      AnchorPane.bottomAnchor="0.0"  AnchorPane.topAnchor="10.0">
-                      <columns>
-                          <!--<TableColumn fx:id="colIdInOrder" maxWidth="50.0" minWidth="50.0"-->
-                          <!--prefWidth="50.0" text="Id" />-->
-                          <TableColumn fx:id="colProductNameInOrder" maxWidth="900.0" minWidth="150.0"
-                              prefWidth="150.0" text="%txt_product_name"/>
-                          <TableColumn fx:id="colDescriptionInOrder" maxWidth="900.0" minWidth="150.0"
-                              prefWidth="150.0" text="%txt_description"/>
-                          <TableColumn fx:id="colPriceInOrder" maxWidth="900.0" minWidth="150.0"
-                              prefWidth="250.0" text="%txt_price"/>
-                          <TableColumn fx:id="colCountInOrder" maxWidth="900.0" minWidth="150.0"
-                              prefWidth="250.0" text="%txt_count"/>
-                          <TableColumn fx:id="colMoreRequirement" maxWidth="900.0" minWidth="150.0"
-                              prefWidth="250.0" text="%txt_more_requirement"/>
-                      </columns>
-                      <columnResizePolicy>
-                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                      </columnResizePolicy>
-                  </TableView>
-              </AnchorPane>
-          </AnchorPane>
-      </GridPane>
+      </rowConstraints>
+      <Label styleClass="lb-info" text="%txt_importing_request_name" GridPane.columnIndex="0"
+        GridPane.rowIndex="0" />
+      <TextField fx:id="txtStockImportingName" styleClass="campo" GridPane.columnIndex="0"
+        GridPane.rowIndex="1">
+        <GridPane.margin>
+          <Insets top="10.0" bottom="10" />
+        </GridPane.margin>
+      </TextField>
+      <Label styleClass="lb-info" text="%txt_stock_import" GridPane.columnIndex="0"
+        GridPane.rowIndex="2" />
+      <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="3">
+        <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <TableView fx:id="tbProductImporting" tableMenuButtonVisible="true"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0">
+            <columns>
+              <!--<TableColumn fx:id="colIdInOrder" maxWidth="50.0" minWidth="50.0"-->
+              <!--prefWidth="50.0" text="Id" />-->
+              <TableColumn fx:id="colProductNameImporting" maxWidth="900.0" minWidth="150.0"
+                prefWidth="150.0" text="%txt_product_name" />
+              <TableColumn fx:id="colDescriptionImporting" maxWidth="900.0" minWidth="150.0"
+                prefWidth="150.0" text="%txt_description" />
+              <TableColumn fx:id="colPriceImporting" maxWidth="900.0" minWidth="150.0"
+                prefWidth="250.0" text="%txt_price" />
+              <TableColumn fx:id="colNumberAdding" maxWidth="900.0" minWidth="150.0"
+                prefWidth="250.0" text="%txt_count" />
+            </columns>
+            <columnResizePolicy>
+              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+          </TableView>
+        </AnchorPane>
+      </AnchorPane>
+    </GridPane>
 
     <AnchorPane prefHeight="50.0" styleClass="box-menus-subtela" AnchorPane.bottomAnchor="5.0"
       AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
       <children>
-        <Button fx:id="btSave" contentDisplay="TOP" mnemonicParsing="false" onAction="#importStock"
-          prefHeight="40.0" prefWidth="200.0" style="" text="%txt_save"
-          AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="10.0"
-          AnchorPane.topAnchor="5.0"
-          StackPane.alignment="TOP_RIGHT">
-          <styleClass>
-            <String fx:value="menus-acoes" />
-            <String fx:value="acao-salvar" />
-            <String fx:value="menu-green" />
-          </styleClass>
-        </Button>
+        <HBox AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="5.0">
+          <StackPane>
+            <Button id="" fx:id="btBackToList" mnemonicParsing="false"
+              onAction="#goToProductList" prefHeight="40.0" prefWidth="200.0" style=""
+              text="%txt_back">
+              <styleClass>
+                <String fx:value="menus-acoes"/>
+                <!--<String fx:value="acao-editar" />-->
+                <String fx:value="menu-blue"/>
+              </styleClass>
+              <StackPane.margin>
+                <Insets right="30.0"/>
+              </StackPane.margin>
+            </Button>
+          </StackPane>
 
-        <Label fx:id="legenda" layoutX="36.0" layoutY="17.0" styleClass="lb-info-requerido"
+          <StackPane>
+            <Button fx:id="btEditImportingSession" contentDisplay="TOP" mnemonicParsing="false"
+              onAction="#editImportingSession" prefHeight="40.0" prefWidth="230.0" style=""
+              text="%txt_take_to_importing_session" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+              <styleClass>
+                <String fx:value="menus-acoes"/>
+                <!--<String fx:value="acao-editar"/>-->
+                <String fx:value="menu-orange"/>
+              </styleClass>
+            </Button>
+            <Button id="" fx:id="btCreateImportingSession" contentDisplay="TOP"
+              mnemonicParsing="false" onAction="#createImportingSession" prefHeight="40.0"
+              prefWidth="230.0" style="" text="%txt_importing_request"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <styleClass>
+                <String fx:value="menus-acoes"/>
+                <!--<String fx:value="acao-salvar"/>-->
+                <String fx:value="menu-green"/>
+              </styleClass>
+            </Button>
+
+          </StackPane>
+        </HBox>
+
+        <Label fx:id="lbLegend" layoutX="36.0" layoutY="17.0" styleClass="lb-info-requerido"
           text="%txt_required_fields" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.topAnchor="5.0" visible="false"/>
+          AnchorPane.topAnchor="5.0" visible="false" />
       </children>
     </AnchorPane>
   </children>
