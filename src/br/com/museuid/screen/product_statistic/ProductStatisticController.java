@@ -17,20 +17,18 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.StatisticRequest;
-import br.com.museuid.util.BarChartUtils;
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ChartUtils;
 import br.com.museuid.util.ComboUtils;
 import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.LineChartUtils;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.ResizeUtils;
 import br.com.museuid.util.TimeUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -90,7 +88,7 @@ public class ProductStatisticController extends AnchorPane {
   private SlidingCategoryDataset dataset;
   private static final String BASED_ON_REVENUE = "Theo doanh thu";
   private static final String BASED_ON_NUMBER = "Theo lượng hàng bán ra";
-  BaseCallback<ChartData> chartDataCallback;
+
   public ProductStatisticController() {
     try {
       FXMLLoader fxml = new FXMLLoader(getClass().getResource("product_statistic.fxml"));
@@ -123,9 +121,7 @@ public class ProductStatisticController extends AnchorPane {
     });
     cbDataType.setValue(BASED_ON_REVENUE);
 
-    freeChart = LineChartUtils.createLineChart("Thời gian", "VND", null);
-    chartViewer = new ChartViewer(freeChart);
-    addChart(boxGraphic, chartViewer);
+
     scrollBar.setVisible(false);
     scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
       public void changed(ObservableValue<? extends Number> observable,
@@ -136,27 +132,12 @@ public class ProductStatisticController extends AnchorPane {
 
     if (ConstantConfig.FAKE) {
       ChartData chartData = FakeDataUtils.getFakeGroupBarChart();
-
-//            addChart(boxGraphic, BarChartUtils.create(chartData.getChartName(), "", chartData.getUnit(), mapData));
-//            ChartViewer chartViewer = new ChartViewer(BarChartUtils.createJFreeBarChart(chartData))
-      updateChartData(BarChartUtils.convertChartDataToCategoryDataset(chartData));
+      makeLineChart(chartData);
     }
 
     setupPeriod(menuPeriod);
 
-     chartDataCallback = new BaseCallback<ChartData>() {
-      @Override
-      public void onError(String errorCode, String errorMessage) {
-        AppController.getInstance().hideProgressDialog();
-        Messenger.erro(errorMessage);
-      }
 
-      @Override
-      public void onSuccess(ChartData data) {
-        AppController.getInstance().hideProgressDialog();
-        updateChartData(BarChartUtils.convertChartDataToCategoryDataset(data));
-      }
-    };
   }
 
   private void setupPeriod(ToggleGroup group) {
@@ -173,11 +154,7 @@ public class ProductStatisticController extends AnchorPane {
     });
   }
 
-  private static void addChart(AnchorPane box, Node chart) {
-    box.getChildren().clear();
-    ResizeUtils.margin(chart, 0);
-    box.getChildren().add(chart);
-  }
+
 
   @FXML
   void doStatistic(ActionEvent event) {
@@ -189,7 +166,19 @@ public class ProductStatisticController extends AnchorPane {
         TimeUtils.convertDateTimeToStartTimeFormat(datePickerStart.getValue()),
         TimeUtils.convertDateTimeToEndTimeFormat(datePickerEnd.getValue()));
       statisticRequest.setCategory(Period.values()[period].name());
+      BaseCallback<ChartData> chartDataCallback = new BaseCallback<ChartData>() {
+        @Override
+        public void onError(String errorCode, String errorMessage) {
+          AppController.getInstance().hideProgressDialog();
+          Messenger.erro(errorMessage);
+        }
 
+        @Override
+        public void onSuccess(ChartData data) {
+          AppController.getInstance().hideProgressDialog();
+          makeLineChart(data);
+        }
+      };
       switch (cbDataType.getValue()) {
         case BASED_ON_NUMBER:
           ServiceBuilder.getApiService().getProductSalesStatistic(statisticRequest).enqueue(chartDataCallback);
@@ -202,22 +191,6 @@ public class ProductStatisticController extends AnchorPane {
     }
   }
 
-  private void updateChartData(DefaultCategoryDataset defaultCategoryDataset) {
-    dataset = new SlidingCategoryDataset(defaultCategoryDataset, 0, 10);
-    if (dataset.getColumnCount() < 10) {
-      scrollBar.setVisible(false);
-    } else {
-      scrollBar.setVisible(true);
-      scrollBar.setMin(0);
-      scrollBar.setValue(0);
-      scrollBar.setMax((double) defaultCategoryDataset.getColumnCount() / 10);
-      scrollBar.setVisibleAmount(1);
-    }
-    freeChart.getCategoryPlot().setDataset(dataset);
-//        freeChart.setTitle(chartData.getChartName());
-//        freeChart.getCategoryPlot().
-    freeChart.fireChartChanged();
-  }
 
   private void setPeriod(int n) {
 //        if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
@@ -227,11 +200,12 @@ public class ProductStatisticController extends AnchorPane {
 //        }
   }
 
-  private int getRealPeriodPosition() {
-//        if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())){
-//            return period-1;
-//        } else {
-    return period;
-//        }
+  private void makeLineChart(ChartData data){
+    DefaultCategoryDataset defaultCategoryDataset = ChartUtils.convertChartDataToCategoryDataset(data);
+    dataset = new SlidingCategoryDataset(defaultCategoryDataset, 0, 10);
+    ChartUtils.configScrollBar(dataset, scrollBar, defaultCategoryDataset.getColumnCount());
+    freeChart = LineChartUtils.createLineChart(data.getxAxisUnit(), data.getyAxisUnit(), data.getChartName(), dataset);
+    ChartUtils.makeChart(freeChart, chartViewer, boxGraphic);
   }
+
 }

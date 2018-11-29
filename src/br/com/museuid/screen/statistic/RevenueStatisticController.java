@@ -4,7 +4,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartViewer;
 import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.ui.TextAnchor;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -23,9 +22,9 @@ import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.StatisticRequest;
 import br.com.museuid.util.BarChartUtils;
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ChartUtils;
 import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.Messenger;
-import br.com.museuid.util.ResizeUtils;
 import br.com.museuid.util.StaticVarUtils;
 import br.com.museuid.util.TimeUtils;
 import javafx.beans.value.ChangeListener;
@@ -33,7 +32,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -114,9 +112,7 @@ public class RevenueStatisticController extends AnchorPane {
     TimeUtils.reformatDatePickerValue(datePickerStart);
     TimeUtils.reformatDatePickerValue(datePickerEnd);
 
-    freeChart = BarChartUtils.createJFreeBarChart();
     chartViewer = new ChartViewer(freeChart);
-    addChart(boxGraphic, chartViewer);
     scrollBar.setVisible(false);
     scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
       public void changed(ObservableValue<? extends Number> observable,
@@ -124,14 +120,7 @@ public class RevenueStatisticController extends AnchorPane {
         dataset.setFirstCategoryIndex(newValue.intValue() * 10);
       }
     });
-    if (ConstantConfig.FAKE) {
-      ChartData chartData = FakeDataUtils.getFakeGroupBarChart();
-      BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
-      renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER, TextAnchor.CENTER, 45));
 
-      updateChartData(BarChartUtils.convertChartDataToCategoryDataset(chartData));
-
-    }
     if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())) {
       boxPeriod.setVisible(true);
       boxPeriodForManager.setVisible(false);
@@ -159,16 +148,17 @@ public class RevenueStatisticController extends AnchorPane {
     });
   }
 
-  private static void addChart(AnchorPane box, Node chart) {
-    box.getChildren().clear();
-    ResizeUtils.margin(chart, 0);
-    box.getChildren().add(chart);
-  }
-
   @FXML
   void doStatistic(ActionEvent event) {
     if (ConstantConfig.FAKE) {
-
+      ChartData chartData = FakeDataUtils.getFakeGroupBarChart();
+      makeBarChart(chartData);
+      BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
+      if (period == SESSION){
+        renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER, TextAnchor.CENTER, 45));
+      } else {
+        renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
+      }
     } else {
       AppController.getInstance().showProgressDialog();
       StatisticRequest statisticRequest = new StatisticRequest(
@@ -185,48 +175,31 @@ public class RevenueStatisticController extends AnchorPane {
         @Override
         public void onSuccess(ChartData data) {
           AppController.getInstance().hideProgressDialog();
-          updateChartData(BarChartUtils.convertChartDataToCategoryDataset(data));
+          makeBarChart(data);
+          BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
+          if (period == SESSION){
+            renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER, TextAnchor.CENTER, 45));
+          } else {
+            renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
+          }
         }
       };
-      BarRenderer renderer = (BarRenderer) freeChart.getCategoryPlot().getRenderer();
+
       switch (period) {
         case SESSION:
-          renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER, TextAnchor.CENTER, 45));
           ServiceBuilder.getApiService().getDayStatisticPeriod(statisticRequest).enqueue(chartDataCallback);
           break;
         case DAY:
-          renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
           ServiceBuilder.getApiService().getDayStatistic(statisticRequest).enqueue(chartDataCallback);
           break;
         case MONTH:
-          renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
           ServiceBuilder.getApiService().getMonthStatistic(statisticRequest).enqueue(chartDataCallback);
           break;
         case YEAR:
-          renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
           ServiceBuilder.getApiService().getYearStatistic(statisticRequest).enqueue(chartDataCallback);
           break;
       }
     }
-  }
-
-  private void updateChartData(DefaultCategoryDataset defaultCategoryDataset) {
-    dataset = new SlidingCategoryDataset(defaultCategoryDataset, 0, 10);
-    if (dataset.getColumnCount() < 10) {
-      scrollBar.setVisible(false);
-    } else {
-      scrollBar.setVisible(true);
-      scrollBar.setMin(0);
-      scrollBar.setValue(0);
-      scrollBar.setMax((double) defaultCategoryDataset.getColumnCount() / 10);
-      scrollBar.setVisibleAmount(1);
-    }
-
-    CategoryPlot plot = (CategoryPlot) freeChart.getPlot();
-
-    plot.setDataset(dataset);
-
-    freeChart.fireChartChanged();
   }
 
   private void setPeriod(int n) {
@@ -243,5 +216,13 @@ public class RevenueStatisticController extends AnchorPane {
     } else {
       return period;
     }
+  }
+
+  private void makeBarChart(ChartData data){
+    DefaultCategoryDataset defaultCategoryDataset = ChartUtils.convertChartDataToCategoryDataset(data);
+    dataset = new SlidingCategoryDataset(defaultCategoryDataset, 0, 10);
+    ChartUtils.configScrollBar(dataset, scrollBar, defaultCategoryDataset.getColumnCount());
+    freeChart = BarChartUtils.createJFreeBarChart(data.getxAxisUnit(), data.getyAxisUnit(), data.getChartName(), dataset);
+    ChartUtils.makeChart(freeChart, chartViewer, boxGraphic);
   }
 }

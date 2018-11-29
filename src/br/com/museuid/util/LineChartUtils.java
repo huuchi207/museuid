@@ -5,6 +5,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.CategoryDataset;
 
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
@@ -87,17 +88,20 @@ public class LineChartUtils {
 
         return stack;
     }
-    public static JFreeChart createLineChart(String xAxisLabel, String yAxisLabel, String title){
+    public static JFreeChart createLineChart(String xAxisLabel, String yAxisLabel, String title,
+                                             CategoryDataset defaultCategoryDataset){
       JFreeChart chart = ChartFactory.createLineChart(
         title,
         xAxisLabel, yAxisLabel,
-        null,
+        defaultCategoryDataset,
         PlotOrientation.VERTICAL,
         true,     // include legend
         true,
         true
       );
       CategoryPlot plot = (CategoryPlot) chart.getPlot();
+      org.jfree.chart.axis.NumberAxis rangeAxis = (org.jfree.chart.axis.NumberAxis) plot.getRangeAxis();
+      rangeAxis.setStandardTickUnits(org.jfree.chart.axis.NumberAxis.createIntegerTickUnits());
       LineAndShapeRenderer renderer = new LineAndShapeRenderer(){
         @Override
         public Shape getItemShape(int row, int column) {

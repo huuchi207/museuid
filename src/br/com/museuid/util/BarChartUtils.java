@@ -11,16 +11,12 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.ui.TextAnchor;
 import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.util.List;
 import java.util.Map;
 
-import br.com.museuid.dto.ChartData;
-import br.com.museuid.dto.ChartPoint;
-import br.com.museuid.dto.GroupChartPoint;
 import br.com.museuid.model.data.BaseChartItem;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -113,10 +109,11 @@ public class BarChartUtils {
         graphic.setLegendVisible(false);
     }
 
-    public static JFreeChart createJFreeBarChart() {
+    public static JFreeChart createJFreeBarChart(String xAxisLabel, String yAxisLabel, String title,
+                                                 CategoryDataset categoryDataset) {
         JFreeChart chart = ChartFactory.createBarChart(
-            null, "Thời gian"  /* x-axis label*/,
-            "VND"/* y-axis label */, null,
+          title, xAxisLabel  /* x-axis label*/,
+          yAxisLabel/* y-axis label */, categoryDataset,
             PlotOrientation.VERTICAL, true, true, false);
 //        chart.addSubtitle(new TextTitle("Time to generate 1000 charts in SVG "
 //            + "format (lower bars = better performance)"));
@@ -154,17 +151,5 @@ public class BarChartUtils {
         return chart;
     }
 
-    public static DefaultCategoryDataset convertChartDataToCategoryDataset(ChartData chartData) {
-        DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
-        if (chartData == null || chartData.getGroupChartPoints() == null)
-            return categoryDataset;
-        for (GroupChartPoint groupChartPoint : chartData.getGroupChartPoints()) {
-            if (groupChartPoint.getChartPoints() == null)
-                continue;
-            for (ChartPoint chartPoint : groupChartPoint.getChartPoints()) {
-                categoryDataset.addValue(chartPoint.getValue(), groupChartPoint.getTitle(), chartPoint.getDate());
-            }
-        }
-        return categoryDataset;
-    }
+
 }
