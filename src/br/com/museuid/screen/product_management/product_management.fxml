@@ -54,7 +54,7 @@
         <Label styleClass="lb-info-requerido" text="%txt_product_name" GridPane.columnIndex="0"
           GridPane.rowIndex="0" />
         <TextField fx:id="txtProductName" styleClass="campo" visible="true" GridPane.columnIndex="0"
-          GridPane.rowIndex="1" />
+          GridPane.rowIndex="1" disable="true"/>
 
         <Label layoutX="10.0" layoutY="17.0" styleClass="lb-info-requerido" text="%txt_price"
           GridPane.columnIndex="1" GridPane.rowIndex="0" />

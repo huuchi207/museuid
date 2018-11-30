@@ -309,7 +309,7 @@ public class AppController {
     if (actionEvent.getSource() == currentScreen) {
       return;
     }
-    NavigationUtils.getStockImportingControler(boxContainer);
+    NavigationUtils.getStockImportingManagementControler(boxContainer);
     setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
   }
 

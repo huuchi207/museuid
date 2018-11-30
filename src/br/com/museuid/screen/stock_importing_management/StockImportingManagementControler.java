@@ -1,4 +1,4 @@
-package br.com.museuid.screen.stock_importing_history;
+package br.com.museuid.screen.stock_importing_management;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +14,9 @@ import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.StockImportingRequest;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.ComboUtils;
-import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.NoticeUtils;
-import br.com.museuid.util.StaticVarUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -43,30 +41,30 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
-public class StockImportingHistoryControler extends AnchorPane {
+public class StockImportingManagementControler extends AnchorPane {
 
   public TableColumn colImportingName;
   public TextField txtDescription;
   public GridPane gridStockImport;
-  public TextField txtStockImportingName;
+//  public TextField txtStockImportingName;
   public TableView<ProductImporting> tbProductImporting;
   public AnchorPane apProductList;
   public Button btBackToList;
   public Button btEditImportingSession;
-  public Button btUpdate;
+  public Button btAccept;
   public TableColumn colProductName;
 
   public TableColumn colNumberAdding;
   public TableColumn colImportingCreatedTime;
-  public TableColumn colImportingUpdatedTime;
+  public TableColumn colImporterName;
   public TableColumn colId;
   public TableColumn colImportingContent;
   public TableColumn colImportingStatus;
-  public TableColumn colIdInDetail;
   public HBox boxActionList;
   public HBox boxActionDetail;
   public ComboBox<StockImportingRequest.Status> cbFilter;
-  public Button btCancel;
+  public Button btReject;
+  public TableColumn colIdInDetail;
 
   @FXML
   private GridPane apAdd;
@@ -108,9 +106,9 @@ public class StockImportingHistoryControler extends AnchorPane {
   private ObservableList<StockImportingRequest> stockImportingRequestObservableList = FXCollections.observableList(new ArrayList<>());
   private ObservableList<ProductImporting> productImportingObservableList = FXCollections.observableList(new ArrayList<>());
   private StockImportingRequest selectedRequest;
-  public StockImportingHistoryControler() {
+  public StockImportingManagementControler() {
     try {
-      FXMLLoader fxml = new FXMLLoader(getClass().getResource("stock_importing_history.fxml"));
+      FXMLLoader fxml = new FXMLLoader(getClass().getResource("stock_importing_management.fxml"));
       fxml.setRoot(this);
       fxml.setController(this);
       bundle = BundleUtils.getResourceBundle();
@@ -163,7 +161,7 @@ public class StockImportingHistoryControler extends AnchorPane {
 
     } else {
       AppController.getInstance().showProgressDialog();
-      ServiceBuilder.getApiService().getImportingStockRequestList(null, StaticVarUtils.getSessionUserInfo().getInfo().getId()).
+      ServiceBuilder.getApiService().getImportingStockRequestList(null, null).
         enqueue(new BaseCallback<List<StockImportingRequest>>() {
         @Override
         public void onError(String errorCode, String errorMessage) {
@@ -194,22 +192,11 @@ public class StockImportingHistoryControler extends AnchorPane {
   private void updateImportingProductTable(StockImportingRequest request){
     selectedRequest = request;
     productImportingObservableList.clear();
-    txtStockImportingName.setText(request.getName());
+//    txtStockImportingName.setText(request.getName());
     int i = 1;
     for (StockImportingRequest.Item item : request.getItems()){
       ProductImporting productImporting = new ProductImporting(item.getItemname(), item.getItemid(), item.getQuantity());
       productImporting.setNumber(i++);
-      productImporting.setOnContentChange(new ProductImporting.OnContentChange() {
-        @Override
-        public void onNumberChange(Integer oldNumber, Integer newNumber) {
-          if (newNumber >0){
-            productImporting.setNumberToImport(newNumber);
-          } else {
-            Messenger.erro("Số lượng hàng phải lớn hơn 0");
-            productImporting.getTfNumberToImport().setText(productImporting.getNumberToImport()+"");
-          }
-        }}
-      );
       productImportingObservableList.add(productImporting);
     }
     tbProductImporting.refresh();
@@ -221,13 +208,13 @@ public class StockImportingHistoryControler extends AnchorPane {
     colImportingContent.setCellFactory(tv -> new MutipleLineTableCell());
     colImportingName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colImportingCreatedTime.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
-    colImportingUpdatedTime.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
+    colImporterName.setCellValueFactory(new PropertyValueFactory<>("requestername"));
     colImportingStatus.setCellValueFactory(new PropertyValueFactory<>("statusText"));
     tbStockImportHistory.setItems(stockImportingRequestObservableList);
 
     colIdInDetail.setCellValueFactory(new PropertyValueFactory<>("number"));
     colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-    colNumberAdding.setCellValueFactory(new PropertyValueFactory<ProductImporting,String>("tfNumberToImport"));
+    colNumberAdding.setCellValueFactory(new PropertyValueFactory<>("numberToImport"));
 
     tbProductImporting.setItems(productImportingObservableList);
   }
@@ -256,10 +243,7 @@ public class StockImportingHistoryControler extends AnchorPane {
 
     tbStockImportHistory.setItems(dadosOrdenados);
   }
-  @FXML
-  void importStock(ActionEvent event){
 
-  }
   @FXML
   void goToHistoryList(ActionEvent event){
     getStockImportHistory();
@@ -270,73 +254,39 @@ public class StockImportingHistoryControler extends AnchorPane {
   }
 
   @FXML
-  void editImportingSession(ActionEvent event){
+  void handleImportingSession(ActionEvent event){
     StockImportingRequest selectedItem = tbStockImportHistory.getSelectionModel().getSelectedItem();
     if (selectedItem == null){
       NoticeUtils.alert("Vui lòng chọn một đối tượng!");
       return;
     }
     if (!StockImportingRequest.Status.NEW.name().equals(selectedItem.getStatus())){
-      NoticeUtils.alert("Bạn chỉ có thể chỉnh sửa yêu cầu chưa xử lý");
+      NoticeUtils.alert("Yêu cầu này đã được xử lý!");
       return;
     }
     updateImportingProductTable(selectedItem);
 
-    lbTitle.setText(bundle.getString("txt_import_stock_info"));
+    lbTitle.setText(bundle.getString("txt_import_stock_info")+ ": "+ selectedItem.getName());
     lbLegend.setText("");
     NavigationUtils.setVisibility(false, apProductList, cbFilter, boxActionList);
     NavigationUtils.setVisibility(true, gridStockImport, boxActionDetail);
   }
 
   @FXML
-  void updateImportingSession(ActionEvent event){
-    if(FieldViewUtils.noEmpty(txtStockImportingName)){
-      Messenger.info("Vui lòng nhập vào trường được yêu cầu");
-      return;
-    }
-    ObservableList<ProductImporting> data = tbProductImporting.getItems();
-    StockImportingRequest stockImportingRequest = new StockImportingRequest();
-    stockImportingRequest.setName(txtStockImportingName.getText().trim());
-    stockImportingRequest.setPendingproductid(selectedRequest.get_id());
-    List<StockImportingRequest.Item> items = new ArrayList<>();
-    for (ProductImporting productImporting : data){
-      if (productImporting.getNumberToImport()<=0){
-        Messenger.erro("Số lượng hàng phải lớn hơn 0!");
-        return;
-      }
-      items.add(new StockImportingRequest.Item(productImporting.getProductid(), productImporting.getProductName(), productImporting.getNumberToImport()));
-    }
-    stockImportingRequest.setItems(items);
-    AppController.getInstance().showProgressDialog();
-    ServiceBuilder.getApiService().updateImportingStockRequest(stockImportingRequest).enqueue(new BaseCallback<Object>() {
-      @Override
-      public void onError(String errorCode, String errorMessage) {
-        AppController.getInstance().hideProgressDialog();
-        Messenger.erro(errorMessage);
-      }
-
-      @Override
-      public void onSuccess(Object data) {
-        AppController.getInstance().hideProgressDialog();
-        Messenger.info(bundle.getString("txt_operation_successful"));
-        goToHistoryList(null);
-      }
-    });
-
+  void accept(ActionEvent event){
+    handleRequest(selectedRequest, StockImportingRequest.Status.APPROVED);
   }
   @FXML
-  void cancel(ActionEvent actionEvent){
-    StockImportingRequest selectedItem = tbStockImportHistory.getSelectionModel().getSelectedItem();
-    if (selectedItem == null){
-      NoticeUtils.alert("Vui lòng chọn một đối tượng!");
-      return;
-    }
-    if (!StockImportingRequest.Status.NEW.name().equals(selectedItem.getStatus())){
-      NoticeUtils.alert("Bạn chỉ có thể hủy yêu cầu chưa xử lý");
-      return;
-    }
+  void reject(ActionEvent actionEvent){
+    handleRequest(selectedRequest, StockImportingRequest.Status.REJECTED);
+  }
+  private void handleRequest(StockImportingRequest request, StockImportingRequest.Status status){
+    StockImportingRequest stockImportingRequest = new StockImportingRequest();
+    stockImportingRequest.setPendingproductid(request.get_id());
+    stockImportingRequest.setDecision(status.name());
     AppController.getInstance().showProgressDialog();
-    ServiceBuilder.getApiService().deleteImportingStockRequest(selectedItem.get_id()).enqueue(new BaseCallback<Object>() {
+
+    ServiceBuilder.getApiService().handleImportingRequest(stockImportingRequest).enqueue(new BaseCallback<Object>() {
       @Override
       public void onError(String errorCode, String errorMessage) {
         AppController.getInstance().hideProgressDialog();

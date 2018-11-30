@@ -80,8 +80,8 @@
             AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="0.0"
             AnchorPane.rightAnchor="0.0">
             <columns>
-              <!--<TableColumn fx:id="colIdInOrder" maxWidth="50.0" minWidth="50.0"-->
-              <!--prefWidth="50.0" text="Id" />-->
+              <TableColumn fx:id="colIdInDetail" maxWidth="50.0" minWidth="50.0"
+                prefWidth="50.0" text="STT" />
               <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0"
                 prefWidth="150.0" text="%txt_product_name" />
               <TableColumn fx:id="colNumberAdding" maxWidth="900.0" minWidth="150.0"

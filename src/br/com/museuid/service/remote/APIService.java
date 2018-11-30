@@ -129,8 +129,8 @@ public interface APIService {
   Call<ResponseDTO<Object>> deleteImportingStockRequest(@Query("pendingproductid") String pendingproductid);
 
   @GET("requests")
-  Call<ResponseDTO<List<StockImportingRequest>>> getImportingStockRequestList();
+  Call<ResponseDTO<List<StockImportingRequest>>> getImportingStockRequestList(@Query("filter") String filter, @Query("requesterid") String requesterid);
 
   @POST("request/decision")
-  Call<ResponseDTO<Object>> handleImportingRequest();
+  Call<ResponseDTO<Object>> handleImportingRequest(@Body StockImportingRequest request);
 }

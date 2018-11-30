@@ -37,7 +37,7 @@ public class ProductImporting extends Product {
   private int numberToImport;
   private TextField tfNumberToImport;
   private OnContentChange onContentChange;
-
+  private int number;
   public OnContentChange getOnContentChange() {
     return onContentChange;
   }
@@ -64,5 +64,13 @@ public class ProductImporting extends Product {
 
   public interface OnContentChange {
     void onNumberChange(Integer oldNumber, Integer newNumber);
+  }
+
+  public int getNumber() {
+    return number;
+  }
+
+  public void setNumber(int number) {
+    this.number = number;
   }
 }

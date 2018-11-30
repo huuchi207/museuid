@@ -11,6 +11,7 @@ import br.com.museuid.screen.product_statistic.ProductStatisticController;
 import br.com.museuid.screen.statistic.RevenueStatisticController;
 import br.com.museuid.screen.stock_importing.StockImportingControler;
 import br.com.museuid.screen.stock_importing_history.StockImportingHistoryControler;
+import br.com.museuid.screen.stock_importing_management.StockImportingManagementControler;
 import br.com.museuid.screen.update_user_info.UpdateUserInfoController;
 import br.com.museuid.screen.user_management.UserManagementControler;
 import javafx.scene.Node;
@@ -36,6 +37,7 @@ public class NavigationUtils {
   private static ProductStatisticController productStatisticController;
   private static StockImportingControler stockImportingControler;
   private static StockImportingHistoryControler stockImportingHistoryControler;
+  private static StockImportingManagementControler stockImportingManagementControler;
   private NavigationUtils() {
   }
 
@@ -123,6 +125,12 @@ public class NavigationUtils {
     stockImportingHistoryControler = new StockImportingHistoryControler();
     config(box, stockImportingHistoryControler);
   }
+
+  public static void getStockImportingManagementControler(AnchorPane box){
+    stockImportingManagementControler = new StockImportingManagementControler();
+    config(box, stockImportingManagementControler);
+  }
+
   public static void config(AnchorPane box, StackPane conteudo) {
     box.getChildren().clear();
     box.getChildren().add(conteudo);
