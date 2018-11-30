@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.museuid.dto.ChartData;
 import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.dto.Product;
+import br.com.museuid.dto.SecureQuestionDTO;
 import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.SessionUserInfo;
 import br.com.museuid.dto.UserDTO;
@@ -13,6 +14,7 @@ import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
 import br.com.museuid.service.remote.requestbody.ChangePasswordRequest;
 import br.com.museuid.service.remote.requestbody.LoginRequest;
+import br.com.museuid.service.remote.requestbody.SecureQuestionRequest;
 import br.com.museuid.service.remote.requestbody.StatisticRequest;
 import br.com.museuid.service.remote.requestbody.StockImportingRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
@@ -133,4 +135,14 @@ public interface APIService {
 
   @POST("request/decision")
   Call<ResponseDTO<Object>> handleImportingRequest(@Body StockImportingRequest request);
+
+  @GET("secure-question")
+  Call<ResponseDTO<SecureQuestionDTO>> getListSecureQuestion();
+
+  @POST("update-secure")
+  Call<ResponseDTO<Object>> updateSecureQuestion(@Body SecureQuestionRequest secureQuestionRequest);
+
+
+  @POST("forgot-password")
+  Call<ResponseDTO<UserDTO>> forgotPass(@Body SecureQuestionRequest secureQuestionRequest);
 }

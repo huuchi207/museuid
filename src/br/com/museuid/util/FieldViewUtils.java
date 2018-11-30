@@ -1,5 +1,7 @@
 package br.com.museuid.util;
 
+import java.util.List;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -113,9 +115,20 @@ public class FieldViewUtils {
      * Exibir erro campo no login caso deixe espaço vazio ou incorreto
      */
     public static void erroLogin(Node no) {
-        no.setStyle("-fx-border-color: #ff8b8b;");
-        no.setOnMouseClicked((MouseEvent me) -> {
-            no.setStyle("-fx-border-color: transparent transparent #e8e8e8 transparent;");
-        });
+      no.setStyle("-fx-border-color: #ff8b8b;");
+      no.setOnMouseClicked((MouseEvent me) -> {
+        no.setStyle("-fx-border-color: transparent transparent #e8e8e8 transparent;");
+      });
+    }
+
+    public static void disableViews(boolean b, Node... nodes){
+      for (Node node : nodes){
+        node.setDisable(b);
+      }
+    }
+    public static void disableViews(boolean b, List<Node> nodes){
+      for (Node node : nodes){
+        node.setDisable(b);
+      }
     }
 }

@@ -1,42 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.ProgressIndicator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.museuid.screen.login.LoginController">
+<?import java.net.URL?><?import javafx.scene.control.Button?><?import javafx.scene.control.ComboBox?><?import javafx.scene.control.Label?><?import javafx.scene.control.PasswordField?><?import javafx.scene.control.ProgressIndicator?><?import javafx.scene.control.TextField?><?import javafx.scene.Group?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.ColumnConstraints?><?import javafx.scene.layout.GridPane?><?import javafx.scene.layout.RowConstraints?><?import javafx.scene.layout.StackPane?><?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="br.com.museuid.screen.login.LoginController">
+  <stylesheets>
+    <URL value="@../../css/login.css" />
+    <URL value="@../../css/dialog.css" />
+    <URL value="@../../css/custom.css" />
+  </stylesheets>
   <StackPane>
-    <AnchorPane layoutX="-38.0" layoutY="-39.0" prefHeight="289.0" prefWidth="511.0" styleClass="box-login">
-      <TextField fx:id="tfUser" layoutX="68.0" layoutY="65.0" prefHeight="40.0" prefWidth="336.0" styleClass="nome" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+    <AnchorPane layoutX="-38.0" layoutY="-39.0" prefHeight="289.0" prefWidth="511.0"
+      styleClass="box-login" visible="true" fx:id="apLogin">
+      <TextField fx:id="tfUser" layoutX="68.0" layoutY="65.0" prefHeight="40.0" prefWidth="336.0"
+        styleClass="nome" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
         <font>
           <Font size="14.0" />
         </font>
       </TextField>
-      <PasswordField fx:id="pfPass" layoutX="68.0" layoutY="120.0" prefHeight="40.0" prefWidth="333.0" styleClass="senha" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+      <PasswordField fx:id="pfPass" layoutX="68.0" layoutY="120.0" prefHeight="40.0"
+        prefWidth="333.0" styleClass="senha" AnchorPane.leftAnchor="40.0"
+        AnchorPane.rightAnchor="40.0">
         <font>
           <Font size="14.0" />
         </font>
       </PasswordField>
-      <Button layoutX="73.0" layoutY="179.0" mnemonicParsing="false" onAction="#login" prefHeight="39.0" prefWidth="368.0" styleClass="bt-logar" text="%txt_log_in" textFill="WHITE">
+      <Button layoutX="73.0" layoutY="179.0" mnemonicParsing="false" onAction="#login"
+        prefHeight="39.0" prefWidth="368.0" styleClass="bt-logar" text="%txt_log_in"
+        textFill="WHITE">
         <font>
           <Font size="16.0" />
         </font>
       </Button>
-      <Button layoutX="378.0" layoutY="239.0" onAction="#forgotPassword" prefHeight="17.0" prefWidth="103.0" styleClass="no-border-bt" text="%txt-forgot-pass" textAlignment="RIGHT" textFill="#10cbe4" />
-      <Label alignment="CENTER" layoutX="163.0" layoutY="14.0" styleClass="login-txt" text="%txt_log_in" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Button layoutX="378.0" layoutY="239.0" onAction="#forgotPassword" prefHeight="17.0"
+        prefWidth="103.0" styleClass="no-border-bt" text="%txt-forgot-pass" textAlignment="RIGHT"
+        textFill="#10cbe4" />
+      <Label alignment="CENTER" layoutX="163.0" layoutY="14.0" styleClass="login-txt"
+        text="%txt_log_in" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <font>
           <Font size="18.0" />
         </font>
       </Label>
     </AnchorPane>
+
+    <AnchorPane layoutX="-38.0" layoutY="-39.0" prefHeight="289.0" prefWidth="511.0" visible="false"
+      styleClass="box-login" fx:id="apSecureQuestion">
+      <Label text="Hãy tạo câu hỏi bảo mật trước khi sử dụng phần mềm." styleClass="titulo-dialogs"
+        style="-fx-font-size: 15;" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20"
+        AnchorPane.topAnchor="20" fx:id="lbSecureQuestion"/>
+      <Label text="Lưu ý: Tính năng này chỉ dành cho chủ quán!" styleClass="lb-info-requerido"
+        AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20"
+        AnchorPane.topAnchor="50" />
+      <GridPane AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="70" AnchorPane.leftAnchor="20"
+        AnchorPane.rightAnchor="20">
+        <columnConstraints>
+          <ColumnConstraints percentWidth="30" />
+          <ColumnConstraints percentWidth="20" />
+          <ColumnConstraints percentWidth="20" />
+          <ColumnConstraints percentWidth="30" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints percentHeight="15" />
+          <RowConstraints percentHeight="15" />
+          <RowConstraints percentHeight="15" />
+          <RowConstraints percentHeight="15" />
+          <RowConstraints percentHeight="15" />
+          <RowConstraints percentHeight="20" />
+
+        </rowConstraints>
+        <Label text="Chọn câu hỏi" styleClass="lb-info" GridPane.rowIndex="0"
+          GridPane.columnIndex="0" GridPane.columnSpan="2"></Label>
+        <ComboBox fx:id="cbQuestions" GridPane.rowIndex="1" GridPane.columnIndex="0"
+          GridPane.columnSpan="3">
+
+        </ComboBox>
+        <Label text="Chọn câu trả lời" styleClass="lb-info" GridPane.rowIndex="2"
+          GridPane.columnIndex="0" GridPane.columnSpan="3">
+
+        </Label>
+        <TextField fx:id="tfAnswer" GridPane.rowIndex="3" GridPane.columnIndex="0"
+          GridPane.columnSpan="3">
+
+        </TextField>
+        <Button styleClass="bt-sim" fx:id="btOK" onAction="#ok" text="OK"
+          GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+
+        </Button>
+        <Button styleClass="bt-nao" fx:id="btCancel" onAction="#cancel" text="Hủy"
+          GridPane.rowIndex="5" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+      </GridPane>
+    </AnchorPane>
     <Group StackPane.alignment="CENTER">
-      <ProgressIndicator fx:id="progressIndicator"  visible="false"/>
+      <ProgressIndicator fx:id="progressIndicator" visible="false" />
     </Group>
   </StackPane>
 

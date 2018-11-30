@@ -11,172 +11,178 @@ import br.com.museuid.util.BundleUtils;
 
 public class UserDTO {
 
-    @SerializedName("role")
-    @Expose
-    private String role;
-    @SerializedName("_id")
-    @Expose
-    private String id;
-    @SerializedName("email")
-    @Expose
-    private String email;
-    @SerializedName("username")
-    @Expose
-    private String username;
-    @SerializedName("password")
-    @Expose
-    private String password;
-    @SerializedName("update")
-    @Expose
-    private String update;
+  @SerializedName("role")
+  @Expose
+  private String role;
+  @SerializedName("_id")
+  @Expose
+  private String id;
+  @SerializedName("email")
+  @Expose
+  private String email;
+  @SerializedName("username")
+  @Expose
+  private String username;
+  @SerializedName("password")
+  @Expose
+  private String password;
+  @SerializedName("update")
+  @Expose
+  private String update;
 
-    @SerializedName("fullname")
-    private String fullname;
+  @SerializedName("fullname")
+  private String fullname;
 
-    @SerializedName("address")
-    private String address;
+  @SerializedName("address")
+  private String address;
 
-    @SerializedName("phone")
-    private String phone;
-    @SerializedName("userid")
-    @Expose
-    private String userid;
-    private String roleText;
-    public UserDTO() {
-    }
-    public UserDTO(String userName, String name, String phone, String  address, String email, String role){
-        this.username = userName;
-        this.fullname = name;
-        this.phone = phone;
-        this.address = address;
-        this.email =email;
-        this.role = role;
-    }
-    public String getRole() {
-        return role;
-    }
+  @SerializedName("phone")
+  private String phone;
+  @SerializedName("userid")
+  @Expose
+  private String userid;
 
-    public void setRole(String role) {
-        this.role = role;
-        if (role!= null)
-            setRoleText(UserRole.valueOf(role).name());
-    }
+  private String roleText;
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  public UserDTO() {
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public UserDTO(String userName, String name, String phone, String address, String email, String role) {
+    this.username = userName;
+    this.fullname = name;
+    this.phone = phone;
+    this.address = address;
+    this.email = email;
+    this.role = role;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getRole() {
+    return role;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public void setRole(String role) {
+    this.role = role;
+    if (role != null)
+      setRoleText(UserRole.valueOf(role).name());
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getUpdate() {
-        return update;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setUpdate(String update) {
-        this.update = update;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public String getFullname() {
-        return fullname;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public String getAddress() {
-        return address;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+  public String getUpdate() {
+    return update;
+  }
 
-    public String getPhone() {
-        return phone;
-    }
+  public void setUpdate(String update) {
+    this.update = update;
+  }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+  public String getFullname() {
+    return fullname;
+  }
 
-    public String getUserid() {
-        return userid;
-    }
+  public void setFullname(String fullname) {
+    this.fullname = fullname;
+  }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
+  public String getAddress() {
+    return address;
+  }
 
-    public UserDTO copy(){
-        Gson gson = new Gson();
-        String itemStr = gson.toJson(this);
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-        return gson.fromJson(itemStr, UserDTO.class);
-    }
+  public String getPhone() {
+    return phone;
+  }
 
-    public String getRoleText() {
-        return roleText;
-    }
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
 
-    public void setRoleText(String roleText) {
-        this.roleText = roleText;
-    }
+  public String getUserid() {
+    return userid;
+  }
 
-    public enum UserRole{
-        MANAGER {
-            public String toString(){
-                return BundleUtils.getResourceBundle().getString("txt_qlkd");
-            }
-        },
-        EMPLOYEE {
-            public String toString(){
-                return BundleUtils.getResourceBundle().getString("txt_employee");
-            }
-        },
-        ADMIN {
-            public String toString(){
-                return BundleUtils.getResourceBundle().getString("txt_admin");
-            }
-        },
-        STOCKER {
-            public String toString(){
-                return BundleUtils.getResourceBundle().getString("txt_stocker");
-            }
-        };
-        //example
+  public void setUserid(String userid) {
+    this.userid = userid;
+  }
+
+  public UserDTO copy() {
+    Gson gson = new Gson();
+    String itemStr = gson.toJson(this);
+
+    return gson.fromJson(itemStr, UserDTO.class);
+  }
+
+  public String getRoleText() {
+    return roleText;
+  }
+
+  public void setRoleText(String roleText) {
+    this.roleText = roleText;
+  }
+
+  public enum UserRole {
+    MANAGER {
+      public String toString() {
+        return BundleUtils.getResourceBundle().getString("txt_qlkd");
+      }
+    },
+    EMPLOYEE {
+      public String toString() {
+        return BundleUtils.getResourceBundle().getString("txt_employee");
+      }
+    },
+    ADMIN {
+      public String toString() {
+        return BundleUtils.getResourceBundle().getString("txt_admin");
+      }
+    },
+    STOCKER {
+      public String toString() {
+        return BundleUtils.getResourceBundle().getString("txt_stocker");
+      }
+    };
+
+    //example
 //        if (EnumUtils.isValidEnum(OrderStatus.class, "status")){
 //            String statusName = OrderStatus.valueOf("status").toString();
 //        }
-        public static List<UserRole> getListUserRole(){
-            return Arrays.asList(UserRole.values());
-        }
+    public static List<UserRole> getListUserRole() {
+      return Arrays.asList(UserRole.values());
     }
+  }
 
 }
