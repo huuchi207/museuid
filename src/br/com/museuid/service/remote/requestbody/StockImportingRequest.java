@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.apache.commons.lang3.EnumUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 import br.com.museuid.util.TimeUtils;
@@ -196,8 +197,18 @@ public class StockImportingRequest {
       public String toString(){
         return "Đã hủy";
       }
+    },
+    ALL{
+      @Override
+      public String toString(){
+        return "Tất cả";
+      }
+    };
+    public static List<Status> getStockImportingStatusList(){
+      return Arrays.asList(Status.values());
     }
   }
+
   public static class Item{
     private String itemid;
     private String itemname;

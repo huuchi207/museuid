@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.customview.CustomListCellComboBox;
 import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.model.data.ProductImporting;
 import br.com.museuid.screen.app.AppController;
@@ -12,10 +13,13 @@ import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.StockImportingRequest;
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ComboUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.NoticeUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,7 +28,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -33,6 +40,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 
 public class StockImportingHistoryControler extends AnchorPane {
 
@@ -55,6 +63,7 @@ public class StockImportingHistoryControler extends AnchorPane {
   public TableColumn colImportingStatus;
   public HBox boxActionList;
   public HBox boxActionDetail;
+  public ComboBox<StockImportingRequest.Status> cbFilter;
   public Button btCancel;
 
   @FXML
@@ -115,13 +124,35 @@ public class StockImportingHistoryControler extends AnchorPane {
 
   @FXML
   public void initialize() {
+    initComboboxFilter();
     initTable();
     goToHistoryList(null);
-    txtSearch.textProperty().addListener((obs, old, novo) -> {
-      filter(novo, FXCollections.observableArrayList(stockImportingRequestObservableList));
-    });
+//    txtSearch.textProperty().addListener((obs, old, novo) -> {
+//      filter(novo, FXCollections.observableArrayList(stockImportingRequestObservableList));
+//    });
   }
 
+  private void initComboboxFilter(){
+    ObservableList<StockImportingRequest.Status> listRole = FXCollections.observableArrayList(StockImportingRequest.Status.getStockImportingStatusList());
+    Callback<ListView<StockImportingRequest.Status>, ListCell<StockImportingRequest.Status>> cellFactory = new Callback<ListView<StockImportingRequest.Status>, ListCell<StockImportingRequest.Status>>() {
+      @Override
+      public ListCell<StockImportingRequest.Status> call(ListView<StockImportingRequest.Status> param) {
+        return new CustomListCellComboBox<>();
+      }
+    };
+    cbFilter.setCellFactory(cellFactory);
+    cbFilter.setButtonCell(cellFactory.call(null));
+    cbFilter.valueProperty().addListener(new ChangeListener<StockImportingRequest.Status>() {
+      @Override
+      public void changed(ObservableValue<? extends StockImportingRequest.Status> observable,StockImportingRequest.Status oldValue, StockImportingRequest.Status newValue) {
+        selectedRequest = null;
+        filter(newValue, FXCollections.observableArrayList(stockImportingRequestObservableList));
+      }
+    });
+
+    ComboUtils.popular(cbFilter, listRole);
+    cbFilter.setValue(StockImportingRequest.Status.ALL);
+  }
   private void getStockImportHistory() {
     if (ConstantConfig.FAKE) {
 //      if (stockImportingHistoryList == null) {
@@ -154,6 +185,7 @@ public class StockImportingHistoryControler extends AnchorPane {
   private void updateHistoryTable(List<StockImportingRequest> data) {
     stockImportingRequestObservableList.clear();
     stockImportingRequestObservableList.addAll(data);
+    cbFilter.setValue(StockImportingRequest.Status.ALL);
   }
 
   private void updateImportingProductTable(StockImportingRequest request){
@@ -197,13 +229,16 @@ public class StockImportingHistoryControler extends AnchorPane {
   /**
    * FieldViewUtils de pesquisar para filtrar dados na updateHistoryTable
    */
-  private void filter(String valor, ObservableList<StockImportingRequest> stockImportingRequests) {
+  private void filter(StockImportingRequest.Status valor, ObservableList<StockImportingRequest> stockImportingRequests) {
+    if (valor == null){
+      return;
+    }
     FilteredList<StockImportingRequest> filtedList = new FilteredList<>(stockImportingRequests, stockImportingRequest -> true);
-    filtedList.setPredicate(stockImportingRequest -> {
 
-      if (valor == null || valor.isEmpty()) {
+    filtedList.setPredicate(stockImportingRequest -> {
+      if (StockImportingRequest.Status.ALL == valor){
         return true;
-      } else if (stockImportingRequest.getName().toLowerCase().contains(valor.toLowerCase())) {
+      } else if (StockImportingRequest.Status.valueOf(stockImportingRequest.getStatus()) == valor) {
         return true;
       }
       return false;
@@ -224,7 +259,7 @@ public class StockImportingHistoryControler extends AnchorPane {
     getStockImportHistory();
     lbTitle.setText("Lịch sử nhập kho");
     lbLegend.setText("Bạn chỉ có thể thao tác với yêu cầu chưa được xử lý.");
-    NavigationUtils.setVisibility(true, apProductList, txtSearch, boxActionList);
+    NavigationUtils.setVisibility(true, apProductList, cbFilter, boxActionList);
     NavigationUtils.setVisibility(false, gridStockImport, boxActionDetail);
   }
 
@@ -243,7 +278,7 @@ public class StockImportingHistoryControler extends AnchorPane {
 
     lbTitle.setText(bundle.getString("txt_import_stock_info"));
     lbLegend.setText("");
-    NavigationUtils.setVisibility(false, apProductList, txtSearch, boxActionList);
+    NavigationUtils.setVisibility(false, apProductList, cbFilter, boxActionList);
     NavigationUtils.setVisibility(true, gridStockImport, boxActionDetail);
   }
 
