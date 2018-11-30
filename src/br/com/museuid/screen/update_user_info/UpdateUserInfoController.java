@@ -115,6 +115,11 @@ public class UpdateUserInfoController extends AnchorPane {
 //            Messenger.erro("Email cần thiết để sử dụng tính năng Quên mật khẩu. Vui lòng nhập vào!");
 //            return;
 //        }
+    if (currentMode == UpdateMode.SECURE_QUESTION){
+      if (FieldViewUtils.noEmpty(tfAnswer)){
+        return;
+      }
+    }
     PasswordDialog pd = new PasswordDialog();
     Optional<String> result = pd.showAndWait();
     result.ifPresent(password -> {
