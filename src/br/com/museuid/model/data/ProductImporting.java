@@ -12,7 +12,7 @@ public class ProductImporting extends Product {
   private void configView(){
     numberToImport = 0;
     tfNumberToImport = new TextField();
-    tfNumberToImport.setMaxSize(40, 30);
+    tfNumberToImport.setMaxSize(50, 30);
     tfNumberToImport.setText("0");
     tfNumberToImport.textProperty().addListener((observable, oldValue, newValue) -> {
       int newNumber;

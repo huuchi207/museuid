@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.model.data.ProductImporting;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
@@ -43,12 +44,18 @@ public class StockImportingHistoryControler extends AnchorPane {
   public AnchorPane apProductList;
   public Button btBackToList;
   public Button btEditImportingSession;
-  public Button btCreateImportingSession;
+  public Button btUpdate;
   public TableColumn colProductName;
 
   public TableColumn colNumberAdding;
   public TableColumn colImportingCreatedTime;
   public TableColumn colImportingUpdatedTime;
+  public TableColumn colId;
+  public TableColumn colImportingContent;
+  public TableColumn colImportingStatus;
+  public HBox boxActionList;
+  public HBox boxActionDetail;
+  public Button btCancel;
 
   @FXML
   private GridPane apAdd;
@@ -133,8 +140,10 @@ public class StockImportingHistoryControler extends AnchorPane {
         @Override
         public void onSuccess(List<StockImportingRequest> data) {
           AppController.getInstance().hideProgressDialog();
+          int i= 1;
           for (StockImportingRequest request: data){
-            request.reformatTime();
+            request.updateFields();
+            request.setNumber(""+ i++);
           }
           updateHistoryTable(data);
         }
@@ -170,9 +179,13 @@ public class StockImportingHistoryControler extends AnchorPane {
   }
 
   private void initTable() {
+    colId.setCellValueFactory(new PropertyValueFactory<>("number"));
+    colImportingContent.setCellValueFactory(new PropertyValueFactory<>("content"));
+    colImportingContent.setCellFactory(tv -> new MutipleLineTableCell());
     colImportingName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colImportingCreatedTime.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
     colImportingUpdatedTime.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
+    colImportingStatus.setCellValueFactory(new PropertyValueFactory<>("statusText"));
     tbStockImportHistory.setItems(stockImportingRequestObservableList);
 
     colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
@@ -209,10 +222,10 @@ public class StockImportingHistoryControler extends AnchorPane {
   @FXML
   void goToHistoryList(ActionEvent event){
     getStockImportHistory();
-    lbTitle.setText(bundle.getString("txt_product_list"));
-    lbLegend.setText(bundle.getString("txt_hold_ctrl_to_choose_items"));
-    NavigationUtils.setVisibility(true, apProductList, txtSearch, btEditImportingSession);
-    NavigationUtils.setVisibility(false, gridStockImport, btBackToList, btCreateImportingSession);
+    lbTitle.setText("Lịch sử nhập kho");
+    lbLegend.setText("Bạn chỉ có thể thao tác với yêu cầu chưa được xử lý.");
+    NavigationUtils.setVisibility(true, apProductList, txtSearch, boxActionList);
+    NavigationUtils.setVisibility(false, gridStockImport, boxActionDetail);
   }
 
   @FXML
@@ -222,12 +235,16 @@ public class StockImportingHistoryControler extends AnchorPane {
       NoticeUtils.alert("Vui lòng chọn một đối tượng!");
       return;
     }
+    if (!StockImportingRequest.Status.NEW.name().equals(selectedItem.getStatus())){
+      NoticeUtils.alert("Bạn chỉ có thể chỉnh sửa yêu cầu chưa xử lý");
+      return;
+    }
     updateImportingProductTable(selectedItem);
 
     lbTitle.setText(bundle.getString("txt_import_stock_info"));
     lbLegend.setText("");
-    NavigationUtils.setVisibility(false, apProductList, txtSearch, btEditImportingSession);
-    NavigationUtils.setVisibility(true, gridStockImport, btBackToList, btCreateImportingSession);
+    NavigationUtils.setVisibility(false, apProductList, txtSearch, boxActionList);
+    NavigationUtils.setVisibility(true, gridStockImport, boxActionDetail);
   }
 
   @FXML
@@ -265,5 +282,32 @@ public class StockImportingHistoryControler extends AnchorPane {
       }
     });
 
+  }
+  @FXML
+  void cancel(ActionEvent actionEvent){
+    StockImportingRequest selectedItem = tbStockImportHistory.getSelectionModel().getSelectedItem();
+    if (selectedItem == null){
+      NoticeUtils.alert("Vui lòng chọn một đối tượng!");
+      return;
+    }
+    if (!StockImportingRequest.Status.NEW.name().equals(selectedItem.getStatus())){
+      NoticeUtils.alert("Bạn chỉ có thể hủy yêu cầu chưa xử lý");
+      return;
+    }
+    AppController.getInstance().showProgressDialog();
+    ServiceBuilder.getApiService().deleteImportingStockRequest(selectedItem.get_id()).enqueue(new BaseCallback<Object>() {
+      @Override
+      public void onError(String errorCode, String errorMessage) {
+        AppController.getInstance().hideProgressDialog();
+        Messenger.erro(errorMessage);
+      }
+
+      @Override
+      public void onSuccess(Object data) {
+        AppController.getInstance().hideProgressDialog();
+        Messenger.info(bundle.getString("txt_operation_successful"));
+        goToHistoryList(null);
+      }
+    });
   }
 }

@@ -18,24 +18,27 @@
     </HBox>
     <AnchorPane fx:id="apProductList" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0"
       AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" visible="false">
-      <TableView fx:id="tbStockImportHistory" tableMenuButtonVisible="true" AnchorPane.leftAnchor="0.0"
-        AnchorPane.rightAnchor="0.0"
-        AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0">
+      <TableView fx:id="tbStockImportHistory" tableMenuButtonVisible="true"
+        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+        AnchorPane.topAnchor="10.0">
         <columns>
-          <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"-->
-          <!--text="Id" />-->
-          <TableColumn fx:id="colImportingName" maxWidth="900.0" minWidth="150.0"
-            prefWidth="150.0" text="%txt_importing_request_name"/>
+          <TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"
+          text="STT" />
+          <TableColumn fx:id="colImportingName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+            text="%txt_importing_request_name" />
           <TableColumn fx:id="colImportingCreatedTime" maxWidth="900.0" minWidth="150.0"
-            prefWidth="150.0" text="%txt_time_created"/>
+            prefWidth="150.0" text="%txt_time_created" />
           <TableColumn fx:id="colImportingUpdatedTime" maxWidth="900.0" minWidth="150.0"
-            prefWidth="150.0" text="%txt_time_updated"/>
-
+            prefWidth="150.0" text="%txt_time_updated" />
+          <TableColumn fx:id="colImportingContent" maxWidth="900.0" minWidth="150.0"
+            prefWidth="150.0" text="Thông tin lần nhập (Tên SP + số lượng nhập)" />
+          <TableColumn fx:id="colImportingStatus" maxWidth="500.0" minWidth="100.0"
+            prefWidth="100.0" text="%txt_status" />
           <!--<TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0"-->
-            <!--prefWidth="250.0" text="%txt_status"/>-->
+          <!--prefWidth="250.0" text="%txt_status"/>-->
         </columns>
         <columnResizePolicy>
-          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
       </TableView>
     </AnchorPane>
@@ -86,55 +89,58 @@
 
     <AnchorPane prefHeight="50.0" styleClass="box-menus-subtela" AnchorPane.bottomAnchor="5.0"
       AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-      <children>
-        <HBox AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0"
-          AnchorPane.topAnchor="5.0">
-          <StackPane>
-            <Button id="" fx:id="btBackToList" mnemonicParsing="false"
-              onAction="#goToHistoryList" prefHeight="40.0" prefWidth="200.0" style=""
-              text="%txt_back">
-              <styleClass>
-                <String fx:value="menus-acoes"/>
-                <!--<String fx:value="acao-editar" />-->
-                <String fx:value="menu-blue"/>
-              </styleClass>
-              <StackPane.margin>
-                <Insets right="30.0"/>
-              </StackPane.margin>
-            </Button>
-          </StackPane>
-
-          <StackPane>
-            <Button fx:id="btEditImportingSession" contentDisplay="TOP" mnemonicParsing="false"
-              onAction="#editImportingSession" prefHeight="40.0" prefWidth="230.0" style=""
-              text="%txt_edit" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
-              <styleClass>
-                <String fx:value="menus-acoes"/>
-                <!--<String fx:value="acao-editar"/>-->
-                <String fx:value="menu-orange"/>
-              </styleClass>
-            </Button>
-            <Button id="" fx:id="btCreateImportingSession" contentDisplay="TOP"
-              mnemonicParsing="false" onAction="#updateImportingSession" prefHeight="40.0"
-              prefWidth="230.0" style="" text="%txt_update"
-              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <styleClass>
-                <String fx:value="menus-acoes"/>
-                <!--<String fx:value="acao-salvar"/>-->
-                <String fx:value="menu-green"/>
-              </styleClass>
-            </Button>
-
-          </StackPane>
+      <StackPane AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0"
+        AnchorPane.topAnchor="5.0">
+        <HBox fx:id="boxActionList">
+          <Button id="" fx:id="btCancel" mnemonicParsing="false" onAction="#cancel"
+            prefHeight="40.0" prefWidth="200.0" style="" text="%txt_cancel">
+            <styleClass>
+              <String fx:value="menus-acoes" />
+              <!--<String fx:value="acao-editar" />-->
+              <String fx:value="menu-red" />
+            </styleClass>
+            <HBox.margin>
+              <Insets right="30.0" />
+            </HBox.margin>
+          </Button>
+          <Button fx:id="btEditImportingSession" contentDisplay="TOP" mnemonicParsing="false"
+            onAction="#editImportingSession" prefHeight="40.0" prefWidth="230.0" style=""
+            text="%txt_edit">
+            <styleClass>
+              <String fx:value="menus-acoes" />
+              <!--<String fx:value="acao-editar"/>-->
+              <String fx:value="menu-orange" />
+            </styleClass>
+          </Button>
         </HBox>
+        <HBox fx:id="boxActionDetail">
+          <Button id="" fx:id="btBackToList" mnemonicParsing="false" onAction="#goToHistoryList"
+            prefHeight="40.0" prefWidth="200.0" style="" text="%txt_back">
+            <styleClass>
+              <String fx:value="menus-acoes" />
+              <!--<String fx:value="acao-editar" />-->
+              <String fx:value="menu-blue" />
+            </styleClass>
+            <HBox.margin>
+              <Insets right="30.0" />
+            </HBox.margin>
+          </Button>
+          <Button id="" fx:id="btUpdate" contentDisplay="TOP" mnemonicParsing="false"
+            onAction="#updateImportingSession" prefHeight="40.0" prefWidth="230.0" style=""
+            text="%txt_update" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <styleClass>
+              <String fx:value="menus-acoes" />
+              <!--<String fx:value="acao-salvar"/>-->
+              <String fx:value="menu-green" />
+            </styleClass>
+          </Button>
+        </HBox>
+      </StackPane>
 
-        <Label fx:id="lbLegend" layoutX="36.0" layoutY="17.0" styleClass="lb-info-requerido"
-          text="%txt_required_fields" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.topAnchor="5.0" visible="false" />
-      </children>
+      <Label fx:id="lbLegend" layoutX="36.0" layoutY="17.0" styleClass="lb-info-requerido"
+         AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0"
+        AnchorPane.topAnchor="5.0" />
     </AnchorPane>
   </children>
   <stylesheets>
