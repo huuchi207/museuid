@@ -106,7 +106,6 @@ public class ProductManagementControler extends AnchorPane {
     config(bundle.getString("txt.edit.product.info"), "", 1);
     NavigationUtils.setVisibility(true, apEdit, boxEdit, txtSearch);
     NavigationUtils.setVisibility(false, btSave, apAdd);
-    txtProductName.setDisable(true);
     updateTable();
   }
 
@@ -199,6 +198,7 @@ public class ProductManagementControler extends AnchorPane {
       txtPrice.setText(selectedProduct.getPrice() + "");
       txtInStock.setText(selectedProduct.getInStock() + "");
       txtDescription.setText(selectedProduct.getDescription());
+      txtProductName.setDisable(true);
 
       lbTitle.setText(bundle.getString("txt.edit.product.info"));
       menu.selectToggle(menu.getToggles().get(1));
