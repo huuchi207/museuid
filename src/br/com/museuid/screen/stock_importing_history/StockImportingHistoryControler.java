@@ -202,10 +202,10 @@ public class StockImportingHistoryControler extends AnchorPane {
       productImporting.setOnContentChange(new ProductImporting.OnContentChange() {
         @Override
         public void onNumberChange(Integer oldNumber, Integer newNumber) {
-          if (newNumber >0){
+          if (newNumber >=0){
             productImporting.setNumberToImport(newNumber);
           } else {
-            Messenger.erro("Số lượng hàng phải lớn hơn 0");
+//            Messenger.erro("Số lượng hàng phải lớn hơn 0");
             productImporting.getTfNumberToImport().setText(productImporting.getNumberToImport()+"");
           }
         }}

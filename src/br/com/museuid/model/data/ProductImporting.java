@@ -1,6 +1,8 @@
 package br.com.museuid.model.data;
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import br.com.museuid.dto.Product;
 import javafx.scene.control.TextField;
 
@@ -16,6 +18,9 @@ public class ProductImporting extends Product {
     tfNumberToImport.setText("0");
     tfNumberToImport.textProperty().addListener((observable, oldValue, newValue) -> {
       int newNumber;
+      if (StringUtils.isEmpty(newValue)){
+        newValue = "0";
+      }
       try {
         newNumber = Integer.valueOf(newValue);
         if (onContentChange!= null)

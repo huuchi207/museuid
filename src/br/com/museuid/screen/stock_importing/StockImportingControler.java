@@ -155,10 +155,10 @@ public class StockImportingControler extends AnchorPane {
       productImporting.setOnContentChange(new ProductImporting.OnContentChange() {
         @Override
         public void onNumberChange(Integer oldNumber, Integer newNumber) {
-          if (newNumber >0){
+          if (newNumber >=0){
             productImporting.setNumberToImport(newNumber);
           } else {
-            Messenger.erro("Số lượng hàng phải lớn hơn 0");
+//            Messenger.erro("Số lượng hàng phải lớn hơn 0");
             productImporting.getTfNumberToImport().setText(productImporting.getNumberToImport()+"");
           }
         }}
@@ -250,7 +250,7 @@ public class StockImportingControler extends AnchorPane {
     List<StockImportingRequest.Item> items = new ArrayList<>();
 
     for (ProductImporting productImporting : data){
-      if (productImporting.getNumberToImport()==0){
+      if (productImporting.getNumberToImport()<=0){
         Messenger.erro("Số lượng hàng phải lớn hơn 0!");
         return;
       }

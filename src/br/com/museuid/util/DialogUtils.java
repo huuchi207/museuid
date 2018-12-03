@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -149,8 +149,10 @@ public class DialogUtils {
    */
   public static String textDialog(String titulo, String mensagem) {
     VBox vBox = new VBox();
-    TextField textField = new TextField();
-    vBox.getChildren().add(textField);
+    TextArea textArea = new TextArea();
+    textArea.setMaxHeight(100);
+    textArea.setMaxWidth(370);
+    vBox.getChildren().add(textArea);
 
     HBox box = new HBox();
     box.getStyleClass().add("box-acao-dialog");
@@ -164,11 +166,11 @@ public class DialogUtils {
 
     vBox.getChildren().add(box);
 
-    VBox.setMargin(yes, new Insets(15, 10, 15, 0));
-    VBox.setMargin(textField, new Insets(15, 10, 15, 0));
+    VBox.setMargin(yes, new Insets(15, 30, 15, 0));
+    VBox.setMargin(textArea, new Insets(15, 10, 15, 0));
     box(icon("INFO"), text(titulo, mensagem), vBox);
 
-    return textField.getText();
+    return textArea.getText();
   }
 
   public static ResponseMessage mensageConfirmer(String titulo, String mensage) {
