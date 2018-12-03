@@ -1,18 +1,24 @@
 package br.com.museuid.screen.product_management;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.com.museuid.app.App;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.Product;
+import br.com.museuid.dto.ProductWithImage;
+import br.com.museuid.dto.UploadImageDTO;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.DialogUtils;
-import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.FileUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.NoticeUtils;
@@ -30,15 +36,22 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class ProductManagementControler extends AnchorPane {
 
   public TableColumn colProductName;
+  public TableColumn colImage;
   public TextField txtDescription;
-  private List<Product> productList = new ArrayList<>();
+  private List<ProductWithImage> productList = new ArrayList<>();
   private String selectedProductId = "0";
 
   @FXML
@@ -48,7 +61,7 @@ public class ProductManagementControler extends AnchorPane {
   @FXML
   private Button btExclude;
   @FXML
-  private TableView<Product> tbProduct;
+  private TableView<ProductWithImage> tbProduct;
   @FXML
   private TextField txtProductName;
   @FXML
@@ -78,7 +91,9 @@ public class ProductManagementControler extends AnchorPane {
   @FXML
   private HBox boxEdit;
   private ResourceBundle bundle;
-
+  public Label lbProductImage;
+  public Button btUploadImage;
+  private File selectedImage;
   public ProductManagementControler() {
     try {
       FXMLLoader fxml = new FXMLLoader(getClass().getResource("product_management.fxml"));
@@ -131,10 +146,39 @@ public class ProductManagementControler extends AnchorPane {
       return;
     }
     AppController.getInstance().showProgressDialog();
+    if (selectedImage != null){
+      RequestBody requestFile =
+        RequestBody.create(MediaType.parse("multipart/form-data"), selectedImage);
+
+      // MultipartBody.Part is used to send also the actual file name
+      MultipartBody.Part body =
+        MultipartBody.Part.createFormData("productImage", selectedImage.getName(), requestFile);
+
+      AppController.getInstance().showProgressDialog();
+      ServiceBuilder.getApiService().uploadImage(body).enqueue(new BaseCallback<UploadImageDTO>() {
+        @Override
+        public void onError(String errorCode, String errorMessage) {
+          AppController.getInstance().hideProgressDialog();
+          Messenger.erro(errorMessage);
+        }
+
+        @Override
+        public void onSuccess(UploadImageDTO data) {
+          AppController.getInstance().hideProgressDialog();
+          updateDataToServer(productName, description, priceNumber, inStockNumber, data.get_id());
+        }
+      });
+    } else {
+      updateDataToServer(productName, description, priceNumber, inStockNumber, null);
+    }
+  }
+  private void updateDataToServer(String productName, String description,
+                                  Integer priceNumber, Integer inStockNumber, String imageId){
     if (selectedProductId.equals("0")) {
       Product product = new Product(productName, description, priceNumber, inStockNumber);
+      product.setImageid(imageId);
       if (ConstantConfig.FAKE) {
-        productList.add(product);
+//        productList.add(product);
         updateTable();
         AppController.getInstance().hideProgressDialog();
         Messenger.info(bundle.getString("txt_operation_successful"));
@@ -157,9 +201,10 @@ public class ProductManagementControler extends AnchorPane {
       }
     } else {
       Product product = new Product(selectedProductId, productName, description, priceNumber, inStockNumber);
+      product.setImageid(imageId);
       if (ConstantConfig.FAKE) {
         productList.remove(tbProduct.getSelectionModel().getSelectedItem());
-        productList.add(product);
+//        productList.add(product);
         updateTable();
         Messenger.info(bundle.getString("txt_operation_successful"));
       } else {
@@ -179,13 +224,11 @@ public class ProductManagementControler extends AnchorPane {
           }
         });
       }
-    }
-  }
-
+  }}
   @FXML
   void edit(ActionEvent event) {
     try {
-      Product selectedProduct = tbProduct.getSelectionModel().getSelectedItem();
+      ProductWithImage selectedProduct = tbProduct.getSelectionModel().getSelectedItem();
 
       if (selectedProduct == null) {
         NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
@@ -198,6 +241,7 @@ public class ProductManagementControler extends AnchorPane {
       txtPrice.setText(selectedProduct.getPrice() + "");
       txtInStock.setText(selectedProduct.getInStock() + "");
       txtDescription.setText(selectedProduct.getDescription());
+      lbProductImage.setGraphic(selectedProduct.getProductImage());
       txtProductName.setDisable(true);
 
       lbTitle.setText(bundle.getString("txt.edit.product.info"));
@@ -287,7 +331,7 @@ public class ProductManagementControler extends AnchorPane {
   private void getProductList() {
     if (ConstantConfig.FAKE) {
       if (productList == null) {
-        productList = FakeDataUtils.getFakeProductList();
+//        productList = FakeDataUtils.getFakeProductList();
       }
       updateTable();
     } else {
@@ -302,7 +346,10 @@ public class ProductManagementControler extends AnchorPane {
         @Override
         public void onSuccess(List<Product> data) {
           AppController.getInstance().hideProgressDialog();
-          productList = data;
+          productList.clear();
+          for (Product product: data){
+            productList.add(product.convertToProductWithImage());
+          }
           updateTable();
         }
       });
@@ -320,16 +367,16 @@ public class ProductManagementControler extends AnchorPane {
     colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
     colInStock.setCellValueFactory(new PropertyValueFactory<>("inStock"));
     colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-
+    colImage.setCellValueFactory(new PropertyValueFactory<>("productImage"));
     tbProduct.setItems(data);
   }
 
   /**
    * FieldViewUtils de pesquisar para filtrar dados na updateTable
    */
-  private void filter(String valor, ObservableList<Product> products) {
+  private void filter(String valor, ObservableList<ProductWithImage> products) {
 
-    FilteredList<Product> filtedList = new FilteredList<>(products, product -> true);
+    FilteredList<ProductWithImage> filtedList = new FilteredList<>(products, product -> true);
     filtedList.setPredicate(product -> {
 
       if (valor == null || valor.isEmpty()) {
@@ -340,7 +387,7 @@ public class ProductManagementControler extends AnchorPane {
       return false;
     });
 
-    SortedList<Product> dadosOrdenados = new SortedList<>(filtedList);
+    SortedList<ProductWithImage> dadosOrdenados = new SortedList<>(filtedList);
     dadosOrdenados.comparatorProperty().bind(tbProduct.comparatorProperty());
 //    FilterUtils.mensage(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
 
@@ -353,5 +400,21 @@ public class ProductManagementControler extends AnchorPane {
   private void resetField() {
     FieldViewUtils.resetField(txtProductName, txtPrice);
     FieldViewUtils.resetField(txtInStock, txtDescription);
+    lbProductImage.setGraphic(null);
+  }
+
+  @FXML
+  public void chooseImage(ActionEvent event){
+    File file = FileUtils.configureImageFileChooser(new FileChooser(), App.getmStage() );
+    if (file!= null){
+      try {
+        Image image = new Image(new FileInputStream(file), 100, 100, false, false);
+        ImageView imageView = new ImageView(image);
+        selectedImage = file;
+        lbProductImage.setGraphic(imageView);
+      } catch (FileNotFoundException e) {
+        Messenger.erro("Không thể mở ảnh!");
+      }
+    }
   }
 }

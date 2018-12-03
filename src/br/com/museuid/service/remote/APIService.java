@@ -8,6 +8,7 @@ import br.com.museuid.dto.Product;
 import br.com.museuid.dto.SecureQuestionDTO;
 import br.com.museuid.dto.SessionDeviceInfo;
 import br.com.museuid.dto.SessionUserInfo;
+import br.com.museuid.dto.UploadImageDTO;
 import br.com.museuid.dto.UserDTO;
 import br.com.museuid.dto.sample.Item;
 import br.com.museuid.model.data.OrderDetail;
@@ -18,12 +19,15 @@ import br.com.museuid.service.remote.requestbody.SecureQuestionRequest;
 import br.com.museuid.service.remote.requestbody.StatisticRequest;
 import br.com.museuid.service.remote.requestbody.StockImportingRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface APIService {
@@ -145,4 +149,8 @@ public interface APIService {
 
   @POST("forgot-password")
   Call<ResponseDTO<UserDTO>> forgotPass(@Body SecureQuestionRequest secureQuestionRequest);
+
+  @Multipart
+  @POST("image")
+  Call<ResponseDTO<UploadImageDTO>> uploadImage(@Part MultipartBody.Part image);
 }

@@ -49,6 +49,8 @@
         <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
         <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
         <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
+        <RowConstraints maxHeight="45.0" minHeight="30.0" prefHeight="30.0" />
+        <RowConstraints maxHeight="150.0" minHeight="100.0" prefHeight="150.0" />
       </rowConstraints>
       <children>
         <Label styleClass="lb-info-requerido" text="%txt_product_name" GridPane.columnIndex="0"
@@ -70,6 +72,19 @@
           GridPane.rowIndex="2" />
         <TextField fx:id="txtDescription" styleClass="campo" GridPane.columnIndex="1"
           GridPane.rowIndex="3" />
+
+        <Label styleClass="lb-info" text="%txt_product_image" GridPane.columnIndex="0"
+          GridPane.rowIndex="4" />
+        <HBox GridPane.columnIndex="0"
+          GridPane.rowIndex="5">
+          <Button text="Chọn ảnh" fx:id="btUploadImage" onAction="#chooseImage"/>
+          <Label fx:id="lbProductImage"  maxWidth="110" maxHeight="110">
+            <HBox.margin>
+              <Insets left="20"/>
+            </HBox.margin>
+          </Label>
+
+        </HBox>
       </children>
     </GridPane>
     <AnchorPane fx:id="apEdit" visible="false" AnchorPane.bottomAnchor="60.0"
@@ -79,11 +94,13 @@
           AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
           <columns>
             <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />-->
-            <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+            <TableColumn fx:id="colProductName" maxWidth="600.0" minWidth="150.0" prefWidth="150.0"
               text="%txt_product_name" />
-            <TableColumn fx:id="colPrice" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+            <TableColumn fx:id="colPrice" maxWidth="200.0" minWidth="150.0" prefWidth="150.0"
               text="%txt_price" />
-            <TableColumn fx:id="colInStock" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
+            <TableColumn fx:id="colImage" maxWidth="400.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_product_image" />
+            <TableColumn fx:id="colInStock" maxWidth="300.0" minWidth="150.0" prefWidth="250.0"
               text="%txt_in_stock" />
             <TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
               text="%txt_description" />
