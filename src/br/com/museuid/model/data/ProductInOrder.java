@@ -1,5 +1,7 @@
 package br.com.museuid.model.data;
 
+import org.apache.commons.lang3.StringUtils;
+
 import br.com.museuid.dto.Product;
 import javafx.scene.control.TextField;
 
@@ -25,9 +27,13 @@ public class ProductInOrder extends Product {
     tfNumber.setText("1");
     tfNumber.textProperty().addListener((observable, oldValue, newValue) -> {
       int newNumber;
+      if (StringUtils.isEmpty(newValue)){
+        newValue = "0";
+      }
       try {
         newNumber = Integer.valueOf(newValue);
-        onContentChange.onNumberChange(null, newNumber);
+        if (onContentChange!= null)
+          onContentChange.onNumberChange(null, newNumber);
       } catch (NumberFormatException e) {
 //        Messenger.erro("Yêu cầu là số!");
         tfNumber.setText(oldValue);

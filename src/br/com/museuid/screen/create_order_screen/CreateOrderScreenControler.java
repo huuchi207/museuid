@@ -300,12 +300,12 @@ public class CreateOrderScreenControler extends AnchorPane {
           productInOrder.setOnContentChange(new ProductInOrder.OnContentChange() {
             @Override
             public void onNumberChange(Integer oldNumber, Integer newNumber) {
-              if (newNumber >0){
+              if (newNumber >=0){
                 totalPrice += (newNumber-productInOrder.getCount())*productInOrder.getPrice();
                 productInOrder.setCount(newNumber);
                 lbLegend.setText(bundle.getString("txt_total_price") + ": " + totalPrice + " " + bundle.getString("txt_vnd"));
               } else {
-                Messenger.erro("Số lượng hàng phải lớn hơn 0");
+//                Messenger.erro("Số lượng hàng phải lớn hơn 0");
                 productInOrder.getTfNumber().setText(productInOrder.getCount()+"");
               }
             }}
@@ -351,6 +351,10 @@ public class CreateOrderScreenControler extends AnchorPane {
     int totalPrice = 0;
     while (iterator.hasNext()) {
       ProductInOrder productInOrder = iterator.next();
+      if (productInOrder.getCount()<=0){
+        Messenger.erro("Số lượng hàng phải lớn hơn 0!");
+        return  null;
+      }
       int priceOfProduct = productInOrder.getPrice() * productInOrder.getCount();
       items.add(new PutQueueRequest.Item(productInOrder.getProductName(),
         productInOrder.getId(),
