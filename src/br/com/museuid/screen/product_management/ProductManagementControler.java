@@ -19,6 +19,7 @@ import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.FileUtils;
+import br.com.museuid.util.ImageUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.NoticeUtils;
@@ -93,7 +94,7 @@ public class ProductManagementControler extends AnchorPane {
   private ResourceBundle bundle;
   public Label lbProductImage;
   public Button btUploadImage;
-  private File selectedImage;
+  private String selectedImagePath;
   public ProductManagementControler() {
     try {
       FXMLLoader fxml = new FXMLLoader(getClass().getResource("product_management.fxml"));
@@ -145,14 +146,23 @@ public class ProductManagementControler extends AnchorPane {
       Messenger.erro("Giá và số lượng hàng trong kho phải là số!");
       return;
     }
+    if (priceNumber<=0 || inStockNumber<=0){
+      Messenger.erro("Giá và số lượng hàng trong kho phải lớn hơn 0!");
+      return;
+    }
     AppController.getInstance().showProgressDialog();
-    if (selectedImage != null){
+    if (selectedImagePath != null){
+      File uploadFile = new File(selectedImagePath);
+      if (!uploadFile.exists()) {
+        Messenger.erro("Không thể tải ảnh!");
+        return;
+      }
       RequestBody requestFile =
-        RequestBody.create(MediaType.parse("multipart/form-data"), selectedImage);
+        RequestBody.create(MediaType.parse("multipart/form-data"), uploadFile);
 
       // MultipartBody.Part is used to send also the actual file name
       MultipartBody.Part body =
-        MultipartBody.Part.createFormData("productImage", selectedImage.getName(), requestFile);
+        MultipartBody.Part.createFormData("productImage", uploadFile.getName(), requestFile);
 
       AppController.getInstance().showProgressDialog();
       ServiceBuilder.getApiService().uploadImage(body).enqueue(new BaseCallback<UploadImageDTO>() {
@@ -408,9 +418,9 @@ public class ProductManagementControler extends AnchorPane {
     File file = FileUtils.configureImageFileChooser(new FileChooser(), App.getmStage() );
     if (file!= null){
       try {
-        Image image = new Image(new FileInputStream(file), 100, 100, false, false);
+        Image image = new Image(new FileInputStream(file), 150, 150, false, false);
         ImageView imageView = new ImageView(image);
-        selectedImage = file;
+        selectedImagePath = ImageUtils.reduceImg(file, ConstantConfig.APP_DATA_FOLDER+ "\\"+ ConstantConfig.APP_IMAGE_SUB_FOLDER, "JPG",150, 150);
         lbProductImage.setGraphic(imageView);
       } catch (FileNotFoundException e) {
         Messenger.erro("Không thể mở ảnh!");

@@ -153,6 +153,10 @@ public class UpdateUserInfoController extends AnchorPane {
           }
         });
       } else {
+        if (cbQuestions.getItems() == null || cbQuestions.getItems().isEmpty() || cbQuestions.getValue() == null){
+          Messenger.erro("Tính năng này không sẵn sàng để sử dụng");
+          return;
+        }
         SecureQuestionRequest secureQuestionRequest = new SecureQuestionRequest(
           StaticVarUtils.getSessionUserInfo().getInfo().getUsername(),
           cbQuestions.getValue(), tfAnswer.getText());

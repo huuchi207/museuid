@@ -78,7 +78,7 @@
         <HBox GridPane.columnIndex="0"
           GridPane.rowIndex="5">
           <Button text="Chọn ảnh" fx:id="btUploadImage" onAction="#chooseImage"/>
-          <Label fx:id="lbProductImage"  maxWidth="110" maxHeight="110">
+          <Label fx:id="lbProductImage"  maxWidth="150" maxHeight="150">
             <HBox.margin>
               <Insets left="20"/>
             </HBox.margin>
