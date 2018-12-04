@@ -23,34 +23,41 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class InitializeController {
-    private static InitializeController instance;
-    public VBox vboxProgress;
-    public ProgressIndicator progressIndicator;
-    public VBox vBoxRegisterDevice;
-    public Label lbLegend;
-    public TextField tfDeviceName;
-    public TextField tfDeviceLocation;
-    public Button btRegister;
-    public TextField tfUsername;
-    public PasswordField pfPass;
+  private static InitializeController instance;
+  public VBox vboxProgress;
+  public ProgressIndicator progressIndicator;
+  public VBox vBoxRegisterDevice;
+  public Label lbLegend;
+  public TextField tfDeviceName;
+  public TextField tfDeviceLocation;
+  public Button btRegister;
+  public TextField tfUsername;
+  public PasswordField pfPass;
 
-    public static InitializeController getInstance() {
-        return instance;
-    }
+  public static InitializeController getInstance() {
+    return instance;
+  }
 
-    private String macAddress;
+  private String macAddress;
+  private boolean isRegisterClicked = false;
 
-    @FXML
-    void initialize() {
-        instance = this;
-
-        macAddress = StaticVarUtils.getMacAddress();
-        callAutoClientAPI();
-        if (ConstantConfig.FAKE) {
+  @FXML
+  void initialize() {
+    instance = this;
+    pfPass.setOnKeyReleased((KeyEvent key) -> {
+      if (key.getCode() == KeyCode.ENTER) {
+        signIn(null);
+      }
+    });
+    macAddress = StaticVarUtils.getMacAddress();
+    callAutoClientAPI();
+    if (ConstantConfig.FAKE) {
 //            PauseTransition pause = new PauseTransition(Duration.seconds(5));
 //            pause.setOnFinished(new EventHandler<ActionEvent>() {
 //                @Override
@@ -59,76 +66,84 @@ public class InitializeController {
 //                }
 //            });
 //            pause.play();
-        }
     }
+  }
 
-    @FXML
-    private void signIn(ActionEvent event) {
-        if (FieldViewUtils.noEmpty(tfDeviceLocation, tfDeviceName,tfUsername, pfPass)) {
-            return;
-        }
-        showProgressView();
-        if (ConstantConfig.FAKE) {
-            startMain();
-        }
-        String deviceName = tfDeviceName.getText().trim();
-        String deviceLocation = tfDeviceLocation.getText().trim();
-        String username = tfUsername.getText().trim();
-        String pass = pfPass.getText();
-        ServiceBuilder.getApiService().addDevice(new
-            AddDeviceRequest(macAddress,deviceName, deviceLocation, username, pass)).
-            enqueue(new BaseCallback<DeviceInfo>() {
-            @Override
-            public void onError(String errorCode, String errorMessage) {
-                Messenger.erro(errorMessage);
-                openFormRegisterDevice();
+  @FXML
+  private void signIn(ActionEvent event) {
+    if (isRegisterClicked)
+      return;
+    isRegisterClicked = true;
+    if (FieldViewUtils.noEmpty(tfDeviceLocation, tfDeviceName, tfUsername, pfPass)) {
+      isRegisterClicked = false;
+      return;
+    }
+    showProgressView();
+    if (ConstantConfig.FAKE) {
+      startMain();
+    }
+    String deviceName = tfDeviceName.getText().trim();
+    String deviceLocation = tfDeviceLocation.getText().trim();
+    String username = tfUsername.getText().trim();
+    String pass = pfPass.getText();
+    ServiceBuilder.getApiService().addDevice(new
+      AddDeviceRequest(macAddress, deviceName, deviceLocation, username, pass)).
+      enqueue(new BaseCallback<DeviceInfo>() {
+        @Override
+        public void onError(String errorCode, String errorMessage) {
+          Messenger.erro(errorMessage);
+          openFormRegisterDevice();
+          isRegisterClicked = false;
 //                FieldViewUtils.resetField(tfDeviceName, tfDeviceLocation);
-            }
+        }
 
-            @Override
-            public void onSuccess(DeviceInfo data) {
-                callAutoClientAPI();
-            }
-        });
-    }
-    void openFormRegisterDevice(){
-        vBoxRegisterDevice.setVisible(true);
-        vboxProgress.setVisible(false);
-    }
+        @Override
+        public void onSuccess(DeviceInfo data) {
+          callAutoClientAPI();
+          isRegisterClicked = false;
+        }
+      });
+  }
 
-    void showProgressView(){
-        vboxProgress.setVisible(true);
-        vBoxRegisterDevice.setVisible(false);
-    }
-    void startMain(){
-        new App().start(new Stage());
-        Initialize.palco.close();
-    }
+  void openFormRegisterDevice() {
+    vBoxRegisterDevice.setVisible(true);
+    vboxProgress.setVisible(false);
+  }
 
-    void callAutoClientAPI(){
-        ServiceBuilder.getApiService().checkDevice(macAddress).enqueue(new BaseCallback<SessionDeviceInfo>() {
-            @Override
-            public void onError(String errorCode, String errorMessage) {
-                if ("Không thể tìm thấy thông tin.".equalsIgnoreCase(errorMessage)){
-                    openFormRegisterDevice();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle(BundleUtils.getResourceBundle().getString("txt_error"));
-                    alert.setHeaderText(null);
-                    alert.setContentText("Xảy ra lỗi. Vui lòng thử lại sau!");
+  void showProgressView() {
+    vboxProgress.setVisible(true);
+    vBoxRegisterDevice.setVisible(false);
+  }
 
-                    Optional<ButtonType> r = alert.showAndWait();
-                    if (r.get() == ButtonType.OK){
-                        Initialize.palco.close();
-                    }
-                }
-            }
+  void startMain() {
+    new App().start(new Stage());
+    Initialize.palco.close();
+  }
 
-            @Override
-            public void onSuccess(SessionDeviceInfo data) {
-                StaticVarUtils.setSessionDeviceInfo(data);
-                startMain();
-            }
-        });
-    }
+  void callAutoClientAPI() {
+    ServiceBuilder.getApiService().checkDevice(macAddress).enqueue(new BaseCallback<SessionDeviceInfo>() {
+      @Override
+      public void onError(String errorCode, String errorMessage) {
+        if ("Không thể tìm thấy thông tin.".equalsIgnoreCase(errorMessage)) {
+          openFormRegisterDevice();
+        } else {
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle(BundleUtils.getResourceBundle().getString("txt_error"));
+          alert.setHeaderText(null);
+          alert.setContentText("Xảy ra lỗi. Vui lòng thử lại sau!");
+
+          Optional<ButtonType> r = alert.showAndWait();
+          if (r.get() == ButtonType.OK) {
+            Initialize.palco.close();
+          }
+        }
+      }
+
+      @Override
+      public void onSuccess(SessionDeviceInfo data) {
+        StaticVarUtils.setSessionDeviceInfo(data);
+        startMain();
+      }
+    });
+  }
 }
