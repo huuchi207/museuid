@@ -9,6 +9,7 @@ import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.AutocompletionlTextField;
 import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.dto.Product;
+import br.com.museuid.dto.ProductWithImage;
 import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.model.data.ProductInOrder;
 import br.com.museuid.screen.app.AppController;
@@ -40,209 +41,139 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 public class CreateOrderScreenControler extends AnchorPane {
-    //header
-    public Label lbTitle;
-    public TextField txtSearch;
-    //product list
-    public AnchorPane apProductList;
-    public TableView<Product> tbProduct;
-    //    public TableColumn colId;
-    public TableColumn colProductName;
-    public TableColumn colDescription;
-    public TableColumn colPrice;
-    //order
-    public AnchorPane apEditOrderList;
-    public TableView<ProductInOrder> tbProductInOrder;
-    //    public TableColumn colIdInOrder;
-    public TableColumn colProductNameInOrder;
-    public TableColumn colDescriptionInOrder;
-    public TableColumn colPriceInOrder;
-    public TableColumn<ProductInOrder, String> colCountInOrder;
-    public TableColumn colStatus;
-    public TableColumn<ProductInOrder, String> colMoreRequirement;
-    public GridPane gridEditOrderList;
-    public AutocompletionlTextField<DeviceInfo> txtChooseDevice;
-    //bottom button
-    public Button btEditOrder;
-    public Button btCreateOrder;
-    public Button btBackToList;
-    public Label lbLegend;
+  //header
+  public Label lbTitle;
+  public TextField txtSearch;
+  //product list
+  public AnchorPane apProductList;
+  public TableView<ProductWithImage> tbProduct;
+  //    public TableColumn colId;
+  public TableColumn colProductName;
+  public TableColumn colDescription;
+  public TableColumn colPrice;
+  public TableColumn colImage;
+  //order
+  public AnchorPane apEditOrderList;
+  public TableView<ProductInOrder> tbProductInOrder;
+  //    public TableColumn colIdInOrder;
+  public TableColumn colProductNameInOrder;
+  public TableColumn colDescriptionInOrder;
+  public TableColumn colPriceInOrder;
+  public TableColumn colImageInOrder;
+  public TableColumn<ProductInOrder, String> colCountInOrder;
+  public TableColumn colStatus;
+  public TableColumn<ProductInOrder, String> colMoreRequirement;
+  public GridPane gridEditOrderList;
+  public AutocompletionlTextField<DeviceInfo> txtChooseDevice;
+  //bottom button
+  public Button btEditOrder;
+  public Button btCreateOrder;
+  public Button btBackToList;
+  public Label lbLegend;
 
-    private ResourceBundle bundle;
+  private ResourceBundle bundle;
 
-    private List<Product> productList;
-    private List<Product> selectedProductList;
-    private List<ProductInOrder> productInOrders;
+  private List<ProductWithImage> productList;
+  private List<ProductInOrder> productInOrders;
 
-    private ObservableList<Product> productObservableList;
-    private ObservableList<ProductInOrder> productInOrderObservableList;
-    private int totalPrice;
-    private ObservableList<DeviceInfo> deviceInfoObservableList = FXCollections.observableList(new ArrayList<>());
-    public CreateOrderScreenControler() {
-        try {
-            FXMLLoader fxml = new FXMLLoader(getClass().getResource("create_order_screen.fxml"));
+  private ObservableList<ProductWithImage> productObservableList;
+  private ObservableList<ProductInOrder> productInOrderObservableList;
+  private int totalPrice;
+  private ObservableList<DeviceInfo> deviceInfoObservableList = FXCollections.observableList(new ArrayList<>());
 
-            fxml.setRoot(this);
-            fxml.setController(this);
-            bundle = BundleUtils.getResourceBundle();
-            fxml.setResources(bundle);
-            fxml.load();
+  public CreateOrderScreenControler() {
+    try {
+      FXMLLoader fxml = new FXMLLoader(getClass().getResource("create_order_screen.fxml"));
 
-        } catch (Exception ex) {
-            Messenger.erro(bundle.getString("txt_loading_screen_error") + ex);
-        }
+      fxml.setRoot(this);
+      fxml.setController(this);
+      bundle = BundleUtils.getResourceBundle();
+      fxml.setResources(bundle);
+      fxml.load();
+
+    } catch (Exception ex) {
+      Messenger.erro(bundle.getString("txt_loading_screen_error") + ex);
     }
+  }
 
 
-    @FXML
-    public void initialize() {
-        initTable();
-        goToProductList(null);
+  @FXML
+  public void initialize() {
+    initTable();
+    goToProductList(null);
 
-        txtSearch.textProperty().addListener((obs, old, novo) -> {
-            filter(novo, FXCollections.observableArrayList(productList));
-        });
-    }
+    txtSearch.textProperty().addListener((obs, old, novo) -> {
+      filter(novo, FXCollections.observableArrayList(productList));
+    });
+  }
 
-    private void initTable() {
-        tbProduct.getSelectionModel().setSelectionMode(
-                SelectionMode.MULTIPLE
-        );
+  private void initTable() {
+    tbProduct.getSelectionModel().setSelectionMode(
+      SelectionMode.MULTIPLE
+    );
 //        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+    colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+    colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+    colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+    colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+    colImage.setCellValueFactory(new PropertyValueFactory<>("productImage"));
 
 
 //        colIdInOrder.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colProductNameInOrder.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        colDescriptionInOrder.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colPriceInOrder.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("tfNumber"));
-        colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("tfNote"));
-    }
+    colProductNameInOrder.setCellValueFactory(new PropertyValueFactory<>("productName"));
+    colDescriptionInOrder.setCellValueFactory(new PropertyValueFactory<>("description"));
+    colPriceInOrder.setCellValueFactory(new PropertyValueFactory<>("price"));
+    colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("tfNumber"));
+    colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("tfNote"));
+    colImageInOrder.setCellValueFactory(new PropertyValueFactory<>("productImage"));
 
-    /**
-     * Mapear dados objetos para inserção dos dados na updateTable
-     */
-    private void updateProductTable() {
-        productObservableList = FXCollections.observableArrayList(productList);initTable();
-        tbProduct.setItems(productObservableList);
-    }
+  }
 
-    private void updateProductInOrderTable() {
-        productInOrderObservableList = FXCollections.observableArrayList(productInOrders);
+  /**
+   * Mapear dados objetos para inserção dos dados na updateTable
+   */
+  private void updateProductTable() {
+    productObservableList = FXCollections.observableArrayList(productList);
+    tbProduct.setItems(productObservableList);
+  }
 
-        tbProductInOrder.setItems(productInOrderObservableList);
-    }
+  private void updateProductInOrderTable() {
+    productInOrderObservableList = FXCollections.observableArrayList(productInOrders);
 
-    /**
-     * FieldViewUtils de pesquisar para filtrar dados na updateTable
-     */
-    private void filter(String valor, ObservableList<Product> products) {
+    tbProductInOrder.setItems(productInOrderObservableList);
+  }
 
-        FilteredList<Product> filteredList = new FilteredList<>(products, Product -> true);
-        filteredList.setPredicate(product -> {
+  /**
+   * FieldViewUtils de pesquisar para filtrar dados na updateTable
+   */
+  private void filter(String valor, ObservableList<ProductWithImage> products) {
 
-            if (valor == null || valor.isEmpty()) {
-                return true;
-            } else if (product.getProductName().toLowerCase().contains(valor.toLowerCase())) {
-                return true;
-            }
+    FilteredList<ProductWithImage> filteredList = new FilteredList<>(products, Product -> true);
+    filteredList.setPredicate(product -> {
 
-            return false;
-        });
+      if (valor == null || valor.isEmpty()) {
+        return true;
+      } else if (product.getProductName().toLowerCase().contains(valor.toLowerCase())) {
+        return true;
+      }
 
-        SortedList<Product> dadosOrdenados = new SortedList<>(filteredList);
-        dadosOrdenados.comparatorProperty().bind(tbProduct.comparatorProperty());
+      return false;
+    });
+
+    SortedList<ProductWithImage> dadosOrdenados = new SortedList<>(filteredList);
+    dadosOrdenados.comparatorProperty().bind(tbProduct.comparatorProperty());
 //    FilterUtils.mensage(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
 
-        tbProduct.setItems(dadosOrdenados);
-    }
-    private void getProductList(){
-        if (ConstantConfig.FAKE){
-            updateProductList(FakeDataUtils.getFakeProductList());
-            updateProductTable();
-        }else {
-            AppController.getInstance().showProgressDialog();
-            ServiceBuilder.getApiService().getProductList().enqueue(new BaseCallback<List<Product>>() {
-                @Override
-                public void onError(String errorCode, String errorMessage) {
-                    AppController.getInstance().hideProgressDialog();
-                    Messenger.erro(errorMessage);
-                }
+    tbProduct.setItems(dadosOrdenados);
+  }
 
-                @Override
-                public void onSuccess(List<Product> data) {
-                    AppController.getInstance().hideProgressDialog();
-                    updateProductList(data);
-                    updateProductTable();
-                }
-            });
-        }
-    }
-
-    @FXML
-    void editOrder(ActionEvent event){
-        productInOrders = createProductInOrderListFromSelectedProductList();
-        if (productInOrders.isEmpty()){
-            Messenger.info(bundle.getString("txt_please_choose_product"));
-            return;
-        } else {
-            for (ProductInOrder productInOrder : productInOrders){
-                if (productInOrder.getInStock() == null || productInOrder.getInStock() == 0){
-                    Messenger.erro("Sản phẩm "+ productInOrder.getProductName() +" hiện đang hết hàng. Vui lòng chọn sản phẩm khác!");
-                    return;
-                }
-            }
-        }
-        updateProductInOrderTable();
-        updateProductInOrderScreenData();
-        getDeviceList();
-        FieldViewUtils.resetField(txtChooseDevice);
-        lbTitle.setText(bundle.getString("txt_edit_order"));
-        NavigationUtils.setVisibility(false, btEditOrder, apProductList, txtSearch);
-        NavigationUtils.setVisibility(true, btBackToList, btCreateOrder, gridEditOrderList);
-
-    }
-
-    @FXML
-    void createOrder(ActionEvent event){
-        if (totalPrice<=0){
-            Messenger.info(bundle.getString("txt_please_choose_number_of_product_correctly"));
-            return;
-        }
-        if (txtChooseDevice.getSelectedItem() == null){
-            Messenger.info("Vui lòng chọn máy!");
-            return;
-        }
-        if (ConstantConfig.FAKE){
-            Messenger.info(bundle.getString("msg_create_order_successfully") +"\""+ bundle.getString("txt_order_created") +"\"");
-        } else{
-            OrderDetail queueRequest = createPutOrderRequest();
-            if (queueRequest == null){
-              return;
-            }
-            DialogUtils.ResponseMessage responseMessage =
-                    DialogUtils.mensageConfirmer("Xác nhận","Bạn có muốn xử lý đơn hàng luôn?", "Có", "Không, đưa vào hàng đợi");
-            AppController.getInstance().showProgressDialog();
-            if (responseMessage == DialogUtils.ResponseMessage.YES) {
-              queueRequest.setHandlerid(StaticVarUtils.getSessionUserInfo().getInfo().getId());
-              queueRequest.setHandlername(StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
-              queueRequest.setStatus(OrderDetail.OrderStatus.DONE.name());
-              AppController.getInstance().showProgressDialog();
-              putOrder(queueRequest);
-            } else {
-                AppController.getInstance().showProgressDialog();
-                putOrder(queueRequest);
-            }
-
-
-        }
-    }
-    private void putOrder(OrderDetail orderDetail){
-      ServiceBuilder.getApiService().putOrder(orderDetail).enqueue(new BaseCallback<Object>() {
+  private void getProductList() {
+    if (ConstantConfig.FAKE) {
+      updateProductList(FakeDataUtils.getFakeProductList());
+      updateProductTable();
+    } else {
+      AppController.getInstance().showProgressDialog();
+      ServiceBuilder.getApiService().getProductList().enqueue(new BaseCallback<List<Product>>() {
         @Override
         public void onError(String errorCode, String errorMessage) {
           AppController.getInstance().hideProgressDialog();
@@ -250,129 +181,218 @@ public class CreateOrderScreenControler extends AnchorPane {
         }
 
         @Override
-        public void onSuccess(Object data) {
+        public void onSuccess(List<Product> data) {
           AppController.getInstance().hideProgressDialog();
-          Messenger.info(bundle.getString("txt_operation_successful"));
-          goToProductList(null);
+          List<ProductWithImage> list = new ArrayList<>();
+          for (Product product : data) {
+            list.add(product.convertToProductWithImage());
+          }
+          updateProductList(list);
+          updateProductTable();
         }
       });
     }
-    @FXML
-    void goToProductList(ActionEvent event){
-        getProductList();
-        lbTitle.setText(bundle.getString("txt_product_list"));
-        lbLegend.setText(bundle.getString("txt_hold_ctrl_to_choose_items"));
-        tbProduct.getSelectionModel().clearSelection();
+  }
 
-        NavigationUtils.setVisibility(true, btEditOrder, apProductList,txtSearch);
-        NavigationUtils.setVisibility(false, btBackToList, btCreateOrder, gridEditOrderList);
-    }
-    private List<ProductInOrder> createProductInOrderListFromSelectedProductList(){
-        if (productList == null || productList.isEmpty()){
-            return new ArrayList<>();
+  @FXML
+  void editOrder(ActionEvent event) {
+    productInOrders = createProductInOrderListFromSelectedProductList();
+    if (productInOrders.isEmpty()) {
+      Messenger.info(bundle.getString("txt_please_choose_product"));
+      return;
+    } else {
+      for (ProductInOrder productInOrder : productInOrders) {
+        if (productInOrder.getInStock() == null || productInOrder.getInStock() == 0) {
+          Messenger.erro("Sản phẩm " + productInOrder.getProductName() + " hiện đang hết hàng. Vui lòng chọn sản phẩm khác!");
+          return;
         }
-
-        ObservableList<Product> selectedItems = tbProduct.getSelectionModel().getSelectedItems();
-
-        ListIterator<Product> iterator = selectedItems.listIterator();
-        List<ProductInOrder> selectedProducts = new ArrayList<>();
-        while (iterator.hasNext()) {
-            Product item = iterator.next();
-            for (Product product: productList){
-                if (product.getId().equals(item.getId())){
-                  ProductInOrder productInOrder = product.convertToProductInOrder();
-                  productInOrder.setOnContentChange(new ProductInOrder.OnContentChange() {
-                    @Override
-                    public void onNumberChange(Integer oldNumber, Integer newNumber) {
-                      if (newNumber >=0){
-                        totalPrice += (newNumber-productInOrder.getCount())*productInOrder.getPrice();
-                        productInOrder.setCount(newNumber);
-                        lbLegend.setText(bundle.getString("txt_total_price") + ": " + totalPrice + " " + bundle.getString("txt_vnd"));
-                      } else {
-//                        Messenger.erro("Số lượng hàng phải lớn hơn 0");
-                        productInOrder.getTfNumber().setText(productInOrder.getCount()+"");
-                      }
-                    }}
-                  );
-                  selectedProducts.add(productInOrder);
-                }
-            }
-        }
-        return selectedProducts;
+      }
     }
-    private void updateProductInOrderScreenData(){
-        //reset total for counting
-        totalPrice = 0;
-        ObservableList<ProductInOrder> orderObservableList = tbProductInOrder.getItems();
+    updateProductInOrderTable();
+    updateProductInOrderScreenData();
+    getDeviceList();
+    FieldViewUtils.resetField(txtChooseDevice);
+    lbTitle.setText(bundle.getString("txt_edit_order"));
+    NavigationUtils.setVisibility(false, btEditOrder, apProductList, txtSearch);
+    NavigationUtils.setVisibility(true, btBackToList, btCreateOrder, gridEditOrderList);
 
-        ListIterator<ProductInOrder> iterator = orderObservableList.listIterator();
-        while (iterator.hasNext()) {
-            ProductInOrder item = iterator.next();
-            totalPrice+= item.getPrice() * item.getCount();
-        }
-        //update list
-//        iterator.forEachRemaining(productInOrders::add);
-        //update text
-        lbLegend.setText(bundle.getString("txt_total_price")+ ": " + totalPrice +" "+ bundle.getString("txt_vnd"));
-    }
-    private void updateProductList(List<Product> products){
-        for (Product product : products){
-            product.updateStatus();
-        }
-        productList = products;
-    }
+  }
 
-    private OrderDetail createPutOrderRequest(){
-        ObservableList<ProductInOrder> orderObservableList = tbProductInOrder.getItems();
-        int totalPrice = 0;
-        List<PutQueueRequest.Item> items = new ArrayList<>();
-        ListIterator<ProductInOrder> iterator = orderObservableList.listIterator();
-        while (iterator.hasNext()) {
-            ProductInOrder productInOrder = iterator.next();
-            if (productInOrder.getCount()<=0){
-              Messenger.erro("Số lượng hàng phải lớn hơn 0!");
-              return  null;
-            }
-            int priceOfProduct = productInOrder.getPrice() * productInOrder.getCount();
-            items.add(new PutQueueRequest.Item(productInOrder.getProductName(),
-                    productInOrder.getId(),
-                    productInOrder.getCount(),
-                    productInOrder.getPrice(),
-                    priceOfProduct,
-                    productInOrder.getTfNote().getText().trim(),
-                    priceOfProduct));
-            totalPrice+= priceOfProduct;
-        }
-        DeviceInfo deviceInfo = txtChooseDevice.getSelectedItem();
-        OrderDetail putQueueRequest= new OrderDetail(totalPrice , items,
-                deviceInfo.getName(),
-                deviceInfo.getId(),
-                StaticVarUtils.getSessionUserInfo().getSessionid(),null);
-        putQueueRequest.setLocation(deviceInfo.getLocation());
-        return putQueueRequest;
+  @FXML
+  void createOrder(ActionEvent event) {
+    if (totalPrice <= 0) {
+      Messenger.info(bundle.getString("txt_please_choose_number_of_product_correctly"));
+      return;
     }
-
-    private void getDeviceList(){
+    if (txtChooseDevice.getSelectedItem() == null) {
+      Messenger.info("Vui lòng chọn máy!");
+      return;
+    }
+    if (ConstantConfig.FAKE) {
+      Messenger.info(bundle.getString("msg_create_order_successfully") + "\"" + bundle.getString("txt_order_created") + "\"");
+    } else {
+      OrderDetail queueRequest = createPutOrderRequest();
+      if (queueRequest == null) {
+        return;
+      }
+      DialogUtils.ResponseMessage responseMessage =
+        DialogUtils.mensageConfirmer("Xác nhận", "Bạn có muốn xử lý đơn hàng luôn?", "Có", "Không, đưa vào hàng đợi");
+      AppController.getInstance().showProgressDialog();
+      if (responseMessage == DialogUtils.ResponseMessage.YES) {
+        queueRequest.setHandlerid(StaticVarUtils.getSessionUserInfo().getInfo().getId());
+        queueRequest.setHandlername(StaticVarUtils.getSessionUserInfo().getInfo().getUsername());
+        queueRequest.setStatus(OrderDetail.OrderStatus.DONE.name());
         AppController.getInstance().showProgressDialog();
-        ServiceBuilder.getApiService().getListDevice().enqueue(new BaseCallback<List<DeviceInfo>>() {
-            @Override
-            public void onError(String errorCode, String errorMessage) {
-                AppController.getInstance().hideProgressDialog();
-                Messenger.erro(errorMessage);
-            }
+        putOrder(queueRequest);
+      } else {
+        AppController.getInstance().showProgressDialog();
+        putOrder(queueRequest);
+      }
 
-            @Override
-            public void onSuccess(List<DeviceInfo> data) {
-                AppController.getInstance().hideProgressDialog();
-                for (DeviceInfo deviceInfo : data){
-                    deviceInfo.buildDisplayName();
+
+    }
+  }
+
+  private void putOrder(OrderDetail orderDetail) {
+    ServiceBuilder.getApiService().putOrder(orderDetail).enqueue(new BaseCallback<Object>() {
+      @Override
+      public void onError(String errorCode, String errorMessage) {
+        AppController.getInstance().hideProgressDialog();
+        Messenger.erro(errorMessage);
+      }
+
+      @Override
+      public void onSuccess(Object data) {
+        AppController.getInstance().hideProgressDialog();
+        Messenger.info(bundle.getString("txt_operation_successful"));
+        goToProductList(null);
+      }
+    });
+  }
+
+  @FXML
+  void goToProductList(ActionEvent event) {
+    getProductList();
+    lbTitle.setText(bundle.getString("txt_product_list"));
+    lbLegend.setText(bundle.getString("txt_hold_ctrl_to_choose_items"));
+    tbProduct.getSelectionModel().clearSelection();
+
+    NavigationUtils.setVisibility(true, btEditOrder, apProductList, txtSearch);
+    NavigationUtils.setVisibility(false, btBackToList, btCreateOrder, gridEditOrderList);
+  }
+
+  private List<ProductInOrder> createProductInOrderListFromSelectedProductList() {
+    if (productList == null || productList.isEmpty()) {
+      return new ArrayList<>();
+    }
+
+    ObservableList<ProductWithImage> selectedItems = tbProduct.getSelectionModel().getSelectedItems();
+
+    ListIterator<ProductWithImage> iterator = selectedItems.listIterator();
+    List<ProductInOrder> selectedProducts = new ArrayList<>();
+    while (iterator.hasNext()) {
+      Product item = iterator.next();
+      for (ProductWithImage product : productList) {
+        if (product.getId().equals(item.getId())) {
+          ProductInOrder productInOrder = product.convertToProductInOrder();
+          productInOrder.setOnContentChange(
+            new ProductInOrder.OnContentChange() {
+              @Override
+              public void onNumberChange(Integer oldNumber, Integer newNumber) {
+                if (newNumber >= 0) {
+                  totalPrice += (newNumber - productInOrder.getCount()) * productInOrder.getPrice();
+                  productInOrder.setCount(newNumber);
+                  lbLegend.setText(bundle.getString("txt_total_price") + ": " + totalPrice + " " + bundle.getString("txt_vnd"));
+                } else {
+//                        Messenger.erro("Số lượng hàng phải lớn hơn 0");
+                  productInOrder.getTfNumber().setText(productInOrder.getCount() + "");
                 }
+              }
+            }
+          );
+          selectedProducts.add(productInOrder);
+        }
+      }
+    }
+    return selectedProducts;
+  }
+
+  private void updateProductInOrderScreenData() {
+    //reset total for counting
+    totalPrice = 0;
+    ObservableList<ProductInOrder> orderObservableList = tbProductInOrder.getItems();
+
+    ListIterator<ProductInOrder> iterator = orderObservableList.listIterator();
+    while (iterator.hasNext()) {
+      ProductInOrder item = iterator.next();
+      totalPrice += item.getPrice() * item.getCount();
+    }
+    //update list
+//        iterator.forEachRemaining(productInOrders::add);
+    //update text
+    lbLegend.setText(bundle.getString("txt_total_price") + ": " + totalPrice + " " + bundle.getString("txt_vnd"));
+  }
+
+  private void updateProductList(List<ProductWithImage> products) {
+    for (ProductWithImage product : products) {
+      product.updateStatus();
+      product.createImage();
+
+    }
+    productList = products;
+  }
+
+  private OrderDetail createPutOrderRequest() {
+    ObservableList<ProductInOrder> orderObservableList = tbProductInOrder.getItems();
+    int totalPrice = 0;
+    List<PutQueueRequest.Item> items = new ArrayList<>();
+    ListIterator<ProductInOrder> iterator = orderObservableList.listIterator();
+    while (iterator.hasNext()) {
+      ProductInOrder productInOrder = iterator.next();
+      if (productInOrder.getCount() <= 0) {
+        Messenger.erro("Số lượng hàng phải lớn hơn 0!");
+        return null;
+      }
+      int priceOfProduct = productInOrder.getPrice() * productInOrder.getCount();
+      items.add(new PutQueueRequest.Item(productInOrder.getProductName(),
+        productInOrder.getId(),
+        productInOrder.getCount(),
+        productInOrder.getPrice(),
+        priceOfProduct,
+        productInOrder.getTfNote().getText().trim(),
+        priceOfProduct, productInOrder.getImageid()));
+      totalPrice += priceOfProduct;
+    }
+    DeviceInfo deviceInfo = txtChooseDevice.getSelectedItem();
+    OrderDetail putQueueRequest = new OrderDetail(totalPrice, items,
+      deviceInfo.getName(),
+      deviceInfo.getId(),
+      StaticVarUtils.getSessionUserInfo().getSessionid(), null);
+    putQueueRequest.setLocation(deviceInfo.getLocation());
+    return putQueueRequest;
+  }
+
+  private void getDeviceList() {
+    AppController.getInstance().showProgressDialog();
+    ServiceBuilder.getApiService().getListDevice().enqueue(new BaseCallback<List<DeviceInfo>>() {
+      @Override
+      public void onError(String errorCode, String errorMessage) {
+        AppController.getInstance().hideProgressDialog();
+        Messenger.erro(errorMessage);
+      }
+
+      @Override
+      public void onSuccess(List<DeviceInfo> data) {
+        AppController.getInstance().hideProgressDialog();
+        for (DeviceInfo deviceInfo : data) {
+          deviceInfo.buildDisplayName();
+        }
 //                deviceInfoObservableList.clear();
 //                deviceInfoObservableList.addAll(data);
 //
-                txtChooseDevice.getEntries().clear();
-                txtChooseDevice.getEntries().addAll(data);
-            }
-        });
-    }
+        txtChooseDevice.getEntries().clear();
+        txtChooseDevice.getEntries().addAll(data);
+      }
+    });
+  }
 }

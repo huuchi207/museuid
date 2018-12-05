@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import java.lang.*?>
-<?import java.net.URL?>
-<fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
->
-  <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<?import java.lang.String?><?import java.net.URL?><?import javafx.geometry.Insets?><?import javafx.scene.control.Button?><?import javafx.scene.control.Label?><?import javafx.scene.control.TableColumn?><?import javafx.scene.control.TableView?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.StackPane?>
+<fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea"
+  xmlns:fx="http://javafx.com/fxml/1">
+  <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+    AnchorPane.topAnchor="0.0">
     <!--<Group>-->
-    <AnchorPane fx:id="apOrderInQueue" visible="false"/>
-    <AnchorPane fx:id="apOrderInQueueTable" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+    <AnchorPane fx:id="apOrderInQueue" visible="false" />
+    <AnchorPane fx:id="apOrderInQueueTable" AnchorPane.bottomAnchor="60.0"
+      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
       <children>
-        <TableView fx:id="tbOrderInQueue" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
+        <TableView fx:id="tbOrderInQueue" tableMenuButtonVisible="true"
+          AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
+          AnchorPane.topAnchor="10.0">
           <columns>
             <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />-->
-            <TableColumn fx:id="colTime" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_time" />
-            <TableColumn fx:id="colDevice" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_device_name" />
-            <TableColumn fx:id="colLocation" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_location" />
-            <TableColumn fx:id="colOrderName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_order_name" />
-            <TableColumn fx:id="colOrderDescription" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_order_description" />
+            <TableColumn fx:id="colTime" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_time" />
+            <TableColumn fx:id="colDevice" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_device_name" />
+            <TableColumn fx:id="colLocation" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_location" />
+            <TableColumn fx:id="colOrderName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_order_name" />
+            <TableColumn fx:id="colOrderDescription" maxWidth="900.0" minWidth="150.0"
+              prefWidth="150.0" text="%txt_order_description" />
             <!--<TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="%txt_status" />-->
           </columns>
           <columnResizePolicy>
@@ -27,37 +32,53 @@
           </columnResizePolicy>
         </TableView>
         <HBox AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
-        <Button fx:id="btHandleOrder" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleOrder" prefHeight="40.0"
-          prefWidth="200.0" text="%txt_handle_order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <styleClass>
-            <String fx:value="menus-acoes" />
-            <String fx:value="acao-salvar" />
-            <String fx:value="menu-orange" />
-          </styleClass>
-          <HBox.margin>
-            <Insets right="10.0" />
-          </HBox.margin>
-        </Button></HBox>
+          <Button fx:id="btHandleOrder" contentDisplay="TOP" mnemonicParsing="false"
+            onAction="#handleOrder" prefHeight="40.0" prefWidth="200.0" text="%txt_handle_order"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0">
+            <styleClass>
+              <String fx:value="menus-acoes" />
+              <String fx:value="acao-salvar" />
+              <String fx:value="menu-orange" />
+            </styleClass>
+            <HBox.margin>
+              <Insets right="10.0" />
+            </HBox.margin>
+          </Button>
+        </HBox>
       </children>
     </AnchorPane>
     <!--</Group>-->
-    <AnchorPane fx:id="apOrderInfo" >
-      <TableView fx:id="tbOrderInfo" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+    <AnchorPane fx:id="apOrderInfo">
+      <TableView fx:id="tbOrderInfo" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="60.0"
+        AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
         <columns>
           <!--<TableColumn fx:id="colIdInOrder" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />-->
-          <TableColumn fx:id="colProductNameInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_product_name" />
-          <TableColumn fx:id="colDescriptionInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_description" />
-          <TableColumn fx:id="colPriceInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="%txt_price" />
-          <TableColumn fx:id="colCountInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="%txt_count" />
-          <TableColumn fx:id="colMoreRequirement" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="%txt_more_requirement" />
+          <TableColumn fx:id="colProductNameInOrder" maxWidth="900.0" minWidth="150.0"
+            prefWidth="150.0" text="%txt_product_name" />
+          <!--<TableColumn fx:id="colDescriptionInOrder" maxWidth="900.0" minWidth="150.0"-->
+            <!--prefWidth="150.0" text="%txt_description" />-->
+
+
+          <TableColumn fx:id="colPriceInOrder" maxWidth="200.0" minWidth="150.0" prefWidth="150.0"
+            text="%txt_price" />
+          <TableColumn fx:id="colImageInOrder" maxWidth="400.0" minWidth="150.0" prefWidth="150.0"
+            text="%txt_product_image" />
+          <TableColumn fx:id="colCountInOrder" maxWidth="300.0" minWidth="150.0" prefWidth="150.0"
+            text="%txt_count" />
+
+          <TableColumn fx:id="colMoreRequirement" maxWidth="900.0" minWidth="150.0"
+            prefWidth="150.0" text="%txt_more_requirement" />
         </columns>
-            <columnResizePolicy>
-               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-            </columnResizePolicy>
+        <columnResizePolicy>
+          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
       </TableView>
       <HBox AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
-        <Button fx:id="btDoneOrder" contentDisplay="TOP" mnemonicParsing="false" onAction="#doneOrder" prefHeight="40.0" prefWidth="200.0" text="%txt_done_order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Button fx:id="btDoneOrder" contentDisplay="TOP" mnemonicParsing="false"
+          onAction="#doneOrder" prefHeight="40.0" prefWidth="200.0" text="%txt_done_order"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
           <styleClass>
             <String fx:value="menus-acoes" />
             <String fx:value="acao-salvar" />
@@ -67,7 +88,10 @@
             <Insets right="10.0" />
           </HBox.margin>
         </Button>
-        <Button id="" fx:id="btCancelOrder" contentDisplay="TOP" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="40.0" prefWidth="200.0" text="%txt_cancel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Button id="" fx:id="btCancelOrder" contentDisplay="TOP" mnemonicParsing="false"
+          onAction="#cancelOrder" prefHeight="40.0" prefWidth="200.0" text="%txt_cancel"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
           <styleClass>
             <String fx:value="menus-acoes" />
             <String fx:value="acao-excluir" />
@@ -76,7 +100,8 @@
         </Button>
 
       </HBox>
-      <Label fx:id="lbTotalPrice" styleClass="lb-info-requerido" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="lbTotalPrice" styleClass="lb-info-requerido" AnchorPane.bottomAnchor="10.0"
+        AnchorPane.leftAnchor="10.0" />
     </AnchorPane>
   </StackPane>
   <stylesheets>

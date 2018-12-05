@@ -1,5 +1,7 @@
 package br.com.museuid.dto;
 
+import br.com.museuid.model.data.ProductImporting;
+import br.com.museuid.model.data.ProductInOrder;
 import br.com.museuid.service.remote.ServiceBuilder;
 import javafx.scene.image.ImageView;
 
@@ -10,6 +12,10 @@ public class ProductWithImage  extends  Product{
     super(id, productName, description, price, inStock);
     this.imageid = imageid;
     createImage();
+  }
+
+  public ProductWithImage(String productName, String productid) {
+    super(productName, productid);
   }
 
   public ProductWithImage(String productName, String productid, ImageView productImage) {
@@ -29,5 +35,13 @@ public class ProductWithImage  extends  Product{
     productImage = new ImageView(ServiceBuilder.getBASEURL()+"image?imageid="+ imageid);
     productImage.setFitHeight(150);
     productImage.setFitWidth(150);
+  }
+
+  public ProductInOrder convertToProductInOrder() {
+    return new ProductInOrder(id, productName, description, price, inStock, imageid, productImage, 1);
+  }
+
+  public ProductImporting convertToProductImporting(){
+    return new ProductImporting(id, productName, description, price, inStock, imageid);
   }
 }

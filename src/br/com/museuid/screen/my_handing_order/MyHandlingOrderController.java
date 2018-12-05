@@ -36,6 +36,7 @@ public class MyHandlingOrderController extends AnchorPane {
   public TableColumn colLocation;
   public TableColumn colOrderName;
   public TableColumn colOrderDescription;
+  public TableColumn colImageInOrder;
   @FXML
   private Label lbTotalPrice;
   @FXML
@@ -62,8 +63,8 @@ public class MyHandlingOrderController extends AnchorPane {
   private ResourceBundle bundle;
   private List<OrderDetail> listOrder = new ArrayList<>();
   private ObservableList<OrderDetail> orderDetailObservableList = FXCollections.observableList(listOrder);
-  private List<PutQueueRequest.Item> listProductInOrder = new ArrayList<>();
-  private ObservableList<PutQueueRequest.Item> observableListProductInOrder = FXCollections.observableList(listProductInOrder);
+  private List<PutQueueRequest.ItemWithImage> listProductInOrder = new ArrayList<>();
+  private ObservableList<PutQueueRequest.ItemWithImage> observableListProductInOrder = FXCollections.observableList(listProductInOrder);
   private OrderDetail selecteOrder;
 
   public MyHandlingOrderController() {
@@ -122,10 +123,11 @@ public class MyHandlingOrderController extends AnchorPane {
     //table detail
 //        colIdInOrder.setCellValueFactory(new PropertyValueFactory<>("id"));
     colProductNameInOrder.setCellValueFactory(new PropertyValueFactory<>("itemname"));
-    colDescriptionInOrder.setCellValueFactory(new PropertyValueFactory<>("description"));
+//    colDescriptionInOrder.setCellValueFactory(new PropertyValueFactory<>("description"));
     colPriceInOrder.setCellValueFactory(new PropertyValueFactory<>("price"));
     colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("note"));
+    colImageInOrder.setCellValueFactory(new PropertyValueFactory<>("productImage"));
     tbOrderInfo.setItems(observableListProductInOrder);
 
     //table list order
@@ -225,7 +227,11 @@ public class MyHandlingOrderController extends AnchorPane {
     NavigationUtils.setVisibility(false, apOrderInQueueTable);
     NavigationUtils.setVisibility(true, apOrderInfo);
     lbTotalPrice.setText("Tổng giá trị: " + selected.getSumup() + " VND");
-    observableListProductInOrder = FXCollections.observableList(selected.getItems());
+    List<PutQueueRequest.ItemWithImage> list = new ArrayList<>();
+    for (PutQueueRequest.Item item: selected.getItems()){
+      list.add(item.convertToItemWithImage());
+    }
+    observableListProductInOrder = FXCollections.observableList(list);
     tbOrderInfo.setItems(observableListProductInOrder);
   }
 

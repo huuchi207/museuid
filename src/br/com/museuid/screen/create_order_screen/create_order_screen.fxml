@@ -22,13 +22,15 @@
       <columns>
         <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"-->
         <!--text="Id" />-->
-        <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+        <TableColumn fx:id="colProductName" maxWidth="300.0" minWidth="150.0" prefWidth="150.0"
           text="%txt_product_name" />
-        <TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+        <TableColumn fx:id="colImage" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"
+          text="%txt_product_image" />
+        <TableColumn fx:id="colDescription" maxWidth="800.0" minWidth="150.0" prefWidth="150.0"
           text="%txt_description" />
-        <TableColumn fx:id="colPrice" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
+        <TableColumn fx:id="colPrice" maxWidth="150.0" minWidth="150.0" prefWidth="250.0"
           text="%txt_price" />
-        <TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
+        <TableColumn fx:id="colStatus" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"
           text="%txt_status" />
       </columns>
       <columnResizePolicy>
@@ -63,19 +65,22 @@
       <AnchorPane fx:id="apEditOrderList" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <TableView fx:id="tbProductInOrder" tableMenuButtonVisible="true"
-          AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0">
+          AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0">
           <columns>
             <!--<TableColumn fx:id="colIdInOrder" maxWidth="50.0" minWidth="50.0"-->
             <!--prefWidth="50.0" text="Id" />-->
-            <TableColumn fx:id="colProductNameInOrder" maxWidth="900.0" minWidth="150.0"
+            <TableColumn fx:id="colProductNameInOrder" maxWidth="150.0" minWidth="150.0"
               prefWidth="150.0" text="%txt_product_name" />
-            <TableColumn fx:id="colDescriptionInOrder" maxWidth="900.0" minWidth="150.0"
+            <TableColumn fx:id="colImageInOrder" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_product_image" />
+            <TableColumn fx:id="colDescriptionInOrder" maxWidth="400.0" minWidth="150.0"
               prefWidth="150.0" text="%txt_description" />
-            <TableColumn fx:id="colPriceInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
+            <TableColumn fx:id="colPriceInOrder" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"
               text="%txt_price" />
-            <TableColumn fx:id="colCountInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
+            <TableColumn fx:id="colCountInOrder" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"
               text="%txt_count" />
-            <TableColumn fx:id="colMoreRequirement" maxWidth="900.0" minWidth="150.0"
+            <TableColumn fx:id="colMoreRequirement" maxWidth="600.0" minWidth="150.0"
               prefWidth="250.0" text="%txt_more_requirement" />
           </columns>
           <columnResizePolicy>

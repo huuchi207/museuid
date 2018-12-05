@@ -2,7 +2,6 @@ package br.com.museuid.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-import br.com.museuid.model.data.ProductInOrder;
 import br.com.museuid.util.BundleUtils;
 
 public class Product {
@@ -83,9 +82,6 @@ public class Product {
     this.inStock = inStock;
   }
 
-  public ProductInOrder convertToProductInOrder() {
-    return new ProductInOrder(id, productName, description, price, inStock, 1);
-  }
 
   public void updateStatus() {
     this.status = (inStock != null && inStock > 0) ?

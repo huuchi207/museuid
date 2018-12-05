@@ -6,13 +6,13 @@ import java.util.List;
 
 public class ProductListDTO {
     @SerializedName("list")
-    List<Product> products;
+    List<ProductWithImage> products;
 
-    public List<Product> getProducts() {
+    public List<ProductWithImage> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<ProductWithImage> products) {
         this.products = products;
     }
 }

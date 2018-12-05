@@ -3,14 +3,15 @@ package br.com.museuid.model.data;
 
 import org.apache.commons.lang3.StringUtils;
 
-import br.com.museuid.dto.Product;
+import br.com.museuid.dto.ProductWithImage;
 import javafx.scene.control.TextField;
 
-public class ProductImporting extends Product {
-  public ProductImporting(String id, String productName, String description, Integer price, Integer inStock) {
-    super(id, productName, description, price, inStock);
+public class ProductImporting extends ProductWithImage {
+  public ProductImporting(String id, String productName, String description, Integer price, Integer inStock, String imageid) {
+    super(id, productName, description, price, inStock, imageid);
     configView();
   }
+
   private void configView(){
     numberToImport = 0;
     tfNumberToImport = new TextField();

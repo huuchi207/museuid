@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.Product;
+import br.com.museuid.dto.ProductWithImage;
 import br.com.museuid.model.data.ProductImporting;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
@@ -51,7 +52,8 @@ public class StockImportingControler extends AnchorPane {
   public TableColumn colDescriptionImporting;
   public TableColumn colPriceImporting;
   public TableColumn colNumberAdding;
-  private List<Product> productList = new ArrayList<>();
+  public TableColumn colProductImage;
+  private List<ProductWithImage> productList = new ArrayList<>();
   private String selectedProductId = "0";
 
   @FXML
@@ -61,7 +63,7 @@ public class StockImportingControler extends AnchorPane {
   @FXML
   private Button btExclude;
   @FXML
-  private TableView<Product> tbProduct;
+  private TableView<ProductWithImage> tbProduct;
   @FXML
   private TextField txtProductName;
   @FXML
@@ -91,7 +93,7 @@ public class StockImportingControler extends AnchorPane {
   @FXML
   private HBox boxEdit;
   private ResourceBundle bundle;
-  private ObservableList<Product> productObservableList = FXCollections.observableList(new ArrayList<>());
+  private ObservableList<ProductWithImage> productObservableList = FXCollections.observableList(new ArrayList<>());
   private ObservableList<ProductImporting> productImportingObservableList = FXCollections.observableList(new ArrayList<>());
   public StockImportingControler() {
     try {
@@ -136,22 +138,26 @@ public class StockImportingControler extends AnchorPane {
         @Override
         public void onSuccess(List<Product> data) {
           AppController.getInstance().hideProgressDialog();
-          productList = data;
-          updateProductTable(data);
+          List<ProductWithImage> list = new ArrayList<>();
+          for (Product product: data){
+            list.add(product.convertToProductWithImage());
+          }
+          productList = list;
+          updateProductTable(list);
         }
 
       });
     }
   }
-  private void updateProductTable(List<Product> data) {
+  private void updateProductTable(List<ProductWithImage> data) {
     productObservableList.clear();
     productObservableList.addAll(data);
   }
 
-  private void updateImportingProductTable(ObservableList<Product> selected){
+  private void updateImportingProductTable(ObservableList<ProductWithImage> selected){
     productImportingObservableList.clear();
-    for (Product product : selected){
-      ProductImporting productImporting = new ProductImporting(product.getId(), product.getProductName(), product.getDescription(), product.getPrice(), product.getInStock());
+    for (ProductWithImage product : selected){
+      ProductImporting productImporting = product.convertToProductImporting();
       productImporting.setOnContentChange(new ProductImporting.OnContentChange() {
         @Override
         public void onNumberChange(Integer oldNumber, Integer newNumber) {
@@ -174,6 +180,7 @@ public class StockImportingControler extends AnchorPane {
     );
     colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+    colProductImage.setCellValueFactory(new PropertyValueFactory<>("productImage"));
 //    colInStock.setCellValueFactory(new PropertyValueFactory<>("inStock"));
     colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
@@ -190,9 +197,9 @@ public class StockImportingControler extends AnchorPane {
   /**
    * FieldViewUtils de pesquisar para filtrar dados na updateProductTable
    */
-  private void filter(String valor, ObservableList<Product> products) {
+  private void filter(String valor, ObservableList<ProductWithImage> products) {
 
-    FilteredList<Product> filtedList = new FilteredList<>(products, product -> true);
+    FilteredList<ProductWithImage> filtedList = new FilteredList<>(products, product -> true);
     filtedList.setPredicate(product -> {
 
       if (valor == null || valor.isEmpty()) {
@@ -203,7 +210,7 @@ public class StockImportingControler extends AnchorPane {
       return false;
     });
 
-    SortedList<Product> dadosOrdenados = new SortedList<>(filtedList);
+    SortedList<ProductWithImage> dadosOrdenados = new SortedList<>(filtedList);
     dadosOrdenados.comparatorProperty().bind(tbProduct.comparatorProperty());
 //    FilterUtils.mensage(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
 
@@ -224,7 +231,7 @@ public class StockImportingControler extends AnchorPane {
 
   @FXML
   void editImportingSession(ActionEvent event){
-    ObservableList<Product> selectedItems = tbProduct.getSelectionModel().getSelectedItems();
+    ObservableList<ProductWithImage> selectedItems = tbProduct.getSelectionModel().getSelectedItems();
     if (selectedItems == null || selectedItems.isEmpty()){
       NoticeUtils.alert("Vui lòng chọn sản phẩm!");
       return;

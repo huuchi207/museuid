@@ -26,6 +26,8 @@
           <!--text="Id" />-->
           <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0"
             prefWidth="150.0" text="%txt_product_name"/>
+          <TableColumn fx:id="colProductImage" maxWidth="900.0" minWidth="150.0"
+            prefWidth="150.0" text="%txt_product_image"/>
           <TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0"
             prefWidth="150.0" text="%txt_description"/>
           <TableColumn fx:id="colPrice" maxWidth="900.0" minWidth="150.0"
