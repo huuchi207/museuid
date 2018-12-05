@@ -26,10 +26,13 @@
             <!--text="Id" />-->
             <TableColumn fx:id="colProductName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
               text="%txt_product_name" />
-            <TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
-              text="%txt_description" />
+
             <TableColumn fx:id="colPrice" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
               text="%txt_price" />
+            <TableColumn fx:id="colImage" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_product_image" />
+            <TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_description" />
             <TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
               text="%txt_status" />
           </columns>
@@ -50,10 +53,12 @@
             <!--prefWidth="50.0" text="Id" />-->
             <TableColumn fx:id="colProductNameInOrder" maxWidth="900.0" minWidth="150.0"
               prefWidth="150.0" text="%txt_product_name" />
-            <TableColumn fx:id="colDescriptionInOrder" maxWidth="900.0" minWidth="150.0"
-              prefWidth="150.0" text="%txt_description" />
+            <TableColumn fx:id="colImageInOrder" maxWidth="900.0" minWidth="150.0"
+              prefWidth="150.0" text="%txt_product_image" />
             <TableColumn fx:id="colPriceInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
               text="%txt_price" />
+            <TableColumn fx:id="colDescriptionInOrder" maxWidth="900.0" minWidth="150.0"
+              prefWidth="150.0" text="%txt_description" />
             <TableColumn fx:id="colCountInOrder" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
               text="%txt_count" />
             <TableColumn fx:id="colMoreRequirement" maxWidth="900.0" minWidth="150.0"

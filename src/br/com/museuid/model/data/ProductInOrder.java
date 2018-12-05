@@ -2,10 +2,11 @@ package br.com.museuid.model.data;
 
 import org.apache.commons.lang3.StringUtils;
 
-import br.com.museuid.dto.Product;
+import br.com.museuid.dto.ProductWithImage;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
-public class ProductInOrder extends Product {
+public class ProductInOrder extends ProductWithImage {
   private int count;
   private String countString;
   private String moreRequirement;
@@ -13,9 +14,11 @@ public class ProductInOrder extends Product {
   private TextField tfNote;
   private OnContentChange onContentChange;
 
-  public ProductInOrder(String id, String productName, String description, Integer price, Integer inStock,
-                        int count) {
-    super(id, productName, description, price, inStock);
+  public ProductInOrder(String id, String productName, String description, Integer price, Integer inStock, String imageid,
+                        ImageView imageView, int count) {
+    super(id, productName, description, price, inStock, imageid);
+    this.setProductImage(imageView);
+
     this.count = count;
     this.countString = String.valueOf(count);
 

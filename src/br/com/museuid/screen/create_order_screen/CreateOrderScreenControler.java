@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.Product;
+import br.com.museuid.dto.ProductWithImage;
 import br.com.museuid.model.data.ProductInOrder;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
@@ -39,11 +40,12 @@ public class CreateOrderScreenControler extends AnchorPane {
   public TextField txtSearch;
   //product list
   public AnchorPane apProductList;
-  public TableView<Product> tbProduct;
+  public TableView<ProductWithImage> tbProduct;
   //    public TableColumn colId;
   public TableColumn colProductName;
   public TableColumn colDescription;
   public TableColumn colPrice;
+  public TableColumn colImage;
   //order
   public AnchorPane apEditOrderList;
   public TableView<ProductInOrder> tbProductInOrder;
@@ -51,6 +53,7 @@ public class CreateOrderScreenControler extends AnchorPane {
   public TableColumn colProductNameInOrder;
   public TableColumn colDescriptionInOrder;
   public TableColumn colPriceInOrder;
+  public TableColumn colImageInOrder;
   public TableColumn<ProductInOrder, String> colCountInOrder;
   public TableColumn colStatus;
   public TableColumn<ProductInOrder, String> colMoreRequirement;
@@ -63,11 +66,10 @@ public class CreateOrderScreenControler extends AnchorPane {
 
   private ResourceBundle bundle;
 
-  private List<Product> productList;
-  private List<Product> selectedProductList;
+  private List<ProductWithImage> productList;
   private List<ProductInOrder> productInOrders;
 
-  private ObservableList<Product> productObservableList;
+  private ObservableList<ProductWithImage> productObservableList;
   private ObservableList<ProductInOrder> productInOrderObservableList;
   private int totalPrice;
 
@@ -106,6 +108,7 @@ public class CreateOrderScreenControler extends AnchorPane {
     colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
     colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+    colImage.setCellValueFactory(new PropertyValueFactory<>("productImage"));
 
 
 //        colIdInOrder.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -114,47 +117,8 @@ public class CreateOrderScreenControler extends AnchorPane {
     colPriceInOrder.setCellValueFactory(new PropertyValueFactory<>("price"));
     colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("tfNumber"));
     colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("tfNote"));
+    colImageInOrder.setCellValueFactory(new PropertyValueFactory<>("productImage"));
 
-//        tbProductInOrder.setEditable(true);
-////        colCountInOrder.setMinWidth(200);
-//        colCountInOrder.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
-//        // Khi edit xong 1 ô ở cột
-//        colCountInOrder.setOnEditCommit((TableColumn.CellEditEvent<ProductInOrder, String> event) -> {
-//            TablePosition<ProductInOrder, String> pos = event.getTablePosition();
-//
-//            String newCountString = event.getNewValue();
-//            int newCount;
-//            try{
-//                newCount = Integer.valueOf(newCountString);
-//            }catch (NumberFormatException e){
-//                newCount = -1;
-//            }
-//            int row = pos.getRow();
-//            ProductInOrder productInOrder = event.getTableView().getItems().get(row);
-//            if (newCount <=0){
-//                Messenger.erro(bundle.getString("txt_number_must_large_0"));
-//                tbProductInOrder.getItems().set(row, productInOrder);
-//                return;
-//            }
-//
-//            productInOrder.setCount(newCount);
-//            updateProductInOrderScreenData();
-//        });
-//
-//        colMoreRequirement.setCellFactory(TextFieldTableCell.<ProductInOrder> forTableColumn());
-//
-//        // Khi edit xong 1 ô ở cột
-//        colMoreRequirement.setOnEditCommit((TableColumn.CellEditEvent<ProductInOrder, String> event) -> {
-//            TablePosition<ProductInOrder, String> pos = event.getTablePosition();
-//
-//            String newString = event.getNewValue();
-//
-//            int row = pos.getRow();
-//            ProductInOrder productInOrder = event.getTableView().getItems().get(row);
-//
-//            productInOrder.setMoreRequirement(newString);
-////            updateProductInOrderScreenData();
-//        });
   }
 
   /**
@@ -162,7 +126,6 @@ public class CreateOrderScreenControler extends AnchorPane {
    */
   private void updateProductTable() {
     productObservableList = FXCollections.observableArrayList(productList);
-    initTable();
     tbProduct.setItems(productObservableList);
   }
 
@@ -175,9 +138,9 @@ public class CreateOrderScreenControler extends AnchorPane {
   /**
    * FieldViewUtils de pesquisar para filtrar dados na updateTable
    */
-  private void filter(String valor, ObservableList<Product> products) {
+  private void filter(String valor, ObservableList<ProductWithImage> products) {
 
-    FilteredList<Product> filteredList = new FilteredList<>(products, Product -> true);
+    FilteredList<ProductWithImage> filteredList = new FilteredList<>(products, Product -> true);
     filteredList.setPredicate(product -> {
 
       if (valor == null || valor.isEmpty()) {
@@ -189,7 +152,7 @@ public class CreateOrderScreenControler extends AnchorPane {
       return false;
     });
 
-    SortedList<Product> dadosOrdenados = new SortedList<>(filteredList);
+    SortedList<ProductWithImage> dadosOrdenados = new SortedList<>(filteredList);
     dadosOrdenados.comparatorProperty().bind(tbProduct.comparatorProperty());
 //    FilterUtils.mensage(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
 
@@ -250,12 +213,12 @@ public class CreateOrderScreenControler extends AnchorPane {
     if (ConstantConfig.FAKE) {
       Messenger.info(bundle.getString("msg_create_order_successfully") + "\"" + bundle.getString("txt_order_created") + "\"");
     } else {
-      PutQueueRequest putQueueRequest = createPutOrderRequest();
-      if (putQueueRequest == null){
+      PutQueueRequest queueRequest = createPutOrderRequest();
+      if (queueRequest == null) {
         return;
       }
       AppController.getInstance().showProgressDialog();
-      ServiceBuilder.getApiService().putOrder(putQueueRequest).enqueue(new BaseCallback<Object>() {
+      ServiceBuilder.getApiService().putOrder(queueRequest).enqueue(new BaseCallback<Object>() {
         @Override
         public void onError(String errorCode, String errorMessage) {
           AppController.getInstance().hideProgressDialog();
@@ -288,13 +251,13 @@ public class CreateOrderScreenControler extends AnchorPane {
       return new ArrayList<>();
     }
 
-    ObservableList<Product> selectedItems = tbProduct.getSelectionModel().getSelectedItems();
+    ObservableList<ProductWithImage> selectedItems = tbProduct.getSelectionModel().getSelectedItems();
 
-    ListIterator<Product> iterator = selectedItems.listIterator();
+    ListIterator<ProductWithImage> iterator = selectedItems.listIterator();
     List<ProductInOrder> selectedProducts = new ArrayList<>();
     while (iterator.hasNext()) {
       Product item = iterator.next();
-      for (Product product : productList) {
+      for (ProductWithImage product : productList) {
         if (product.getId().equals(item.getId())) {
           ProductInOrder productInOrder = product.convertToProductInOrder();
           productInOrder.setOnContentChange(new ProductInOrder.OnContentChange() {
@@ -334,10 +297,14 @@ public class CreateOrderScreenControler extends AnchorPane {
   }
 
   private void updateProductList(List<Product> products) {
+    List<ProductWithImage> list = new ArrayList<>();
     for (Product product : products) {
-      product.updateStatus();
+      ProductWithImage productWithImage = product.convertToProductWithImage();
+      productWithImage.updateStatus();
+      list.add(productWithImage);
     }
-    productList = products;
+
+    productList = list;
   }
 
   private PutQueueRequest createPutOrderRequest() {
@@ -362,7 +329,8 @@ public class CreateOrderScreenControler extends AnchorPane {
         productInOrder.getPrice(),
         priceOfProduct,
         productInOrder.getTfNote().getText().trim(),
-        priceOfProduct));
+        priceOfProduct,
+        productInOrder.getImageid()));
       totalPrice += priceOfProduct;
     }
 
