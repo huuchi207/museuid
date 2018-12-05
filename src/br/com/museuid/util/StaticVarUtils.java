@@ -6,12 +6,17 @@ import br.com.museuid.dto.SessionUserInfo;
 import br.com.museuid.dto.UserDTO;
 import br.com.museuid.screen.app.AppController;
 
+import static br.com.museuid.config.ConstantConfig.APP_DATA_FOLDER_NAME;
+import static br.com.museuid.config.ConstantConfig.APP_NAME;
+
 public class StaticVarUtils {
     private static SessionDeviceInfo sessionDeviceInfo;
     private static SessionUserInfo sessionUserInfo;
     private static String macAddress = NetworkUtils.getAddress("mac");
     private static String token;
-    public static String getMacAddress(){
+    private static String APP_DATA_PATH = System.getProperty("user.home")+ "\\"+ APP_NAME +"\\"+ APP_DATA_FOLDER_NAME;
+
+  public static String getMacAddress(){
         return macAddress;
     }
     public static void setSessionDeviceInfo(SessionDeviceInfo deviceInfo){
@@ -54,4 +59,12 @@ public class StaticVarUtils {
     public static void setToken(String token) {
         StaticVarUtils.token = token;
     }
+
+  public static String getAppDataPath() {
+    return APP_DATA_PATH;
+  }
+
+  public static void setAppDataPath(String appDataPath) {
+    APP_DATA_PATH = appDataPath;
+  }
 }

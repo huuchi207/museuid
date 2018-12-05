@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import static br.com.museuid.config.ConstantConfig.APP_IMAGE_SUB_FOLDER_NAME;
+
 public class ImageUtils {
   public static String reduceImg(String imgsrc, String folderDest , String type, int widthdest,
                                        int heightdest) {
@@ -26,7 +28,7 @@ public class ImageUtils {
         BufferedImage.TYPE_INT_RGB);
 
       tag.getGraphics().drawImage(src.getScaledInstance(widthdest, heightdest, Image.SCALE_SMOOTH), 0, 0, null);
-      String filePath = folderDest+ "\\"+ imgSrc.getName();
+      String filePath = StaticVarUtils.getAppDataPath()+ "\\"+ APP_IMAGE_SUB_FOLDER_NAME+ "\\"+ imgSrc.getName();
       File outputFile = new File(filePath);
       outputFile.getParentFile().mkdirs();
       FileOutputStream out = new FileOutputStream(filePath);

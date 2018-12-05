@@ -150,7 +150,7 @@ public class ProductManagementControler extends AnchorPane {
       Messenger.erro("Giá và số lượng hàng trong kho phải lớn hơn 0!");
       return;
     }
-    AppController.getInstance().showProgressDialog();
+
     if (selectedImagePath != null){
       File uploadFile = new File(selectedImagePath);
       if (!uploadFile.exists()) {
@@ -193,6 +193,7 @@ public class ProductManagementControler extends AnchorPane {
         AppController.getInstance().hideProgressDialog();
         Messenger.info(bundle.getString("txt_operation_successful"));
       } else {
+        AppController.getInstance().showProgressDialog();
         ServiceBuilder.getApiService().addProduct(product).enqueue(new BaseCallback<Product>() {
           @Override
           public void onError(String errorCode, String errorMessage) {
@@ -218,6 +219,7 @@ public class ProductManagementControler extends AnchorPane {
         updateTable();
         Messenger.info(bundle.getString("txt_operation_successful"));
       } else {
+        AppController.getInstance().showProgressDialog();
         ServiceBuilder.getApiService().updateProduct(product).enqueue(new BaseCallback<Product>() {
           @Override
           public void onError(String errorCode, String errorMessage) {
@@ -420,7 +422,7 @@ public class ProductManagementControler extends AnchorPane {
       try {
         Image image = new Image(new FileInputStream(file), 150, 150, false, false);
         ImageView imageView = new ImageView(image);
-        selectedImagePath = ImageUtils.reduceImg(file, ConstantConfig.APP_DATA_FOLDER+ "\\"+ ConstantConfig.APP_IMAGE_SUB_FOLDER, "JPG",150, 150);
+        selectedImagePath = ImageUtils.reduceImg(file, ConstantConfig.APP_DATA_FOLDER_NAME + "\\"+ ConstantConfig.APP_IMAGE_SUB_FOLDER_NAME, "JPG",150, 150);
         lbProductImage.setGraphic(imageView);
       } catch (FileNotFoundException e) {
         Messenger.erro("Không thể mở ảnh!");
