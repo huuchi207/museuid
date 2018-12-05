@@ -13,7 +13,6 @@ import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.StockImportingRequest;
 import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.FakeDataUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
@@ -123,7 +122,7 @@ public class StockImportingControler extends AnchorPane {
   private void getProductList() {
     if (ConstantConfig.FAKE) {
       if (productList == null) {
-        productList = FakeDataUtils.getFakeProductList();
+//        productList = FakeDataUtils.getFakeProductList();
       }
 
     } else {

@@ -143,7 +143,7 @@ public class ProductManagementControler extends AnchorPane {
       priceNumber = Integer.valueOf(price);
       inStockNumber = Integer.valueOf(inStock);
     } catch (NumberFormatException e) {
-      Messenger.erro("Giá và số lượng hàng trong kho phải là số!");
+      Messenger.erro("Giá và số lượng hàng trong kho phải là số nguyên!");
       return;
     }
     if (priceNumber<=0 || inStockNumber<=0){

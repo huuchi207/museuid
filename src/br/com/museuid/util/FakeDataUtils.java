@@ -14,8 +14,8 @@ import br.com.museuid.dto.ChartPoint;
 import br.com.museuid.dto.EmployeeDTO;
 import br.com.museuid.dto.EmployeeListDTO;
 import br.com.museuid.dto.GroupChartPoint;
+import br.com.museuid.dto.Product;
 import br.com.museuid.dto.ProductListDTO;
-import br.com.museuid.dto.ProductWithImage;
 import br.com.museuid.service.remote.ResponseDTO;
 
 public class FakeDataUtils {
@@ -38,7 +38,7 @@ public class FakeDataUtils {
     return new ArrayList<>();
   }
 
-    public static List<ProductWithImage> getFakeProductList(){
+    public static List<Product> getFakeProductList(){
         try{
             JsonReader reader = readFile("product.json");
             if (reader != null){

@@ -183,11 +183,7 @@ public class CreateOrderScreenControler extends AnchorPane {
         @Override
         public void onSuccess(List<Product> data) {
           AppController.getInstance().hideProgressDialog();
-          List<ProductWithImage> list = new ArrayList<>();
-          for (Product product : data) {
-            list.add(product.convertToProductWithImage());
-          }
-          updateProductList(list);
+          updateProductList(data);
           updateProductTable();
         }
       });
@@ -333,13 +329,14 @@ public class CreateOrderScreenControler extends AnchorPane {
     lbLegend.setText(bundle.getString("txt_total_price") + ": " + totalPrice + " " + bundle.getString("txt_vnd"));
   }
 
-  private void updateProductList(List<ProductWithImage> products) {
-    for (ProductWithImage product : products) {
-      product.updateStatus();
-      product.createImage();
-
+  private void updateProductList(List<Product> products) {
+    List<ProductWithImage> list = new ArrayList<>();
+    for (Product product : products) {
+      ProductWithImage productWithImage = product.convertToProductWithImage();
+      productWithImage.updateStatus();
+      list.add(productWithImage);
     }
-    productList = products;
+    productList = list;
   }
 
   private OrderDetail createPutOrderRequest() {
