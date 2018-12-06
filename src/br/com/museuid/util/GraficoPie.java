@@ -1,6 +1,6 @@
 package br.com.museuid.util;
 
-import br.com.museuid.model.Relatorio;
+import br.com.museuid.model.data.BaseChartItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -27,7 +27,7 @@ public class GraficoPie {
     /**
      * Criar grafico de pizza e showDialog dados aparitr do map informado
      */
-    public static PieChart criar(String titulo, Map<String, List<Relatorio>> map) {
+    public static PieChart criar(String titulo, Map<String, List<BaseChartItem>> map) {
 
         double total = 0;
         grafico.setTitle(titulo);
@@ -35,11 +35,11 @@ public class GraficoPie {
         ObservableList<PieChart.Data> dados = FXCollections.observableArrayList();
 
         for (String chave : map.keySet()) {
-            List<Relatorio> relatorios = map.get(chave);
+            List<BaseChartItem> relatorios = map.get(chave);
 
-            for (Relatorio relatorio : relatorios) {
-                dados.add(new PieChart.Data(chave, relatorio.getTotal()));
-                total += relatorio.getTotal();
+            for (BaseChartItem relatorio : relatorios) {
+                dados.add(new PieChart.Data(chave, relatorio.getValue()));
+                total += relatorio.getValue();
             }
         }
 
