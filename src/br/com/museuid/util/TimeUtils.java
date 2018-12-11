@@ -340,6 +340,19 @@ public class TimeUtils {
     return false;
   }
 
+  public static boolean validDistanceDate(String fromDate, String toDate, ProductStatisticController.Period period){
+    switch (period) {
+      case YEAR:
+        return validDistanceDate(fromDate, toDate, RevenueStatisticController.YEAR);
+      case MONTH:
+        return validDistanceDate(fromDate, toDate, RevenueStatisticController.MONTH);
+      case DAY:
+        return validDistanceDate(fromDate, toDate, RevenueStatisticController.DAY);
+      default:
+        return false;
+    }
+  }
+
   private static int numberOfMonthBetweenDates(int startMonth, int startYear, int endMonth, int endYear){
     int distance = 0;
     if (endYear - startYear>1){
