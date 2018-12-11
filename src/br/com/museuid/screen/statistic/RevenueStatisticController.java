@@ -38,10 +38,10 @@ public class RevenueStatisticController extends AnchorPane {
   @FXML
   private ToggleGroup menuPeriodForManager;
   private int period = 1;
-  private static final int SESSION = 0;
-  private static final int DAY = 1;
-  private static final int MONTH = 2;
-  private static final int YEAR = 3;
+  public static final int SESSION = 0;
+  public static final int DAY = 1;
+  public static final int MONTH = 2;
+  public static final int YEAR = 3;
 
   @FXML
   private AnchorPane boxGraphic;
@@ -136,22 +136,28 @@ public class RevenueStatisticController extends AnchorPane {
           switch (period){
             case SESSION:
             case DAY:
-              datePickerStartBox.getChildren().remove(datePickerStart);
-              datePickerEndBox.getChildren().remove(datePickerEnd);
-              datePickerStartBox.getChildren().add(new FXCalendar(FXCalendar.PickerMode.DATE));
-              datePickerEndBox.getChildren().add(new FXCalendar(FXCalendar.PickerMode.DATE));
+              datePickerStartBox.getChildren().clear();
+              datePickerEndBox.getChildren().clear();
+              datePickerStart = new FXCalendar(FXCalendar.PickerMode.DATE);
+              datePickerEnd = new FXCalendar(FXCalendar.PickerMode.DATE);
+              datePickerStartBox.getChildren().add(datePickerStart);
+              datePickerEndBox.getChildren().add(datePickerEnd);
               break;
             case MONTH:
-              datePickerStartBox.getChildren().remove(datePickerStart);
-              datePickerEndBox.getChildren().remove(datePickerEnd);
-              datePickerStartBox.getChildren().add(new FXCalendar(FXCalendar.PickerMode.MONTH));
-              datePickerEndBox.getChildren().add(new FXCalendar(FXCalendar.PickerMode.MONTH));
+              datePickerStartBox.getChildren().clear();
+              datePickerEndBox.getChildren().clear();
+              datePickerStart = new FXCalendar(FXCalendar.PickerMode.MONTH);
+              datePickerEnd = new FXCalendar(FXCalendar.PickerMode.MONTH);
+              datePickerStartBox.getChildren().add(datePickerStart);
+              datePickerEndBox.getChildren().add(datePickerEnd);
               break;
             case YEAR:
-              datePickerStartBox.getChildren().remove(datePickerStart);
-              datePickerEndBox.getChildren().remove(datePickerEnd);
-              datePickerStartBox.getChildren().add(new FXCalendar(FXCalendar.PickerMode.YEAR));
-              datePickerEndBox.getChildren().add(new FXCalendar(FXCalendar.PickerMode.YEAR));
+              datePickerStartBox.getChildren().clear();
+              datePickerEndBox.getChildren().clear();
+              datePickerStart = new FXCalendar(FXCalendar.PickerMode.YEAR);
+              datePickerEnd = new FXCalendar(FXCalendar.PickerMode.YEAR);
+              datePickerStartBox.getChildren().add(datePickerStart);
+              datePickerEndBox.getChildren().add(datePickerEnd);
               break;
           }
         }
@@ -162,6 +168,14 @@ public class RevenueStatisticController extends AnchorPane {
 
   @FXML
   void doStatistic(ActionEvent event) {
+    if (!TimeUtils.validDate(datePickerStart.getFormattedTime(), datePickerEnd.getFormattedTime(), period)){
+      Messenger.info("Thời gian bắt đầu phải sớm hơn hoặc bằng thời gian kết thúc");
+      return;
+    }
+    if (!TimeUtils.validDistanceDate(datePickerStart.getFormattedTime(), datePickerEnd.getFormattedTime(), period)){
+      Messenger.info("Thời gian bắt đầu và kết thúc quá cách xa nhau!");
+      return;
+    }
     if (ConstantConfig.FAKE) {
       ChartData chartData = FakeDataUtils.getFakeGroupBarChart();
       makeBarChart(chartData);
@@ -172,6 +186,7 @@ public class RevenueStatisticController extends AnchorPane {
         renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
       }
     } else {
+
       AppController.getInstance().showProgressDialog();
       BaseCallback<ChartData> chartDataCallback = new BaseCallback<ChartData>() {
         @Override

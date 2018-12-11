@@ -61,6 +61,8 @@ public class FXCalendar extends HBox {
     setAlignment(Pos.CENTER);
     configureCalendar();
     configureListeners();
+    setCurrentTime();
+
   }
 
   public PickerMode getPickerMode() {
@@ -74,7 +76,7 @@ public class FXCalendar extends HBox {
 
   public FXCalendar(PickerMode pickerMode) {
     super();
-
+    this.getStylesheets().add(getClass().getResource("styles/calendar_styles.css").toExternalForm());
     this.pickerMode = pickerMode;
     super.getStyleClass().add(DEFAULT_STYLE_CLASS);
     this.locale.set(Locale.ENGLISH);
@@ -83,6 +85,7 @@ public class FXCalendar extends HBox {
     setAlignment(Pos.CENTER);
     configureCalendar();
     configureListeners();
+    setCurrentTime();
   }
 
   private void configureCalendar() {
@@ -233,8 +236,6 @@ public class FXCalendar extends HBox {
       if (PickerMode.DATE == pickerMode) {
         dateTxtField.setText(this.fxCalendarUtility.getFormattedDate(date, month, year));
       }
-    } else {
-        dateTxtField.setText("");
     }
   }
 
@@ -493,5 +494,10 @@ public class FXCalendar extends HBox {
       setText(item != null ? item.toString() : "");
     }
   }
-
+  public void setCurrentTime(){
+    this.setValue(new Date());
+  }
+  public String getFormattedTime(){
+    return dateTxtField.getText();
+  }
 }

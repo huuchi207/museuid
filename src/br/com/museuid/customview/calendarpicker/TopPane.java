@@ -248,6 +248,7 @@ public class TopPane extends Group {
           styleTopYearPane();
           if (datePicker.getPickerMode() == FXCalendar.PickerMode.YEAR){
             datePicker.getFxCalendar().setSelectedYear(getYear());
+            datePicker.setSelectedYear(getYear());
             datePicker.getFxCalendar().setTriggered(true);
 
             datePicker.getFxCalendar().getTextField().requestFocus();
@@ -343,6 +344,9 @@ public class TopPane extends Group {
         } else if (datePicker.getPickerMode() == FXCalendar.PickerMode.MONTH){
           datePicker.getFxCalendar().setSelectedMonth(getMonth());
           datePicker.getFxCalendar().setSelectedYear(getYear());
+
+          datePicker.setSelectedMonth(getMonth());
+          datePicker.setSelectedYear(getYear());
           datePicker.getFxCalendar().setTriggered(true);
 
           datePicker.getFxCalendar().getTextField().requestFocus();
