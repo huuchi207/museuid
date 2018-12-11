@@ -195,9 +195,9 @@ public class TimeUtils {
     if (m == null) {//period = YEAR, format = yyyy
       return y + "";
     } else if (d == null) {//period = MONTH, format = yyyyMM
-      return y + ((m > 10) ? (m + "") : ("0" + m));
+      return y + ((m >= 10) ? (m + "") : ("0" + m));
     } else {//period = DAY, format = MM/dd/yyyy
-      String date = ((m > 10) ? (m + "") : ("0" + m)) + "/" + ((d > 10) ? (d + "") : ("0" + d)) + "/" + y;
+      String date = ((m >= 10) ? (m + "") : ("0" + m)) + "/" + ((d >= 10) ? (d + "") : ("0" + d)) + "/" + y;
       if (isFromDate) {
         date += " 00:00:00";
       } else {

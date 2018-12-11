@@ -1,6 +1,7 @@
 package br.com.museuid.screen.product_statistic;
 
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.customview.calendarpicker.FXCalendar;
 import br.com.museuid.dto.ChartData;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
@@ -21,7 +22,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.category.SlidingCategoryDataset;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -34,7 +34,7 @@ public class ProductStatisticController extends AnchorPane {
 
   private int period = 0;
 
-  public enum Period{
+  public enum Period {
     DAY, MONTH, YEAR;
   }
 
@@ -46,10 +46,10 @@ public class ProductStatisticController extends AnchorPane {
   @FXML
   private Label lbPrincipal;
   @FXML
-  private DatePicker datePickerStart;
+  private FXCalendar datePickerStart;
 
   @FXML
-  private DatePicker datePickerEnd;
+  private FXCalendar datePickerEnd;
   @FXML
   private ToggleGroup menuPeriod;
   @FXML
@@ -74,6 +74,8 @@ public class ProductStatisticController extends AnchorPane {
   private SlidingCategoryDataset dataset;
   private static final String BASED_ON_REVENUE = "Theo doanh thu";
   private static final String BASED_ON_NUMBER = "Theo lượng hàng bán ra";
+  public HBox datePickerStartBox;
+  public HBox datePickerEndBox;
 
   public ProductStatisticController() {
     try {
@@ -93,10 +95,10 @@ public class ProductStatisticController extends AnchorPane {
   @FXML
   void initialize() {
 
-    datePickerStart.setValue(LocalDate.now());
-    datePickerEnd.setValue(LocalDate.now());
-    TimeUtils.reformatDatePickerValue(datePickerStart);
-    TimeUtils.reformatDatePickerValue(datePickerEnd);
+//    datePickerStart.setValue(LocalDate.now());
+//    datePickerEnd.setValue(LocalDate.now());
+//    TimeUtils.reformatDatePickerValue(datePickerStart);
+//    TimeUtils.reformatDatePickerValue(datePickerEnd);
 
     List<String> listOptionDataType = new ArrayList<>();
     listOptionDataType.add(BASED_ON_REVENUE);
@@ -134,6 +136,32 @@ public class ProductStatisticController extends AnchorPane {
           old.setSelected(true);
         } else {
           setPeriod(newPosition);
+          switch (Period.values()[period]) {
+            case DAY:
+              datePickerStartBox.getChildren().clear();
+              datePickerEndBox.getChildren().clear();
+              datePickerStart = new FXCalendar(FXCalendar.PickerMode.DATE);
+              datePickerEnd = new FXCalendar(FXCalendar.PickerMode.DATE);
+              datePickerStartBox.getChildren().add(datePickerStart);
+              datePickerEndBox.getChildren().add(datePickerEnd);
+              break;
+            case MONTH:
+              datePickerStartBox.getChildren().clear();
+              datePickerEndBox.getChildren().clear();
+              datePickerStart = new FXCalendar(FXCalendar.PickerMode.MONTH);
+              datePickerEnd = new FXCalendar(FXCalendar.PickerMode.MONTH);
+              datePickerStartBox.getChildren().add(datePickerStart);
+              datePickerEndBox.getChildren().add(datePickerEnd);
+              break;
+            case YEAR:
+              datePickerStartBox.getChildren().clear();
+              datePickerEndBox.getChildren().clear();
+              datePickerStart = new FXCalendar(FXCalendar.PickerMode.YEAR);
+              datePickerEnd = new FXCalendar(FXCalendar.PickerMode.YEAR);
+              datePickerStartBox.getChildren().add(datePickerStart);
+              datePickerEndBox.getChildren().add(datePickerEnd);
+              break;
+          }
         }
 
       }
@@ -141,16 +169,51 @@ public class ProductStatisticController extends AnchorPane {
   }
 
 
-
   @FXML
   void doStatistic(ActionEvent event) {
+    if (!TimeUtils.validDate(datePickerStart.getFormattedTime(), datePickerEnd.getFormattedTime(), Period.values()[period])) {
+      Messenger.info("Thời gian bắt đầu phải sớm hơn hoặc bằng thời gian kết thúc");
+      return;
+    }
+    if (!TimeUtils.validDistanceDate(datePickerStart.getFormattedTime(), datePickerEnd.getFormattedTime(), Period.values()[period])) {
+      Messenger.info("Thời gian bắt đầu và kết thúc quá cách xa nhau!");
+      return;
+    }
     if (ConstantConfig.FAKE) {
 
     } else {
       AppController.getInstance().showProgressDialog();
-      StatisticRequest statisticRequest = new StatisticRequest(
-        TimeUtils.convertDateTimeToStartTimeFormat(datePickerStart.getValue()),
-        TimeUtils.convertDateTimeToEndTimeFormat(datePickerEnd.getValue()));
+      StatisticRequest statisticRequest;
+      switch (Period.values()[period]) {
+        case DAY:
+          statisticRequest = new StatisticRequest(
+            TimeUtils.convertDateTimeToRequestTimeFormat(
+              datePickerStart.getSelectedDate(), datePickerStart.getSelectedMonth(), datePickerStart.getSelectedYear(), true),
+            TimeUtils.convertDateTimeToRequestTimeFormat(
+              datePickerEnd.getSelectedDate(), datePickerEnd.getSelectedMonth(), datePickerEnd.getSelectedYear(), false));
+          break;
+        case MONTH:
+          statisticRequest = new StatisticRequest(
+            TimeUtils.convertDateTimeToRequestTimeFormat(
+              null, datePickerStart.getSelectedMonth(), datePickerStart.getSelectedYear(), true),
+            TimeUtils.convertDateTimeToRequestTimeFormat(
+              null, datePickerEnd.getSelectedMonth(), datePickerEnd.getSelectedYear(), false));
+          break;
+        case YEAR:
+          statisticRequest = new StatisticRequest(
+            TimeUtils.convertDateTimeToRequestTimeFormat(
+              null, null, datePickerStart.getSelectedYear(), true),
+            TimeUtils.convertDateTimeToRequestTimeFormat(
+              null, null, datePickerEnd.getSelectedYear(), false));
+          break;
+        default:
+          statisticRequest = new StatisticRequest(
+            TimeUtils.convertDateTimeToRequestTimeFormat(
+              datePickerStart.getSelectedDate(), datePickerStart.getSelectedMonth(), datePickerStart.getSelectedYear(), true),
+            TimeUtils.convertDateTimeToRequestTimeFormat(
+              datePickerEnd.getSelectedDate(), datePickerEnd.getSelectedMonth(), datePickerEnd.getSelectedYear(), false));
+          break;
+      }
       statisticRequest.setCategory(Period.values()[period].name());
       BaseCallback<ChartData> chartDataCallback = new BaseCallback<ChartData>() {
         @Override
@@ -186,7 +249,7 @@ public class ProductStatisticController extends AnchorPane {
 //        }
   }
 
-  private void makeLineChart(ChartData data){
+  private void makeLineChart(ChartData data) {
     DefaultCategoryDataset defaultCategoryDataset = ChartUtils.convertChartDataToCategoryDataset(data);
     dataset = new SlidingCategoryDataset(defaultCategoryDataset, 0, 10);
     ChartUtils.configScrollBar(dataset, scrollBar, defaultCategoryDataset.getColumnCount());
