@@ -7,6 +7,7 @@ import br.com.museuid.dto.sample.Item;
 import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
+import br.com.museuid.service.remote.requestbody.StringBody;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -41,4 +42,7 @@ public interface APIService {
 
     @POST("queues/queue")
     Call<ResponseDTO<Object>> updateOrder(@Body OrderDetail orderDetail);
+
+    @POST("machines/active")
+    Call<ResponseDTO<Object>> activeServer(@Body StringBody key);
 }

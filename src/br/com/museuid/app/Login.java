@@ -8,11 +8,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 /**
@@ -40,14 +38,15 @@ public class Login extends Application {
 
       cena = new Scene(page);
 
-      stage.initStyle(StageStyle.UNDECORATED);
-
-      stage.setX(windows.getMinX());
-      stage.setY(windows.getMinY());
-      stage.setWidth(windows.getWidth());
-      stage.setHeight(windows.getHeight());
-
-      stage.getIcons().addAll(new Image(Login.class.getResourceAsStream("icon.png")));
+      //            stage.setX(windows.getMinX());
+//            stage.setY(windows.getMinY());
+//            stage.setWidth(619);
+//            stage.setHeight(445);
+      stage.resizableProperty().setValue(Boolean.FALSE);
+//            stage.setMinWidth(windows.getWidth()-200);
+//            stage.setMinHeight(windows.getHeight()-100);
+      stage.centerOnScreen();
+//            stage.getIcons().addAll(new Image(App.class.getResourceAsStream("icon.png")));
       stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
         @Override
         public void handle(WindowEvent event) {
