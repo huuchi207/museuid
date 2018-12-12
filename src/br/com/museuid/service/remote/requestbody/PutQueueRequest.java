@@ -1,12 +1,11 @@
 package br.com.museuid.service.remote.requestbody;
 
+import br.com.museuid.service.remote.ServiceBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import javafx.scene.image.ImageView;
 
 import java.util.List;
-
-import br.com.museuid.service.remote.ServiceBuilder;
-import javafx.scene.image.ImageView;
 
 public class PutQueueRequest {
   @SerializedName("sumup")
@@ -232,7 +231,7 @@ public class PutQueueRequest {
   public static class ItemWithImage extends Item{
     private ImageView productImage;
     public void createImage(){
-      productImage = new ImageView(ServiceBuilder.getBASEURL()+"image?imageid="+ imageid);
+      productImage = new ImageView(ServiceBuilder.getBASEURL()+"images/image?imageid="+ imageid);
       productImage.setFitHeight(150);
       productImage.setFitWidth(150);
     }

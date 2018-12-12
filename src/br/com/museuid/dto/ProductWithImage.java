@@ -31,7 +31,7 @@ public class ProductWithImage  extends  Product{
   }
 
   public void createImage(){
-    productImage = new ImageView(ServiceBuilder.getBASEURL()+"image?imageid="+ imageid);
+    productImage = new ImageView(ServiceBuilder.getBASEURL()+"images/image?imageid="+ imageid);
     productImage.setFitHeight(150);
     productImage.setFitWidth(150);
   }
