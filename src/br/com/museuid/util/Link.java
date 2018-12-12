@@ -1,5 +1,7 @@
 package br.com.museuid.util;
 
+import br.com.museuid.service.remote.ServiceBuilder;
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -23,5 +25,7 @@ public class Link {
             Messenger.erro(BundleUtils.getResourceBundle().getString("txt_error"), ex.getMessage());
         }
     }
-
+    public static String getImageLink(String imageid){
+        return ServiceBuilder.getBASEURL()+"images/image?imageid="+ imageid;
+    }
 }

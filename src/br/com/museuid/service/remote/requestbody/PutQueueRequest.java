@@ -1,6 +1,6 @@
 package br.com.museuid.service.remote.requestbody;
 
-import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.util.Link;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import javafx.scene.image.ImageView;
@@ -231,7 +231,7 @@ public class PutQueueRequest {
   public static class ItemWithImage extends Item{
     private ImageView productImage;
     public void createImage(){
-      productImage = new ImageView(ServiceBuilder.getBASEURL()+"images/image?imageid="+ imageid);
+      productImage = new ImageView(Link.getImageLink(imageid));
       productImage.setFitHeight(150);
       productImage.setFitWidth(150);
     }

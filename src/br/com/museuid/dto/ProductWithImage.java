@@ -1,7 +1,7 @@
 package br.com.museuid.dto;
 
 import br.com.museuid.model.data.ProductInOrder;
-import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.util.Link;
 import javafx.scene.image.ImageView;
 
 public class ProductWithImage  extends  Product{
@@ -31,7 +31,7 @@ public class ProductWithImage  extends  Product{
   }
 
   public void createImage(){
-    productImage = new ImageView(ServiceBuilder.getBASEURL()+"images/image?imageid="+ imageid);
+    productImage = new ImageView(Link.getImageLink(imageid));
     productImage.setFitHeight(150);
     productImage.setFitWidth(150);
   }
