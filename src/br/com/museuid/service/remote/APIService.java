@@ -18,27 +18,27 @@ public interface APIService {
     @GET("data/2.5/box/city")
     Call<SampleResponseDTO<Item>> getSample(@Query("bbox") String bbox, @Query("appid") String appid);
 
-    @PUT("client")
+    @PUT("clients/client")
     Call<ResponseDTO<DeviceInfo>> addDevice(@Body AddDeviceRequest addDeviceRequest);
 
-    @GET("auto-client")
+    @GET("clients/auto-client")
     Call<ResponseDTO<SessionDeviceInfo>> checkDevice(@Query("macaddress") String macAddress);
 
-    @GET("clients")
+    @GET("clients/clients")
     Call<ResponseDTO<String>> getClients();
 
-    @GET("products")
+    @GET("products/products")
     Call<ResponseDTO<List<Product>>> getProductList();
 
-    @PUT("queue")
+    @PUT("queues/queue")
     Call<ResponseDTO<Object>> putOrder(@Body PutQueueRequest putQueueRequest);
 
-    @DELETE("queue")
+    @DELETE("queues/queue")
     Call<ResponseDTO<Object>> cancelOrder(@Query("queueid") String queue);
 
-    @GET("queues")
+    @GET("queues/queues")
     Call<ResponseDTO<List<OrderDetail>>> getMyOrderList();
 
-    @POST("queue")
+    @POST("queues/queue")
     Call<ResponseDTO<Object>> updateOrder(@Body OrderDetail orderDetail);
 }
