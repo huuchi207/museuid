@@ -87,7 +87,6 @@ public class MyOrderCreatedController extends AnchorPane {
         }
 
         if (selected.getStatus().equalsIgnoreCase(OrderDetail.OrderStatus.NEW.name())) {
-            //TODO: call api cancel order
             DialogUtils.ResponseMessage responseMessage = Messenger.confirm("Bạn có chắc chắn muốn hủy đơn hàng này?");
 
             if (responseMessage == DialogUtils.ResponseMessage.YES) {
