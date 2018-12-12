@@ -228,7 +228,7 @@ public class FXCalendar extends HBox {
     int year = selectedYearProperty().get();
     if (PickerMode.MONTH == pickerMode) {
       int realMonth = month + 1;
-      dateTxtField.setText((realMonth > 10 ? (realMonth + "") : ("0" + realMonth)) + "/" + year);
+      dateTxtField.setText((realMonth >= 10 ? (realMonth + "") : ("0" + realMonth)) + "/" + year);
     } else if (PickerMode.YEAR == pickerMode) {
       dateTxtField.setText(year + "");
     }

@@ -85,25 +85,25 @@ public interface APIService {
   @POST("statistics/months-period")
   Call<ResponseDTO<ChartData>> getMonthStatisticPeriod(@Body StatisticRequest statisticRequest);
 
-  @POST("statistic/years-period")
+  @POST("statistics/years-period")
   Call<ResponseDTO<ChartData>> getYearStatisticPeriod(@Body StatisticRequest statisticRequest);
 
   @GET("queues/queues")
   Call<ResponseDTO<List<OrderDetail>>> getOrderByStatus(@Query("filter") String statusFilter, @Query("handlerid") String handlerid);
 
-  @POST("statistic/days")
+  @POST("statistics/days")
   Call<ResponseDTO<ChartData>> getDayStatistic(@Body StatisticRequest statisticRequest);
 
-  @POST("statistic/months")
+  @POST("statistics/months")
   Call<ResponseDTO<ChartData>> getMonthStatistic(@Body StatisticRequest statisticRequest);
 
-  @POST("statistic/years")
+  @POST("statistics/years")
   Call<ResponseDTO<ChartData>> getYearStatistic(@Body StatisticRequest statisticRequest);
 
-  @POST("statistic/line/revenue")
+  @POST("statistics/line/revenue")
   Call<ResponseDTO<ChartData>> getProductRevenueStatistic(@Body StatisticRequest statisticRequest);
 
-  @POST("statistic/line/sales")
+  @POST("statistics/line/sales")
   Call<ResponseDTO<ChartData>> getProductSalesStatistic(@Body StatisticRequest statisticRequest);
 
   @POST("pendingproducts/request")
