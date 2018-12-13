@@ -1,7 +1,7 @@
 package br.com.museuid.config;
 
 public interface ConstantConfig {
-  boolean FAKE = false;
+  boolean FAKE =false;
   String defaultLocaleCode= "vi";
   boolean DEBUG= true;
   String APP_DATA_FOLDER_NAME = "data";
