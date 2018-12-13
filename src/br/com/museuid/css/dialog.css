@@ -1,5 +1,13 @@
 /*..... Estilos das classes de dialogs e notificações .....*/
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../font/OpenSans-Regular.ttf');
+}
 
+@font-face {
+    font-family: 'Open Sans Semibold';
+    src: url('../font/OpenSans-Semibold.ttf');
+}
 .mensagem-dialogs {
     -fx-text-fill: #7e7e7e;
     -fx-font-size: 12px;

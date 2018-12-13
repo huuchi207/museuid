@@ -106,7 +106,6 @@ public class RevenueStatisticController extends AnchorPane {
 
   @FXML
   void initialize() {
-
     datePickerStart.setValue(LocalDate.now());
     datePickerEnd.setValue(LocalDate.now());
     TimeUtils.reformatDatePickerValue(datePickerStart);
