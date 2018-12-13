@@ -45,7 +45,7 @@ public class ChangePasswordController extends AnchorPane {
 
     @FXML
     public void initialize() {
-        AppController.getInstance().showProgressDialog();
+//        AppController.getInstance().showProgressDialog();
     }
 
     public void changePassword(){

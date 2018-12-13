@@ -53,7 +53,7 @@ public class ProductManagementControler extends AnchorPane {
   public TableColumn colImage;
   public TextField txtDescription;
   private List<ProductWithImage> productList = new ArrayList<>();
-  private String selectedProductId = "0";
+  private Product selectedProduct = null;
 
   @FXML
   private GridPane apAdd;
@@ -184,7 +184,7 @@ public class ProductManagementControler extends AnchorPane {
   }
   private void updateDataToServer(String productName, String description,
                                   Integer priceNumber, Integer inStockNumber, String imageId){
-    if (selectedProductId.equals("0")) {
+    if (selectedProduct == null) {
       Product product = new Product(productName, description, priceNumber, inStockNumber);
       product.setImageid(imageId);
       if (ConstantConfig.FAKE) {
@@ -211,8 +211,14 @@ public class ProductManagementControler extends AnchorPane {
         });
       }
     } else {
-      Product product = new Product(selectedProductId, productName, description, priceNumber, inStockNumber);
-      product.setImageid(imageId);
+      Product product = selectedProduct;
+      product.setProductName(productName);
+      product.setDescription(description);
+      product.setPrice(priceNumber);
+      product.setInStock(inStockNumber);
+      if (imageId!= null){
+        product.setImageid(imageId);
+      }
       if (ConstantConfig.FAKE) {
         productList.remove(tbProduct.getSelectionModel().getSelectedItem());
 //        productList.add(product);
@@ -259,7 +265,7 @@ public class ProductManagementControler extends AnchorPane {
       lbTitle.setText(bundle.getString("txt.edit.product.info"));
       menu.selectToggle(menu.getToggles().get(1));
 
-      selectedProductId = selectedProduct.getId();
+      this.selectedProduct = selectedProduct;
 
     } catch (NullPointerException ex) {
       NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
@@ -334,7 +340,7 @@ public class ProductManagementControler extends AnchorPane {
     tbProduct.getSelectionModel().clearSelection();
     menu.selectToggle(menu.getToggles().get(grupoMenu));
 
-    selectedProductId = "0";
+    selectedProduct = null;
   }
 
   /**

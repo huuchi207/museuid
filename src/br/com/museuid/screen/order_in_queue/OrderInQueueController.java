@@ -230,7 +230,7 @@ public class OrderInQueueController extends AnchorPane {
     if (responseMessage != DialogUtils.ResponseMessage.YES) {
       return;
     }
-    String r = DialogUtils.textDialog("Thông báo", "Nhập lý do hủy đơn hàng(nếu có)");
+    String r = DialogUtils.textDialog("Thông báo", "Nhập lý do hủy đơn hàng (nếu có)");
     selecteOrder.setComment(r);
     selecteOrder.setStatus(OrderDetail.OrderStatus.CANCELED.name());
     selecteOrder.setHandlerid(StaticVarUtils.getSessionUserInfo().getInfo().getId());

@@ -99,7 +99,7 @@ public class AppController {
 //    if (ConstantConfig.FAKE) {
 //      role = UserDTO.UserRole.ADMIN;
 //    } else {
-      role = UserDTO.UserRole.valueOf(StaticVarUtils.getSessionUserInfo().getInfo().getRole());
+    role = UserDTO.UserRole.valueOf(StaticVarUtils.getSessionUserInfo().getInfo().getRole());
 //    }
     switch (role) {
       case ADMIN:
@@ -108,7 +108,7 @@ public class AppController {
         userListFeatureView = new ArrayList<Node>(
           Arrays.asList(btCreateOrder, btOrderInQueue, btMyHandlingOrder, btEmployeeManagement, btProductManagement,
             btDeviceManagement, btStockImportingManagement, btRevenueStatistic,
-            btProductStatistic ,
+            btProductStatistic,
             btUpdateUserInfo, btChangePassword));
         openOrderInQueueScreen(new ActionEvent(btOrderInQueue, null));
         break;
@@ -166,47 +166,26 @@ public class AppController {
 
 
   public void openEmployeeManagement(ActionEvent actionEvent) {
-    if (actionEvent.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getEmployeeManagementScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    openScreen((ToggleButton) actionEvent.getSource());
   }
 
   public void openCreateOrderScreen(ActionEvent actionEvent) {
-    if (actionEvent.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getCreateOrderScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    openScreen((ToggleButton) actionEvent.getSource());
   }
 
   public void openMyHandlingOrderScreen(ActionEvent actionEvent) {
-    if (actionEvent.getSource() == currentScreen) {
-      return;
-    }
-//        NavigationUtils.getMyOrderCreatedScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    openScreen((ToggleButton) actionEvent.getSource());
   }
 
   public void openOrderCreatedScreen(ActionEvent actionEvent) {
-    if (actionEvent.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getMyOrderCreatedScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    openScreen((ToggleButton) actionEvent.getSource());
   }
 
   public void openRevenueStatistic(ActionEvent actionEvent) {
-    if (actionEvent.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getStatisticScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    openScreen((ToggleButton) actionEvent.getSource());
   }
 
-  public void setCurrentSubMenuAndStyleThenHideProgressIndicator(ToggleButton currentSelectedSubMenu) {
-    currentScreen = currentSelectedSubMenu;
+  public void setStyleSubMenuThenHideProgressIndicator(ToggleButton currentSelectedSubMenu) {
     for (Node boxMenu : userListBoxMenu) {
       if (boxMenu instanceof VBox) {
         List<Node> children = ((VBox) boxMenu).getChildren();
@@ -235,19 +214,11 @@ public class AppController {
   }
 
   public void openUpdateUserInfoScreen(ActionEvent actionEvent) {
-    if (actionEvent.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getUpdateUserInfoScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    openScreen((ToggleButton) actionEvent.getSource());
   }
 
   public void openChangePasswordScreen(ActionEvent actionEvent) {
-    if (actionEvent.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getChangePasswordScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    openScreen((ToggleButton) actionEvent.getSource());
   }
 
   public void updateUserNameTextView(String userName) {
@@ -256,11 +227,7 @@ public class AppController {
 
 
   public void openOrderInQueueScreen(ActionEvent event) {
-    if (event.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getOrderInQueueScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
+    openScreen((ToggleButton) event.getSource());
   }
 
   public void startLogin() {
@@ -269,35 +236,19 @@ public class AppController {
   }
 
   public void openProductManagement(ActionEvent event) {
-    if (event.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getProductManagementScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
+    openScreen((ToggleButton) event.getSource());
   }
 
   public void openDeviceManagement(ActionEvent event) {
-    if (event.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getDeviceManagementScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
+    openScreen((ToggleButton) event.getSource());
   }
 
   public void openMyHandingOrderScreen(ActionEvent event) {
-    if (event.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getMyHandlingOrderScreen(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
+    openScreen((ToggleButton) event.getSource());
   }
 
   public void openStockImporting(ActionEvent actionEvent) {
-    if (actionEvent.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getStockImportingControler(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    openScreen((ToggleButton) actionEvent.getSource());
   }
 
   public void goSite(ActionEvent actionEvent) {
@@ -306,27 +257,51 @@ public class AppController {
   }
 
   public void openStockImportingManagement(ActionEvent actionEvent) {
-    if (actionEvent.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getStockImportingManagementControler(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    openScreen((ToggleButton) actionEvent.getSource());
   }
 
   public void openProductStatistic(ActionEvent actionEvent) {
-    if (actionEvent.getSource() == currentScreen) {
-      return;
-    }
-    NavigationUtils.getProductStatisticController(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) actionEvent.getSource());
+    openScreen((ToggleButton) actionEvent.getSource());
   }
 
   public void openStockImportingHistory(ActionEvent event) {
-    if (event.getSource() == currentScreen) {
+    openScreen((ToggleButton) event.getSource());
+  }
+
+  private void openScreen(ToggleButton bt) {
+    setStyleSubMenuThenHideProgressIndicator(bt);
+    if (bt == currentScreen) {
       return;
     }
-    NavigationUtils.getStockImportingHistoryControler(boxContainer);
-    setCurrentSubMenuAndStyleThenHideProgressIndicator((ToggleButton) event.getSource());
-
+    if (bt == btCreateOrder){
+      NavigationUtils.getCreateOrderScreen(boxContainer);
+    } else if (bt == btOrderInQueue){
+      NavigationUtils.getOrderInQueueScreen(boxContainer);
+    } else if (bt == btMyHandlingOrder){
+      NavigationUtils.getMyHandlingOrderScreen(boxContainer);
+    } else if (bt == btEmployeeManagement){
+      NavigationUtils.getEmployeeManagementScreen(boxContainer);
+    } else if (bt == btProductManagement){
+      NavigationUtils.getProductManagementScreen(boxContainer);
+    } else if (bt == btDeviceManagement){
+      NavigationUtils.getDeviceManagementScreen(boxContainer);
+    } else if (bt == btStockImportingManagement){
+      NavigationUtils.getStockImportingManagementControler(boxContainer);
+    } else if (bt == btRevenueStatistic){
+      NavigationUtils.getStatisticScreen(boxContainer);
+    } else if (bt == btProductStatistic){
+      NavigationUtils.getProductStatisticController(boxContainer);
+    } else if (bt == btUpdateUserInfo){
+      NavigationUtils.getUpdateUserInfoScreen(boxContainer);
+    } else if (bt == btChangePassword){
+      NavigationUtils.getChangePasswordScreen(boxContainer);
+    } else if (bt == btStockImporting){
+      NavigationUtils.getStockImportingControler(boxContainer);
+    } else if (bt == btStockImportingHistory){
+      NavigationUtils.getStockImportingHistoryControler(boxContainer);
+    } else if (bt == btOrderCreated){
+      NavigationUtils.getMyOrderCreatedScreen(boxContainer);
+    }
+    currentScreen = bt;
   }
 }
