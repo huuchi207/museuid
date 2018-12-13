@@ -1,11 +1,11 @@
 package br.com.museuid.util;
 
-import br.com.museuid.service.remote.ServiceBuilder;
-
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import br.com.museuid.service.remote.ServiceBuilder;
 
 /**
  * Create links to actions that open a page in the browser

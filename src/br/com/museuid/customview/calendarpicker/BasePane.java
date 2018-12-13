@@ -1,6 +1,10 @@
 package br.com.museuid.customview.calendarpicker;
 
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,10 +20,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public class BasePane extends Group {
 	private DatePicker datePicker;

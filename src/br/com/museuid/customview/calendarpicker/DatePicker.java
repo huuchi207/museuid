@@ -1,12 +1,12 @@
 package br.com.museuid.customview.calendarpicker;
 
+import java.util.Locale;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-
-import java.util.Locale;
 
 public class DatePicker extends StackPane {
 

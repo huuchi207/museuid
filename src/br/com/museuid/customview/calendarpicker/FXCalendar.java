@@ -1,5 +1,9 @@
 package br.com.museuid.customview.calendarpicker;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -21,10 +25,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class FXCalendar extends HBox {
 

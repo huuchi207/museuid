@@ -1,13 +1,5 @@
 package br.com.museuid.util;
 
-import br.com.museuid.config.ConstantConfig;
-import br.com.museuid.screen.product_statistic.ProductStatisticController;
-import br.com.museuid.screen.statistic.RevenueStatisticController;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +14,14 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.screen.product_statistic.ProductStatisticController;
+import br.com.museuid.screen.statistic.RevenueStatisticController;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 /**
  * Handling, formatting and clacing dates,

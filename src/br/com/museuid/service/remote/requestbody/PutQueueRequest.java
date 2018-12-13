@@ -1,11 +1,12 @@
 package br.com.museuid.service.remote.requestbody;
 
-import br.com.museuid.util.Link;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import javafx.scene.image.ImageView;
 
 import java.util.List;
+
+import br.com.museuid.util.Link;
+import javafx.scene.image.ImageView;
 
 public class PutQueueRequest {
   @SerializedName("sumup")

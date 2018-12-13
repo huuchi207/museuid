@@ -1,15 +1,34 @@
 package br.com.museuid.service.remote;
 
-import br.com.museuid.dto.*;
+import java.util.List;
+
+import br.com.museuid.dto.ChartData;
+import br.com.museuid.dto.DeviceInfo;
+import br.com.museuid.dto.Product;
+import br.com.museuid.dto.SecureQuestionDTO;
+import br.com.museuid.dto.SessionDeviceInfo;
+import br.com.museuid.dto.SessionUserInfo;
+import br.com.museuid.dto.UploadImageDTO;
+import br.com.museuid.dto.UserDTO;
 import br.com.museuid.dto.sample.Item;
 import br.com.museuid.model.data.OrderDetail;
-import br.com.museuid.service.remote.requestbody.*;
+import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
+import br.com.museuid.service.remote.requestbody.ChangePasswordRequest;
+import br.com.museuid.service.remote.requestbody.LoginRequest;
+import br.com.museuid.service.remote.requestbody.SecureQuestionRequest;
+import br.com.museuid.service.remote.requestbody.StatisticRequest;
+import br.com.museuid.service.remote.requestbody.StockImportingRequest;
 import br.com.museuid.service.remote.sample.SampleResponseDTO;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
-import retrofit2.http.*;
-
-import java.util.List;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 public interface APIService {
   //Sample
