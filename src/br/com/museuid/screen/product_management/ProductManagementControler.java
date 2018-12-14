@@ -419,6 +419,7 @@ public class ProductManagementControler extends AnchorPane {
     FieldViewUtils.resetField(txtProductName, txtPrice);
     FieldViewUtils.resetField(txtInStock, txtDescription);
     lbProductImage.setGraphic(null);
+    selectedImagePath = null;
   }
 
   @FXML
