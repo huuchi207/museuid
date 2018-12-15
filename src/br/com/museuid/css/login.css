@@ -13,7 +13,7 @@
 }
 
 .background {
-    -fx-background-image: url("../img/background.jpg");
+    /*-fx-background-image: url("../img/background.png");*/
     -fx-background-size: 100% 100%;
     -fx-background-color: transparent;
     -fx-background-position: top;
@@ -48,7 +48,7 @@
 }
 
 .logo {
-    /*-fx-image: url("../img/logo.png");*/
+    -fx-image: url("../img/logo.png");
 }
 
 .login-img {

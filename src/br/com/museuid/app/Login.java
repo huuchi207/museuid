@@ -1,5 +1,6 @@
 package br.com.museuid.app;
 
+import br.com.museuid.Constants;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
 import javafx.application.Application;
@@ -54,7 +55,9 @@ public class Login extends Application {
 //            stage.setMinWidth(windows.getWidth()-200);
 //            stage.setMinHeight(windows.getHeight()-100);
         stage.centerOnScreen();
+      stage.setTitle(Constants.APP_NAME);
 
+      stage.getIcons().addAll(new Image(App.class.getResourceAsStream("icon.png")));
 
       stage.getIcons().addAll(new Image(Login.class.getResourceAsStream("icon.png")));
 

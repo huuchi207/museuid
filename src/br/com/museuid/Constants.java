@@ -6,6 +6,7 @@ public interface Constants {
   String CONTENT_TYPE = "Content-Type";
   String APPLICATION_JSON = "application/json";
   String DEFAULT_PASSWORD = "12345678";
+  String APP_NAME = "NDG Order";
 
 
   String CHANGE_ORDER_EVENT = "Change order";

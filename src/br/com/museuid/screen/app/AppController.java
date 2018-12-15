@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import br.com.museuid.Constants;
 import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
 import br.com.museuid.dto.UserDTO;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.Link;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.StaticVarUtils;
@@ -252,8 +250,7 @@ public class AppController {
   }
 
   public void goSite(ActionEvent actionEvent) {
-    //TODO: change link
-    Link.address(Constants.WEB_LINK);
+//    Link.address(Constants.WEB_LINK);
   }
 
   public void openStockImportingManagement(ActionEvent actionEvent) {

@@ -14,19 +14,18 @@
           <left>
             <AnchorPane styleClass="box" BorderPane.alignment="CENTER">
               <children>
-                <HBox alignment="BASELINE_LEFT" prefHeight="70.0" spacing="5.0"
-                  styleClass="box-logo" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                  AnchorPane.topAnchor="0.0">
+                <HBox alignment="BASELINE_LEFT" prefHeight="70.0" spacing="5.0" styleClass="box-logo"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                   <children>
-                    <ImageView fitHeight="47.0" fitWidth="200.0" layoutX="11.0" layoutY="9.0"
-                      pickOnBounds="true" preserveRatio="true" styleClass="logo"
-                      AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                    <ImageView fitHeight="80.0" fitWidth="500.0" layoutX="11.0" layoutY="9.0"
+                      pickOnBounds="true" preserveRatio="true"
+                      styleClass="logo" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
                   </children>
                 </HBox>
                 <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="60.0"
                   pannable="true" prefViewportHeight="710.0" prefViewportWidth="220.0"
                   styleClass="scroll" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                   <content>
                     <VBox spacing="5.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0"
                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
@@ -183,10 +182,10 @@
                 <AnchorPane styleClass="box-footer" AnchorPane.bottomAnchor="3"
                   AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" prefHeight="40">
                   <Label fx:id="lbMensagem" layoutX="30.0" layoutY="2.0" styleClass="box-mensagens"
-                    text="Version 1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    text="NDG Order Version 1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="0.0" />
                   <Hyperlink alignment="CENTER_RIGHT" layoutY="2.0" onAction="#goSite"
-                    prefHeight="28.0" prefWidth="120.0" styleClass="link" text="%link_organization"
+                    prefHeight="28.0" prefWidth="120.0" styleClass="link" text="+84 9494 13971"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="0.0" />
                 </AnchorPane>
