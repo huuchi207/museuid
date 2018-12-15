@@ -27,7 +27,6 @@ public class ServiceBuilder {
   }
 
   public static Retrofit getRetrofit(String baseUrl) {
-    if (retrofit==null) {
       HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
       if (ConstantConfig.DEBUG) {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -58,7 +57,6 @@ public class ServiceBuilder {
           .client(client)
           .addConverterFactory(GsonConverterFactory.create())
           .build();
-    }
     return retrofit;
   }
   public static HashMap<String, String> getHeader(){
