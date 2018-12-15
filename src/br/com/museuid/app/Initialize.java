@@ -1,5 +1,6 @@
 package br.com.museuid.app;
 
+import br.com.museuid.Constants;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.Messenger;
 import javafx.application.Application;
@@ -8,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -38,7 +40,9 @@ public class Initialize extends Application {
 //            stage.setMinWidth(windows.getWidth()-200);
 //            stage.setMinHeight(windows.getHeight()-100);
       stage.centerOnScreen();
-//            stage.getIcons().addAll(new Image(App.class.getResourceAsStream("icon.png")));
+      stage.setTitle(Constants.APP_NAME);
+
+      stage.getIcons().addAll(new Image(App.class.getResourceAsStream("icon.png")));
       stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
         @Override
         public void handle(WindowEvent event) {

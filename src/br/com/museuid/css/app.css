@@ -3,12 +3,12 @@
 }
 
 .logo {
-    /*-fx-image: url("../img/logo-app.png");*/
+    -fx-image: url("../img/logo.png");
 }
 
 .box-logo {
     -fx-alignment: center;
-    -fx-max-height: 65px;
+    -fx-max-height: 100px;
     -fx-min-height: 65px;
     -fx-cursor: hand;
 }
@@ -234,7 +234,7 @@
     -fx-border-width: 0px;
     -fx-cursor: hand;
     -fx-underline: false;
-    -fx-graphic: url("../img/icon/logo-mini.png");
+    /*-fx-graphic: url("../img/icon/logo-mini.png");*/
 }
 
 .link:hover,

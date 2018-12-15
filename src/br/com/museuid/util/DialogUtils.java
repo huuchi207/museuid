@@ -83,6 +83,7 @@ public class DialogUtils {
         box.getStyleClass().add("box-acao-dialog");
 
         Button ok = new Button(BundleUtils.getResourceBundle().getString("txt_ok"));
+        ok.requestFocus();
         ok.setOnAction((ActionEvent e) -> {
             dialog.close();
         });

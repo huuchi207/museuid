@@ -38,7 +38,7 @@
 }
 
 .logo {
-    /*-fx-image: url("../img/logo.png");*/
+    -fx-image: url("../img/logo.png");
 }
 
 .login-img {
