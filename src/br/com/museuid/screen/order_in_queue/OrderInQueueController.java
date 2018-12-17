@@ -71,6 +71,8 @@ public class OrderInQueueController extends AnchorPane {
   private ObservableList<PutQueueRequest.ItemWithImage> observableListProductInOrder = FXCollections.observableList(listProductInOrder);
   private OrderDetail selecteOrder;
 
+
+  public Button btHandleOrder;
   public OrderInQueueController() {
     try {
       FXMLLoader fxml = new FXMLLoader(getClass().getResource("order_in_queue.fxml"));
@@ -271,6 +273,8 @@ public class OrderInQueueController extends AnchorPane {
   }
 
   private void orderQueue() {
+    FieldViewUtils.setGlobalEventHandler(this, btHandleOrder);
+
     NavigationUtils.setVisibility(true, apOrderInQueueTable);
     NavigationUtils.setVisibility(false, apOrderInfo);
   }
@@ -287,6 +291,8 @@ public class OrderInQueueController extends AnchorPane {
     }
     observableListProductInOrder = FXCollections.observableList(list);
     tbOrderInfo.setItems(observableListProductInOrder);
+    FieldViewUtils.setGlobalEventHandler(this, btDoneOrder);
+
   }
 
   private void listenOnChange() {

@@ -227,6 +227,9 @@ public class CreateOrderScreenControler extends AnchorPane {
     NavigationUtils.setVisibility(false, btEditOrder, apProductList);
     NavigationUtils.setVisibility(true, btBackToList, btCreateOrder, gridEditOrderList);
 
+
+    FieldViewUtils.setGlobalEventHandler(this, btCreateOrder);
+
   }
 
   @FXML
@@ -291,6 +294,9 @@ public class CreateOrderScreenControler extends AnchorPane {
 
     NavigationUtils.setVisibility(true, btEditOrder, apProductList);
     NavigationUtils.setVisibility(false, btBackToList, btCreateOrder, gridEditOrderList);
+
+    FieldViewUtils.setGlobalEventHandler(this, btEditOrder);
+
 
   }
 

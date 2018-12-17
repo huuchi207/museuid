@@ -1,7 +1,5 @@
 package br.com.museuid.util;
 
-import java.util.Optional;
-
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
@@ -9,19 +7,16 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.util.Optional;
 
 /**
  * Criar janelas de dialogos
@@ -32,7 +27,7 @@ public class DialogUtils {
   private static final Rectangle2D windows = screen.getVisualBounds();
   static Dialog stageDialog;
   private static ResponseMessage responseMessage = ResponseMessage.CANCEL;
-
+  private static Button defaultButton = null;
   private DialogUtils() {
   }
 
@@ -92,7 +87,9 @@ public class DialogUtils {
     ok.requestFocus();
     ok.setOnAction((ActionEvent e) -> {
       stageDialog.close();
+      defaultButton = null;
     });
+    defaultButton= ok;
 
     ok.getStyleClass().add("bt-ok");
     box.getChildren().addAll(ok);
@@ -121,9 +118,11 @@ public class DialogUtils {
     Button yes = new Button(positive);
     yes.setOnAction((ActionEvent e) -> {
       stageDialog.close();
+      defaultButton = null;
       responseMessage = ResponseMessage.YES;
     });
     yes.getStyleClass().add("bt-sim");
+    defaultButton = yes;
 
     Button no = new Button(negative);
     no.setOnAction((ActionEvent e) -> {
@@ -161,8 +160,11 @@ public class DialogUtils {
     Button yes = new Button("OK");
     yes.setOnAction((ActionEvent e) -> {
       stageDialog.close();
+      defaultButton = null;
     });
     yes.getStyleClass().add("bt-sim");
+    defaultButton = yes;
+
     box.getChildren().add(yes);
 
     vBox.getChildren().add(box);
@@ -209,7 +211,10 @@ public class DialogUtils {
     Scene scene = new Scene(pane);
     scene.getStylesheets().add("br/com/museuid/css/dialog.css");
     scene.setFill(Color.TRANSPARENT);
-
+    if (defaultButton != null){
+      defaultButton.requestFocus();
+      defaultButton.setDefaultButton(true);
+    }
     stageDialog = new Dialog(new Stage(), scene);
     stageDialog.showDialog();
   }
@@ -257,22 +262,5 @@ public class DialogUtils {
 
     // The Java 8 way to get the response value (with lambda expression).
     //        result.ifPresent(name -> System.out.println("Your name: " + name));
-  }
-
-  public static void showProgressDialog() {
-    closeDialog();
-    VBox boxCentral = new VBox();
-    boxCentral.getChildren().add(new ProgressIndicator());
-    Label lb = new Label(BundleUtils.getResourceBundle().getString("txt_progressing"));
-    lb.getStyleClass().add("progress-dialogs-msg");
-    boxCentral.getChildren().add(lb);
-    boxCentral.getStyleClass().add("box-msg");
-    ResizeUtils.margin(boxCentral, 0);
-
-    AnchorPane apProgress = new AnchorPane(boxCentral);
-    apProgress.setStyle("-fx-background-color: rgba(0, 0, 0, 0.0);");
-    ResizeUtils.margin(apProgress, 0);
-
-    boxDialog(apProgress);
   }
 }

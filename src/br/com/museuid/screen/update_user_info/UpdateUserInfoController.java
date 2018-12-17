@@ -1,8 +1,6 @@
 package br.com.museuid.screen.update_user_info;
 
-import java.util.Optional;
-import java.util.ResourceBundle;
-
+import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.PasswordDialog;
 import br.com.museuid.dto.SecureQuestionDTO;
 import br.com.museuid.dto.UserDTO;
@@ -10,26 +8,20 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.SecureQuestionRequest;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.ComboUtils;
-import br.com.museuid.util.FieldViewUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.StaticVarUtils;
+import br.com.museuid.util.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class UpdateUserInfoController extends AnchorPane {
   @FXML
@@ -102,6 +94,8 @@ public class UpdateUserInfoController extends AnchorPane {
     else {
       vboxContent.getChildren().removeAll(apSecureQuestion, rbGeneralInfo, rbSecureQuestion);
     }
+
+    FieldViewUtils.setGlobalEventHandler(this, btSave);
 
   }
 
@@ -180,6 +174,9 @@ public class UpdateUserInfoController extends AnchorPane {
   }
 
   private void getUserInfo() {
+    if (ConstantConfig.FAKE){
+      return;
+    }
     //call api get info and set to userDTO in userUtil, then update screen in navigation
     AppController.getInstance().showProgressDialog();
     ServiceBuilder.getApiService().getCurrentUserInfo(StaticVarUtils.getSessionUserInfo().getInfo().getId()).enqueue(new BaseCallback<UserDTO>() {

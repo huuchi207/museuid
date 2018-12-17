@@ -1,21 +1,12 @@
 package br.com.museuid.screen.my_handing_order;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.DialogUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.NoticeUtils;
-import br.com.museuid.util.StaticVarUtils;
+import br.com.museuid.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +18,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class MyHandlingOrderController extends AnchorPane {
   public AnchorPane apOrderInQueueTable;
@@ -67,6 +62,8 @@ public class MyHandlingOrderController extends AnchorPane {
   private ObservableList<PutQueueRequest.ItemWithImage> observableListProductInOrder = FXCollections.observableList(listProductInOrder);
   private OrderDetail selecteOrder;
 
+
+  public Button btHandleOrder;
   public MyHandlingOrderController() {
     try {
       FXMLLoader fxml = new FXMLLoader(getClass().getResource("my_handling_order.fxml"));
@@ -215,11 +212,16 @@ public class MyHandlingOrderController extends AnchorPane {
     }
 
     goToOrderDetail(tbOrderList.getSelectionModel().getSelectedItem());
+    FieldViewUtils.setGlobalEventHandler(this, btDoneOrder);
+
   }
 
   private void orderQueue() {
     NavigationUtils.setVisibility(true, apOrderInQueueTable);
     NavigationUtils.setVisibility(false, apOrderInfo);
+
+    FieldViewUtils.setGlobalEventHandler(this, btHandleOrder);
+
   }
 
   private void goToOrderDetail(OrderDetail selected) {

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?><?import java.net.URL?><?import br.com.museuid.customview.calendarpicker.FXCalendar?><?import javafx.scene.control.Button?><?import javafx.scene.control.Label?><?import javafx.scene.control.ScrollBar?><?import javafx.scene.control.ToggleButton?><?import javafx.scene.control.ToggleGroup?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.ColumnConstraints?><?import javafx.scene.layout.GridPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.RowConstraints?><?import javafx.scene.layout.StackPane?>
+<?import br.com.museuid.customview.calendarpicker.FXCalendar?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import java.net.URL?>
 <fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea"
          xmlns:fx="http://javafx.com/fxml/1">
   <children>
@@ -104,7 +108,7 @@
           AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
           <Button AnchorPane.rightAnchor="10" onAction="#doStatistic" AnchorPane.bottomAnchor="10"
             layoutX="685.0" layoutY="45.0" mnemonicParsing="false" styleClass="bt-center"
-            text="%txt_view_statistic" />
+            text="%txt_view_statistic" fx:id="btStatistic" />
         </AnchorPane>
       </children>
     </AnchorPane>

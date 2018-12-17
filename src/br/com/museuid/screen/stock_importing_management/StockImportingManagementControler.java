@@ -239,6 +239,9 @@ public class StockImportingManagementControler extends AnchorPane {
     lbLegend.setText("Bạn chỉ có thể thao tác với yêu cầu chưa được xử lý.");
     NavigationUtils.setVisibility(true, apProductList, cbFilter, boxActionList);
     NavigationUtils.setVisibility(false, tbProductImporting, boxActionDetail);
+
+    FieldViewUtils.setGlobalEventHandler(this, btEditImportingSession);
+
   }
 
   @FXML
@@ -258,6 +261,9 @@ public class StockImportingManagementControler extends AnchorPane {
     lbLegend.setText("");
     NavigationUtils.setVisibility(false, apProductList, cbFilter, boxActionList);
     NavigationUtils.setVisibility(true, tbProductImporting, boxActionDetail);
+
+    FieldViewUtils.setGlobalEventHandler(this, null);
+
   }
 
   @FXML

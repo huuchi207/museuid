@@ -1,13 +1,12 @@
 package br.com.museuid.util;
 
-import java.util.List;
-
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+
+import java.util.List;
 
 /**
  * Utilitario para formatação e verificação de campos de textos, labels e textareas
@@ -130,5 +129,15 @@ public class FieldViewUtils {
       for (Node node : nodes){
         node.setDisable(b);
       }
+    }
+
+    public static void setGlobalEventHandler(Node root, Button fireButton) {
+        root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+            if (ev.getCode() == KeyCode.ENTER) {
+                if (fireButton!= null)
+                    fireButton.fire();
+                ev.consume();
+            }
+        });
     }
 }

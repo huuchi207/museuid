@@ -1,21 +1,12 @@
 package br.com.museuid.screen.device_management;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.DialogUtils;
-import br.com.museuid.util.FieldViewUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.NoticeUtils;
+import br.com.museuid.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -23,16 +14,15 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class DeviceManagementControler extends AnchorPane {
 
@@ -99,6 +89,9 @@ public class DeviceManagementControler extends AnchorPane {
         NavigationUtils.setVisibility(true, apAdd, btSave);
         NavigationUtils.setVisibility(false, boxEdit, apEdit, txtSearch);
         resetField();
+
+        FieldViewUtils.setGlobalEventHandler(this, btSave);
+
     }
 
     @FXML
@@ -107,6 +100,9 @@ public class DeviceManagementControler extends AnchorPane {
         NavigationUtils.setVisibility(true, apEdit, boxEdit, txtSearch);
         NavigationUtils.setVisibility(false, btSave, apAdd);
         updateTable();
+        FieldViewUtils.setGlobalEventHandler(this, null);
+
+
     }
 
 

@@ -1,9 +1,5 @@
 package br.com.museuid.screen.stock_importing;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.ProductWithImage;
@@ -12,11 +8,7 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.StockImportingRequest;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.FieldViewUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.NoticeUtils;
+import br.com.museuid.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,17 +16,15 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class StockImportingControler extends AnchorPane {
 
@@ -226,6 +216,8 @@ public class StockImportingControler extends AnchorPane {
     lbLegend.setText(bundle.getString("txt_hold_ctrl_to_choose_items"));
     NavigationUtils.setVisibility(true, apProductList, txtSearch, btEditImportingSession);
     NavigationUtils.setVisibility(false, gridStockImport, btBackToList, btCreateImportingSession);
+
+    FieldViewUtils.setGlobalEventHandler(this, btEditImportingSession);
   }
 
   @FXML
@@ -242,6 +234,8 @@ public class StockImportingControler extends AnchorPane {
     FieldViewUtils.resetField(txtStockImportingName);
     NavigationUtils.setVisibility(false, apProductList, txtSearch, btEditImportingSession);
     NavigationUtils.setVisibility(true, gridStockImport, btBackToList, btCreateImportingSession);
+
+    FieldViewUtils.setGlobalEventHandler(this, btCreateImportingSession);
   }
 
   @FXML

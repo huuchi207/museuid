@@ -1,12 +1,5 @@
 package br.com.museuid.screen.product_management;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import br.com.museuid.app.App;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.Product;
@@ -15,14 +8,7 @@ import br.com.museuid.dto.UploadImageDTO;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.DialogUtils;
-import br.com.museuid.util.FieldViewUtils;
-import br.com.museuid.util.FileUtils;
-import br.com.museuid.util.ImageUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.NoticeUtils;
+import br.com.museuid.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -30,12 +16,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -46,6 +27,13 @@ import javafx.stage.FileChooser;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class ProductManagementControler extends AnchorPane {
 
@@ -115,6 +103,9 @@ public class ProductManagementControler extends AnchorPane {
     NavigationUtils.setVisibility(false, boxEdit, apEdit, txtSearch);
     resetField();
     txtProductName.setDisable(false);
+
+    FieldViewUtils.setGlobalEventHandler(this, btSave);
+
   }
 
   @FXML
@@ -123,6 +114,9 @@ public class ProductManagementControler extends AnchorPane {
     NavigationUtils.setVisibility(true, apEdit, boxEdit, txtSearch);
     NavigationUtils.setVisibility(false, btSave, apAdd);
     updateTable();
+
+    FieldViewUtils.setGlobalEventHandler(this, null);
+
   }
 
 

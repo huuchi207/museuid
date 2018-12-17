@@ -1,5 +1,21 @@
 package br.com.museuid.screen.product_statistic;
 
+import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.customview.calendarpicker.FXCalendar;
+import br.com.museuid.dto.ChartData;
+import br.com.museuid.screen.app.AppController;
+import br.com.museuid.service.remote.BaseCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.service.remote.requestbody.StatisticRequest;
+import br.com.museuid.util.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartViewer;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -9,35 +25,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import br.com.museuid.config.ConstantConfig;
-import br.com.museuid.customview.calendarpicker.FXCalendar;
-import br.com.museuid.dto.ChartData;
-import br.com.museuid.screen.app.AppController;
-import br.com.museuid.service.remote.BaseCallback;
-import br.com.museuid.service.remote.ServiceBuilder;
-import br.com.museuid.service.remote.requestbody.StatisticRequest;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.ChartUtils;
-import br.com.museuid.util.ComboUtils;
-import br.com.museuid.util.FakeDataUtils;
-import br.com.museuid.util.LineChartUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.TimeUtils;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 
 public class ProductStatisticController extends AnchorPane {
   @FXML
@@ -89,7 +76,7 @@ public class ProductStatisticController extends AnchorPane {
   private static final String BASED_ON_NUMBER = "Theo lượng hàng bán ra";
   public HBox datePickerStartBox;
   public HBox datePickerEndBox;
-
+  public Button btStatistic;
   public ProductStatisticController() {
     try {
       FXMLLoader fxml = new FXMLLoader(getClass().getResource("product_statistic.fxml"));
@@ -138,7 +125,7 @@ public class ProductStatisticController extends AnchorPane {
 
     setupPeriod(menuPeriod);
 
-
+    FieldViewUtils.setGlobalEventHandler(this, btStatistic);
   }
 
   private void setupPeriod(ToggleGroup group) {

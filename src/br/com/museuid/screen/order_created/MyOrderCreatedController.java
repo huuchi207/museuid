@@ -1,13 +1,10 @@
 package br.com.museuid.screen.order_created;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +17,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class MyOrderCreatedController extends AnchorPane {
 
@@ -52,6 +53,7 @@ public class MyOrderCreatedController extends AnchorPane {
     @FXML
     public void initialize() {
         initTable();
+        FieldViewUtils.setGlobalEventHandler(this, btCancelOrder);
     }
 
     void initTable() {
