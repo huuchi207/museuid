@@ -43,7 +43,7 @@ public class StaticVarUtils {
       UserDTO userDTO = new UserDTO();
       userDTO.setUserid("89989");
       userDTO.setUsername("chi");
-      userDTO.setRole(UserDTO.UserRole.MANAGER.name());
+      userDTO.setRole(UserDTO.UserRole.EMPLOYEE.name());
       sessionUserInfo.setInfo(userDTO);
       return sessionUserInfo;
     }

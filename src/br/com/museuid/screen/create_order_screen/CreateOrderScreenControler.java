@@ -1,12 +1,8 @@
 package br.com.museuid.screen.create_order_screen;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.ResourceBundle;
-
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.AutocompletionlTextField;
+import br.com.museuid.customview.customgridview.ItemGridCellFactory;
 import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.ProductWithImage;
@@ -16,13 +12,7 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.DialogUtils;
-import br.com.museuid.util.FakeDataUtils;
-import br.com.museuid.util.FieldViewUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.StaticVarUtils;
+import br.com.museuid.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -30,15 +20,16 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import org.controlsfx.control.GridView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.ResourceBundle;
 
 public class CreateOrderScreenControler extends AnchorPane {
   //header
@@ -52,6 +43,8 @@ public class CreateOrderScreenControler extends AnchorPane {
   public TableColumn colDescription;
   public TableColumn colPrice;
   public TableColumn colImage;
+
+  public GridView<ProductWithImage> gridProduct;
   //order
   public AnchorPane apEditOrderList;
   public TableView<ProductInOrder> tbProductInOrder;
@@ -127,6 +120,15 @@ public class CreateOrderScreenControler extends AnchorPane {
     colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("tfNote"));
     colImageInOrder.setCellValueFactory(new PropertyValueFactory<>("productImage"));
 
+
+    ItemGridCellFactory itemGridCellFactory = new ItemGridCellFactory();
+    itemGridCellFactory.setOnTouch(new ItemGridCellFactory.OnTouch() {
+      @Override
+      public void onClick(ProductWithImage item) {
+        Messenger.info(item.getProductName());
+      }
+    });
+    gridProduct.setCellFactory(itemGridCellFactory);
   }
 
   /**
@@ -134,6 +136,7 @@ public class CreateOrderScreenControler extends AnchorPane {
    */
   private void updateProductTable() {
     productObservableList = FXCollections.observableArrayList(productList);
+    gridProduct.setItems(productObservableList);
     tbProduct.setItems(productObservableList);
   }
 
@@ -275,6 +278,9 @@ public class CreateOrderScreenControler extends AnchorPane {
 
     NavigationUtils.setVisibility(true, btEditOrder, apProductList, txtSearch);
     NavigationUtils.setVisibility(false, btBackToList, btCreateOrder, gridEditOrderList);
+
+    apProductList.setVisible(false);
+    gridProduct.setVisible(true);
   }
 
   private List<ProductInOrder> createProductInOrderListFromSelectedProductList() {

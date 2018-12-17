@@ -1,31 +1,15 @@
 package br.com.museuid.screen.order_in_queue;
 
-import com.google.gson.Gson;
-
-import org.controlsfx.control.GridView;
-import org.json.JSONObject;
-
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import br.com.museuid.Constants;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.MutipleLineTableCell;
-import br.com.museuid.customview.sectiongridview.ItemGridCellFactory;
-import br.com.museuid.customview.sectiongridview.ItemGridView;
 import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
-import br.com.museuid.util.BundleUtils;
-import br.com.museuid.util.DialogUtils;
-import br.com.museuid.util.Messenger;
-import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.NoticeUtils;
-import br.com.museuid.util.StaticVarUtils;
+import br.com.museuid.util.*;
+import com.google.gson.Gson;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -41,7 +25,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class OrderInQueueController extends AnchorPane {
   public AnchorPane apOrderInQueueTable;
@@ -137,36 +126,37 @@ public class OrderInQueueController extends AnchorPane {
   }
 
   private void createListDeviceView() {
-    ItemGridCellFactory itemGridCellFactory = new ItemGridCellFactory();
-    itemGridCellFactory.setOnTouch(new ItemGridCellFactory.OnTouch() {
-      @Override
-      public void onClick(ItemGridView item) {
-        Messenger.info(item.getDeviceName());
-      }
-    });
-    VBox vBox = new VBox();
-    AnchorPane.setLeftAnchor(vBox, 0.0);
-    AnchorPane.setRightAnchor(vBox, 0.0);
-    AnchorPane.setTopAnchor(vBox, 0.0);
-    AnchorPane.setBottomAnchor(vBox, 0.0);
-    for (int j = 0; j < 3; j++) {
-      GridView gridView = new GridView();
-      final ObservableList<ItemGridView> list = FXCollections.observableArrayList();
-      gridView.setCellFactory(itemGridCellFactory);
-      gridView.cellWidthProperty().set(100);
-      gridView.cellHeightProperty().set(100);
-      for (int i = 0; i < 50; i++) {
-        ItemGridView itemGridView = new ItemGridView();
-        itemGridView.setDeviceName("Máy " + (i + 1));
-
-//            itemGridView.setNewOrder();
-        list.add(itemGridView);
-      }
-      gridView.setItems(list);
-      vBox.getChildren().add(new Label("Section " + j));
-      vBox.getChildren().add(gridView);
-    }
-    apOrderInQueue.getChildren().add(vBox);
+//    ItemGridCellFactory itemGridCellFactory = new ItemGridCellFactory();
+//    itemGridCellFactory.setOnTouch(new ItemGridCellFactory.OnTouch() {
+//      @Override
+//      public void onClick(ItemGridView item) {
+//        Messenger.info(item.getDeviceName());
+//      }
+//    });
+//    gridView.setCellFactory(itemGridCellFactory);
+//    VBox vBox = new VBox();
+//    AnchorPane.setLeftAnchor(vBox, 0.0);
+//    AnchorPane.setRightAnchor(vBox, 0.0);
+//    AnchorPane.setTopAnchor(vBox, 0.0);
+//    AnchorPane.setBottomAnchor(vBox, 0.0);
+//    for (int j = 0; j < 3; j++) {
+//      GridView gridView = new GridView();
+//      final ObservableList<ItemGridView> list = FXCollections.observableArrayList();
+//      gridView.setCellFactory(itemGridCellFactory);
+//      gridView.cellWidthProperty().set(100);
+//      gridView.cellHeightProperty().set(100);
+//      for (int i = 0; i < 50; i++) {
+//        ItemGridView itemGridView = new ItemGridView();
+//        itemGridView.setDeviceName("Máy " + (i + 1));
+//
+////            itemGridView.setNewOrder();
+//        list.add(itemGridView);
+//      }
+//      gridView.setItems(list);
+//      vBox.getChildren().add(new Label("Section " + j));
+//      vBox.getChildren().add(gridView);
+//    }
+//    apOrderInQueue.getChildren().add(vBox);
   }
 
   void initTable() {

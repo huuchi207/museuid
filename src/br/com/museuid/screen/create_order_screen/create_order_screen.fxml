@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.GridView?>
 <?import java.lang.*?>
 <?import java.net.URL?>
 <fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea"
@@ -22,8 +23,11 @@
   </HBox>
   <AnchorPane fx:id="apProductList" visible="true" AnchorPane.bottomAnchor="60.0"
     AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+    <GridView AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0" cellWidth="150" cellHeight="200" fx:id="gridProduct"
+    />
     <TableView fx:id="tbProduct" tableMenuButtonVisible="true" AnchorPane.leftAnchor="0.0"
-      AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0">
+      AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="10.0" visible="false">
       <columns>
         <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"-->
         <!--text="Id" />-->

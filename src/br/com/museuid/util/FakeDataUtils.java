@@ -1,5 +1,8 @@
 package br.com.museuid.util;
 
+import br.com.museuid.app.App;
+import br.com.museuid.dto.*;
+import br.com.museuid.service.remote.ResponseDTO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -7,16 +10,6 @@ import com.google.gson.stream.JsonReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import br.com.museuid.app.App;
-import br.com.museuid.dto.ChartData;
-import br.com.museuid.dto.ChartPoint;
-import br.com.museuid.dto.EmployeeDTO;
-import br.com.museuid.dto.EmployeeListDTO;
-import br.com.museuid.dto.GroupChartPoint;
-import br.com.museuid.dto.Product;
-import br.com.museuid.dto.ProductListDTO;
-import br.com.museuid.service.remote.ResponseDTO;
 
 public class FakeDataUtils {
   public static List<EmployeeDTO> getFakeEmployeeList(){
@@ -42,12 +35,11 @@ public class FakeDataUtils {
         try{
             JsonReader reader = readFile("product.json");
             if (reader != null){
-                ResponseDTO<ProductListDTO> responseDTO = new Gson()
-                    .fromJson(reader, new TypeToken<ResponseDTO<ProductListDTO>>() {
+                ResponseDTO<List<Product>> responseDTO = new Gson()
+                    .fromJson(reader, new TypeToken<ResponseDTO<List<Product>>>() {
                     }.getType());
                 if (responseDTO!= null){
-                    ProductListDTO productListDTO =responseDTO.getResult();
-                    return productListDTO.getProducts();
+                    return responseDTO.getResult();
                 }
             }
         }catch (Exception e){

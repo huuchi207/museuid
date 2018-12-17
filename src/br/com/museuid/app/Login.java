@@ -57,7 +57,6 @@ public class Login extends Application {
         stage.centerOnScreen();
       stage.setTitle(Constants.APP_NAME);
 
-      stage.getIcons().addAll(new Image(App.class.getResourceAsStream("icon.png")));
 
       stage.getIcons().addAll(new Image(Login.class.getResourceAsStream("icon.png")));
 

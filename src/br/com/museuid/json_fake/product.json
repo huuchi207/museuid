@@ -1,36 +1,38 @@
 {
   "isError": false,
   "message": "Success",
-  "result": {
-    "list": [
-      {
-        "id": 1,
-        "productName":"Mì tôm Hảo hảo",
-        "description": "chưa pha",
-        "price": 4000,
-        "status": "AVAILABLE"
-      },
-      {
-        "id": 2,
-        "productName":"Mì tôm Cung Đình",
-        "description": "chưa pha",
-        "price": 7000,
-        "status": "AVAILABLE"
-      },
-      {
-        "id": 3,
-        "productName":"Nước lọc",
-        "description": "Lavil",
-        "price": 4000,
-        "status": "AVAILABLE"
-      },
-      {
-        "id": 4,
-        "productName":"Mì tôm trứng",
-        "description": "đã pha",
-        "price": 10000,
-        "status": "AVAILABLE"
-      }
-    ]
-  }
+  "result": [
+    {
+      "_id": "a123",
+      "name": "Coca",
+      "price": 12500,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null
+    },
+    {
+      "_id": "a1123",
+      "name": "Bimbim",
+      "price": 5000,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null
+    },
+    {
+      "_id": "a1223",
+      "name": "My tom",
+      "price": 10000,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null
+    },
+    {
+      "_id": "a1323",
+      "name": "sfsldkf",
+      "price": 12500,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null
+    }
+  ]
 }
