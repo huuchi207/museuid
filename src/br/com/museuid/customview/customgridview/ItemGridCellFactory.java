@@ -20,6 +20,13 @@ public class ItemGridCellFactory implements Callback<GridView<ProductWithImage>,
 //                    //do something when it's clicked
 //
 //                }
+                itemGridCell.getItem().setSelected(!itemGridCell.getItem().isSelected());
+                if (itemGridCell.getItem().isSelected()){
+                    itemGridCell.setStyle("-fx-background-color: #cacaca; -fx-background-radius: 0; -fx-border-radius: 0;" );
+                } else {
+                    itemGridCell.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 0; -fx-border-radius: 0;" );
+                }
+
                 if (onTouch!= null){
                     onTouch.onClick(itemGridCell.getItem());
                 }

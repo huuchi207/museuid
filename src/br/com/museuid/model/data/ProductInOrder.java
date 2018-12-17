@@ -1,10 +1,9 @@
 package br.com.museuid.model.data;
 
-import org.apache.commons.lang3.StringUtils;
-
 import br.com.museuid.dto.ProductWithImage;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import org.apache.commons.lang3.StringUtils;
 
 public class ProductInOrder extends ProductWithImage {
   private int count;
@@ -15,8 +14,8 @@ public class ProductInOrder extends ProductWithImage {
   private OnContentChange onContentChange;
 
   public ProductInOrder(String id, String productName, String description, Integer price, Integer inStock, String imageid,
-                        ImageView imageView, int count) {
-    super(id, productName, description, price, inStock, imageid);
+                        ImageView imageView, int count, String type) {
+    super(id, productName, description, price, inStock, imageid, type);
     this.setProductImage(imageView);
 
     this.count = count;

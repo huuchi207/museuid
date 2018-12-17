@@ -8,7 +8,8 @@
       "price": 12500,
       "instock": 1000,
       "description": "drink",
-      "imageid": null
+      "imageid": null,
+      "type": "Chung"
     },
     {
       "_id": "a1123",
@@ -16,7 +17,9 @@
       "price": 5000,
       "instock": 1000,
       "description": "drink",
-      "imageid": null
+      "imageid": null,
+      "type": "Do uong"
+
     },
     {
       "_id": "a1223",
@@ -24,15 +27,89 @@
       "price": 10000,
       "instock": 1000,
       "description": "drink",
-      "imageid": null
+      "imageid": null,
+      "type": "Do an"
     },
     {
       "_id": "a1323",
-      "name": "sfsldkf",
+      "name": "Banh my ba te",
       "price": 12500,
       "instock": 1000,
       "description": "drink",
-      "imageid": null
+      "imageid": null,
+      "type": "Do an"
+    },{
+      "_id": "a123",
+      "name": "Coca",
+      "price": 12500,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null,
+      "type": "Chung"
+    },
+    {
+      "_id": "a1123",
+      "name": "Bimbim",
+      "price": 5000,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null,
+      "type": "Do uong"
+
+    },
+    {
+      "_id": "a1223",
+      "name": "My tom",
+      "price": 10000,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null,
+      "type": "Do an"
+    },
+    {
+      "_id": "a1323",
+      "name": "Banh my ba te",
+      "price": 12500,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null,
+      "type": "Do an"
+    },{
+      "_id": "a123",
+      "name": "Coca",
+      "price": 12500,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null,
+      "type": "Chung"
+    },
+    {
+      "_id": "a1123",
+      "name": "Bimbim",
+      "price": 5000,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null,
+      "type": "Do uong"
+
+    },
+    {
+      "_id": "a1223",
+      "name": "My tom",
+      "price": 10000,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null,
+      "type": "Do an"
+    },
+    {
+      "_id": "a1323",
+      "name": "Banh my ba te",
+      "price": 12500,
+      "instock": 1000,
+      "description": "drink",
+      "imageid": null,
+      "type": "Do an"
     }
   ]
 }

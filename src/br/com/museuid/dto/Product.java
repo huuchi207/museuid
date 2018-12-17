@@ -1,8 +1,7 @@
 package br.com.museuid.dto;
 
-import com.google.gson.annotations.SerializedName;
-
 import br.com.museuid.util.BundleUtils;
+import com.google.gson.annotations.SerializedName;
 
 public class Product {
   @SerializedName("_id")
@@ -19,15 +18,25 @@ public class Product {
   protected String productid;
   @SerializedName("imageid")
   protected String imageid;
+  @SerializedName("type")
+  protected String type;
 
+  public String getType() {
+    return type;
+  }
 
-  public Product(String id, String productName, String description, Integer price, Integer inStock) {
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public Product(String id, String productName, String description, Integer price, Integer inStock, String type) {
     this.id = id;
     this.productid = id;
     this.productName = productName;
     this.description = description;
     this.price = price;
     this.inStock = inStock;
+    this.type = type;
   }
 
   public Product(String productName, String description, Integer price, Integer inStock) {
@@ -84,7 +93,7 @@ public class Product {
 
 
   public void updateStatus() {
-    this.status = (inStock != null && inStock > 0) ?
+    this.status =  isAvailable() ?
       BundleUtils.getResourceBundle().getString("txt_available_product") :
       BundleUtils.getResourceBundle().getString("txt_out_of_stock");
   }
@@ -114,6 +123,9 @@ public class Product {
   }
 
   public ProductWithImage convertToProductWithImage(){
-    return new ProductWithImage(id, productName, description, price, inStock, imageid);
+    return new ProductWithImage(id, productName, description, price, inStock, imageid, type);
+  }
+  public boolean isAvailable(){
+    return (inStock != null && inStock > 0);
   }
 }

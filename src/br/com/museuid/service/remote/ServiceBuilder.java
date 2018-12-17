@@ -1,10 +1,5 @@
 package br.com.museuid.service.remote;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 import br.com.museuid.Constants;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.util.StaticVarUtils;
@@ -16,9 +11,14 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 public class ServiceBuilder {
   private static Retrofit retrofit = null;
-  private static final String BASEURL= ConstantConfig.FAKE ? "http://api.openweathermap.org/" : "http://192.168.1.241:5000/";
+  private static final String BASEURL= ConstantConfig.FAKE ? "http://api.openweathermap.org/" : (ConstantConfig.RELEASE ? "http://192.168.1.241:5000/": "http://localhost:5000/");
   private static APIService sApiService;
   public static synchronized APIService getApiService() {
     sApiService = getRetrofit(BASEURL).create(APIService.class);

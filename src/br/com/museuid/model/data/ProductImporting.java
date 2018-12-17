@@ -1,14 +1,13 @@
 package br.com.museuid.model.data;
 
 
-import org.apache.commons.lang3.StringUtils;
-
 import br.com.museuid.dto.ProductWithImage;
 import javafx.scene.control.TextField;
+import org.apache.commons.lang3.StringUtils;
 
 public class ProductImporting extends ProductWithImage {
-  public ProductImporting(String id, String productName, String description, Integer price, Integer inStock, String imageid) {
-    super(id, productName, description, price, inStock, imageid);
+  public ProductImporting(String id, String productName, String description, Integer price, Integer inStock, String imageid, String type) {
+    super(id, productName, description, price, inStock, imageid, type);
     configView();
   }
 

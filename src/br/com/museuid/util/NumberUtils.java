@@ -1,6 +1,7 @@
 package br.com.museuid.util;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 
 public class NumberUtils {
@@ -13,5 +14,14 @@ public class NumberUtils {
         }
         DecimalFormat decimalFormat = new DecimalFormat("#.###");
         return String.format("%s %s", decimalFormat.format(value), arr[index]);
+    }
+
+    public static String convertVNDMoneyToDecimaFormatString(int money){
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        symbols.setGroupingSeparator(',');
+        DecimalFormat df = new DecimalFormat(); // Set your desired format here.
+        df.setDecimalFormatSymbols(symbols);
+        return df.format(money);
     }
 }

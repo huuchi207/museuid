@@ -1,10 +1,10 @@
 package br.com.museuid.util;
 
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+
+import java.util.List;
 
 /**
  * Auxiliary class in the combobox population
@@ -48,5 +48,17 @@ public class ComboUtils {
     private static void clean(ComboBox<Object> combo) {
         combo.getItems().clear();
         combo.setPromptText(BundleUtils.getResourceBundle().getString("txt_no_data"));
+    }
+    /**
+     * Popular combos with data reported to the combo
+     */
+
+    public static void data(ComboBox combo, List data, String selected) {
+        if (data.isEmpty() || data == null) {
+            clean(combo);
+        } else {
+            combo.setItems(FXCollections.observableArrayList(data));
+            combo.getSelectionModel().select(selected);
+        }
     }
 }
