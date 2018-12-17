@@ -1,7 +1,7 @@
 package br.com.museuid.config;
 
 public interface ConstantConfig {
-  boolean FAKE =true;
+  boolean FAKE = false;
   String defaultLocaleCode= "vi";
   boolean DEBUG= true;
   boolean RELEASE = false;//change it when deploy
