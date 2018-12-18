@@ -1,5 +1,14 @@
 package br.com.museuid.screen.order_in_queue;
 
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import br.com.museuid.Constants;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.MutipleLineTableCell;
@@ -8,8 +17,13 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
-import br.com.museuid.util.*;
-import com.google.gson.Gson;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.DialogUtils;
+import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.util.NoticeUtils;
+import br.com.museuid.util.StaticVarUtils;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -25,12 +39,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import org.json.JSONObject;
-
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class OrderInQueueController extends AnchorPane {
   public AnchorPane apOrderInQueueTable;
@@ -181,6 +189,7 @@ public class OrderInQueueController extends AnchorPane {
     colOrderDescription.setCellFactory(tv -> new MutipleLineTableCell());
 
     tbOrderInQueue.setItems(orderDetailObservableList);
+    FieldViewUtils.setEnterKeyEvent(tbOrderInQueue, btHandleOrder);
   }
 
   @FXML
@@ -273,8 +282,6 @@ public class OrderInQueueController extends AnchorPane {
   }
 
   private void orderQueue() {
-    FieldViewUtils.setGlobalEventHandler(this, btHandleOrder);
-
     NavigationUtils.setVisibility(true, apOrderInQueueTable);
     NavigationUtils.setVisibility(false, apOrderInfo);
   }

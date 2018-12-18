@@ -1,12 +1,17 @@
 package br.com.museuid.util;
 
+import java.util.List;
+
+import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-
-import java.util.List;
 
 /**
  * Utilitario para formatação e verificação de campos de textos, labels e textareas
@@ -130,14 +135,29 @@ public class FieldViewUtils {
         node.setDisable(b);
       }
     }
-
+    private static EventHandler<KeyEvent> eventHandler;
     public static void setGlobalEventHandler(Node root, Button fireButton) {
-        root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
-            if (ev.getCode() == KeyCode.ENTER) {
-                if (fireButton!= null)
-                    fireButton.fire();
-                ev.consume();
-            }
+      if (eventHandler!= null || fireButton== null){
+        root.removeEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
+      }
+      if (fireButton != null){
+        eventHandler = (ev -> {
+          if (ev.getCode() == KeyCode.ENTER) {
+            if (fireButton!= null)
+              fireButton.fire();
+            ev.consume();
+          }
         });
+        root.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
+      }
+    }
+
+    public static void setEnterKeyEvent(Node node, Button fireButton){
+      node.setOnKeyReleased(evt -> {
+        if (evt.getCode() == KeyCode.ENTER) {
+          fireButton.fire();
+        }
+        evt.consume();
+      });
     }
 }

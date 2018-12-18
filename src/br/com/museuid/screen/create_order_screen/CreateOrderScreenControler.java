@@ -1,5 +1,15 @@
 package br.com.museuid.screen.create_order_screen;
 
+import org.apache.commons.lang3.StringUtils;
+import org.controlsfx.control.GridView;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.ResourceBundle;
+import java.util.Set;
+
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.AutocompletionlTextField;
 import br.com.museuid.customview.customgridview.ItemGridCellFactory;
@@ -12,7 +22,14 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
-import br.com.museuid.util.*;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ComboUtils;
+import br.com.museuid.util.DialogUtils;
+import br.com.museuid.util.FakeDataUtils;
+import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.util.StaticVarUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,13 +39,14 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import org.controlsfx.control.GridView;
-
-import java.util.*;
 
 public class CreateOrderScreenControler extends AnchorPane {
   //header
@@ -103,8 +121,6 @@ public class CreateOrderScreenControler extends AnchorPane {
       }
     });
     goToProductList(null);
-
-
   }
 
   private void initTable() {
@@ -147,7 +163,8 @@ public class CreateOrderScreenControler extends AnchorPane {
 
     Set<String> productType = new HashSet<String>();
     for (ProductWithImage item: productList){
-      productType.add(item.getType());
+      if (!StringUtils.isEmpty(item.getType()))
+        productType.add(item.getType());
     }
     productType.add("Tất cả");
 
@@ -226,7 +243,6 @@ public class CreateOrderScreenControler extends AnchorPane {
     lbTitle.setText(bundle.getString("txt_edit_order"));
     NavigationUtils.setVisibility(false, btEditOrder, apProductList);
     NavigationUtils.setVisibility(true, btBackToList, btCreateOrder, gridEditOrderList);
-
 
     FieldViewUtils.setGlobalEventHandler(this, btCreateOrder);
 
