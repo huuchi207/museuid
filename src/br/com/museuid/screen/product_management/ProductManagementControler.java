@@ -1,5 +1,17 @@
 package br.com.museuid.screen.product_management;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.Set;
+
 import br.com.museuid.app.App;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.Product;
@@ -8,7 +20,15 @@ import br.com.museuid.dto.UploadImageDTO;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
-import br.com.museuid.util.*;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ComboUtils;
+import br.com.museuid.util.DialogUtils;
+import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.FileUtils;
+import br.com.museuid.util.ImageUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.util.NoticeUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,7 +36,13 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,21 +54,16 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 public class ProductManagementControler extends AnchorPane {
 
   public TableColumn colProductName;
   public TableColumn colImage;
   public TextField txtDescription;
+
+  public TableColumn colProductType;
   private List<ProductWithImage> productList = new ArrayList<>();
   private Product selectedProduct = null;
-
+  public ComboBox<String> cbProductType;
   @FXML
   private GridPane apAdd;
   @FXML
@@ -113,8 +134,8 @@ public class ProductManagementControler extends AnchorPane {
     config(bundle.getString("txt.edit.product.info"), "", 1);
     NavigationUtils.setVisibility(true, apEdit, boxEdit, txtSearch);
     NavigationUtils.setVisibility(false, btSave, apAdd);
-    updateTable();
 
+    getProductList();
     FieldViewUtils.setGlobalEventHandler(this, null);
 
   }
@@ -130,6 +151,11 @@ public class ProductManagementControler extends AnchorPane {
     String description = txtDescription.getText();
     if (isValid) {
       NoticeUtils.alert(bundle.getString("txt_please_enter_info"));
+      return;
+    }
+    String productType = cbProductType.getValue();
+    if (StringUtils.isEmpty(productType)){
+      NoticeUtils.alert("Vui lòng chọn loại sản phẩm");
       return;
     }
     int priceNumber, inStockNumber;
@@ -169,18 +195,19 @@ public class ProductManagementControler extends AnchorPane {
         @Override
         public void onSuccess(UploadImageDTO data) {
           AppController.getInstance().hideProgressDialog();
-          updateDataToServer(productName, description, priceNumber, inStockNumber, data.get_id());
+          updateDataToServer(productName, description, priceNumber, inStockNumber, productType, data.get_id());
         }
       });
     } else {
-      updateDataToServer(productName, description, priceNumber, inStockNumber, null);
+      updateDataToServer(productName, description, priceNumber, inStockNumber, productType, null);
     }
   }
   private void updateDataToServer(String productName, String description,
-                                  Integer priceNumber, Integer inStockNumber, String imageId){
+                                  Integer priceNumber, Integer inStockNumber, String productType, String imageId){
     if (selectedProduct == null) {
       Product product = new Product(productName, description, priceNumber, inStockNumber);
       product.setImageid(imageId);
+      product.setType(productType);
       if (ConstantConfig.FAKE) {
 //        productList.add(product);
         updateTable();
@@ -207,6 +234,7 @@ public class ProductManagementControler extends AnchorPane {
     } else {
       Product product = selectedProduct;
       product.setProductName(productName);
+      product.setType(productType);
       product.setDescription(description);
       product.setPrice(priceNumber);
       product.setInStock(inStockNumber);
@@ -255,6 +283,7 @@ public class ProductManagementControler extends AnchorPane {
       txtDescription.setText(selectedProduct.getDescription());
       lbProductImage.setGraphic(selectedProduct.getProductImage());
       txtProductName.setDisable(true);
+      cbProductType.setValue(selectedProduct.getType());
 
       lbTitle.setText(bundle.getString("txt.edit.product.info"));
       menu.selectToggle(menu.getToggles().get(1));
@@ -363,11 +392,19 @@ public class ProductManagementControler extends AnchorPane {
             productList.add(product.convertToProductWithImage());
           }
           updateTable();
+          updateComboboxProductType();
         }
       });
     }
   }
 
+  private void updateComboboxProductType() {
+    Set<String> listProductType = new HashSet<>();
+    for (ProductWithImage item : productList){
+      listProductType.add(item.getType());
+    }
+    ComboUtils.popular(cbProductType, new ArrayList<String>(listProductType));
+  }
   /**
    * Mapear dados objetos para inserção dos dados na updateTable
    */
@@ -380,6 +417,7 @@ public class ProductManagementControler extends AnchorPane {
     colInStock.setCellValueFactory(new PropertyValueFactory<>("inStock"));
     colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
     colImage.setCellValueFactory(new PropertyValueFactory<>("productImage"));
+    colProductType.setCellValueFactory(new PropertyValueFactory<>("type"));
     tbProduct.setItems(data);
   }
 
@@ -414,6 +452,7 @@ public class ProductManagementControler extends AnchorPane {
     FieldViewUtils.resetField(txtInStock, txtDescription);
     lbProductImage.setGraphic(null);
     selectedImagePath = null;
+    cbProductType.getSelectionModel().selectFirst();
   }
 
   @FXML
@@ -428,6 +467,14 @@ public class ProductManagementControler extends AnchorPane {
       } catch (FileNotFoundException e) {
         Messenger.erro("Không thể mở ảnh!");
       }
+    }
+  }
+  @FXML
+  void addProductTypeAction(ActionEvent event){
+    Optional<String> newProductType = DialogUtils.showTextDialog("Nhập loại sản phẩm mối");
+    if (newProductType.isPresent()){
+      cbProductType.getItems().add(newProductType.get());
+      cbProductType.setValue(newProductType.get());
     }
   }
 }

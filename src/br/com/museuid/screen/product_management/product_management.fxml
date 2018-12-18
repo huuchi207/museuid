@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?><?import java.net.URL?><?import javafx.geometry.Insets?><?import javafx.scene.control.Button?><?import javafx.scene.control.Label?><?import javafx.scene.control.TableColumn?><?import javafx.scene.control.TableView?><?import javafx.scene.control.TextField?><?import javafx.scene.control.ToggleButton?><?import javafx.scene.control.ToggleGroup?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.ColumnConstraints?><?import javafx.scene.layout.GridPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.RowConstraints?><?import javafx.scene.layout.StackPane?>
+<?import java.lang.String?><?import java.net.URL?><?import javafx.geometry.Insets?><?import javafx.scene.control.Button?><?import javafx.scene.control.ComboBox?><?import javafx.scene.control.Label?><?import javafx.scene.control.TableColumn?><?import javafx.scene.control.TableView?><?import javafx.scene.control.TextField?><?import javafx.scene.control.ToggleButton?><?import javafx.scene.control.ToggleGroup?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.ColumnConstraints?><?import javafx.scene.layout.GridPane?><?import javafx.scene.layout.HBox?><?import javafx.scene.layout.RowConstraints?><?import javafx.scene.layout.StackPane?>
 <fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea"
   xmlns:fx="http://javafx.com/fxml/1">
   <children>
@@ -83,7 +83,15 @@
               <Insets left="20"/>
             </HBox.margin>
           </Label>
+        </HBox>
 
+        <Label styleClass="lb-info" text="Loại sản phẩm" GridPane.columnIndex="1"
+          GridPane.rowIndex="4" />
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP" >
+          <ComboBox fx:id="cbProductType" >
+            <HBox.margin><Insets right="10"/></HBox.margin>
+          </ComboBox>
+          <Button text="Thêm mới" fx:id="btAddProductType" onAction="#addProductTypeAction"/>
         </HBox>
       </children>
     </GridPane>
@@ -100,8 +108,10 @@
               text="%txt_price" />
             <TableColumn fx:id="colImage" maxWidth="400.0" minWidth="150.0" prefWidth="150.0"
               text="%txt_product_image" />
-            <TableColumn fx:id="colInStock" maxWidth="300.0" minWidth="150.0" prefWidth="250.0"
+            <TableColumn fx:id="colInStock" maxWidth="300.0" minWidth="150.0" prefWidth="150.0"
               text="%txt_in_stock" />
+            <TableColumn fx:id="colProductType" maxWidth="300.0" minWidth="150.0" prefWidth="150.0"
+              text="Loại sản phẩm" />
             <TableColumn fx:id="colDescription" maxWidth="900.0" minWidth="150.0" prefWidth="250.0"
               text="%txt_description" />
           </columns>

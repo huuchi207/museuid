@@ -1,5 +1,7 @@
 package br.com.museuid.util;
 
+import java.util.Optional;
+
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
@@ -9,14 +11,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.util.Optional;
 
 /**
  * Criar janelas de dialogos
@@ -262,5 +266,14 @@ public class DialogUtils {
 
     // The Java 8 way to get the response value (with lambda expression).
     //        result.ifPresent(name -> System.out.println("Your name: " + name));
+  }
+
+  public static Optional<String> showTextDialog(String title){
+    TextInputDialog dialog = new TextInputDialog();
+    dialog.setTitle(title);
+    dialog.setHeaderText(null);
+    dialog.setContentText(null);
+
+    return dialog.showAndWait();
   }
 }
