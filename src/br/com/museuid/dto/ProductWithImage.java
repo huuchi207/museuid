@@ -6,9 +6,9 @@ import javafx.scene.image.ImageView;
 
 public class ProductWithImage  extends  Product{
   private ImageView productImage;
-
-  public ProductWithImage(String id, String productName, String description, Integer price, Integer inStock, String imageid) {
-    super(id, productName, description, price, inStock);
+  private boolean selected;
+  public ProductWithImage(String id, String productName, String description, Integer price, Integer inStock, String imageid, String type) {
+    super(id, productName, description, price, inStock, type);
     this.imageid = imageid;
     createImage();
   }
@@ -37,8 +37,15 @@ public class ProductWithImage  extends  Product{
   }
 
   public ProductInOrder convertToProductInOrder() {
-    return new ProductInOrder(id, productName, description, price, inStock, imageid, productImage, 1);
+    return new ProductInOrder(id, productName, description, price, inStock, imageid, productImage, 1, type);
   }
 
 
+  public boolean isSelected() {
+    return selected;
+  }
+
+  public void setSelected(boolean selected) {
+    this.selected = selected;
+  }
 }

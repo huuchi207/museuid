@@ -1,11 +1,18 @@
 package br.com.museuid.screen.create_order_screen;
 
+import org.apache.commons.lang3.StringUtils;
+import org.controlsfx.control.GridView;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.customview.FormattedNumberTableCell;
+import br.com.museuid.customview.customgridview.ItemGridCellFactory;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.ProductWithImage;
 import br.com.museuid.model.data.ProductInOrder;
@@ -14,10 +21,14 @@ import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
 import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ComboUtils;
 import br.com.museuid.util.FakeDataUtils;
+import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.StaticVarUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -26,26 +37,28 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 public class CreateOrderScreenControler extends AnchorPane {
   //header
   public Label lbTitle;
-  public TextField txtSearch;
+//  public TextField txtSearch;
   //product list
   public AnchorPane apProductList;
-  public TableView<ProductWithImage> tbProduct;
+//  public TableView<ProductWithImage> tbProduct;
   //    public TableColumn colId;
-  public TableColumn colProductName;
-  public TableColumn colDescription;
-  public TableColumn colPrice;
-  public TableColumn colImage;
+//  public TableColumn colProductName;
+//  public TableColumn colDescription;
+//  public TableColumn colPrice;
+//  public TableColumn colImage;
+
+  public GridView<ProductWithImage> gridProduct;
+  public ComboBox<String> cbFilter;
   //order
   public AnchorPane apEditOrderList;
   public TableView<ProductInOrder> tbProductInOrder;
@@ -92,23 +105,32 @@ public class CreateOrderScreenControler extends AnchorPane {
   @FXML
   public void initialize() {
     initTable();
+
+    cbFilter.valueProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        if (newValue!= null){
+          filter(newValue, FXCollections.observableArrayList(productList));
+        }
+      }
+    });
     goToProductList(null);
 
-    txtSearch.textProperty().addListener((obs, old, novo) -> {
-      filter(novo, FXCollections.observableArrayList(productList));
-    });
+//    txtSearch.textProperty().addListener((obs, old, novo) -> {
+//      filter(novo, FXCollections.observableArrayList(productList));
+//    });
   }
 
   private void initTable() {
-    tbProduct.getSelectionModel().setSelectionMode(
-      SelectionMode.MULTIPLE
-    );
-//        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-    colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-    colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-    colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-    colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-    colImage.setCellValueFactory(new PropertyValueFactory<>("productImage"));
+//    tbProduct.getSelectionModel().setSelectionMode(
+//      SelectionMode.MULTIPLE
+//    );
+////        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+//    colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+//    colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+//    colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+//    colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+//    colImage.setCellValueFactory(new PropertyValueFactory<>("productImage"));
 
 
 //        colIdInOrder.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -119,6 +141,17 @@ public class CreateOrderScreenControler extends AnchorPane {
     colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("tfNote"));
     colImageInOrder.setCellValueFactory(new PropertyValueFactory<>("productImage"));
 
+    colPriceInOrder.setCellFactory(tc -> new FormattedNumberTableCell());
+
+
+    ItemGridCellFactory itemGridCellFactory = new ItemGridCellFactory();
+    itemGridCellFactory.setOnTouch(new ItemGridCellFactory.OnTouch() {
+      @Override
+      public void onClick(ProductWithImage item) {
+//        Messenger.info(item.getProductName());
+      }
+    });
+    gridProduct.setCellFactory(itemGridCellFactory);
   }
 
   /**
@@ -126,7 +159,16 @@ public class CreateOrderScreenControler extends AnchorPane {
    */
   private void updateProductTable() {
     productObservableList = FXCollections.observableArrayList(productList);
-    tbProduct.setItems(productObservableList);
+    gridProduct.setItems(productObservableList);
+
+    Set<String> productType = new HashSet<String>();
+    for (ProductWithImage item: productList){
+      if (!StringUtils.isEmpty(item.getType()))
+        productType.add(item.getType());
+    }
+    productType.add("Tất cả");
+
+    ComboUtils.data(cbFilter, new ArrayList<String>(productType), "Tất cả");
   }
 
   private void updateProductInOrderTable() {
@@ -139,13 +181,13 @@ public class CreateOrderScreenControler extends AnchorPane {
    * FieldViewUtils de pesquisar para filtrar dados na updateTable
    */
   private void filter(String valor, ObservableList<ProductWithImage> products) {
-
     FilteredList<ProductWithImage> filteredList = new FilteredList<>(products, Product -> true);
     filteredList.setPredicate(product -> {
-
-      if (valor == null || valor.isEmpty()) {
+      if ("Tất cả".equals(valor)){
         return true;
-      } else if (product.getProductName().toLowerCase().contains(valor.toLowerCase())) {
+      } else if (valor == null || valor.isEmpty()) {
+        return true;
+      } else if (product.getType().toLowerCase().contains(valor.toLowerCase())) {
         return true;
       }
 
@@ -153,10 +195,8 @@ public class CreateOrderScreenControler extends AnchorPane {
     });
 
     SortedList<ProductWithImage> dadosOrdenados = new SortedList<>(filteredList);
-    dadosOrdenados.comparatorProperty().bind(tbProduct.comparatorProperty());
-//    FilterUtils.mensage(legenda, dadosOrdenados.size(), "Quantidade de Estratigrafias encontradas");
 
-    tbProduct.setItems(dadosOrdenados);
+    gridProduct.setItems(dadosOrdenados);
   }
 
   private void getProductList() {
@@ -199,9 +239,9 @@ public class CreateOrderScreenControler extends AnchorPane {
     updateProductInOrderTable();
     updateProductInOrderScreenData();
     lbTitle.setText(bundle.getString("txt_edit_order"));
-    NavigationUtils.setVisibility(false, btEditOrder, apProductList, txtSearch);
+    NavigationUtils.setVisibility(false, btEditOrder, apProductList);
     NavigationUtils.setVisibility(true, btBackToList, btCreateOrder, apEditOrderList);
-
+    FieldViewUtils.setGlobalEventHandler(this, btCreateOrder);
   }
 
   @FXML
@@ -239,11 +279,14 @@ public class CreateOrderScreenControler extends AnchorPane {
   void goToProductList(ActionEvent event) {
     getProductList();
     lbTitle.setText(bundle.getString("txt_product_list"));
-    lbLegend.setText(bundle.getString("txt_hold_ctrl_to_choose_items"));
-    tbProduct.getSelectionModel().clearSelection();
+//    lbLegend.setText(bundle.getString("txt_hold_ctrl_to_choose_items"));
+    lbLegend.setText("");
+//    tbProduct.getSelectionModel().clearSelection();
 
-    NavigationUtils.setVisibility(true, btEditOrder, apProductList, txtSearch);
+    NavigationUtils.setVisibility(true, btEditOrder, apProductList);
     NavigationUtils.setVisibility(false, btBackToList, btCreateOrder, apEditOrderList);
+
+    FieldViewUtils.setGlobalEventHandler(this, btEditOrder);
   }
 
   private List<ProductInOrder> createProductInOrderListFromSelectedProductList() {
@@ -251,31 +294,33 @@ public class CreateOrderScreenControler extends AnchorPane {
       return new ArrayList<>();
     }
 
-    ObservableList<ProductWithImage> selectedItems = tbProduct.getSelectionModel().getSelectedItems();
+    ObservableList<ProductWithImage> selectedItems = FXCollections.observableArrayList(getSelectedProducts());
 
-    ListIterator<ProductWithImage> iterator = selectedItems.listIterator();
+//    ListIterator<ProductWithImage> iterator = selectedItems.listIterator();
     List<ProductInOrder> selectedProducts = new ArrayList<>();
-    while (iterator.hasNext()) {
-      Product item = iterator.next();
-      for (ProductWithImage product : productList) {
-        if (product.getId().equals(item.getId())) {
+//    while (iterator.hasNext()) {
+//      Product item = iterator.next();
+      for (ProductWithImage product : selectedItems) {
+//        if (product.getId().equals(item.getId())) {
           ProductInOrder productInOrder = product.convertToProductInOrder();
-          productInOrder.setOnContentChange(new ProductInOrder.OnContentChange() {
-            @Override
-            public void onNumberChange(Integer oldNumber, Integer newNumber) {
-              if (newNumber >=0){
-                totalPrice += (newNumber-productInOrder.getCount())*productInOrder.getPrice();
-                productInOrder.setCount(newNumber);
-                lbLegend.setText(bundle.getString("txt_total_price") + ": " + totalPrice + " " + bundle.getString("txt_vnd"));
-              } else {
-//                Messenger.erro("Số lượng hàng phải lớn hơn 0");
-                productInOrder.getTfNumber().setText(productInOrder.getCount()+"");
+          productInOrder.setOnContentChange(
+            new ProductInOrder.OnContentChange() {
+              @Override
+              public void onNumberChange(Integer oldNumber, Integer newNumber) {
+                if (newNumber >= 0) {
+                  totalPrice += (newNumber - productInOrder.getCount()) * productInOrder.getPrice();
+                  productInOrder.setCount(newNumber);
+                  lbLegend.setText(bundle.getString("txt_total_price") + ": " + totalPrice + " " + bundle.getString("txt_vnd"));
+                } else {
+//                        Messenger.erro("Số lượng hàng phải lớn hơn 0");
+                  productInOrder.getTfNumber().setText(productInOrder.getCount() + "");
+                }
               }
-            }}
+            }
           );
           selectedProducts.add(productInOrder);
-        }
-      }
+//        }
+//      }
     }
     return selectedProducts;
   }
@@ -303,7 +348,6 @@ public class CreateOrderScreenControler extends AnchorPane {
       productWithImage.updateStatus();
       list.add(productWithImage);
     }
-
     productList = list;
   }
 
@@ -341,5 +385,24 @@ public class CreateOrderScreenControler extends AnchorPane {
       null);
     putQueueRequest.setLocation(StaticVarUtils.getSessionDeviceInfo().getInfo().getLocation());
     return putQueueRequest;
+  }
+
+  private void clearSelectionOfGridProduct(){
+    if (gridProduct.getItems()!= null){
+      for (ProductWithImage item : gridProduct.getItems()){
+        item.setSelected(false);
+      }
+    }
+  }
+  private List<ProductWithImage> getSelectedProducts(){
+    List<ProductWithImage> items = new ArrayList<>();
+    if (gridProduct.getItems()!= null){
+      for (ProductWithImage item : gridProduct.getItems()){
+        if (item.isSelected()){
+          items.add(item);
+        }
+      }
+    }
+    return items;
   }
 }

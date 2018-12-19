@@ -15,8 +15,8 @@ public class ProductInOrder extends ProductWithImage {
   private OnContentChange onContentChange;
 
   public ProductInOrder(String id, String productName, String description, Integer price, Integer inStock, String imageid,
-                        ImageView imageView, int count) {
-    super(id, productName, description, price, inStock, imageid);
+                        ImageView imageView, int count, String type) {
+    super(id, productName, description, price, inStock, imageid, type);
     this.setProductImage(imageView);
 
     this.count = count;

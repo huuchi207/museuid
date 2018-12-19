@@ -119,7 +119,7 @@
           </center>
         </BorderPane>
         <VBox fx:id="boxNotas" alignment="TOP_RIGHT" fillWidth="false" layoutX="1044.0" layoutY="596.0"
-          spacing="10.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="15.0" />
+          spacing="10.0" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="15.0" />
       </AnchorPane>
     </VBox>
   </children>

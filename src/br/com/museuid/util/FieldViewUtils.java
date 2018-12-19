@@ -1,10 +1,16 @@
 package br.com.museuid.util;
 
+import java.util.List;
+
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -23,7 +29,7 @@ public class FieldViewUtils {
         boolean vazio = false;
 
         for (TextField campo : field) {
-            if (campo.getText().trim().isEmpty()) {
+            if (campo.getText() == null || campo.getText().trim().isEmpty()) {
                 erro(campo, BundleUtils.getResourceBundle().getString("txt_check_empty_txt"));
                 vazio = true;
             }
@@ -37,7 +43,7 @@ public class FieldViewUtils {
         boolean vazio = false;
 
         for (TextArea campo : field) {
-            if (campo.getText().trim().isEmpty()) {
+            if (campo.getText() == null || campo.getText().trim().isEmpty()) {
                 erro(campo, BundleUtils.getResourceBundle().getString("txt_check_empty_txt"));
                 vazio = true;
             }
@@ -51,7 +57,7 @@ public class FieldViewUtils {
         boolean vazio = false;
 
         for (PasswordField campo : field) {
-            if (campo.getText().trim().isEmpty()) {
+            if (campo.getText() == null || campo.getText().trim().isEmpty()) {
                 erro(campo, BundleUtils.getResourceBundle().getString("txt_check_empty_txt"));
                 vazio = true;
             }
@@ -117,5 +123,41 @@ public class FieldViewUtils {
         no.setOnMouseClicked((MouseEvent me) -> {
             no.setStyle("-fx-border-color: transparent transparent #e8e8e8 transparent;");
         });
+    }
+
+    public static void disableViews(boolean b, Node... nodes){
+      for (Node node : nodes){
+        node.setDisable(b);
+      }
+    }
+    public static void disableViews(boolean b, List<Node> nodes){
+      for (Node node : nodes){
+        node.setDisable(b);
+      }
+    }
+    private static EventHandler<KeyEvent> eventHandler;
+    public static void setGlobalEventHandler(Node root, Button fireButton) {
+      if (eventHandler!= null || fireButton== null){
+        root.removeEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
+      }
+      if (fireButton != null){
+        eventHandler = (ev -> {
+          if (ev.getCode() == KeyCode.ENTER) {
+            if (fireButton!= null)
+              fireButton.fire();
+            ev.consume();
+          }
+        });
+        root.addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
+      }
+    }
+
+    public static void setEnterKeyEvent(Node node, Button fireButton){
+      node.setOnKeyReleased(evt -> {
+        if (evt.getCode() == KeyCode.ENTER) {
+          fireButton.fire();
+        }
+        evt.consume();
+      });
     }
 }

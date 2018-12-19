@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceBuilder {
   private static Retrofit retrofit = null;
-  private static final String BASEURL= ConstantConfig.FAKE ? "http://api.openweathermap.org/" : "http://192.168.1.241:5000/";
+  private static final String BASEURL= ConstantConfig.FAKE ? "http://api.openweathermap.org/" : (ConstantConfig.RELEASE ? "http://192.168.1.241:5000/": "http://localhost:5000/");
   private static APIService sApiService;
   public static synchronized APIService getApiService() {
     sApiService = getRetrofit(BASEURL).create(APIService.class);
