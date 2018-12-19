@@ -25,6 +25,7 @@ import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.util.SoundUtils;
 import br.com.museuid.util.StaticVarUtils;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -325,6 +326,7 @@ public class OrderInQueueController extends AnchorPane {
   private void orderQueue() {
     NavigationUtils.setVisibility(true, apOrderInQueueTable);
     NavigationUtils.setVisibility(false, apOrderInfo);
+    tbOrderInQueue.getSelectionModel().clearSelection();
   }
 
   private void goToOrderDetail(OrderDetail selected) {
@@ -404,6 +406,7 @@ public class OrderInQueueController extends AnchorPane {
     Platform.runLater(()-> {
       App.getmStage().toFront();
       AppNoticeUtils.info("Có đơn hàng mới");
+      SoundUtils.playNoti();
     });
   }
 }
