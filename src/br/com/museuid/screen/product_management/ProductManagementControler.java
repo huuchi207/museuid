@@ -21,6 +21,7 @@ import br.com.museuid.dto.UploadImageDTO;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.util.AppNoticeUtils;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.ComboUtils;
 import br.com.museuid.util.DialogUtils;
@@ -29,7 +30,6 @@ import br.com.museuid.util.FileUtils;
 import br.com.museuid.util.ImageUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.NoticeUtils;
 import br.com.museuid.util.NumberUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -153,12 +153,12 @@ public class ProductManagementControler extends AnchorPane {
     String inStock = txtInStock.getText();
     String description = txtDescription.getText();
     if (isValid) {
-      NoticeUtils.alert(bundle.getString("txt_please_enter_info"));
+      AppNoticeUtils.alert(bundle.getString("txt_please_enter_info"));
       return;
     }
     String productType = cbProductType.getValue();
     if (StringUtils.isEmpty(productType)) {
-      NoticeUtils.alert("Vui lòng chọn loại sản phẩm");
+      AppNoticeUtils.alert("Vui lòng chọn loại sản phẩm");
       return;
     }
     Integer priceNumber, inStockNumber;
@@ -277,7 +277,7 @@ public class ProductManagementControler extends AnchorPane {
       ProductWithImage selectedProduct = tbProduct.getSelectionModel().getSelectedItem();
 
       if (selectedProduct == null) {
-        NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+        AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
         return;
       }
 
@@ -297,7 +297,7 @@ public class ProductManagementControler extends AnchorPane {
       this.selectedProduct = selectedProduct;
 
     } catch (NullPointerException ex) {
-      NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+      AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
     }
   }
 
@@ -307,7 +307,7 @@ public class ProductManagementControler extends AnchorPane {
       Product selectedProduct = tbProduct.getSelectionModel().getSelectedItem();
 
       if (selectedProduct == null) {
-        NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+        AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
         return;
       }
 

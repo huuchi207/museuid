@@ -18,12 +18,12 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
+import br.com.museuid.util.AppNoticeUtils;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.NoticeUtils;
 import br.com.museuid.util.StaticVarUtils;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -259,7 +259,7 @@ public class OrderInQueueController extends AnchorPane {
   @FXML
   private void handleOrder(ActionEvent event) {
     if (tbOrderInQueue.getSelectionModel().getSelectedItem() == null) {
-      NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+      AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
       return;
     }
     AppController.getInstance().showProgressDialog();

@@ -1,5 +1,10 @@
 package br.com.museuid.screen.user_management;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.CustomListCellComboBox;
 import br.com.museuid.customview.PasswordDialog;
@@ -9,7 +14,13 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.sample.SampleCallback;
-import br.com.museuid.util.*;
+import br.com.museuid.util.AppNoticeUtils;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ComboUtils;
+import br.com.museuid.util.DialogUtils;
+import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.NavigationUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,17 +30,20 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class UserManagementControler extends AnchorPane {
     @FXML
@@ -139,7 +153,7 @@ public class UserManagementControler extends AnchorPane {
         String email = txtEmail.getText();
         String role = cbUserRole.getValue().name();
         if (isValid) {
-            NoticeUtils.alert(bundle.getString("txt_please_enter_info"));
+            AppNoticeUtils.alert(bundle.getString("txt_please_enter_info"));
             return;
         }
         PasswordDialog pd = new PasswordDialog();
@@ -212,7 +226,7 @@ public class UserManagementControler extends AnchorPane {
             UserDTO selectedUser = tbUser.getSelectionModel().getSelectedItem();
 
             if (selectedUser == null) {
-                NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+                AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
                 return;
             }
 
@@ -232,7 +246,7 @@ public class UserManagementControler extends AnchorPane {
             selectedUserId = selectedUser.getId();
 
         } catch (NullPointerException ex) {
-            NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+            AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
         }
     }
 
@@ -242,7 +256,7 @@ public class UserManagementControler extends AnchorPane {
             UserDTO selectedUser = tbUser.getSelectionModel().getSelectedItem();
 
             if (selectedUser == null) {
-                NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+                AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
                 return;
             }
 

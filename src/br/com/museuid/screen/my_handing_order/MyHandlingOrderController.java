@@ -11,12 +11,12 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.PutQueueRequest;
+import br.com.museuid.util.AppNoticeUtils;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.DialogUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.NoticeUtils;
 import br.com.museuid.util.StaticVarUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -216,7 +216,7 @@ public class MyHandlingOrderController extends AnchorPane {
   @FXML
   private void handleOrder(ActionEvent event) {
     if (tbOrderList.getSelectionModel().getSelectedItem() == null) {
-      NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+      AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
       return;
     }
 

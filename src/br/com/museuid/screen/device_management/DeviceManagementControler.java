@@ -1,12 +1,21 @@
 package br.com.museuid.screen.device_management;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.AddDeviceRequest;
-import br.com.museuid.util.*;
+import br.com.museuid.util.AppNoticeUtils;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.DialogUtils;
+import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.NavigationUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,15 +23,16 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class DeviceManagementControler extends AnchorPane {
 
@@ -116,7 +126,7 @@ public class DeviceManagementControler extends AnchorPane {
         String macAddress = txtMacAddress.getText();
 
         if (isValid) {
-            NoticeUtils.alert(bundle.getString("txt_please_enter_info"));
+            AppNoticeUtils.alert(bundle.getString("txt_please_enter_info"));
             return;
         }
 
@@ -181,7 +191,7 @@ public class DeviceManagementControler extends AnchorPane {
             DeviceInfo selectedItem = tbDevice.getSelectionModel().getSelectedItem();
 
             if (selectedItem == null) {
-                NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+                AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
                 return;
             }
 
@@ -197,7 +207,7 @@ public class DeviceManagementControler extends AnchorPane {
             selectedDeviceId = selectedItem.getId();
 
         } catch (NullPointerException ex) {
-            NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+            AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
         }
     }
 
@@ -207,7 +217,7 @@ public class DeviceManagementControler extends AnchorPane {
             DeviceInfo selectedItem = tbDevice.getSelectionModel().getSelectedItem();
 
             if (selectedItem == null) {
-                NoticeUtils.alert(bundle.getString("txt_please_choose_target"));
+                AppNoticeUtils.alert(bundle.getString("txt_please_choose_target"));
                 return;
             }
 

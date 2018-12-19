@@ -13,11 +13,11 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.StockImportingRequest;
+import br.com.museuid.util.AppNoticeUtils;
 import br.com.museuid.util.BundleUtils;
 import br.com.museuid.util.FieldViewUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
-import br.com.museuid.util.NoticeUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -237,7 +237,7 @@ public class StockImportingControler extends AnchorPane {
   void editImportingSession(ActionEvent event){
     ObservableList<ProductWithImage> selectedItems = tbProduct.getSelectionModel().getSelectedItems();
     if (selectedItems == null || selectedItems.isEmpty()){
-      NoticeUtils.alert("Vui lòng chọn sản phẩm!");
+      AppNoticeUtils.alert("Vui lòng chọn sản phẩm!");
       return;
     }
     updateImportingProductTable(selectedItems);
