@@ -2,6 +2,7 @@ package br.com.museuid.util;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParsePosition;
 
 
 public class NumberUtils {
@@ -23,5 +24,14 @@ public class NumberUtils {
         DecimalFormat df = new DecimalFormat(); // Set your desired format here.
         df.setDecimalFormatSymbols(symbols);
         return df.format(money);
+    }
+
+    public static Integer convertVNDFormattedStringToInteger(String str){
+      DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+      symbols.setDecimalSeparator('.');
+      symbols.setGroupingSeparator(',');
+      DecimalFormat df = new DecimalFormat(); // Set your desired format here.
+      df.setDecimalFormatSymbols(symbols);
+      return df.parse(str, new ParsePosition(0)).intValue();
     }
 }

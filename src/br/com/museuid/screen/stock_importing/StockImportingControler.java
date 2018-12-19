@@ -1,6 +1,11 @@
 package br.com.museuid.screen.stock_importing;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.customview.FormattedNumberTableCell;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.ProductWithImage;
 import br.com.museuid.model.data.ProductImporting;
@@ -8,7 +13,11 @@ import br.com.museuid.screen.app.AppController;
 import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.StockImportingRequest;
-import br.com.museuid.util.*;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.NavigationUtils;
+import br.com.museuid.util.NoticeUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,15 +25,17 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class StockImportingControler extends AnchorPane {
 
@@ -171,6 +182,7 @@ public class StockImportingControler extends AnchorPane {
     colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
     colProductImage.setCellValueFactory(new PropertyValueFactory<>("productImage"));
 //    colInStock.setCellValueFactory(new PropertyValueFactory<>("inStock"));
+    colPrice.setCellFactory(tc -> new FormattedNumberTableCell());
     colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
     tbProduct.setItems(productObservableList);
@@ -178,6 +190,7 @@ public class StockImportingControler extends AnchorPane {
     colProductNameImporting.setCellValueFactory(new PropertyValueFactory<>("productName"));
     colDescriptionImporting.setCellValueFactory(new PropertyValueFactory<>("description"));
     colPriceImporting.setCellValueFactory(new PropertyValueFactory<>("price"));
+    colPriceImporting.setCellFactory(tc -> new FormattedNumberTableCell());
     colNumberAdding.setCellValueFactory(new PropertyValueFactory<ProductImporting,String>("tfNumberToImport"));
 
     tbProductImporting.setItems(productImportingObservableList);

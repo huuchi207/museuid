@@ -1,5 +1,7 @@
 package br.com.museuid.util;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 import javafx.event.EventHandler;
@@ -9,9 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.util.converter.NumberStringConverter;
 
 /**
  * Utilitario para formatação e verificação de campos de textos, labels e textareas
@@ -159,5 +163,18 @@ public class FieldViewUtils {
         }
         evt.consume();
       });
+    }
+
+    public static void setNumberFormatStyleTextField(TextField... tfs){
+      DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+      symbols.setDecimalSeparator('.');
+      symbols.setGroupingSeparator(',');
+      DecimalFormat df = new DecimalFormat(); // Set your desired format here.
+      df.setDecimalFormatSymbols(symbols);
+      for (TextField tf: tfs){
+        if (tf!= null){
+          tf.setTextFormatter(new TextFormatter<>(new NumberStringConverter(df)));
+        }
+      }
     }
 }

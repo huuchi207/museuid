@@ -12,6 +12,7 @@ import java.util.Set;
 
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.AutocompletionlTextField;
+import br.com.museuid.customview.FormattedNumberTableCell;
 import br.com.museuid.customview.customgridview.ItemGridCellFactory;
 import br.com.museuid.dto.DeviceInfo;
 import br.com.museuid.dto.Product;
@@ -142,6 +143,8 @@ public class CreateOrderScreenControler extends AnchorPane {
     colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("tfNumber"));
     colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("tfNote"));
     colImageInOrder.setCellValueFactory(new PropertyValueFactory<>("productImage"));
+
+    colPriceInOrder.setCellFactory(tc -> new FormattedNumberTableCell());
 
 
     ItemGridCellFactory itemGridCellFactory = new ItemGridCellFactory();

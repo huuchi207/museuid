@@ -14,6 +14,7 @@ import java.util.Set;
 
 import br.com.museuid.app.App;
 import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.customview.FormattedNumberTableCell;
 import br.com.museuid.dto.Product;
 import br.com.museuid.dto.ProductWithImage;
 import br.com.museuid.dto.UploadImageDTO;
@@ -29,6 +30,7 @@ import br.com.museuid.util.ImageUtils;
 import br.com.museuid.util.Messenger;
 import br.com.museuid.util.NavigationUtils;
 import br.com.museuid.util.NoticeUtils;
+import br.com.museuid.util.NumberUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -104,6 +106,7 @@ public class ProductManagementControler extends AnchorPane {
   public Label lbProductImage;
   public Button btUploadImage;
   private String selectedImagePath;
+
   public ProductManagementControler() {
     try {
       FXMLLoader fxml = new FXMLLoader(getClass().getResource("product_management.fxml"));
@@ -154,24 +157,24 @@ public class ProductManagementControler extends AnchorPane {
       return;
     }
     String productType = cbProductType.getValue();
-    if (StringUtils.isEmpty(productType)){
+    if (StringUtils.isEmpty(productType)) {
       NoticeUtils.alert("Vui lòng chọn loại sản phẩm");
       return;
     }
-    int priceNumber, inStockNumber;
-    try {
-      priceNumber = Integer.valueOf(price);
-      inStockNumber = Integer.valueOf(inStock);
-    } catch (NumberFormatException e) {
+    Integer priceNumber, inStockNumber;
+
+    priceNumber = NumberUtils.convertVNDFormattedStringToInteger(price);
+    inStockNumber = NumberUtils.convertVNDFormattedStringToInteger(inStock);
+    if (priceNumber == null || inStockNumber == null){
       Messenger.erro("Giá và số lượng hàng trong kho phải là số nguyên!");
       return;
     }
-    if (priceNumber<=0 || inStockNumber<=0){
+    if (priceNumber <= 0 || inStockNumber <= 0) {
       Messenger.erro("Giá và số lượng hàng trong kho phải lớn hơn 0!");
       return;
     }
 
-    if (selectedImagePath != null){
+    if (selectedImagePath != null) {
       File uploadFile = new File(selectedImagePath);
       if (!uploadFile.exists()) {
         Messenger.erro("Không thể tải ảnh!");
@@ -202,8 +205,9 @@ public class ProductManagementControler extends AnchorPane {
       updateDataToServer(productName, description, priceNumber, inStockNumber, productType, null);
     }
   }
+
   private void updateDataToServer(String productName, String description,
-                                  Integer priceNumber, Integer inStockNumber, String productType, String imageId){
+                                  Integer priceNumber, Integer inStockNumber, String productType, String imageId) {
     if (selectedProduct == null) {
       Product product = new Product(productName, description, priceNumber, inStockNumber);
       product.setImageid(imageId);
@@ -238,7 +242,7 @@ public class ProductManagementControler extends AnchorPane {
       product.setDescription(description);
       product.setPrice(priceNumber);
       product.setInStock(inStockNumber);
-      if (imageId!= null){
+      if (imageId != null) {
         product.setImageid(imageId);
       }
       if (ConstantConfig.FAKE) {
@@ -264,7 +268,9 @@ public class ProductManagementControler extends AnchorPane {
           }
         });
       }
-  }}
+    }
+  }
+
   @FXML
   void edit(ActionEvent event) {
     try {
@@ -342,6 +348,7 @@ public class ProductManagementControler extends AnchorPane {
 
   @FXML
   public void initialize() {
+    FieldViewUtils.setNumberFormatStyleTextField(txtInStock, txtPrice);
     tbAdd(null);
 
 //        Grupo.notEmpty(menu);
@@ -388,7 +395,7 @@ public class ProductManagementControler extends AnchorPane {
         public void onSuccess(List<Product> data) {
           AppController.getInstance().hideProgressDialog();
           productList.clear();
-          for (Product product: data){
+          for (Product product : data) {
             productList.add(product.convertToProductWithImage());
           }
           updateTable();
@@ -400,11 +407,12 @@ public class ProductManagementControler extends AnchorPane {
 
   private void updateComboboxProductType() {
     Set<String> listProductType = new HashSet<>();
-    for (ProductWithImage item : productList){
+    for (ProductWithImage item : productList) {
       listProductType.add(item.getType());
     }
     ComboUtils.popular(cbProductType, new ArrayList<String>(listProductType));
   }
+
   /**
    * Mapear dados objetos para inserção dos dados na updateTable
    */
@@ -418,6 +426,9 @@ public class ProductManagementControler extends AnchorPane {
     colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
     colImage.setCellValueFactory(new PropertyValueFactory<>("productImage"));
     colProductType.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+    colInStock.setCellFactory(tc -> new FormattedNumberTableCell());
+    colPrice.setCellFactory(tc -> new FormattedNumberTableCell());
     tbProduct.setItems(data);
   }
 
@@ -456,23 +467,24 @@ public class ProductManagementControler extends AnchorPane {
   }
 
   @FXML
-  public void chooseImage(ActionEvent event){
-    File file = FileUtils.configureImageFileChooser(new FileChooser(), App.getmStage() );
-    if (file!= null){
+  public void chooseImage(ActionEvent event) {
+    File file = FileUtils.configureImageFileChooser(new FileChooser(), App.getmStage());
+    if (file != null) {
       try {
         Image image = new Image(new FileInputStream(file), 150, 150, false, false);
         ImageView imageView = new ImageView(image);
-        selectedImagePath = ImageUtils.reduceImg(file, ConstantConfig.APP_DATA_FOLDER_NAME + "\\"+ ConstantConfig.APP_IMAGE_SUB_FOLDER_NAME, "JPG",150, 150);
+        selectedImagePath = ImageUtils.reduceImg(file, ConstantConfig.APP_DATA_FOLDER_NAME + "\\" + ConstantConfig.APP_IMAGE_SUB_FOLDER_NAME, "JPG", 150, 150);
         lbProductImage.setGraphic(imageView);
       } catch (FileNotFoundException e) {
         Messenger.erro("Không thể mở ảnh!");
       }
     }
   }
+
   @FXML
-  void addProductTypeAction(ActionEvent event){
+  void addProductTypeAction(ActionEvent event) {
     Optional<String> newProductType = DialogUtils.showTextDialog("Nhập loại sản phẩm mối");
-    if (newProductType.isPresent()){
+    if (newProductType.isPresent()) {
       cbProductType.getItems().add(newProductType.get());
       cbProductType.setValue(newProductType.get());
     }

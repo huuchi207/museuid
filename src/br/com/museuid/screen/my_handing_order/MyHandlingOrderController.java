@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.com.museuid.customview.FormattedNumberTableCell;
 import br.com.museuid.customview.MutipleLineTableCell;
 import br.com.museuid.model.data.OrderDetail;
 import br.com.museuid.screen.app.AppController;
@@ -131,6 +132,7 @@ public class MyHandlingOrderController extends AnchorPane {
     colCountInOrder.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     colMoreRequirement.setCellValueFactory(new PropertyValueFactory<>("note"));
     colImageInOrder.setCellValueFactory(new PropertyValueFactory<>("productImage"));
+    colPriceInOrder.setCellFactory(tc -> new FormattedNumberTableCell());
     tbOrderInfo.setItems(observableListProductInOrder);
 
     //table list order
