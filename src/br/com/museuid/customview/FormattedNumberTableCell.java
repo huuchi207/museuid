@@ -9,6 +9,8 @@ public class FormattedNumberTableCell extends TableCell<Object, Integer> {
     super.updateItem(item, empty);
     if (!empty && item != null) {
       setText(NumberUtils.convertVNDMoneyToDecimaFormatString(item));
+    } else {
+      setText(null);
     }
   }
 
