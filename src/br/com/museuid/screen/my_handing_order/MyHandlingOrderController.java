@@ -242,8 +242,8 @@ public class MyHandlingOrderController extends AnchorPane {
     for (PutQueueRequest.Item item: selected.getItems()){
       list.add(item.convertToItemWithImage());
     }
-    observableListProductInOrder = FXCollections.observableList(list);
-    tbOrderInfo.setItems(observableListProductInOrder);
+    observableListProductInOrder.clear();
+    observableListProductInOrder.addAll(list);
   }
 
   private void removeOrderFromOrderObservableList(OrderDetail orderDetail) {
