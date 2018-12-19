@@ -12,7 +12,7 @@
       <children>
         <TableView fx:id="tbOrderInQueue" tableMenuButtonVisible="true"
           AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
-          AnchorPane.topAnchor="10.0">
+          AnchorPane.topAnchor="10.0" styleClass="table-row-cell">
           <columns>
             <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />-->
             <TableColumn fx:id="colTime" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"

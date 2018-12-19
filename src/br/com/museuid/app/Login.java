@@ -62,6 +62,7 @@ public class Login extends Application {
 
       stage.setScene(mScene);
 //            ResizeHelper.addResizeListener/(stage);
+
       stage.show();
 
     } catch (Exception ex) {

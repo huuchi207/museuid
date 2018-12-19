@@ -650,7 +650,10 @@
     -fx-background-insets: 0px, 1px 0px 1px 0px;
     -fx-text-fill: black;
 }
-
+.table-row-cell:highlight {
+    -fx-background: orange ;
+    -fx-background-color:  orange;
+}
 .table-view > *.virtual-flow > *.corner {
     -fx-background-color: #fff;
 }

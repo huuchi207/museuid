@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.museuid.Constants;
+import br.com.museuid.app.App;
 import br.com.museuid.config.ConstantConfig;
 import br.com.museuid.customview.FormattedNumberTableCell;
 import br.com.museuid.customview.MutipleLineTableCell;
@@ -29,14 +30,17 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -192,6 +196,40 @@ public class OrderInQueueController extends AnchorPane {
 
     tbOrderInQueue.setItems(orderDetailObservableList);
     FieldViewUtils.setEnterKeyEvent(tbOrderInQueue, btHandleOrder);
+
+
+    tbOrderInQueue.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+      if (tbOrderInQueue.getSelectionModel().getSelectedItem()!= null){
+        tbOrderInQueue.getSelectionModel().getSelectedItem().cautionProperty.set(false);
+
+      }
+    });
+    PseudoClass foo = PseudoClass.getPseudoClass("highlight");
+    tbOrderInQueue.setRowFactory(tv -> {
+      TableRow<OrderDetail> row = new TableRow<>();
+      ChangeListener<Boolean> changeListener = (obs, old, thenew) -> {
+        row.pseudoClassStateChanged(foo, thenew);
+      };
+      row.itemProperty().addListener((obs, previous, current) -> {
+        if (previous != null) {
+          previous.cautionProperty.removeListener(changeListener);
+        }
+        if (current != null) {
+          current.cautionProperty.addListener(changeListener);
+          row.pseudoClassStateChanged(foo, current.cautionProperty.get());
+        } else {
+          row.pseudoClassStateChanged(foo, false);
+        }
+      });
+//      row.itemProperty().addListener((obs, oldItem, newItem) -> {
+//        if (newItem!= null && newItem.cautionProperty.get()) {
+//          row.pseudoClassStateChanged(foo, true);
+//        } else {
+//          row.pseudoClassStateChanged(foo, false);
+//        }
+//      });
+      return row ;
+    });
   }
 
   @FXML
@@ -320,9 +358,11 @@ public class OrderInQueueController extends AnchorPane {
             JSONObject jsonObject = (JSONObject) object;
             OrderDetail order = gson.fromJson(jsonObject.toString(), OrderDetail.class);
             order.updateFields();
-
+            order.cautionProperty.set(true);
             orderDetailObservableList.add(order);
           }
+
+          pushNoti();
           tbOrderInQueue.refresh();
         }
       }).on(Constants.CHANGE_ORDER_EVENT, new Emitter.Listener() {
@@ -358,5 +398,11 @@ public class OrderInQueueController extends AnchorPane {
     } catch (URISyntaxException e) {
       e.printStackTrace();
     }
+  }
+  private void pushNoti(){
+    Platform.runLater(()-> {
+      App.getmStage().toFront();
+      AppNoticeUtils.info("Có đơn hàng mới");
+    });
   }
 }
