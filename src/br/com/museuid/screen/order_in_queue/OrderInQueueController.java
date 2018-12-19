@@ -49,11 +49,12 @@ public class OrderInQueueController extends AnchorPane {
   public AnchorPane apOrderInQueueTable;
   public TableView<OrderDetail> tbOrderInQueue;
   public TableColumn colTime;
-  public TableColumn colDevice;
-  public TableColumn colLocation;
+  public TableColumn colDeviceLocation;
   public TableColumn colOrderName;
   public TableColumn colOrderDescription;
   public TableColumn colImageInOrder;
+  public TableColumn colPrice;
+
   @FXML
   private Label lbTotalPrice;
   @FXML
@@ -188,12 +189,12 @@ public class OrderInQueueController extends AnchorPane {
 
     //table list order
     colTime.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
-    colDevice.setCellValueFactory(new PropertyValueFactory<>("customername"));
-    colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+    colDeviceLocation.setCellValueFactory(new PropertyValueFactory<>("customername"));
     colOrderName.setCellValueFactory(new PropertyValueFactory<>("orderName"));
     colOrderDescription.setCellValueFactory(new PropertyValueFactory<>("orderDescription"));
     colOrderDescription.setCellFactory(tv -> new MutipleLineTableCell());
-
+    colPrice.setCellValueFactory(new PropertyValueFactory<>("sumup"));
+    colPrice.setCellFactory(tc -> new FormattedNumberTableCell());
     tbOrderInQueue.setItems(orderDetailObservableList);
     FieldViewUtils.setEnterKeyEvent(tbOrderInQueue, btHandleOrder);
 

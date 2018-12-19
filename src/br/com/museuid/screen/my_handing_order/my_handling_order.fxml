@@ -9,11 +9,17 @@
         <TableView fx:id="tbOrderList" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
           <columns>
             <!--<TableColumn fx:id="colId" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Id" />-->
-            <TableColumn fx:id="colTime" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_time" />
-            <TableColumn fx:id="colDevice" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_device_name" />
-            <TableColumn fx:id="colLocation" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_location" />
-            <TableColumn fx:id="colOrderName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_order_name" />
-            <TableColumn fx:id="colOrderDescription" maxWidth="900.0" minWidth="150.0" prefWidth="150.0" text="%txt_order_description" />
+            <TableColumn fx:id="colTime" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_time" />
+            <TableColumn fx:id="colDeviceLocation" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_device_name" />
+            <TableColumn fx:id="colOrderName" maxWidth="900.0" minWidth="150.0" prefWidth="150.0"
+              text="%txt_order_name" />
+            <TableColumn fx:id="colOrderDescription" maxWidth="900.0" minWidth="200.0"
+              prefWidth="400.0" text="%txt_order_description" >
+            </TableColumn>
+            <TableColumn fx:id="colPrice" maxWidth="900.0" minWidth="100.0"
+              prefWidth="150.0" text="%txt_price" />
             <!--<TableColumn fx:id="colStatus" maxWidth="900.0" minWidth="150.0" prefWidth="250.0" text="%txt_status" />-->
           </columns>
           <columnResizePolicy>

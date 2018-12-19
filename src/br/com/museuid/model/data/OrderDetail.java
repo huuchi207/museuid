@@ -130,6 +130,7 @@ public class OrderDetail extends PutQueueRequest {
       statusText = OrderStatus.valueOf(status).toString();
     }
     this.createdAt = TimeUtils.convertToLocalFormat(createdAt);
+    this.customername = this.location!= null? (this.customername+ " - "+ this.location) : this.customername;
   }
 
   public String getCreatedAt() {
