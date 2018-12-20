@@ -51,7 +51,7 @@
                 <ToggleGroup fx:id="menuPeriodForManager" />
                 </toggleGroup>
               </ToggleButton>
-              <ToggleButton mnemonicParsing="false" 
+              <ToggleButton mnemonicParsing="false"
                 styleClass="bt-center" text="%txt_day"  toggleGroup="$menuPeriodForManager"/>
               <ToggleButton  mnemonicParsing="false"
                 styleClass="bt-center" text="%txt_month" toggleGroup="$menuPeriodForManager" />
