@@ -1,5 +1,7 @@
 package br.com.museuid.screen.login;
 
+import java.util.List;
+
 import br.com.museuid.app.App;
 import br.com.museuid.app.Login;
 import br.com.museuid.config.ConstantConfig;
@@ -10,26 +12,34 @@ import br.com.museuid.service.remote.BaseCallback;
 import br.com.museuid.service.remote.ServiceBuilder;
 import br.com.museuid.service.remote.requestbody.LoginRequest;
 import br.com.museuid.service.remote.requestbody.SecureQuestionRequest;
-import br.com.museuid.util.*;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ComboUtils;
+import br.com.museuid.util.DialogUtils;
+import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.StaticVarUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class LoginController {
 
   public AnchorPane apSecureQuestion;
+  public AnchorPane root;
   public AnchorPane apLogin;
   public ComboBox<String> cbQuestions;
   public TextField tfAnswer;
   public Button btOK;
   public Button btCancel;
+  public Button btLogin;
   public Label lbSecureQuestion;
 
   @FXML
@@ -96,11 +106,7 @@ public class LoginController {
 
   @FXML
   void initialize() {
-    pfPass.setOnKeyReleased((KeyEvent key) -> {
-      if (key.getCode() == KeyCode.ENTER) {
-        login(null);
-      }
-    });
+    FieldViewUtils.setGlobalEventHandler(root, btLogin);
   }
 
   public void forgotPassword(ActionEvent event) {
