@@ -12,7 +12,7 @@
           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="0.0"
           HBox.hgrow="ALWAYS" text="App" />
         <TextField fx:id="txtSearch" prefHeight="50.0" prefWidth="417.0" promptText="%txt_search"
-          styleClass="search-txt-field" visible="false"/>
+          styleClass="search-txt-field" />
       </children>
     </HBox>
 

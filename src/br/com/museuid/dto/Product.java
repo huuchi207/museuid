@@ -37,6 +37,7 @@ public class Product {
     this.description = description;
     this.price = price;
     this.inStock = inStock;
+    this.type = type;
   }
 
   public Product(String productName, String description, Integer price, Integer inStock) {

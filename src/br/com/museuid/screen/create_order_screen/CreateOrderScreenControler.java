@@ -41,6 +41,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -85,7 +86,7 @@ public class CreateOrderScreenControler extends AnchorPane {
   private ObservableList<ProductWithImage> productObservableList;
   private ObservableList<ProductInOrder> productInOrderObservableList;
   private int totalPrice;
-
+  public TextField txtSearch;
   public CreateOrderScreenControler() {
     try {
       FXMLLoader fxml = new FXMLLoader(getClass().getResource("create_order_screen.fxml"));
@@ -109,16 +110,17 @@ public class CreateOrderScreenControler extends AnchorPane {
     cbFilter.valueProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-        if (newValue!= null){
-          filter(newValue, FXCollections.observableArrayList(productList));
+        if (newValue != null) {
+          txtSearch.setText("");
+          filter(newValue, null, FXCollections.observableArrayList(productList));
         }
       }
     });
-    goToProductList(null);
 
-//    txtSearch.textProperty().addListener((obs, old, novo) -> {
-//      filter(novo, FXCollections.observableArrayList(productList));
-//    });
+    txtSearch.textProperty().addListener((obs, old, novo) -> {
+      filter(cbFilter.getValue(), novo, FXCollections.observableArrayList(productList));
+    });
+    goToProductList(null);
   }
 
   private void initTable() {
@@ -180,15 +182,21 @@ public class CreateOrderScreenControler extends AnchorPane {
   /**
    * FieldViewUtils de pesquisar para filtrar dados na updateTable
    */
-  private void filter(String valor, ObservableList<ProductWithImage> products) {
+  private void filter(String type, String keyword, ObservableList<ProductWithImage> products) {
     FilteredList<ProductWithImage> filteredList = new FilteredList<>(products, Product -> true);
     filteredList.setPredicate(product -> {
-      if ("Tất cả".equals(valor)){
-        return true;
-      } else if (valor == null || valor.isEmpty()) {
-        return true;
-      } else if (product.getType().toLowerCase().contains(valor.toLowerCase())) {
-        return true;
+      String nonNullTypeFilter = type != null ? type : "";
+      String nonNullTypeOfProduct = product.getType() != null ? product.getType() :  "";
+      if (keyword == null) {
+        if ("Tất cả".equals(nonNullTypeFilter) || nonNullTypeFilter.equals(nonNullTypeOfProduct)){
+          return true;
+        }
+      } else {
+        if ("Tất cả".equals(nonNullTypeFilter) || nonNullTypeOfProduct.equals(nonNullTypeFilter)){
+          if (keyword.equals("")|| product.getProductName().toLowerCase().contains(keyword.toLowerCase())){
+            return true;
+          }
+        }
       }
 
       return false;
