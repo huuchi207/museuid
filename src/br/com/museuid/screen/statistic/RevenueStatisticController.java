@@ -1,23 +1,5 @@
 package br.com.museuid.screen.statistic;
 
-import br.com.museuid.config.ConstantConfig;
-import br.com.museuid.customview.calendarpicker.FXCalendar;
-import br.com.museuid.dto.ChartData;
-import br.com.museuid.dto.UserDTO;
-import br.com.museuid.screen.app.AppController;
-import br.com.museuid.service.remote.BaseCallback;
-import br.com.museuid.service.remote.ServiceBuilder;
-import br.com.museuid.service.remote.requestbody.StatisticRequest;
-import br.com.museuid.util.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartViewer;
 import org.jfree.chart.labels.ItemLabelAnchor;
@@ -30,6 +12,36 @@ import org.jfree.data.category.SlidingCategoryDataset;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
+import br.com.museuid.config.ConstantConfig;
+import br.com.museuid.customview.calendarpicker.FXCalendar;
+import br.com.museuid.dto.ChartData;
+import br.com.museuid.screen.app.AppController;
+import br.com.museuid.service.remote.BaseCallback;
+import br.com.museuid.service.remote.ServiceBuilder;
+import br.com.museuid.service.remote.requestbody.StatisticRequest;
+import br.com.museuid.util.BarChartUtils;
+import br.com.museuid.util.BundleUtils;
+import br.com.museuid.util.ChartUtils;
+import br.com.museuid.util.FakeDataUtils;
+import br.com.museuid.util.FieldViewUtils;
+import br.com.museuid.util.Messenger;
+import br.com.museuid.util.TimeUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+
 public class RevenueStatisticController extends AnchorPane {
   @FXML
   private HBox boxPeriod;
@@ -37,7 +49,7 @@ public class RevenueStatisticController extends AnchorPane {
   private HBox boxPeriodForManager;
   @FXML
   private ToggleGroup menuPeriodForManager;
-  private int period = 1;
+  private int period = 0;
   public static final int SESSION = 0;
   public static final int DAY = 1;
   public static final int MONTH = 2;
@@ -113,15 +125,15 @@ public class RevenueStatisticController extends AnchorPane {
       }
     });
 
-    if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())) {
-      boxPeriod.setVisible(true);
-      boxPeriodForManager.setVisible(false);
-      setupPeriod(menuPeriod);
-    } else {
+//    if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())) {
+//      boxPeriod.setVisible(true);
+//      boxPeriodForManager.setVisible(false);
+//      setupPeriod(menuPeriod);
+//    } else {
       boxPeriod.setVisible(false);
       boxPeriodForManager.setVisible(true);
       setupPeriod(menuPeriodForManager);
-    }
+//    }
 
     FieldViewUtils.setGlobalEventHandler(this, btStatistic);
 
@@ -250,19 +262,19 @@ public class RevenueStatisticController extends AnchorPane {
   }
 
   private void setPeriod(int n) {
-    if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())) {
-      period = n + 1;
-    } else {
+//    if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())) {
+//      period = n + 1;
+//    } else {
       period = n;
-    }
+//    }
   }
 
   private int getRealPeriodPosition() {
-    if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())) {
-      return period - 1;
-    } else {
+//    if (UserDTO.UserRole.ADMIN.name().equals(StaticVarUtils.getSessionUserInfo().getInfo().getRole())) {
+//      return period - 1;
+//    } else {
       return period;
-    }
+//    }
   }
 
   private void makeBarChart(ChartData data){
