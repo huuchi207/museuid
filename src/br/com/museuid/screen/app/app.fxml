@@ -186,7 +186,7 @@
                 <AnchorPane styleClass="box-footer" AnchorPane.bottomAnchor="3"
                   AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" prefHeight="40">
                   <Label fx:id="lbMensagem" layoutX="30.0" layoutY="2.0" styleClass="box-mensagens"
-                    text="NDG Order Version 1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    text="NDG Order Version 1.1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="0.0" />
                   <Hyperlink alignment="CENTER_RIGHT" layoutY="2.0" onAction="#goSite"
                     prefHeight="28.0" prefWidth="120.0" styleClass="link" text="+84 9494 13971"
